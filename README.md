@@ -2,8 +2,8 @@
 
 ## at FDZ Spring academy
 
-Thursday & Friday (18.+19.03.2021) 2pm-6pm Uhr
-Remote
+Thursday & Friday (18.+19.03.2021) 2pm-6pm Uhr  
+Remote  
 probably 15-25 participants
 
 ## Substituting R beginner in Zurich (Spring)

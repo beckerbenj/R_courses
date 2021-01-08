@@ -23,8 +23,8 @@
 
 
 # Ressources
-[Advanced R Edition 1] (http://adv-r.had.co.nz/)
-[Advanced R Edition 2 (more tidyverse)] (https://adv-r.hadley.nz/)
-[R Inferno] (https://www.burns-stat.com/pages/Tutor/R_inferno.pdf)
-[R Packages] (https://r-pkgs.org/)
+[Advanced R Edition 1] (http://adv-r.had.co.nz/)  
+[Advanced R Edition 2 (more tidyverse)] (https://adv-r.hadley.nz/)  
+[R Inferno] (https://www.burns-stat.com/pages/Tutor/R_inferno.pdf)  
+[R Packages] (https://r-pkgs.org/)  
 
