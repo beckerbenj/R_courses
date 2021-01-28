@@ -2,11 +2,18 @@
 
 ## Topics
 
-- Writing your won functions (function body, arguments, environments, scoping, ...)
-- Iteration (loops)
-- When not to use iteration (vectorization/merging/...)
-- Functionals (most commonly used, use cases, ...) 
-- Using dots (...) in functions
+- Introduction (us, participants; previous knowledge)
+- Motivation (reproducible research, submission of syntaxes, taking care of your future self, 
+R as a programming language!)
+- Clean Code + Best practices (Clean code book)
+- Iteration & when not to use it (loops, vectorization, look up tables, functionals)
+- Understanding functions (function body, arguments, environments, scoping, dots ...)
+- Writing functions, testing & debugging (browser, error + warn options)
+
+- outlook on object oriented programming (S3)
+- outlook on version controlling
+
+
 
 
 ## Data sets for illustration/examples:
@@ -27,4 +34,5 @@
 [Advanced R Edition 2 (more tidyverse)] (https://adv-r.hadley.nz/)  
 [R Inferno] (https://www.burns-stat.com/pages/Tutor/R_inferno.pdf)  
 [R Packages] (https://r-pkgs.org/)  
+[Clean Code] (https://enos.itcollege.ee/~jpoial/oop/naited/Clean%20Code.pdf)
 
