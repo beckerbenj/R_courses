@@ -1,0 +1,41 @@
+---
+title: "R Programming"
+author: Dries Debeer, Benjamin Becker
+date: March 17, 2021
+output: ioslides_presentation
+---
+  
+# R Programming/Advanced R
+
+## Who are we?
+  
+<div class="columns-2">
+  - Dries Debeer
+  - KU Leuven
+
+  - Benjamin Becker
+  - IQB Berlin
+</div>
+
+## Who are you?
+
+- Eat eggs
+- Drink coffee
+
+# In the evening
+
+## Dinner
+
+- Eat spaghetti
+- Drink wine
+
+---
+  
+  ```{r, cars, fig.cap="A scatterplot.", echo=FALSE}
+plot(cars)
+```
+
+## Going to sleep
+
+- Get in bed
+- Count sheep

@@ -1,0 +1,181 @@
+\documentclass[xcolor=table]{beamer}
+
+\usepackage[]{graphicx}\usepackage[]{color}
+
+\usepackage{alltt}
+
+% tikz
+\usepackage{tikz}
+\usepackage{pgflibraryshapes}
+\usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary{backgrounds}
+\usetikzlibrary{shapes,arrows,positioning,fit}
+\usetikzlibrary{positioning}
+\usetikzlibrary{tikzmark, shapes.misc, calc}
+
+\usepackage{array}
+\usepackage[originalparameters]{ragged2e} 
+
+% kable packages
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+
+\usepackage{amsmath}
+\usepackage{booktabs}
+%\usepackage[ansinew]{inputenc}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman, english]{babel}
+
+\usepackage{bm}
+
+\usetheme{metropolis}   
+
+<<r setup, echo=FALSE, message=FALSE, results='hide'>>=
+suppressPackageStartupMessages({
+  library(knitr)
+})
+
+knit_theme$set("acid")
+opts_chunk$set(message=FALSE, warning=FALSE,echo=FALSE)
+opts_chunk$set(results="hide")
+
+## R Setup
+#load("~/Documents/Workshops/FDZ_Reporting/IQB-LV-2011_SchuelerInnen-Eltern_CF.rda")
+
+
+
+# Farben
+mLightBrown<-"#EB811B"
+econBlue<-"#008BBC"
+econRed<-"#C10534"
+econBlueD<-"#3E647D"
+econRedD<-"#90353B"
+@
+
+
+\begin{document}
+%\SweaveOpts{concordance=TRUE}
+
+\title{Programming with R/Advanced R}
+\institute{FDZ Spring Academy}
+
+
+\author[Dries Debeer \& Benjamin Becker]{Dries Debeer \& Benjamin Becker}
+\date{18. + 19. March 2021}
+
+
+\begin{frame}
+\titlepage
+\end{frame}
+\addtocounter{framenumber}{-1}
+
+\begin{frame}{Introduction}
+\textbf{Who are we?}
+
+\begin{columns}[t]
+\begin{column}{.475\textwidth}
+\textcolor{mLightBrown}{Dries Debeer}
+\end{column}
+  \begin{column}{.475\textwidth}
+    \textcolor{mLightBrown}{Benjamin Becker}
+  \end{column}
+\end{columns}
+
+\begin{columns}[t]
+\begin{column}{.475\textwidth}
+Researcher at KU Leuven
+  	
+\end{column}
+\begin{column}{.475\textwidth}
+Researcher at IQB (Statistics Department)
+
+  \end{column}
+\end{columns}
+
+\begin{columns}[t]
+\begin{column}{.475\textwidth}
+
+\href{mailto:dries.debeer@kuleuven.be}{dries.debeer@kuleuven.be}
+  	
+\end{column}
+  \begin{column}{.475\textwidth}
+
+\href{b.becker@iqb.hu-berlin.de}{b.becker@iqb.hu-berlin.de}
+
+  \end{column}
+\end{columns}
+
+\vspace{1.5em}
+\end{frame}
+
+\begin{frame}{Introduction}
+\textbf{Who are you?}
+\begin{enumerate}%\itemsep0em
+	\item Specific interests?
+	\item Previous knowledge and experience?
+	\begin{itemize}
+	  \item with R
+	  \item with other statistic software
+	  \item with other programming languages
+	\end{itemize}
+\end{enumerate}
+
+\end{frame}
+
+\begin{frame}{Motivation}
+	\begin{itemize}
+			\item Being more efficient in your research
+			\item Successful collaborations (with your future self?)
+			\item Syntaxes as part of paper submissions
+			
+	\end{itemize}
+\end{frame}
+
+\section{R Objects (Recap)}
+
+\section{Clean Code}
+
+\section{Iteration}
+
+\section{Understanding Functions}
+
+\section{Writing Functions}
+
+\section{Object Oriented Programming (S3)}
+
+\section{Version Controlling (Git + Github)}
+
+
+\begin{frame}{Literature Recommendations}
+R Ressources
+\begin{itemize}
+\item Avanced R Ed. 1 (\url{http://adv-r.had.co.nz/})
+\item Avanced R Ed. 2 (\url{https://adv-r.hadley.nz/})
+\item R Inferno (\url{https://www.burns-stat.com/pages/Tutor/R_inferno.pdf})
+\item R Packages (\url{https://r-pkgs.org/})
+\item Clean Code (\url{https://enos.itcollege.ee/~jpoial/oop/naited/Clean\%20Code.pdf)})
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[plain]
+
+\begin{center}
+\Large Thank you for your attention!
+
+\visible<2>{Questions? Remarks?}
+\end{center}
+
+\end{frame}
+
+\end{document}

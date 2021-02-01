@@ -37,3 +37,18 @@ vignettes/*.pdf
 
 # R Environment Variables
 .Renviron
+
+# Tex auxiliary files
+*.log
+*.gz
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.toc
+*.vrb
+*.snm
+*.nav
+*.out
+*.run.xml
+*concordance.tex
