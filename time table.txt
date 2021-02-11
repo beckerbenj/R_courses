@@ -3,38 +3,38 @@ Time Table:
 
 Day 1
 --------------------------------------------------------------------
-9:00 - 9:30: Welcome & Introduction
+14:00 - 14:30: Welcome & Introduction
 
-9:30 - 10:15: R objects (recap)
-10:15 - 10:30: Exercises 
+14:30 - 15:15: R objects (recap)
+15:15 - 15:30: Exercises 
 
-10:30 - 10:45: BREAK
+15:30 - 15:45: BREAK
 
-10:45 - 11:15: Clean Code
-11:15 - 11:30: Exercises
+15:45 - 16:15: Clean Code
+16:15 - 16:30: Exercises
 
-11:30 - 11:45: BREAK
+16:30 - 16:45: BREAK
 
-11:45 - 12:30: Iteration
-12:30 - 13:00: Exercises
+16:45 - 17:30: Iteration
+17:30 - 18:00: Exercises
 
 Day 2
 --------------------------------------------------------------------
-9:00 - 9:15: Recap Day 1
-9:15 - 10:00: Understanding Functions
-10:00 - 10:15: Exercises  
+14:00 - 14:15: Recap Day 1
+14:15 - 15:00: Understanding Functions
+15:00 - 15:15: Exercises  
 
-10:15 - 10:30: BREAK
+15:15 - 15:30: BREAK
 
-10:30 - 11:15: Writing Functions
-11:15 - 11:45: Exercises  
+15:30 - 16:15: Writing Functions
+16:15 - 16:45: Exercises  
 
-11:45 - 12:00: BREAK
+16:45 - 17:00: BREAK
 
-12:00 - 12:20: Outlook on OOP
-12:20 - 12:40: Outlook on Version Controlling
+17:00 - 17:20: Outlook on OOP
+17:20 - 17:40: Outlook on Version Controlling
 
-12:40 - 13:00: Wrap up & Discussion
+17:40 - 18:00: Wrap up & Discussion
 
 
 
