@@ -53,6 +53,7 @@
 \usepackage[]{graphicx}\usepackage[]{color}
 
 \usepackage{alltt}
+\usepackage{hyperref}
 
 % tikz
 \usepackage{tikz}
@@ -132,6 +133,21 @@ Researcher at IQB (Statistics Department)
   \end{column}
 \end{columns}
 
+\vspace{0.5cm}
+
+\begin{columns}[t]
+\begin{column}{.475\textwidth}
+\href{https://github.com/ddebeer/scDIFtest}{scDIFtest}, \href{https://github.com/ddebeer/permimp}{permimp}, \href{https://github.com/beckerbenj/eatATA}{eatATA}
+  	
+\end{column}
+\begin{column}{.475\textwidth}
+\href{https://github.com/beckerbenj/eatGADS}{eatGADS}, \href{https://github.com/beckerbenj/eatDB}{eatDB}, \href{https://github.com/beckerbenj/eatATA}{eatATA}, \href{https://github.com/beckerbenj/pisaRT}{pisaRT}
+
+  \end{column}
+\end{columns}
+
+\vspace{0.5cm}
+
 \begin{columns}[t]
 \begin{column}{.475\textwidth}
 
@@ -151,7 +167,7 @@ Researcher at IQB (Statistics Department)
 \begin{frame}{Introduction}
 \textbf{Who are you?}
 \begin{enumerate}%\itemsep0em
-	\item Specific interests?
+	\item Specific interests/motivation for this workshop?
 	\item Previous knowledge and experience?
 	\begin{itemize}
 	  \item with R
@@ -159,17 +175,70 @@ Researcher at IQB (Statistics Department)
 	  \item with other programming languages
 	\end{itemize}
 \end{enumerate}
-
 \end{frame}
 
 \begin{frame}{Motivation}
 	\begin{itemize}
 			\item Being more efficient in your research
+			\begin{itemize}
+			  \item Save time and nerves
+			  \item Avoid errors and bugs
+			  \item High transfer effect to all projects
+			\end{itemize}
 			\item Successful collaborations (with your future self?)
 			\item Syntaxes as part of paper submissions
-			
 	\end{itemize}
 \end{frame}
+
+\begin{frame}{Motivation}
+	Two of your worst enemies
+	\begin{itemize}
+			\item Past Self
+			\begin{itemize}
+			  \item Is the biggest messy in existance
+			  \item Did not document anything
+			  \item Uses a completely different style of writing code than yourself
+			\end{itemize}
+			\item Future Self
+			\begin{itemize}
+			  \item Has the memory of a goldfish
+			  \item Will have zero understanding for your current brilliance
+			\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Motivation}
+\begin{center}
+\includegraphics[width=.75\textwidth]{reinhart_rogoff.PNG}
+\end{center}
+\end{frame}
+
+
+\begin{frame}{Motivation}
+\begin{center}
+\includegraphics[width=.75\textwidth]{bad_code_media.JPG}
+\end{center}
+\end{frame}
+
+\begin{frame}{Motivation}
+Concept of Technical Debt
+\begin{itemize}
+  \item We write (messy) code for data cleaning/analyses
+  \item We decide on data sets/models/graphs/tables/...
+  \item We try to publish it, get a major revision
+  \item We need to rerun some analyses
+  \item We pay for our messy code
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Goals of this workshop}
+\begin{itemize}
+  \item Better practical R skills
+  \item Better theoretical understanding of R (and programming)
+  \item Different framing: R as a programming language
+\end{itemize}
+\end{frame}
+
 
 \section{R Objects (Recap)}
 
