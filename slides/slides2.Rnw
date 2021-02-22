@@ -241,7 +241,11 @@ sum(mtcars$mpg)/dim(mtcars)[1]
 \begin{frame}[fragile]{Why?}
 <<echo=TRUE, results='markup'>>=
 summary(mtcars$mpg)
-# vs.
+@
+\end{frame}
+
+\begin{frame}[fragile]{Why?}
+<<echo=TRUE, results='markup'>>=
 round(c("Min." = min(mtcars$mpg),
   "1st Qu." = as.numeric(quantile(mtcars$mpg)[2]),
   "Median" = median(mtcars$mpg),
@@ -262,15 +266,14 @@ countNA <- function(x) {    # Name, Arguments/Formals
 
 \begin{frame}{How?}
 \begin{itemize}
-  \item Before
+  \item Before creating the function
   \begin{itemize}
     \item What should my function do?
     \item Input (Arguments)
     \item Output
   \end{itemize}
-  \item Process
+  \item After creating the function
   \begin{itemize}
-    \item Write function
     \item Test it
     \item Add input validation
     \item Document it
@@ -337,6 +340,7 @@ countNA <- function(x) {    # Name, Arguments/Formals
   \item Install git 
   \item Install User Interface for git (RStudio, Gitkraken, ...)
   \item Setup account for Github/Bitbucket/Gitlab/...
+  \item Connect everything
 \end{itemize}
 \end{frame}
 
@@ -344,8 +348,10 @@ countNA <- function(x) {    # Name, Arguments/Formals
 \textbf{Creating a repository}
 \begin{itemize}
   \item Create an online repository (e.g. on Github)
-  \item Use an R specific .gitignore
-  \item Initialize with a short readme
+  \begin{itemize}
+    \item Use an R specific .gitignore
+    \item Initialize with a short readme
+  \end{itemize}
   \item Clone the repository to your local machine
   \item (optional) Place an R project in the existing repository
 \end{itemize}
@@ -354,11 +360,11 @@ countNA <- function(x) {    # Name, Arguments/Formals
 \begin{frame}{Workflow}
 \textbf{Working with a repository}
 \begin{itemize}
-  \item Before working: Synch your local repo (pull)
+  \item Before working: Synch your local repo (\textbf{Pull})
   \item Perform changes in your local repository
-  \item Stage your changes
-  \item Commit your changes
-  \item Push your changes
+  \item \textbf{Stage} your changes
+  \item \textbf{Commit} your changes (aka new version)
+  \item \textbf{Push} your changes
 \end{itemize}
 \end{frame}
 
@@ -367,7 +373,6 @@ countNA <- function(x) {    # Name, Arguments/Formals
   \item Keep it simple! 
   \begin{itemize}
     \item No branches/forks/pull requests
-    \item 
   \end{itemize}
   \item Have meaningful commits
   \item Keep it lean (no big files)
