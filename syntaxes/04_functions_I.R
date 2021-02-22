@@ -9,30 +9,6 @@
 #===========================================================
 #...........................
 
-# Why?
-#...........................
-# Readability (shorter, easier understanding, removes distractions, like references in a paper)
-# two of your worst enemies: past self and future self!
-mean(mtcars$mpg)
-# vs.
-sum(mtcars$mpg)/dim(mtcars)[1]
-
-summary(mtcars$mpg)
-# vs.
-round(c("Min." = min(mtcars$mpg),
-  "1st Qu." = as.numeric(quantile(mtcars$mpg)[2]),
-  "Median" = median(mtcars$mpg),
-  "Mean" = mean(mtcars$mpg),
-  "3rd Qu." = as.numeric(quantile(mtcars$mpg)[4]),
-  "Max." = max(mtcars$mpg)), 2)
-
-
-# Transferability (other use cases, other projects, other persons)
-
-
-
-#...........................
-
 # Basics
 #...........................
 # Definition of a function:
@@ -159,20 +135,6 @@ mean(numeric())
 ## Alternatives
 ?stopifnot
 
-
-#...........................
-
-# Writing your own function
-#...........................
-### Before
-# What should my function do?
-# Input, output
-
-### Process
-# Write function
-# Test it
-# Add input validation
-# Document it
 
 
 # Exercises

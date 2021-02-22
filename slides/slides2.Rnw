@@ -5,15 +5,6 @@
 \usepackage{alltt}
 \usepackage{hyperref}
 
-% tikz
-\usepackage{tikz}
-\usepackage{pgflibraryshapes}
-\usetikzlibrary{decorations.pathreplacing}
-\usetikzlibrary{backgrounds}
-\usetikzlibrary{shapes,arrows,positioning,fit}
-\usetikzlibrary{positioning}
-\usetikzlibrary{tikzmark, shapes.misc, calc}
-
 \usepackage{array}
 \usepackage[originalparameters]{ragged2e} 
 
@@ -65,14 +56,13 @@ econRedD<-"#90353B"
 
 
 \begin{document}
-%\SweaveOpts{concordance=TRUE}
 
 \title{Programming with R/Advanced R}
 \institute{FDZ Spring Academy}
 
 
 \author[Dries Debeer \& Benjamin Becker]{Dries Debeer \& Benjamin Becker}
-\date{18. + 19. March 2021}
+\date{18. and 19. March 2021}
 
 
 \begin{frame}
@@ -153,7 +143,7 @@ Researcher at IQB (Statistics Department)
 			\begin{itemize}
 			  \item Save time and nerves
 			  \item Avoid errors and bugs
-			  \item High transfer effect to all projects
+			  \item High transfer effect to all projects (which use data)
 			\end{itemize}
 			\item Successful collaborations (with your future self?)
 			\item Syntaxes as part of paper submissions
@@ -197,7 +187,12 @@ Concept of Technical Debt
   \item We decide on data sets/models/graphs/tables/...
   \item We try to publish it, get a major revision
   \item We need to rerun some analyses
-  \item We pay for our messy code
+  \item Modifying/extending our code is more difficult than it should be
+\end{itemize}
+Solutions
+\begin{itemize}
+  \item Refactor/rewrite your could before submitting
+  \item \textbf{Write better R code}
 \end{itemize}
 \end{frame}
 
@@ -216,17 +211,182 @@ Concept of Technical Debt
 
 \section{Iteration}
 
-\section{Understanding Functions}
+\section{Functions I}
+\begin{frame}{Why?}
+\begin{itemize}
+  \item Readability
+  \begin{itemize}
+    \item Shorter
+    \item Easier understanding
+    \item Removes distractions, like references in a paper
+  \end{itemize}
+  \item Transferability
+  \begin{itemize}
+    \item Other use cases
+    \item Other projects
+    \item Other persons
+  \end{itemize}
+\end{itemize}
+\end{frame}
 
-\section{Writing Functions}
+
+\begin{frame}[fragile]{Why?}
+<<echo=TRUE, results='asis'>>=
+mean(mtcars$mpg)
+# vs.
+sum(mtcars$mpg)/dim(mtcars)[1]
+@
+\end{frame}
+
+\begin{frame}[fragile]{Why?}
+<<echo=TRUE, results='markup'>>=
+summary(mtcars$mpg)
+# vs.
+round(c("Min." = min(mtcars$mpg),
+  "1st Qu." = as.numeric(quantile(mtcars$mpg)[2]),
+  "Median" = median(mtcars$mpg),
+  "Mean" = mean(mtcars$mpg),
+  "3rd Qu." = as.numeric(quantile(mtcars$mpg)[4]),
+  "Max." = max(mtcars$mpg)), 2)
+@
+\end{frame}
+
+\begin{frame}[fragile]{How?}
+<<echo=TRUE, results='asis'>>=
+countNA <- function(x) {    # Name, Arguments/Formals
+  out <- sum(is.na(x))      # Body
+  out                       # Output
+}
+@
+\end{frame}
+
+\begin{frame}{How?}
+\begin{itemize}
+  \item Before
+  \begin{itemize}
+    \item What should my function do?
+    \item Input (Arguments)
+    \item Output
+  \end{itemize}
+  \item Process
+  \begin{itemize}
+    \item Write function
+    \item Test it
+    \item Add input validation
+    \item Document it
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\section{Functions II}
+
+\begin{frame}{What is a good function?}
+\begin{itemize}
+  \item pure functions
+  \begin{itemize}
+    \item no sideeffects
+    \item no dependency on global environment
+    \item easier understanding, easier transfer!
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Debugging}
+\begin{itemize}
+  \item browser()
+  \item traceback()
+  \item options(error = recover)
+\end{itemize}
+\end{frame}
 
 \section{Object Oriented Programming (S3)}
 
 \section{Version Controlling (Git + Github)}
+\begin{frame}{Motivation}
+\begin{center}
+\includegraphics[height=.75\textheight]{why_version_control.jpg}
+\end{center}
+\end{frame}
 
+\begin{frame}{Motivation}
+\begin{itemize}
+  \item Implementation of long term change history 
+  \begin{itemize}
+  \item No ridiculous file names
+  \item No archive subfolder
+  \item Always perfect overview of file history and changes
+  \end{itemize}
+  \item Collaborations
+  \begin{itemize}
+  \item What has changed?
+  \item Who has changed it?
+  \item Documentation of changes
+  \item Parallel working possible (merging)
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{But...}
+\begin{center}
+\includegraphics[height=.75\textheight]{git_no_idea.png}
+\end{center}
+\end{frame}
+
+\begin{frame}{Requirements}
+\begin{itemize}
+  \item Install git 
+  \item Install User Interface for git (RStudio, Gitkraken, ...)
+  \item Setup account for Github/Bitbucket/Gitlab/...
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Workflow}
+\textbf{Creating a repository}
+\begin{itemize}
+  \item Create an online repository (e.g. on Github)
+  \item Use an R specific .gitignore
+  \item Initialize with a short readme
+  \item Clone the repository to your local machine
+  \item (optional) Place an R project in the existing repository
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Workflow}
+\textbf{Working with a repository}
+\begin{itemize}
+  \item Before working: Synch your local repo (pull)
+  \item Perform changes in your local repository
+  \item Stage your changes
+  \item Commit your changes
+  \item Push your changes
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Recommendations}
+\begin{itemize}
+  \item Keep it simple! 
+  \begin{itemize}
+    \item No branches/forks/pull requests
+    \item 
+  \end{itemize}
+  \item Have meaningful commits
+  \item Keep it lean (no big files)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Resources}
+Git (+ R) Resources
+\begin{itemize}
+\item Small Intro (\url{https://r-bio.github.io/intro-git-rstudio/})
+\item Happy Git with R (\url{https://happygitwithr.com/})
+\item R Packages and Git (\url{https://r-pkgs.org/git.html})
+\item Git Book (\url{http://git-scm.com/book/en/v2})
+\end{itemize}
+
+\end{frame}
 
 \begin{frame}{Literature Recommendations}
-R Ressources
+R Resources
 \begin{itemize}
 \item Avanced R Ed. 1 (\url{http://adv-r.had.co.nz/})
 \item Avanced R Ed. 2 (\url{https://adv-r.hadley.nz/})

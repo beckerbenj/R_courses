@@ -11,13 +11,7 @@
 
 # What is a good function?
 #...........................
-# pure functions!
 
-# no sideeffects
-
-# no dependency on global environment
-
-# easier understanding, easier transfer!
 
 #...........................
 
