@@ -970,12 +970,11 @@ system.time({
 
 \begin{frame}[fragile]{Keep your code slim}
 
-Try to limit your _package-dependencies_. Only load (i.e., \texttt{library()}) the packages that you absolutely need. I you are only using \texttt{dplyr}, it does not make sense to load the complete \texttt{tidyverse}.
+Try to limit your \emph{package-dependencies}. Only load (i.e., \texttt{library()}) the packages that you absolutely need. I you are only using \texttt{dplyr}, it does not make sense to load the complete \texttt{tidyverse}.
 
 \textbf{Controversial:} when you are only using a function from a package once or twice, DON'T load the package, but directly access the function using the \texttt{::} operator.
 
 Less loaded packages mean less changes or name conflicts.
-@
 
 \end{frame}
 
