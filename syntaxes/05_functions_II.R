@@ -7,11 +7,6 @@
 
 # Input
 #===========================================================
-#...........................
-
-# What is a good function?
-#...........................
-
 
 #...........................
 
@@ -102,7 +97,10 @@ out
 
 # Exercises
 #===========================================================
-# 1. 
+# 1. Extend/modify your function from Function I to take a variable amount of variables and output a boxplot for
+# each variable with maximally four boxplots per row
+
+# 2. Debug this function...
 
 
 

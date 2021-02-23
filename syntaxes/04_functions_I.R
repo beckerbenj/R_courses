@@ -143,10 +143,20 @@ mean(numeric())
 
 # 2. Implement input checks/validation for your function
 
+# 3. Write a function that outputs three distributional graphs when given two metric variables:
+# a univariate boxplot for each of the variables and a bivariate scatterplot.
+
+pisa <- readRDS("C:/Users/benjb/Documents/Repositories/R_courses/data/pisaPlus_CF.RDS")
+
+par(mfrow = c(1, 3))
+boxplot(pisa$hisei)
+boxplot(pisa$pared)
+plot(pisa$hisei, pisa$pared)
 
 
+# 4. Implement input checks/validation for your function
 
-
+# 5. The function should return a single bivariate boxplot if one of the variables is dichotomous. Modify it.
 
 
 
