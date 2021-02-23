@@ -71,6 +71,7 @@ econRedD<-"#90353B"
 
 
 \begin{document}
+\SweaveOpts{concordance=TRUE}
 %\SweaveOpts{concordance=TRUE}
 
 \title{Automatisierte Berichtlegung mit R}
