@@ -53,50 +53,6 @@ environment(sem)
 
 #...........................
 
-# Formals/Arguments
-#...........................
-### Usual arguments (R as a tool for data science)
-# a) Data input (vector, data.frame etc.)
-# b) Options
-?mean
-?lavaan::sem
-
-# default arguments
-add_things_def <- function(x = 1) {
-  x + 10
-}
-add_things_def()
-
-
-#...........................
-
-# Environments
-#...........................
-environment()
-simple_fun <- function(){
-  environment()
-}
-simple_fun()
-
-# functions create their own environments!
-
-#...........................
-
-# Scoping
-#...........................
-# where does R find things?
-add_things2 <- function(x) {
-  x + 10 + y
-}
-
-add_things2(2)
-y <- 100
-
-add_things2(2)
-
-
-#...........................
-
 # If statements
 #...........................
 mean2 <- function(x, na.rm = FALSE) {
@@ -139,12 +95,22 @@ mean(numeric())
 
 # Exercises
 #===========================================================
-# 1. Write a function that computes the sum of two numeric values
+# 1. Write a simple function that computes the sum of two numeric values.
+compute_sum <- function(x, y) {
+  x + y
+}
 
-# 2. Implement input checks/validation for your function
+# 2. Implement input checks/validation for your function.
+compute_sum <- function(x, y) {
+  if(!is.numeric(x) || length(x) != 1) stop("'x' must be a numeric vector of length 1.")
+  if(!is.numeric(y) || length(y) != 1) stop("'y' must be a numeric vector of length 1.")
+  x + y
+}
 
-# 3. Write a function that outputs three distributional graphs when given two metric variables:
-# a univariate boxplot for each of the variables and a bivariate scatterplot.
+
+# 3. Write a function that outputs three distributional graphs for two metric variables:
+# a univariate boxplot for each of the variables and a bivariate scatterplot. Apply it to the following
+# variables in the PISA data set: hisei, pared.
 
 pisa <- readRDS("C:/Users/benjb/Documents/Repositories/R_courses/data/pisaPlus_CF.RDS")
 
@@ -153,10 +119,36 @@ boxplot(pisa$hisei)
 boxplot(pisa$pared)
 plot(pisa$hisei, pisa$pared)
 
+plot_2vars <- function(x, y) {
+  par(mfrow = c(1, 3))
+  boxplot(x)
+  boxplot(y)
+  plot(x, y)
+  NULL
+}
 
-# 4. Implement input checks/validation for your function
+# 4. Enable the user to label and title the plots via arguments.
+plot_2vars <- function(x, y, x_name, y_name) {
+  par(mfrow = c(1, 3))
+  boxplot(x, title = x_name)
+  boxplot(y, title = y_name)
+  plot(x, y, xlab = x_name, ylab = y_name)
+  NULL
+}
 
-# 5. The function should return a single bivariate boxplot if one of the variables is dichotomous. Modify it.
+
+# 5. If one of the variables is dichotomous, the function should return a single bivariate boxplot (instead of threeo plots). 
+# Modify it.
+plot_2vars <- function(x, y, x_name, y_name) {
+  if(length(unique(x)) == 2) {
+    boxplot()
+  }
+  par(mfrow = c(1, 3))
+  boxplot(x, title = x_name)
+  boxplot(y, title = y_name)
+  plot(x, y, xlab = x_name, ylab = y_name)
+  NULL
+}
 
 
 
