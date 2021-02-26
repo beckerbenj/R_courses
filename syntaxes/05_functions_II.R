@@ -55,58 +55,55 @@ traceback()
 # option(warn = 2) 
 
 
-#...........................
-
-# Lazy Evaluation
-#...........................
-add_things3 <- function(x, y) {
-  x + 10
-}
-add_things3(2)
-
-
-#...........................
-
-# ... (dot dot dot)
-#...........................
-add_all_things <- function(...) {
-  list(...)
-}
-add_all_things(2, 3)
-
-add_all_things2 <- function(...) {
-  l <- list(...)
-  do.call(sum, l)
-}
-add_all_things2(2, 3, 5, 10)
-
-
-#...........................
-
-# on.exit
-#...........................
-add_things <- function(x, y) {
-  on.exit(cat("Sum of", x, "and", y))
-  x <- x + 20
-  x+y
-}
-out <- add_things(1, 2)
-out
-
-
 
 # Exercises
 #===========================================================
-# 1. Extend/modify your function from Function I to take a variable amount of variables and output a boxplot for
-# each variable with maximally four boxplots per row
+# 1. We have written a function that rounds all variables in a data.frame. When applied to
+# mtcars the function seems to work well, when applied to iris it throws an error.
+# Use the appropriate debugging tools to fix the function.
+roundDF <- function (df, roundN = 3) {
+  for(i in seq_along(df)) {
+    df[, i] <- round(df[, i], digits = roundN) 
+  }
+  df
+}
 
-# 2. Debug this function...
+roundDF(mtcars, roundN = 1)
+roundDF(iris, roundN = 1)
 
 
+# 2. We have written two function to make calculating relative frecuencies easier. prop_table(),
+# a function that creates a simple relative frequency table and prop_table_by_all() which combines
+# multiple tables for a grouping variable. The function works fine for the first call but throws
+# an error for the second call. Use your debugging skills to find the problem and fix the function.
+prop_table <- function (vec, useNA = "no", round_perc = 1) {
+  stopifnot(is.vector(vec) || is.factor(vec))
+  tab <- round(100 * prop.table(table(vec, useNA = useNA)), 
+               digits = round_perc)
+  out_df <- as.data.frame(as.list(tab))
+  names(out_df) <- names(tab)
+  out_df
+}
 
 
+prop_table_by_all <- function (df, dep, by_var, useNA = "no", round_perc = 1) {
+  stopifnot(is.data.frame(df))
+  stopifnot(is.character(dep) && length(dep) == 1)
+  stopifnot(is.character(by_var) && length(by_var) == 1)
+  
+  gesamt <- prop_table(df[, dep], useNA = useNA)
+  out_list <- by(df, INDICES = df[, by_var], function(df) prop_table(df[, dep], useNA = useNA))
+  out <- do.call(rbind, out_list)
+  rownames(out)[nrow(out)] <- "Total"
+  out
+}
 
+prop_table(pisa$migration)
+prop_table(pisa$books)
+prop_table(pisa$grade_bio_t1)
 
+prop_table_by_all(pisa, dep = "books", by_var = "migration")
+prop_table_by_all(pisa, dep = "grade_bio_t1", by_var = "books")
 
 
 
