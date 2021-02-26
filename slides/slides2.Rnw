@@ -1,34 +1,36 @@
-\documentclass[xcolor=table]{beamer}
+\documentclass{beamer}
+%\documentclass[xcolor=table]{beamer}
 
-\usepackage[]{graphicx}\usepackage[]{color}
+%\usepackage{graphicx}
+%\usepackage{color}
 
-\usepackage{alltt}
-\usepackage{hyperref}
+%\usepackage{alltt}
+%\usepackage{hyperref}
 
-\usepackage{array}
-\usepackage[originalparameters]{ragged2e} 
+%\usepackage{array}
+%\usepackage[originalparameters]{ragged2e} 
 
 % kable packages
-\usepackage{longtable}
-\usepackage{array}
-\usepackage{multirow}
-\usepackage{wrapfig}
-\usepackage{float}
-\usepackage{colortbl}
-\usepackage{pdflscape}
-\usepackage{tabu}
-\usepackage{threeparttable}
-\usepackage{threeparttablex}
-\usepackage[normalem]{ulem}
-\usepackage{makecell}
+%\usepackage{longtable}
+%\usepackage{array}
+%\usepackage{multirow}
+%\usepackage{wrapfig}
+%\usepackage{float}
+%\usepackage{colortbl}
+%\usepackage{pdflscape}
+%\usepackage{tabu}
+%\usepackage{threeparttable}
+%\usepackage{threeparttablex}
+%\usepackage[normalem]{ulem}
+%\usepackage{makecell}
 
-\usepackage{amsmath}
-\usepackage{booktabs}
+%\usepackage{amsmath}
+%\usepackage{booktabs}
 %\usepackage[ansinew]{inputenc}
-\usepackage[utf8]{inputenc}
-\usepackage[ngerman, english]{babel}
+%\usepackage[utf8]{inputenc}
+%\usepackage[ngerman, english]{babel}
 
-\usepackage{bm}
+%\usepackage{bm}
 
 \usetheme{metropolis}   
 
@@ -45,7 +47,6 @@ opts_chunk$set(results="hide")
 #load("~/Documents/Workshops/FDZ_Reporting/IQB-LV-2011_SchuelerInnen-Eltern_CF.rda")
 
 
-
 # Farben
 mLightBrown<-"#EB811B"
 econBlue<-"#008BBC"
@@ -56,11 +57,10 @@ econRedD<-"#90353B"
 
 
 \begin{document}
-<<<<<<< HEAD
+%<<<<<<< HEAD
 %\SweaveOpts{concordance=TRUE}
-%\SweaveOpts{concordance=TRUE}
-=======
->>>>>>> refs/remotes/origin/main
+%=======
+%>>>>>>> refs/remotes/origin/main
 
 \title{Programming with R/Advanced R}
 \institute{FDZ Spring Academy}
@@ -160,7 +160,11 @@ Researcher at IQB (Statistics Department)
 	\begin{itemize}
 			\item Past Self
 			\begin{itemize}
+<<<<<<< HEAD
 			  \item Is the biggest mess in existance
+=======
+			  \item Is the biggest messy in existence
+>>>>>>> refs/remotes/origin/main
 			  \item Did not document anything
 			  \item Uses a completely different style of writing code than yourself
 			  \item Is the worst collaborator (does not reply to e-mails)
@@ -618,7 +622,7 @@ A subset of elements from a vector can be accessed using \texttt{object[selectio
 \end{frame}
 
 
-\begin{frame}[fragile]{Subsetting - attomic vectors}
+\begin{frame}{Subsetting - attomic vectors}
 
 Using a logical vector:
 
@@ -631,9 +635,12 @@ Using a logical vector:
 
 
 \begin{frame}[fragile]{Subsetting - attomic vectors}
+<<<<<<< HEAD
 
 Using a logical vector:
 
+=======
+>>>>>>> refs/remotes/origin/main
 <<selection-logical, echo = TRUE>>=
 my_object <- c(a = 1, b = 5, c = 3, d = 8)
 my_object[c(TRUE, FALSE, FALSE, TRUE)]
@@ -647,7 +654,7 @@ my_object[1:4 < 4]
 \end{frame}
 
 
-\begin{frame}[fragile]{Subsetting - attomic vectors}
+\begin{frame}{Subsetting - attomic vectors}
 
 Using an integer vector:
 
@@ -662,6 +669,7 @@ Using an integer vector:
 
 \end{frame}
 
+\begin{frame}[fragile]{Subsetting - attomic vectors}
 <<selection-integer, echo = TRUE>>=
 my_object <- c(a = 1, b = 5, c = 3, d = 8)
 my_object[c(1, 5)]
@@ -677,7 +685,7 @@ my_object[1.999]
 
 
 
-\begin{frame}[fragile]{Subsetting - attomic vectors}
+\begin{frame}{Subsetting - attomic vectors}
 
 Using a character vector:
 
@@ -690,6 +698,7 @@ Using a character vector:
 
 \end{frame}
 
+\begin{frame}[fragile]{Subsetting - attomic vectors}
 <<selection-character, echo = TRUE>>=
 my_object <- c(a = 1, b = 5, c = 3, d = 8)
 my_object[c("a", "b")]
@@ -908,11 +917,10 @@ There is a complete \emph{tidyverse} style-guide \url{https://style.tidyverse.or
   \item always use \texttt{<-} for assignments
   \item only use \texttt{=} in function calls
   \item use indentation (largely automatical in RStudio)
-  \item \texttt{CamelCaseNames} vs \texttt{snake_case_names}
-  \item be consitent!
+  \item \texttt{CamelCaseNames} vs \texttt{snake\_case\_names}
+  \item be consistent!
   \item wrap long lines at column 70-80 (Rstudio)
 \end{itemize}
-
 
 \end{frame}
 
@@ -1145,16 +1153,22 @@ Writing code is error prone. Incorporate tests and checks in your workflow. For 
 
 
 
-## 
-
-
-
-
-
 \section{Iteration}
 
 \section{Functions I}
-\begin{frame}{Why?}
+\begin{frame}{Building Blocks}
+Functions are the building blocks of R code. As frequent users of functions we know that they should:
+\begin{itemize}
+  \item have a clear purpose
+  \item be well documented
+  \item be portable
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Stepping Stone}
+Central stepping stone for R users: Move from solely using functions written by others to writing your own functions. 
+
+\textbf{Reasons:}
 \begin{itemize}
   \item Readability
   \begin{itemize}
@@ -1172,7 +1186,7 @@ Writing code is error prone. Incorporate tests and checks in your workflow. For 
 \end{frame}
 
 
-\begin{frame}[fragile]{Why?}
+\begin{frame}[fragile]{Readability}
 <<echo=TRUE, results='asis'>>=
 mean(mtcars$mpg)
 # vs.
@@ -1180,13 +1194,13 @@ sum(mtcars$mpg)/dim(mtcars)[1]
 @
 \end{frame}
 
-\begin{frame}[fragile]{Why?}
+\begin{frame}[fragile]{Readability}
 <<echo=TRUE, results='markup'>>=
 summary(mtcars$mpg)
 @
 \end{frame}
 
-\begin{frame}[fragile]{Why?}
+\begin{frame}[fragile]{Readability}
 <<echo=TRUE, results='markup'>>=
 round(c("Min." = min(mtcars$mpg),
   "1st Qu." = as.numeric(quantile(mtcars$mpg)[2]),
@@ -1197,7 +1211,26 @@ round(c("Min." = min(mtcars$mpg),
 @
 \end{frame}
 
-\begin{frame}[fragile]{How?}
+\begin{frame}{Types of functions}
+Some useful terms to know:
+\begin{itemize}
+  \item Anonymouse functions
+  \item Primitive functions
+  \item Exported functions 
+  \item Not exported functions 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Elements of a function}
+\begin{itemize}
+  \item Name
+  \item Arguments/Formals (input)
+  \item Body (what happens inside)
+  \item Output 
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Function definition}
 <<echo=TRUE, results='asis'>>=
 countNA <- function(x) {    # Name, Arguments/Formals
   out <- sum(is.na(x))      # Body
@@ -1206,21 +1239,112 @@ countNA <- function(x) {    # Name, Arguments/Formals
 @
 \end{frame}
 
-\begin{frame}{How?}
+\begin{frame}{Arguments}
+Usually:
 \begin{itemize}
-  \item Before creating the function
+  \item One or two data arguments
+  \item Additional Options
+\end{itemize}
+Programming advice:
+The less arguments, the better!
+\end{frame}
+
+\begin{frame}[fragile]{Default arguments}
+What happens if the user omits an argument?
+<<echo=TRUE, results='asis'>>=
+add_things_def <- function(x = 1) {
+  x + 10
+}
+add_things_def()
+@
+\end{frame}
+
+\begin{frame}{Environments}
+Like boxes, containing objects.
+\begin{center}
+\includegraphics[height=.4\textheight]{envir.JPG}
+\end{center}
+A bit simplified: If a function is called, its own environment is created with its parent being the environment from which it was called.
+\end{frame}
+
+
+\begin{frame}[fragile]{Environments}
+<<echo=TRUE, results='asis'>>=
+simple_fun <- function(){
+  a <- 1
+  b <- "a"
+  environment()
+}
+a <- simple_fun()
+rlang::env_print(a)
+@
+\end{frame}
+
+\begin{frame}{Scoping}
+Where does R find things?
+\begin{itemize}
+  \item Argument matching (name, place...)
+  \item Current environment
+  \item Parent environment
+\end{itemize}
+Programming advice:
+Keep it simple, this can create chaos.
+\end{frame}
+
+\begin{frame}[fragile]{Scoping}
+<<echo=TRUE, results='asis'>>=
+add_things2 <- function(x) {
+  x + 10 + y
+}
+add_things2(2)
+y <- 100
+add_things2(2)
+@
+\end{frame}
+
+\begin{frame}{If clauses}
+Conditional evaluation of code
+\begin{itemize}
+  \item Almost never useful outside of functions
+  \item if() ... else ... can almost always be substituted by if() return
+  \item Requires a logical of length 1
+\end{itemize}
+\end{frame}
+
+\begin{frame}{If clauses}
+Use cases
+\begin{itemize}
+  \item Input validation
+  \item Different function behavior dependent on option arguments
+  \item Requires a logical of length 1
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{If clauses}
+<<echo=TRUE, results='asis'>>=
+mean2 <- function(x, na.rm = FALSE) {
+  if (na.rm){
+    x <- x[!is.na(x)]
+  } 
+  sum(x)/length(x)
+}
+@
+\end{frame}
+
+
+\begin{frame}{Writing Functions}
+  Before creating the function
   \begin{itemize}
     \item What should my function do?
     \item Input (Arguments)
     \item Output
   \end{itemize}
-  \item After creating the function
+  After creating the function
   \begin{itemize}
     \item Test it
     \item Add input validation
     \item Document it
   \end{itemize}
-\end{itemize}
 \end{frame}
 
 \section{Functions II}
