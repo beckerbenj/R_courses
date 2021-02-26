@@ -160,9 +160,10 @@ Researcher at IQB (Statistics Department)
 	\begin{itemize}
 			\item Past Self
 			\begin{itemize}
-			  \item Is the biggest messy in existance
+			  \item Is the biggest mess in existance
 			  \item Did not document anything
 			  \item Uses a completely different style of writing code than yourself
+			  \item Is the worst collaborator (does not reply to e-mails)
 			\end{itemize}
 			\item Future Self
 			\begin{itemize}
@@ -229,8 +230,8 @@ Solutions
 			\item What are objects?
 			\item Attomic vectors
 			\item Vector structures
-			\item subsetting
-			\item replacement
+			\item Subsetting
+			\item Replacement
 	\end{itemize}
 \end{frame}
 
@@ -241,11 +242,11 @@ Solutions
 \begin{frame}{What are objects?}
 
 	\begin{itemize}
-			\item Data-structures that can be used in computations.
-			\item Collections of data of al kinds that are dynamically created and manipulated.
+			\item Data-structures that can be used in computations
+			\item Collections of data of al kinds that are dynamically created and manipulated
 			\item Can be very small, like a single number: \texttt{2.1}, or very big, like a complete data set  (i.e., \texttt{data.frame}) or a random forest output.
-			\item Elementary data structures can be combined in more complex data structures.
-			\item Creating new types of \emph{complex} objects is part of programming in R (S3, S4).
+			\item Elementary data structures can be combined in more complex data structures
+			\item Creating new types of \emph{complex} objects is part of programming in R (S3, S4)
 			
 	\end{itemize}
 \end{frame}
@@ -274,8 +275,29 @@ mulitple values in one object $\rightarrow$ \texttt{length()} starting from \tex
 \end{frame}
 
 
+\begin{frame}{Attomic Vectors}
+
+Elements of the same type can be combined into an attomic vector using \texttt{c()}
+
+<<NULL, echo = TRUE>>=
+c(3, 4, 5, 6)
+seq(3, 6)
+3:6
+character(6)
+logical(0)
+vector(mode = "double", 4)
+length(3:6)
+length(double(0))
+@
+
+All elements are of the same type!
+
+
+\end{frame}
+
+
 \begin{frame}[fragile]{Attomic Vectors}
-An important type with special behavior is \texttt{NULL}. It is an empty object that can be interpreted as \emph{nothing}. It's length is 0.
+An important object type with special behavior is \texttt{NULL}. It is an empty object that can be interpreted as \emph{nothing}. It's length is 0.
 
 <<NULL, echo = TRUE>>=
 c(NULL, "a", NULL)
@@ -283,7 +305,7 @@ length(NULL)
 c(NULL, NULL, NULL)
 @
 
-\texttt{NULL} is mostly used as a default argument in fuction, in order to create some default behavior.
+\texttt{NULL} is mostly used as a default argument in functions, in order to create some default behavior.
 
 \end{frame}
 
@@ -293,23 +315,21 @@ c(NULL, NULL, NULL)
 
 \begin{frame}[fragile]{Coercion/Conversion}
 
-	\begin{itemize}
-			\item Automatic conversion:
+\textbf{Automatic conversion}: \\
 			NULL $\rightarrow$ logical $\rightarrow$ integer $\rightarrow$ double $\rightarrow$ character
-      \end{itemize}
+
 
 <<auto-conversion, echo = TRUE>>=
 1 + TRUE
 c(FALSE, "word")
 @
 
-	\begin{itemize}		
-			\item explicit conversion: \texttt{as."type"()}
-	\end{itemize}
-			
+\textbf{explicit conversion}: \texttt{as."type"()} \texttt{as.vector(, mode = "type"}
+
 <<explicit-conversion, echo = TRUE>>=
 as.character(FALSE)
 as.logical(0:5)
+as.vector(c(1.1, 1.5, 1.9), "integer")
 @
 
 \end{frame}
@@ -351,12 +371,12 @@ my_object <- TRUE
 my_object
 @
 
-The objects (with references) that are available to a user can be seen in the global environment using \texttt{ls}.
+The objects (with references) that are available to a user can be seen in the global environment using \texttt{ls()}.
 
 R overrides previous assignments without a message.
 
 
-Removed objects (\texttt{rm(objectName)}) cannot be restored. $\rightarrow$ \emph{May the sourcecode be with you!}.
+Removed objects (\texttt{rm(objectName)}) cannot be restored. \\ $\rightarrow$ \emph{May the sourcecode be with you!}.
 
 \end{frame}
 
@@ -366,12 +386,14 @@ Removed objects (\texttt{rm(objectName)}) cannot be restored. $\rightarrow$ \emp
 
 \begin{frame}[fragile]{Attributes}
 
-Attributes can be attached to objects together with an name for that attribute. An attribute is itself an object. 
+Attributes can be attached to objects together with a name for that attribute. An attribute is itself also an object. 
 
-Attributes are easily lost in computations. (One of the reasons to use OOP with classes and methods.)
+Attributes are easily lost in computations. (One of the reasons to use OOP with classes and methods, see later.)
 
 <<attributes, echo = TRUE>>=
-my_object <- structure(5, my_attribute = "string", other_attribute = FALSE)
+my_object <- structure(5, 
+                       my_attribute = "string", 
+                       other_attribute = FALSE)
 attributes(my_object)
 attr(my_object, "new") <- c(14, 25)
 str(my_object)
@@ -390,10 +412,28 @@ There are several attributes with a specific use: \texttt{"names"}, \texttt{"dim
   \item \texttt{"names"} is a character vector that contains the names of elements of the vector/object. Names can be printed and set using \texttt{names(object) <- }.
   \item \texttt{"dim"} is an integer vector that specifies how we should interpret the vector (i.e., as a matrix, as an array). The dimensions of a vector can be printed and set using \texttt{dim(object) <- }.
   $\rightarrow$ a \texttt{matrix} or \texttt{matrix} is a vector with a \texttt{"dim"} attribute.
+\end{itemize}
+
+
+\end{frame}
+
+
+
+
+\begin{frame}[fragile]{Attributes}
+
+There are several attributes with a specific use: \texttt{"names"}, \texttt{"dim "}\texttt{"class"}, \texttt{"levels"}
+
+\begin{itemize}
   \item \texttt{"class"} is a character vector that contains class names. Classes can be printed and set using \texttt{class(object) <- }}. See \textbf{Object Oriented Programming (S3)}
   \item \texttt{"levels"} is a character vector that contains the names levels of a factor. Levels can be printed and set using \texttt{levels(factor) <- }.
-  \end{itemize}
+\end{itemize}
 
+\end{frame}
+
+
+
+\begin{frame}[fragile]{Attributes}
 
 <<attributes2, echo = TRUE>>=
 a <- 1:8
@@ -411,11 +451,11 @@ as.character(c(a = 1, b = 2))
 
 \begin{frame}[fragile]{Attributes}
 
-A factor in R is actually an integer vector with a class attribute set to \texttt{"factor"}, and a levels attribute set to the level-labels that correspond to the integer values from 1 to the highest integer value in the integer vectors.
+A factor in R is actually an integer vector with a \texttt{"class"} attribute set to \texttt{"factor"}, and a \texttt{"levels"} attribute set to the level-labels that correspond to the integer values from 1 to the highest integer value in the integer vectors.
 
 <<factor, echo = TRUE>>=
 int <- as.integer(c(1, 2, 1, 1, 3, 1, 5, 2))
-attr(int, "levels") <- c("Now way!", "Not sure", "maybe", "OK", "Definitively!")
+attr(int, "levels") <- c("Now way!", "Not sure", "Maybe", "OK", "Definitively!")
 attr(int, "class") <- "factor"
 int
 @
@@ -457,11 +497,11 @@ int
   \begin{tabular}{| l | l |}
     \hline
     \multicolumn{2}{|c|}{More basic object types} \\ \hline
-    matrix      & actually a vector with \texttt{"dim"} argument: two dimensions \\
+    list        & \texttt{list()}, \texttt{as.list()}, ...  \\    \hline
+    matrix      & an vector with \texttt{"dim"} argument: two dimensions \\
                 & \texttt{matrix()} \texttt{as.matrix()} \\ 
                 & matrix algebra \\ 
     array       & actually a vector with with \texttt{"dim"} argument \\            \hline
-    list        & \texttt{list()}, \texttt{as.list()}, ...  \\ 
     data.frame  & actually a list with vectors of equal length  \\
                 & \texttt{data.frame}, \texttt{as.dataframe}  \\
 
@@ -475,14 +515,19 @@ int
 
 \begin{frame}[fragile]{List}
 
+A list is a ``vectors'' that can contain any type of element
+
 \begin{itemize}
-  \item ``vectors'' that can contain any type of element
-  \item including lists $\rightarrow$ recursive
+  \item the elements can differ $\leftrightarrow$ attomic vectors
+  \item possible elements including lists $\rightarrow$ recursive
   \item can have attributes, even \texttt{"dim"} (though mostly not useful)
 \end{itemize}
 
 <<lists, echo = TRUE>>=
-my_list <- list(1.23, "this", a = list(a = c(1:2)), TRUE)
+my_list <- list(1.23, 
+                "this", 
+                a = list(a = c(1:2)), 
+                b = TRUE)
 attr(my_list, "dim") <- c(2, 2)
 my_list  # printing fails
 @
@@ -493,20 +538,35 @@ my_list  # printing fails
 
 \begin{frame}[fragile]{Data.frame}
 
+A data.frame is a list of (named) vectors of equal length.
+
 \begin{itemize}
-  \item a list of (named) vectors of equal length
-  \item including lists (using \texttt{I()}).
-  \item has row names (but ignore these)
   \item has dimensions (but not a \texttt{"dim"}-attribute)
+  \item the columns are the vectors
+  \item the vectors can be lists (using \texttt{I()}).
+  \item a data.frame has row names (but ignore these)
 \end{itemize}
 
+
+\end{frame}
+
+
+
+\begin{frame}[fragile]{Data.frame}
+
 <<data.frame, echo = TRUE>>=
-my_data  <- data.frame(1:4, var1 = c("a", "b", "c", "d")) 
+my_data  <- data.frame(1:4, 
+                       var1 = c("a", "b", "c", "d")) 
 attributes(my_data)
 dim(my_data)
 names(my_data)
+colnames(my_data)
+rownames(my_data)
 typeof(my_data)
-data.frame(1:4, var1 = I(list(c("a", "b"), list(FALSE, "FALSE") , 1:5, c("c", "d"))))
+data.frame(1:4, 
+           var1 = I(list(c("a", "b"), 
+                         list(FALSE, "FALSE"), 
+                         1:5, c("c", "d"))))
 @
 
 \end{frame}
@@ -515,8 +575,8 @@ data.frame(1:4, var1 = I(list(c("a", "b"), list(FALSE, "FALSE") , 1:5, c("c", "d
 
 \begin{frame}[fragile]{Matrix \& Array}
 
+A matrix or an array is a vector with a \texttt{"dim"}-attribute
 \begin{itemize}
-  \item a vector with a \texttt{"dim"}-attribute
   \item mostly usefull for numeric vectors (integer and double)
   \item matrix algebra!  \texttt{t(matrix)}, \texttt{\%*\%}, \texttt{aperm(array))}...
   \item matrix has two dimensions, array has $n$ dimensions
@@ -536,6 +596,7 @@ length(my_array)
 @
 
 \end{frame}
+
 
 
 \subsection{Subsetting - Selection}
@@ -567,6 +628,11 @@ Using a logical vector:
 \end{itemize}
 
 \end{frame}
+
+
+\begin{frame}[fragile]{Subsetting - attomic vectors}
+
+Using a logical vector:
 
 <<selection-logical, echo = TRUE>>=
 my_object <- c(a = 1, b = 5, c = 3, d = 8)
