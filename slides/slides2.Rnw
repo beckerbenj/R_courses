@@ -135,13 +135,14 @@ Researcher at IQB (Statistics Department)
 \begin{frame}{Introduction}
 \textbf{Who are you?}
 \begin{enumerate}%\itemsep0em
-	\item Specific interests/motivation for this workshop?
-	\item Previous knowledge and experience?
+	\item Institution and Status
+	\item Previous knowledge and experience
 	\begin{itemize}
 	  \item with R
 	  \item with other statistic software
 	  \item with other programming languages
 	\end{itemize}
+	\item Specific interest/motivation for this workshop?
 \end{enumerate}
 \end{frame}
 
@@ -151,7 +152,7 @@ Researcher at IQB (Statistics Department)
 			\begin{itemize}
 			  \item Save time and nerves
 			  \item Avoid errors and bugs
-			  \item High transfer effect to all projects (which use data)
+			  \item High transfer effect to all projects (with data analyses)
 			\end{itemize}
 			\item Successful collaborations (with your future self?)
 			\item Syntaxes as part of paper submissions
@@ -164,6 +165,10 @@ Researcher at IQB (Statistics Department)
 			\item Past Self
 			\begin{itemize}
 			  \item Is the biggest mess in existence
+<<<<<<< HEAD
+=======
+			  \item Is the biggest messy in existence
+>>>>>>> 7d53acbcdc6c069ae6e9ed80e2dd6e1584e96f73
 			  \item Did not document anything
 			  \item Uses a completely different style of writing code than yourself
 			  \item Is the worst collaborator (does not reply to e-mails)
@@ -264,8 +269,15 @@ mulitple values in one object $\rightarrow$ \texttt{length()} starting from \tex
 \end{frame}
 
 \begin{frame}{Attomic Vectors}
+<<<<<<< HEAD
 Elements of the same type can be combined into an attomic vector using \texttt{c()}.
 <<c(), echo = TRUE>>=
+=======
+
+Elements of the same type can be combined into an attomic vector using \texttt{c()}
+
+<<vector types, echo = TRUE>>=
+>>>>>>> 7d53acbcdc6c069ae6e9ed80e2dd6e1584e96f73
 c(3, 4, 5, 6)
 seq(3, 6)
 3:6
@@ -1278,6 +1290,16 @@ The less arguments, the better!
 \begin{frame}[fragile]{Default arguments}
 What happens if the user omits an argument?
 <<echo=TRUE, results='asis'>>=
+add_things_def <- function(x) {
+  x + 10
+}
+add_things_def()
+@
+\end{frame}
+
+\begin{frame}[fragile]{Default arguments}
+What happens if the user omits an argument?
+<<echo=TRUE, results='asis'>>=
 add_things_def <- function(x = 1) {
   x + 10
 }
@@ -1295,7 +1317,7 @@ A bit simplified: If a function is called, its own environment is created with i
 
 
 \begin{frame}[fragile]{Environments}
-<<echo=TRUE, results='asis'>>=
+<<echo=TRUE, results='markup'>>=
 simple_fun <- function(){
   a <- 1
   b <- "a"
@@ -1331,18 +1353,19 @@ add_things2(2)
 \begin{frame}{If clauses}
 Conditional evaluation of code
 \begin{itemize}
-  \item Almost never useful outside of functions
-  \item if() ... else ... can almost always be substituted by if() return
   \item Requires a logical of length 1
+  \item Almost never useful outside of functions
+  \item if() ... else ... can almost always be substituted by if() ... return()
 \end{itemize}
+Also: stopifnot()
 \end{frame}
 
 \begin{frame}{If clauses}
 Use cases
 \begin{itemize}
+  \item Different behavior within loops
   \item Input validation
   \item Different function behavior dependent on option arguments
-  \item Requires a logical of length 1
 \end{itemize}
 \end{frame}
 
@@ -1375,22 +1398,79 @@ mean2 <- function(x, na.rm = FALSE) {
 
 \section{Functions II}
 
-\begin{frame}{What is a good function?}
-\begin{itemize}
-  \item pure functions
+\begin{frame}{What makes a good function?}
+\textbf{Pure functions!}
   \begin{itemize}
-    \item no sideeffects
+    \item no side effects
+    \item the only output is returned
     \item no dependency on global environment
-    \item easier understanding, easier transfer!
+    \item only input via arguments
   \end{itemize}
-\end{itemize}
+  Results in easier understanding and higher portability.
 \end{frame}
+
+\begin{frame}[fragile]{Lazy Evaluation}
+Sometimes missings arguments are irrelevant
+<<echo=TRUE, results='asis'>>=
+add_things3 <- function(x, y) {
+  x + 10
+}
+add_things3(2)
+@
+\end{frame}
+
+\begin{frame}{...}
+How can functions receive flexible numbers of inputs? 
+
+\textbf{Examples:}
+  \begin{itemize}
+    \item sum()
+    \item save()
+    \item ...
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{...}
+via dot dot dot (...)
+<<echo=TRUE, results='asis'>>=
+add_all_things2 <- function(...) {
+  l <- list(...)
+  do.call(sum, l)
+}
+add_all_things2(2, 3, 5, 10)
+@
+\end{frame}
+
+\begin{frame}[fragile]{on.exit()}
+Performing an action when the function terminates
+<<echo=TRUE, results='asis'>>=
+add_things <- function(x, y) {
+  on.exit(cat("Sum of", x, "and", y))
+  x <- x + 20
+  x+y
+}
+out <- add_things(1, 2)
+out
+@
+\end{frame}
+
+\begin{frame}[fragile]{Accessing the function call}
+Accessing the function call
+<<echo=TRUE, results='asis'>>=
+showArgs <- function(x, y) {
+  match.call()
+}
+showArgs(1, 2)
+@
+\end{frame}
+
 
 \begin{frame}{Debugging}
 \begin{itemize}
   \item browser()
   \item traceback()
   \item options(error = recover)
+  \item options(warn = 2)
 \end{itemize}
 \end{frame}
 
@@ -1430,11 +1510,24 @@ mean2 <- function(x, na.rm = FALSE) {
 \begin{frame}{Requirements}
 \begin{itemize}
   \item Install git 
-  \item Install User Interface for git (RStudio, Gitkraken, ...)
+  \item (optional) Install/Setup GUI for git (RStudio, Gitkraken, ...)
   \item Setup account for Github/Bitbucket/Gitlab/...
   \item Connect everything
 \end{itemize}
 \end{frame}
+
+\begin{frame}{RStudio}
+\begin{center}
+\includegraphics[height=.75\textheight]{rstudio_git.JPG}
+\end{center}
+\end{frame}
+
+\begin{frame}{RStudio}
+\begin{center}
+\includegraphics[width=.8\textwidth]{rstudio_git2.JPG}
+\end{center}
+\end{frame}
+
 
 \begin{frame}{Workflow}
 \textbf{Creating a repository}
