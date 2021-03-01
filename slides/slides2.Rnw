@@ -32,6 +32,9 @@
 
 %\usepackage{bm}
 
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+
 \usetheme{metropolis}   
 
 <<r setup, echo=FALSE, message=FALSE, results='hide'>>=
@@ -160,11 +163,7 @@ Researcher at IQB (Statistics Department)
 	\begin{itemize}
 			\item Past Self
 			\begin{itemize}
-<<<<<<< HEAD
-			  \item Is the biggest mess in existance
-=======
-			  \item Is the biggest messy in existence
->>>>>>> refs/remotes/origin/main
+			  \item Is the biggest mess in existence
 			  \item Did not document anything
 			  \item Uses a completely different style of writing code than yourself
 			  \item Is the worst collaborator (does not reply to e-mails)
@@ -182,7 +181,6 @@ Researcher at IQB (Statistics Department)
 \includegraphics[width=.75\textwidth]{reinhart_rogoff.PNG}
 \end{center}
 \end{frame}
-
 
 \begin{frame}{Motivation}
 \begin{center}
@@ -214,10 +212,7 @@ Solutions
 \end{itemize}
 \end{frame}
 
-
 \section{R Objects (Recap)}
-
-
 
 \begin{frame}[fragile]
 \begin{exampleblock}{}
@@ -227,9 +222,7 @@ Solutions
 \end{exampleblock}
 \end{frame}
 
-
 \begin{frame}{R Objects (Recap)}
-
 	\begin{itemize}
 			\item What are objects?
 			\item Attomic vectors
@@ -239,28 +232,21 @@ Solutions
 	\end{itemize}
 \end{frame}
 
-
 \subsection{What are objects?}
 
-
 \begin{frame}{What are objects?}
-
 	\begin{itemize}
 			\item Data-structures that can be used in computations
 			\item Collections of data of al kinds that are dynamically created and manipulated
-			\item Can be very small, like a single number: \texttt{2.1}, or very big, like a complete data set  (i.e., \texttt{data.frame}) or a random forest output.
+			\item Can be very small, like a single number: \texttt{2.1}, or very big, like a complete data set  (i.e., \texttt{data.frame}) or a random forest output $\rightarrow$ \emph{Everything in R is an object}
 			\item Elementary data structures can be combined in more complex data structures
 			\item Creating new types of \emph{complex} objects is part of programming in R (S3, S4)
-			
 	\end{itemize}
 \end{frame}
 
-
 \subsection{Attomic Vectors}
 
-
 \begin{frame}{Attomic Vectors}
-
 \begin{center}
   \begin{tabular}{| l | l |}
     \hline
@@ -273,17 +259,13 @@ Solutions
     \hline
   \end{tabular}
 \end{center}
-
 mulitple values in one object $\rightarrow$ \texttt{length()} starting from \texttt{0}
 
 \end{frame}
 
-
 \begin{frame}{Attomic Vectors}
-
-Elements of the same type can be combined into an attomic vector using \texttt{c()}
-
-<<NULL, echo = TRUE>>=
+Elements of the same type can be combined into an attomic vector using \texttt{c()}.
+<<c(), echo = TRUE>>=
 c(3, 4, 5, 6)
 seq(3, 6)
 3:6
@@ -293,107 +275,75 @@ vector(mode = "double", 4)
 length(3:6)
 length(double(0))
 @
-
 All elements are of the same type!
-
 
 \end{frame}
 
-
 \begin{frame}[fragile]{Attomic Vectors}
 An important object type with special behavior is \texttt{NULL}. It is an empty object that can be interpreted as \emph{nothing}. It's length is 0.
-
 <<NULL, echo = TRUE>>=
 c(NULL, "a", NULL)
 length(NULL)
 c(NULL, NULL, NULL)
 @
-
 \texttt{NULL} is mostly used as a default argument in functions, in order to create some default behavior.
-
 \end{frame}
-
 
 \subsubsection{Coercion/Conversion}
 
-
 \begin{frame}[fragile]{Coercion/Conversion}
-
 \textbf{Automatic conversion}: \\
 			NULL $\rightarrow$ logical $\rightarrow$ integer $\rightarrow$ double $\rightarrow$ character
-
-
 <<auto-conversion, echo = TRUE>>=
 1 + TRUE
-c(FALSE, "word")
+c(FALSE, "word", NULL)
 @
-
 \textbf{explicit conversion}: \texttt{as."type"()} \texttt{as.vector(, mode = "type"}
-
 <<explicit-conversion, echo = TRUE>>=
 as.character(FALSE)
 as.logical(0:5)
 as.vector(c(1.1, 1.5, 1.9), "integer")
+as.null(c(1.1, 1.5, 1.9))
 @
-
 \end{frame}
 
-
 \begin{frame}[fragile]{Attomic vectors - check type}
-
 	\begin{itemize}	
 			\item check type using: \texttt{is."type"()}
 	\end{itemize}
-  
 <<as.type, echo = TRUE>>=
 is.logical(FALSE)
 is.character(c(FALSE, "a string")[1])
+is.null(NULL)
 @
-
 	\begin{itemize}	
 			\item check type using: \texttt{typeof()}
   \end{itemize}	
-  
 <<typeof, echo = TRUE>>=
 typeof(Inf)
 typeof(TRUE + FALSE)
 @
-
 \end{frame}
-
 
 \subsubsection{Assignment}
 
-
 \begin{frame}[fragile]{Assignment}
-
-In order to compute with objects efficiently, names can be assigned to the objects Using \texttt{<-} (or \texttt{=})
-
-	
+In order to compute with objects efficiently, names can be assigned to the objects using the assignment operator \texttt{<-} (or \texttt{=})
 <<assignment, echo = TRUE>>=
 my_object <- TRUE
 my_object
 @
-
 The objects (with references) that are available to a user can be seen in the global environment using \texttt{ls()}.
-
 R overrides previous assignments without a message.
-
-
-Removed objects (\texttt{rm(objectName)}) cannot be restored. \\ $\rightarrow$ \emph{May the sourcecode be with you!}.
-
+Removed objects (\texttt{rm(objectName)}) cannot be restored. \\ $\rightarrow$ \emph{May the source code be with you!}
 \end{frame}
 
-
 \subsubsection{Attributes}
-
 
 \begin{frame}[fragile]{Attributes}
 
 Attributes can be attached to objects together with a name for that attribute. An attribute is itself also an object. 
-
 Attributes are easily lost in computations. (One of the reasons to use OOP with classes and methods, see later.)
-
 <<attributes, echo = TRUE>>=
 my_object <- structure(5, 
                        my_attribute = "string", 
@@ -403,42 +353,26 @@ attr(my_object, "new") <- c(14, 25)
 str(my_object)
 str(as.integer(my_object))
 @
-
 \end{frame}
 
-
-
 \begin{frame}[fragile]{Attributes}
-
 There are several attributes with a specific use: \texttt{"names"}, \texttt{"dim "}\texttt{"class"}, \texttt{"levels"}
-
 \begin{itemize}
   \item \texttt{"names"} is a character vector that contains the names of elements of the vector/object. Names can be printed and set using \texttt{names(object) <- }.
   \item \texttt{"dim"} is an integer vector that specifies how we should interpret the vector (i.e., as a matrix, as an array). The dimensions of a vector can be printed and set using \texttt{dim(object) <- }.
   $\rightarrow$ a \texttt{matrix} or \texttt{matrix} is a vector with a \texttt{"dim"} attribute.
 \end{itemize}
-
-
 \end{frame}
 
-
-
-
 \begin{frame}[fragile]{Attributes}
-
 There are several attributes with a specific use: \texttt{"names"}, \texttt{"dim "}\texttt{"class"}, \texttt{"levels"}
-
 \begin{itemize}
   \item \texttt{"class"} is a character vector that contains class names. Classes can be printed and set using \texttt{class(object) <- }}. See \textbf{Object Oriented Programming (S3)}
   \item \texttt{"levels"} is a character vector that contains the names levels of a factor. Levels can be printed and set using \texttt{levels(factor) <- }.
 \end{itemize}
-
 \end{frame}
 
-
-
 \begin{frame}[fragile]{Attributes}
-
 <<attributes2, echo = TRUE>>=
 a <- 1:8
 str(a)
@@ -446,39 +380,33 @@ attr(a, "dim") <- c(2, 4)
 str(a)
 is.matrix(a)
 as.character(c(aa = 1, bb = 2))
-is.factor(structure(1:2, levels = c("a", "b"), class = "factor"))
+is.factor(structure(1:2, 
+                    levels = c("a", "b"), 
+                    class = "factor"))
 as.character(c(a = 1, b = 2))
 @
-
 \end{frame}
 
-
 \begin{frame}[fragile]{Attributes}
-
 A factor in R is actually an integer vector with a \texttt{"class"} attribute set to \texttt{"factor"}, and a \texttt{"levels"} attribute set to the level-labels that correspond to the integer values from 1 to the highest integer value in the integer vectors.
-
 <<factor, echo = TRUE>>=
 int <- as.integer(c(1, 2, 1, 1, 3, 1, 5, 2))
-attr(int, "levels") <- c("Now way!", "Not sure", "Maybe", "OK", "Definitively!")
+attr(int, "levels") <- c("Now way!", "Not sure", 
+                         "Maybe", "OK", "Definitively!")
 attr(int, "class") <- "factor"
 int
 @
-
-
 \end{frame}
 
-
-
 \begin{frame}{More Basic Object Types}
-
 \begin{center}
   \begin{tabular}{| l | l |}
     \hline
     \multicolumn{2}{|c|}{More basic object types} \\ \hline
     complex     & \texttt{1 + 2.31i}, ... \texttt{NA} \\ 
     raw         & \texttt{as.raw(2)}, \texttt{charToRaw("a")} \\
-    expression  & \texttt{expression(1+1, sum(a, b))} \\ \hline
-    language    & a function call, \texttt{quote(1 + y)}  \\
+    expression  & \texttt{expression(1+1, sum(a, b))} \\ 
+    language    & a function call, \texttt{quote(1 + y)}  \\ \hline
     closure     & \texttt{function(x) x - 1}, \texttt{mean}  \\
     builtin     & \texttt{sum},  \texttt{c} \\
     special     & \texttt{for},  \texttt{return} \\ \hline
@@ -488,45 +416,33 @@ int
     \hline
   \end{tabular}
 \end{center}
-
 \end{frame}
 
-
 \subsection{Vecture Structures}
-
-
 \begin{frame}[fragile]{Vector Structures}
-
 \begin{center}
   \begin{tabular}{| l | l |}
     \hline
     \multicolumn{2}{|c|}{More basic object types} \\ \hline
     list        & \texttt{list()}, \texttt{as.list()}, ...  \\    \hline
-    matrix      & an vector with \texttt{"dim"} argument: two dimensions \\
+    matrix      & an \textbf{vector} with \texttt{"dim"} argument: two dimensions \\
                 & \texttt{matrix()} \texttt{as.matrix()} \\ 
                 & matrix algebra \\ 
-    array       & actually a vector with with \texttt{"dim"} argument \\            \hline
-    data.frame  & actually a list with vectors of equal length  \\
+    array       & a \textbf{vector} with with \texttt{"dim"} argument \\            \hline
+    data.frame  & a \textbf{list} with vectors of equal length  \\
                 & \texttt{data.frame}, \texttt{as.dataframe}  \\
-
     \hline
   \end{tabular}
 \end{center}
-
 \end{frame}
 
-
-
 \begin{frame}[fragile]{List}
-
-A list is a ``vectors'' that can contain any type of element
-
+A list is a ``vector'' that can contain any type of elements
 \begin{itemize}
-  \item the elements can differ $\leftrightarrow$ attomic vectors
+  \item the types of elements can differ $\leftrightarrow$ attomic vectors
   \item possible elements including lists $\rightarrow$ recursive
   \item can have attributes, even \texttt{"dim"} (though mostly not useful)
 \end{itemize}
-
 <<lists, echo = TRUE>>=
 my_list <- list(1.23, 
                 "this", 
@@ -535,29 +451,43 @@ my_list <- list(1.23,
 attr(my_list, "dim") <- c(2, 2)
 my_list  # printing fails
 @
-
 \end{frame}
 
+\begin{frame}[fragile]{Matrix \& Array}
+A matrix or an array is a vector with a \texttt{"dim"}-attribute
+\begin{itemize}
+  \item mostly usefull for numeric vectors (integer and double)
+  \item matrix algebra!  \texttt{t(matrix)}, \texttt{\%*\%}, \texttt{aperm(array))}...
+  \item matrix has two dimensions, array has $n$ dimensions
+\end{itemize}
+\end{frame}
 
+\begin{frame}[fragile]{Matrix \& Array}
+<<matrix, echo = TRUE>>=
+my_matrix <- matrix(2.5, nrow = 3, ncol = 3)
+is.array(my_matrix)
+dim(my_matrix)
+typeof(my_matrix)
+as.double(my_matrix)
+my_array <- array(1:8, dim = c(2, 2, 2))
+is.array(my_array)
+dim(my_array)
+typeof(my_array)
+length(my_array)
+@
+\end{frame}
 
 \begin{frame}[fragile]{Data.frame}
-
 A data.frame is a list of (named) vectors of equal length.
-
 \begin{itemize}
   \item has dimensions (but not a \texttt{"dim"}-attribute)
   \item the columns are the vectors
   \item the vectors can be lists (using \texttt{I()}).
   \item a data.frame has row names (but ignore these)
 \end{itemize}
-
-
 \end{frame}
 
-
-
 \begin{frame}[fragile]{Data.frame}
-
 <<data.frame, echo = TRUE>>=
 my_data  <- data.frame(1:4, 
                        var1 = c("a", "b", "c", "d")) 
@@ -572,75 +502,31 @@ data.frame(1:4,
                          list(FALSE, "FALSE"), 
                          1:5, c("c", "d"))))
 @
-
 \end{frame}
-
-
-
-\begin{frame}[fragile]{Matrix \& Array}
-
-A matrix or an array is a vector with a \texttt{"dim"}-attribute
-\begin{itemize}
-  \item mostly usefull for numeric vectors (integer and double)
-  \item matrix algebra!  \texttt{t(matrix)}, \texttt{\%*\%}, \texttt{aperm(array))}...
-  \item matrix has two dimensions, array has $n$ dimensions
-\end{itemize}
-
-<<matrix, echo = TRUE>>=
-my_matrix <- matrix(2.5, nrow = 3, ncol = 3)
-is.array(my_matrix)
-dim(my_matrix)
-typeof(my_matrix)
-as.double(my_matrix)
-my_array <- array(1:8, dim = c(2, 2, 2))
-is.array(my_array)
-dim(my_array)
-typeof(my_array)
-length(my_array)
-@
-
-\end{frame}
-
-
 
 \subsection{Subsetting - Selection}
 
-
 \subsubsection{Subsetting - Attomic Vectors}
 
-
 \begin{frame}[fragile]{Subsetting - attomic vectors}
-
 A subset of elements from a vector can be accessed using \texttt{object[selection]}, where \texttt{selection} is:
-
 \begin{itemize}
-  \item a logical vector with the same length of the original vector (\texttt{TRUE}: select; \texttt{FALSE}: don't select)
-  \item an integer vector indicating the indeces of the elements to select (or exclude)
-  \item a character vector with the names of the elements to select
+  \item a \textbf{logical} vector with the same length of the original vector (\texttt{TRUE}: select; \texttt{FALSE}: don't select)
+  \item an \textbf{integer} vector indicating the indeces of the elements to select (or exclude)
+  \item a \textbf{character} vector with the names of the elements to select
 \end{itemize}
-
 \end{frame}
 
-
 \begin{frame}{Subsetting - attomic vectors}
-
-Using a logical vector:
-
+Using a \textbf{logical} vector:
 \begin{itemize}
   \item the logical vector should have the same length of the object. If shorter, the logical is repeated; if longer, \texttt{NA}s are added if \texttt{TRUE}. $\rightarrow$ always use the same length!
   \item handy when you want to select based on a condition related to the object values
 \end{itemize}
-
 \end{frame}
 
-
 \begin{frame}[fragile]{Subsetting - attomic vectors}
-<<<<<<< HEAD
-
-Using a logical vector:
-
-=======
->>>>>>> refs/remotes/origin/main
+Using a \textbf{logical} vector:
 <<selection-logical, echo = TRUE>>=
 my_object <- c(a = 1, b = 5, c = 3, d = 8)
 my_object[c(TRUE, FALSE, FALSE, TRUE)]
@@ -650,14 +536,10 @@ my_object[c(FALSE, TRUE, TRUE, FALSE, TRUE)]
 my_object[my_object > 4]
 my_object[1:4 < 4]
 @
-
 \end{frame}
 
-
 \begin{frame}{Subsetting - attomic vectors}
-
-Using an integer vector:
-
+Using an \textbf{integer} vector:
 \begin{itemize}
   \item the integer vector can have any length (repeated indices are repeatedly selected)
   \item positive values mean \emph{select}, negative values mean \emph{drop}
@@ -666,10 +548,10 @@ Using an integer vector:
   \item using \texttt{which()} a logical vector is transformed in an integer vector with the indices of the elements that were \texttt{TRUE}
   \item double elements are truncated towards zero (using \texttt{as.integer()}))
 \end{itemize}
-
 \end{frame}
 
 \begin{frame}[fragile]{Subsetting - attomic vectors}
+Using an \textbf{integer} vector:
 <<selection-integer, echo = TRUE>>=
 my_object <- c(a = 1, b = 5, c = 3, d = 8)
 my_object[c(1, 5)]
@@ -680,78 +562,67 @@ my_object[which(my_object > 4)]
 which(my_object > 4)
 my_object[1.999]
 @
-
 \end{frame}
 
-
-
 \begin{frame}{Subsetting - attomic vectors}
-
-Using a character vector:
-
+Using a \textbf{character} vector:
 \begin{itemize}
   \item the strings that match with the names of the elements in the vector are returned
   \item the character vector can have any length (repeated names are repeatedly selected)
   \item only selection is possible (dropping is not)
   \item strings that are not matched with names return \texttt{NA}
 \end{itemize}
-
 \end{frame}
 
 \begin{frame}[fragile]{Subsetting - attomic vectors}
-<<selection-character, echo = TRUE>>=
+Using a \textbf{character} vector:
+<<selection-character, echo = TRUE, eval = FALSE>>=
 my_object <- c(a = 1, b = 5, c = 3, d = 8)
 my_object[c("a", "b")]
 my_object[c("a", "b", "a", "b", "a", "b", "a", "b", "a", "b", "a", "b")]
-my_object[-c("a", "b")]
+my_object[-c("a", "b")] # returns error
 @
-
 \end{frame}
 
-
-
 \begin{frame}[fragile]{Subsetting - attomic vectors}
-
-A \textbf{sinlge} element from a vector can be accessed using \texttt{object[[selection]}, where \texttt{selection} is:
-
+A \textbf{sinlge} element from a vector can be accessed using \texttt{object[[selection]]}, where \texttt{selection} is:
 \begin{itemize}
-  \item an integer value indicating the index of the element to select
-  \item a character vector with the names of the elements to select
+  \item an \textbf{integer} value indicating the index of the element to select
+  \item a \textbf{character} vector with the names of the elements to select
 \end{itemize}
-
 <<selection-2, echo = TRUE>>=
 my_object <- c(a = 1, b = 5, c = 3, c2 = 8)
 my_object[[2]]
 my_object[["c"]]
+my_object[[TRUE]]  # works due to automatic conversion
+my_object[[2.2]]   # works due to automatic conversion
 @
-
 \end{frame}
-
 
 \subsubsection{Subsetting - Matrix \& Arrays}
 
+\begin{frame}[fragile]{Subsetting - Matrix \& Arrays}
+Because arrays and martrices are attomic vectors (with a \texttt{"dim"} argument), the rules for attomic vectors apply.
+<<selection-matrix 1, echo = TRUE>>=
+my_matrix <- matrix(c(11, 12, 21, 22), ncol = 2, dimnames = list(paste0("row", 1:2), paste0("col", 1:2)))
+names(my_matrix) <- letters[1:4]
+my_matrix[2]
+my_matrix[["b"]]
+my_matrix[my_matrix < 20]
+@
+\end{frame}
 
 \begin{frame}[fragile]{Subsetting - Matrix \& Arrays}
-
-Because arrays and martrices are attomic vectors (with a \texttt{"dim"} argument), the rules for attomic vectors apply.
-
 In addition, selection is possible per dimension:
-
 \begin{itemize}
   \item multiple selection vectors separated by a comma
   \item selection vectors can be character (match row or column names), integer (row and column number) or logical
   \item the first vector selects the rows, the second the columns (and so on)
   \item automatically the dimensions are dropped. Use \texttt{drop = FALSE} to avoid this
 \end{itemize}
-
-Finally, the selection ellement can also be a matrix (with one column per dimension). Each row in the matrix selects one value.
-
-<<selection-matrix, echo = TRUE>>=
+<<selection-matrix 2, echo = TRUE>>=
 my_matrix <- matrix(c(11, 12, 21, 22), ncol = 2, dimnames = list(paste0("row", 1:2), paste0("col", 1:2)))
 names(my_matrix) <- letters[1:4]
-my_matrix[2]
-my_matrix[["b"]]
-my_matrix[my_matrix < 20]
 my_matrix[2,]
 my_matrix[,2]
 my_matrix[-1,"col2"]
@@ -759,24 +630,31 @@ my_matrix["row1",c(TRUE, FALSE)]
 my_matrix["row1",c(TRUE, FALSE)]
 is.matrix(my_matrix[,1])
 is.matrix(my_matrix[,1, drop = FALSE])
-my_matrix[matrix(c(c(1, 2), c(1, 2)), ncol = 2)]
 @
-
 \end{frame}
 
+\subsubsection{Subsetting - Matrix \& Arrays}
+
+\begin{frame}[fragile]{Subsetting - Matrix \& Arrays}
+Finally, the selection ellement can also be a matrix (with one column per dimension). Each row in the matrix selects one value.
+<<selection-matrix 3, echo = TRUE>>=
+my_matrix <- matrix(c(11, 12, 21, 22), ncol = 2, dimnames = list(paste0("row", 1:2), paste0("col", 1:2)))
+names(my_matrix) <- letters[1:4]
+my_matrix[matrix(c(c(1, 2), c(1, 2)), ncol = 2)]
+selection_matrix <- rbind(c(1, 1), c(1, 2), c(2, 1))
+my_matrix[selection_matrix]
+@
+\end{frame}
 
 \subsubsection{Subsetting - Vector Structures}
 
-
 \begin{frame}[fragile]{Subsetting - Lists}
-
+For list, the rules are similar as for atomic vectors.
 \begin{itemize}
-  \item For list, the rules are similar as for atomic vectors.
-  \item \texttt{list[selection]} gives a list
+  \item \texttt{list[selection]} gives a list (i.e., a subset of the original list)
   \item \texttt{list[[selection]]} gives the element (which can be a list)
   \item \texttt{list[["element\_name"]]} is the same as \texttt{list\$element\_name}
 \end{itemize}
-
 <<selection-list, echo = TRUE>>=
 my_list<- list(a = 1, b = 5, c = 3, d = 8)
 my_list[c(2, 2)]
@@ -786,61 +664,60 @@ my_list[c(TRUE, TRUE, FALSE)]
 is.list(my_list["a"])
 is.list(my_list[["a"]])
 @
-
 \end{frame}
 
-
 \begin{frame}[fragile]{Subsetting - data.frames}
-
 Because data.frames are lists, the rules for lists apply. 
-
-In addition, the selection rules for matrices can be used: (i.e., with ).
-
-\begin{itemize}
-  \item selection per row and column
-  \item selection via a matrix with two columns
-\end{itemize}
-
-<<selection-data.frame, echo = TRUE>>=
-my_dat <- data.frame(col1 = c(11, 21), col2 = c(12, 22))
+<<selection-data.frame 1, echo = TRUE>>=
+my_dat <- data.frame(col1 = c(11, 21), 
+                     col2 = c(12, 22))
 my_dat[1]
 my_dat["col1"]
-my_dat[,"col1"]
-my_dat[,"col1", drop = FALSE]
 my_dat$col1
 my_dat[c(TRUE, FALSE)]
 is.data.frame(my_dat["col1"])
 is.data.frame(my_dat[["col1"]])
+@
+\end{frame}
+
+\begin{frame}[fragile]{Subsetting - data.frames}
+In addition, the selection rules for matrices can be used: 
+\begin{itemize}
+  \item selection per row and column
+  \item selection via a matrix with two columns
+\end{itemize}
+<<selection-data.frame 2, echo = TRUE>>=
+my_dat <- data.frame(col1 = c(11, 21), 
+                     col2 = c(12, 22))
+my_dat[,"col1"]
+my_dat[,"col1", drop = FALSE]
 my_dat[c(TRUE, FALSE), "col2"]
 my_dat[c(TRUE, FALSE), "col2", drop = FALSE]
 my_dat[matrix(c(c(1, 2), c(1, 2)), ncol = 2)]
 @
-
 \end{frame}
-
 
 \subsection{Element Replacement}
 
-
 \begin{frame}[fragile]{Element Replacement}
-
 A subset of elements from a vector or vector structure can be replaced using \texttt{object[selection] <- new\_values}:
-
 \begin{itemize}
   \item the modifications are done in place
   \item the structure and class of the object stay unchanged
   \item the length of the new values should correspond with the length of the selection (the number of elements to replace should be a multiple of the number of new values)
   \item only for lists, the replacement can be \texttt{NULL} (which removes the element from the list)
 \end{itemize}
+\end{frame}
 
+\begin{frame}[fragile]{Element Replacement}
 <<replacement, echo = TRUE>>=
-my_dat <- data.frame(col1 = c(11, 21), col2 = c(12, 22))
+my_dat <- data.frame(col1 = c(11, 21), 
+                     col2 = c(12, 22))
 my_dat[1] <- 33
 my_dat["col2"] <- NULL
 my_dat[,1] <- NULL
 @
 \end{frame}
-
 
 \begin{frame}[fragile]
 \begin{exampleblock}{}
@@ -850,38 +727,29 @@ my_dat[,1] <- NULL
 \end{exampleblock}
 \end{frame}
 
-
 \subsection{Function Calls}
 
-
 \begin{frame}{Function Calls}
-
 \begin{itemize}
   \item Computing in R happens through function calls. A function is applied to one or more objects, and returns an object after the computation. 
-  \item The typical use is \texttt{function\_name(object1, argument\_name = object2)}
-  \item Computations that seem not to be done using functions are actually also functions. Check \texttt{\`<-\`(a, 5)} or \texttt{\`>\`(5, 2)}
-  \item most functions that seem not to return an object, return it invisibly. Check \texttt{(`<-`(a, 5))}.
+  \item The typical use is: \\ 
+  \texttt{function\_name(object1, argument\_name = object2)}
+  \item Computations that seem not to be done using functions are actually also functions. Check \texttt{\textasciigrave <-\textasciigrave (a, 5)} or \texttt{\textasciigrave >\textasciigrave (5, 2)}
+  \item most functions that seem not to return an object, return it invisibly. Check \texttt{\textasciigrave <-\textasciigrave (a, 5)}.
 \end{itemize}
-
 \end{frame}
-
 
 \section{Clean Code}
 
-
 \begin{frame}{Clean Code}
-
 \begin{itemize}
   \item Code Style 
-  \item Efficient R
-  \item Efficient RStudio
+  \item R Peculiarities
+  \item Working with RStudio
 \end{itemize}
-
 \end{frame}
 
-
 \subsection{Code Style}
-
 
 \begin{frame}[fragile]
 \begin{exampleblock}{}
@@ -891,27 +759,19 @@ my_dat[,1] <- NULL
 \end{exampleblock}
 \end{frame}
 
-
-
 \begin{frame}{Code Style}
-
 Invest time in writing readable R-code.
-
 \begin{itemize}
   \item It will make collaboration easier
   \item It will make debugging easier
   \item It will help make your analysis reproducible 
 \end{itemize}
-
 There is a complete \emph{tidyverse} style-guide \url{https://style.tidyverse.org/}.
-
 \end{frame}
-
 
 \subsection{Go easy on your eyes}
 
 \begin{frame}{Go easy on your eyes}
-
 \begin{itemize}
   \item with spaces before and after: \texttt{-  +  /  *  =  <-  <  ==  > }
   \item always use \texttt{<-} for assignments
@@ -921,12 +781,9 @@ There is a complete \emph{tidyverse} style-guide \url{https://style.tidyverse.or
   \item be consistent!
   \item wrap long lines at column 70-80 (Rstudio)
 \end{itemize}
-
 \end{frame}
 
-
 \begin{frame}[fragile]{White spaces}
-
 <<White spaces, eval = FALSE, echo = TRUE>>=
 new_var=(var1*var2/2)-5/(var3+var4)
 
@@ -934,12 +791,9 @@ new_var=(var1*var2/2)-5/(var3+var4)
 
 new_var <- (var1 * var2 / 2) - 5 / (var3 + var4)
 @
-
 \end{frame}
 
-
 \begin{frame}[fragile]{Indentation}
-
 <<Indentation, eval = FALSE, echo = TRUE>>=
 for(name in names){formula=as.formula(paste0("y~.-",name))
 fit<-lm(formula,data=my_data)
@@ -957,67 +811,58 @@ for(name in names){
   print(summary(fit))
 }
 @
-
 \end{frame}
 
-
 \begin{frame}[fragile]{Wrap long lines}
-
 <<Wrap long lines, eval = FALSE, echo = TRUE>>=
-final_results <- data.frame(first_variable = sqrt(results$mean_squared_error), second_variable = paste0(results$condition, results$class, sep = ":"), third_variable = results$bias)
+final_results <- data.frame(first_variable = 
+sqrt(results$mean_squared_error), second_variable = 
+paste0(results$condition, results$class, sep = ":"), 
+third_variable = results$bias)
 
 # versus
 
 final_results <- data.frame(
   first_variable = sqrt(results$mean_squared_error), 
-  second_variable = paste0(results$condition, results$class, sep = ":"),
+  second_variable = paste0(results$condition, 
+                           results$class, sep = ":"),
   third_variable = results$bias)
 @
-
 \end{frame}
-
-
 
 \subsection{Go easy on your mind}
 
 \begin{frame}{Go easy on your mind}
-
 \begin{itemize}
   \item use meaningful names: ``self-explainable''
-  \item benefit from autocompletion (\texttt{tab}) => embrace longer names
+  \item benefit from autocompletion (\texttt{<tab>}) => embrace longer names
   \item always write the formal arguments in function calls (except the first)
   \item use \texttt{TRUE} and \texttt{FALSE} not \texttt{T} and \texttt{F}
   \item comment, comment, comment
   \begin{itemize}
-    \item NOT what (should be clear from the code)
-    \item BUT why
-    \item Explain the reasoning, not the code 
+    \item not what (should be clear from the code)
+    \item but why
+    \item explain the reasoning, not the code 
   \end{itemize}
 \end{itemize}
-
 \end{frame}
 
-
 \begin{frame}[fragile]{Write formal arguments}
-
 Benefit from auto completion using \texttt{tab}
-
 <<Write formal arguments, eval = FALSE, echo = TRUE>>=
-m1_B <- lm(outcome ~ age*gender, exp1, condition_1, freq)
+m1_B <- lm(outcome ~ age*gender, 
+           exp1, condition_1, freq)
 
 # versus
 
-lm_age_gender <- lm(outcome ~ age*gender, data = exp1, 
+lm_age_gender <- lm(outcome ~ age*gender, 
+                    data = exp1, 
                     subset = condition_1, 
                     weigths = freq)
 @
-
 \end{frame}
 
-
-
 \begin{frame}[fragile]{Use meaningful names}
-
 <<Use meaningful names, eval = FALSE, echo = TRUE>>=
 V <- myFun(m1_B)
 
@@ -1025,40 +870,32 @@ V <- myFun(m1_B)
 
 RMSE_age_gender <- get_RMSE(lm_age_gender)
 @
-
 Use \texttt{verbs} for functions and \texttt{nouns} for objects.
-
 \end{frame}
-
 
 \begin{frame}[fragile]{Comment, comment, comment}
-
 <<Comment, eval = FALSE, echo = TRUE>>=
-## Start every Rscript with a comment that explains what the code in the script
-##  does, why it does this, and to which project it belongs. 
+## Start every Rscript with a comment that explains 
+##  what the code in the script does, why it does 
+##  this, and to which project it belongs. 
 ##  Your future self will be very thankful!
 ##
-## Mention which packages you are using in this Rscript.
+## Mention which packages you are using in 
+##  this Rscript.
 
+## Use sections to separate chunks ----------------------
 
-## Use sections to separate chunks -------------------------------------------
-
-
-## Maybe even subsections ====================================================
-
+## Maybe even subsections ===============================
 
 ## Recode variables so that missings are coded as "NA"
-data[data %in% c(99, 999)] <- NA         # missings were coded as 99 or 999
+data[data %in% c(99, 999)] <- NA  # missings coded 99 or 999
 @
-
 \end{frame}
-
 
 \subsection{R Peculiarities}
 
 \begin{frame}[fragile]{Don't grow, replace}
-
-<<replace, eval = FALSE, echo = TRUE>>=
+<<Grow, eval = FALSE, echo = TRUE>>=
 n <- 2e+4
 data <- data.frame(x = runif(n), 
                    y = runif(n), 
@@ -1069,32 +906,36 @@ system.time({
   new_data <- NULL
   
   for(row_nr in seq_len(NROW(data))){
-    new_data <- cbind(data[row_nr,], result = exp(data$x[row_nr]) /
-                        log(data$z[row_nr]) + 5 * sqrt(data$y[row_nr]))
+    new_data <- cbind(
+      data[row_nr,], 
+      result = exp(data$x[row_nr]) /
+        log(data$z[row_nr]) + 
+        5 * sqrt(data$y[row_nr]))
   }  
 })
+@
+\end{frame}
 
+\begin{frame}[fragile]{Don't grow, replace}
+<<replace, eval = FALSE, echo = TRUE>>=
 # replace
 system.time({
   n_rows <- dim(data)[1]
   data$result <- rep(NA, n_rows)
   
   for(row_nr in seq_len(n_rows)){
-    data$result[row_nr] <- exp(data$x[row_nr]) / log(data$z[row_nr]) + 
+    data$result[row_nr] <- exp(data$x[row_nr]) / 
+      log(data$z[row_nr]) + 
       5 * sqrt(data$y[row_nr])
   } 
 })
 @
-
 Replace preferably by column, not by row (in data.frames)
-
 \end{frame}
 
-
-
 \begin{frame}[fragile]{Vectorize}
-
 <<vectorize, eval = FALSE, echo = TRUE>>=
+# vectorize where possible
 n <- 2e+4
 data <- data.frame(x = runif(n), 
                    y = runif(n), 
@@ -1102,31 +943,21 @@ data <- data.frame(x = runif(n),
 
 # vectorized
 system.time({
-  result <- exp(data$x) / log(data$z) + 5 * sqrt(data$y)
+  result <- exp(data$x) / log(data$z) + 
+    5 * sqrt(data$y)
 })
 @
-
 \end{frame}
-
-
 
 \begin{frame}[fragile]{Keep your code slim}
-
 Try to limit your \emph{package-dependencies}. Only load (i.e., \texttt{library()}) the packages that you absolutely need. I you are only using \texttt{dplyr}, it does not make sense to load the complete \texttt{tidyverse}.
-
 \textbf{Controversial:} when you are only using a function from a package once or twice, DON'T load the package, but directly access the function using the \texttt{::} operator.
-
 Less loaded packages mean less changes or name conflicts.
-
 \end{frame}
 
-
 \begin{frame}[fragile]{Never Attach}
-
-Forget about \texttt{attacht()}! Don't use it, unless you completely understand what happens (\texttt{?attach}).
-
+Forget about \texttt{attacht()}! Don't use it, unless you completely understand what happens (see \texttt{?attach}).
 With `data.frames`, use `with(data.frame, expression)` instead.
-
 <<attach, eval = FALSE, echo = TRUE>>=
 # using with()
 n <- 2e+4
@@ -1135,15 +966,10 @@ data <- data.frame(x = runif(n),
                    z = seq_len(n))
 result <- with(data, exp(x) / log(z) + 5 * sqrt(y))
 @
-
 \end{frame}
 
-
-
-\begin{frame}[fragile]{Testing R code}
-
+\begin{frame}{Testing R code}
 Writing code is error prone. Incorporate tests and checks in your workflow. For instance, when you do data manipulations like a complex restructuring of the data, or a complex recoding of multiple variable, write some code that allows you the check whether the obtained results are what you want them to be.
-
 \begin{itemize}
   \item minimal examples
   \item write test and checks
@@ -1151,11 +977,211 @@ Writing code is error prone. Incorporate tests and checks in your workflow. For 
 \end{itemize}
 \end{frame}
 
+\subsection{Working with RStudio}
+
+\begin{frame}{Working with RStudio}
+``Every project should get an RStudio Project!''
+Don't use \textt{setwd(\"path\/to\/my\/local_folder\")}
+Issues when
+\begin{itemize}
+  \item folders names are changed
+  \item folders are moved
+  \item a shared drive is used
+  \item you ZIP and send folder
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Working with RStudio}
+Don't save workspace to \texttt{.RData}.
+\begin{itemize}
+  \item Tools < Global Options < Workspace < Save workspace ....
+  \item Save the code instead!
+  \item \texttt{saveRDS} and \texttt{readRDS} for objects that require long computations
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Working with RStudio}
+Don't use \texttt{rm(list = ls())} at the start of an Rscript.
+\begin{itemize}
+  \item Start clean, everytime. 
+  \item Keep it clean. No outside code, no outside computing.
+  \item Regularly completely clean the workspace/restart.
+\end{itemize}
+<<restart, echo=TRUE, eval = FALSE>>=
+.rs.restartR()
+@
+\end{frame}
+
+\begin{frame}{Working with RStudio}
+Keep it clean
+\begin{itemize}
+  \item one folder per project!
+  \item work on different projects in different RStudio instances!
+  \item each with own R console/working directory/...
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Working with RStudio}
+Organize your project folder
+\begin{itemize}
+  \item R-folder with R scripts
+  \item Data-folder with data
+  \item split long scripts in meaningful chunks
+  \item ...
+  \ttem use relative paths (alternative: \href{https://CRAN.R-project.org/package=here}{here}-package)
+\end{itemize}
+<<restart, echo=TRUE, eval = FALSE>>=
+# read data
+this_data <- read.csv("Data\\the-correct-file.csv")
+
+# source Rscript
+source("R\\01_first-script-to-source.R")
+@
+\end{frame}
+
+\begin{frame}{Working with RStudio}
+Use keyboard shortcuts
+\begin{itemize}
+  \item Can make working in RStudio more efficient
+  \item Completely tunable: Tools < Modify Keyboard Shortcuts...
+  \item Useful shortcuts (defaults):
+  \begin{itemize}
+    \item jump to editor: \texttt{ctrl + 1}
+    \item jump to console: \texttt{ctrl + 2}
+    \item jump to ...: `ctrl + 3-9}
+    \item jump to next tab: \texttt{ctrl + tab}
+    \item jump to previous tab: \texttt{ctrl + shift + tab}
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Working with RStudio}
+Use keyboard shortcuts
+More useful shortcuts (defaults):
+\begin{itemize}
+  \item run selection/selected line: \texttt{ctrl + enter}
+  \item save current file: \texttt{ctrl + s}
+  \item close current file: \texttt{ctrl + w} 
+  \item restart R: \texttt{ctrl + shift + F10`
+  \item Show help (for function at cursor) \texttt{F1}
+  \item Show source code (for function at cursor) \texttt{F2}
+\end{itemize}
+\href{https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts}{More on this}
+\end{frame}
+
+\section{Flow \& Iteration}
+
+\section{Flow \& Iteration}
+R has specific tools (functions) that help organizing the flow of computations. You can either make computations conditional on other objects (``conditional computation'') or repeat a similar computation multiple times typically with changing options (``iteration'').
+The most commonly used tools are: 
+\begin{itemize}
+  \item \texttt{if} for conditional computation
+  \item \texttt{for} for iteration
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Flow \& Iteration}
+\textbf{conditional computation} ``\texttt{if}''
+\begin{itemize}
+  \item \texttt{if} (+ \texttt{else})
+  \item \texttt{ifelse}
+  \item \texttt{switch}
+\end{itemize}
+\textbf{Loops} ``\texttt{for}''
+  \item \texttt{repeat}
+  \item \texttt{while}
+  \item \texttt{for}
+\end{itemize}
+\textbf{Functionals} ``\texttt{lapply}''
+\end{frame}
+
+\subsection{Conditional Computation}
+
+\begin{frame}[fragile]{Conditional Computation - if}
+\texttt{if} statements have the basic form
+<<if, echo=TRUE, eval = FALSE>>=
+if(test){
+  some_computations
+}
+@
+\texttt{test} should be either \texttt{TRUE} or \texttt{FALSE} (or code that results one of both). If \texttt{test == TRUE}, than \texttt{some_computations} is executed, if \texttt{test == FALSE}, than not.
+Important: \texttt{test} should have length 1. If not, only the first element is considered.
+\end{frame}
+
+\begin{frame}[fragile]{Conditional Computation - if}
+\texttt{else} can be added, but it is optional
+<<if else, echo=TRUE, eval = FALSE>>=
+if(test){
+  some_computations
+} else if (test_2){
+  other_computations
+} else {
+  more_computations
+}
+@
+\end{frame}
+
+\begin{frame}[fragile]{Conditional Computation - if}
+Typical uses
+<<if typical, echo=TRUE, eval = FALSE>>=
+if(any(is.na(x))){
+  stop("computation impossible due to NA values")
+}
+if(is.null(default_argument)){
+  <default computations>
+} else if (default_argument == specific value) {
+  ...
+}
+@
+\end{frame}
+
+\begin{frame}[fragile]{Conditional Computation - ifelse}
+The \emph{test} should have length 0. A vectorized version is \texttt{ifelse()}
+note that \texttt{\textasciigrave if\textasciigrave (test, ifTRUE, ifFALSE)} does exactly the same as \texttt{if (test) {ifTRUE} else {ifFALSE}}
+<<ifelse, echo = TRUE, eval = FALSE>>=
+age <- 8:88
+if (age >= 18) {
+  "can vote"
+} else {
+    "too young"
+}
+'if'(age >= 18, "can vote", "too young")
+ifelse(age >= 18, "can vote", "too young")
+}
+@
+\end{frame}
+
+\begin{frame}[fragile]{Conditional Computation - vextorization}
+Vectorization can bring you a long way. But it may be less readable
+<<ifelse, echo = TRUE, eval = FALSE>>=
+age <- 8:88
+c("too young", "can vote")[1 + (age >= 18)]
+@
+\end{frame}
+
+\begin{frame}[fragile]{Conditional Computation - switch}
+\texttt{switch()} is often a more elegant solution than using \texttt{else if ()} multiple times.
+<<ifelse, echo = TRUE, eval = FALSE>>=
+method <- "method 5"
+switch(method, 
+       "method 1" = <computations>,
+       "method 2" = <computations>,
+       "method 3" = <computations>,
+       "method 4" = <computations>,
+       "method 5" = <computations>,
+       "method 6" = <computations>,
+       "method 7" = <computations>,
+       "method 8" = <computations>,
+       stop("Not an existing method"))
+@
+\end{frame}
+
+\subsection{Iteration}
 
 
-\section{Iteration}
 
 \section{Functions I}
+
 \begin{frame}{Building Blocks}
 Functions are the building blocks of R code. As frequent users of functions we know that they should:
 \begin{itemize}

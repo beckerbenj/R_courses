@@ -137,7 +137,7 @@ plot_2vars <- function(x, y, x_name, y_name) {
 }
 
 
-# 5. If one of the variables is dichotomous, the function should return a single bivariate boxplot (instead of threeo plots). 
+# 5. If one of the variables is dichotomous, the function should return a single bivariate boxplot (instead of three plots). 
 # Modify it.
 plot_2vars <- function(x, y, x_name, y_name) {
   if(length(unique(x)) == 2) {
