@@ -165,10 +165,7 @@ Researcher at IQB (Statistics Department)
 			\item Past Self
 			\begin{itemize}
 			  \item Is the biggest mess in existence
-<<<<<<< HEAD
-=======
 			  \item Is the biggest messy in existence
->>>>>>> 7d53acbcdc6c069ae6e9ed80e2dd6e1584e96f73
 			  \item Did not document anything
 			  \item Uses a completely different style of writing code than yourself
 			  \item Is the worst collaborator (does not reply to e-mails)
@@ -269,15 +266,8 @@ mulitple values in one object $\rightarrow$ \texttt{length()} starting from \tex
 \end{frame}
 
 \begin{frame}{Attomic Vectors}
-<<<<<<< HEAD
 Elements of the same type can be combined into an attomic vector using \texttt{c()}.
-<<c(), echo = TRUE>>=
-=======
-
-Elements of the same type can be combined into an attomic vector using \texttt{c()}
-
 <<vector types, echo = TRUE>>=
->>>>>>> 7d53acbcdc6c069ae6e9ed80e2dd6e1584e96f73
 c(3, 4, 5, 6)
 seq(3, 6)
 3:6
@@ -992,8 +982,8 @@ Writing code is error prone. Incorporate tests and checks in your workflow. For 
 \subsection{Working with RStudio}
 
 \begin{frame}{Working with RStudio}
-``Every project should get an RStudio Project!''
-Don't use \textt{setwd(\"path\/to\/my\/local_folder\")}
+\textbf{Every project should get an RStudio Project!}
+%Don't use \texttt{setwd(\"path\/to\/my\/local_folder\")}
 Issues when
 \begin{itemize}
   \item folders names are changed
@@ -1040,9 +1030,9 @@ Organize your project folder
   \item Data-folder with data
   \item split long scripts in meaningful chunks
   \item ...
-  \ttem use relative paths (alternative: \href{https://CRAN.R-project.org/package=here}{here}-package)
+  \item use relative paths (alternative: \href{https://CRAN.R-project.org/package=here}{here}-package)
 \end{itemize}
-<<restart, echo=TRUE, eval = FALSE>>=
+<<readdata, echo=TRUE, eval = FALSE>>=
 # read data
 this_data <- read.csv("Data\\the-correct-file.csv")
 
@@ -1060,7 +1050,7 @@ Use keyboard shortcuts
   \begin{itemize}
     \item jump to editor: \texttt{ctrl + 1}
     \item jump to console: \texttt{ctrl + 2}
-    \item jump to ...: `ctrl + 3-9}
+    \item jump to ...: \texttt{ctrl + 3-9}
     \item jump to next tab: \texttt{ctrl + tab}
     \item jump to previous tab: \texttt{ctrl + shift + tab}
   \end{itemize}
@@ -1074,7 +1064,7 @@ More useful shortcuts (defaults):
   \item run selection/selected line: \texttt{ctrl + enter}
   \item save current file: \texttt{ctrl + s}
   \item close current file: \texttt{ctrl + w} 
-  \item restart R: \texttt{ctrl + shift + F10`
+  \item restart R: \texttt{ctrl + shift + F10}
   \item Show help (for function at cursor) \texttt{F1}
   \item Show source code (for function at cursor) \texttt{F2}
 \end{itemize}
@@ -1083,7 +1073,7 @@ More useful shortcuts (defaults):
 
 \section{Flow \& Iteration}
 
-\section{Flow \& Iteration}
+\begin{frame}{Flow \& Iteration}
 R has specific tools (functions) that help organizing the flow of computations. You can either make computations conditional on other objects (``conditional computation'') or repeat a similar computation multiple times typically with changing options (``iteration'').
 The most commonly used tools are: 
 \begin{itemize}
@@ -1100,6 +1090,7 @@ The most commonly used tools are:
   \item \texttt{switch}
 \end{itemize}
 \textbf{Loops} ``\texttt{for}''
+\begin{itemize}
   \item \texttt{repeat}
   \item \texttt{while}
   \item \texttt{for}
@@ -1116,7 +1107,7 @@ if(test){
   some_computations
 }
 @
-\texttt{test} should be either \texttt{TRUE} or \texttt{FALSE} (or code that results one of both). If \texttt{test == TRUE}, than \texttt{some_computations} is executed, if \texttt{test == FALSE}, than not.
+\texttt{test} should be either \texttt{TRUE} or \texttt{FALSE} (or code that results one of both). If \texttt{test == TRUE}, than \texttt{some\_computations} is executed, if \texttt{test == FALSE}, than not.
 Important: \texttt{test} should have length 1. If not, only the first element is considered.
 \end{frame}
 
@@ -1165,7 +1156,7 @@ ifelse(age >= 18, "can vote", "too young")
 
 \begin{frame}[fragile]{Conditional Computation - vextorization}
 Vectorization can bring you a long way. But it may be less readable
-<<ifelse, echo = TRUE, eval = FALSE>>=
+<<ifelse2, echo = TRUE, eval = FALSE>>=
 age <- 8:88
 c("too young", "can vote")[1 + (age >= 18)]
 @
@@ -1173,7 +1164,7 @@ c("too young", "can vote")[1 + (age >= 18)]
 
 \begin{frame}[fragile]{Conditional Computation - switch}
 \texttt{switch()} is often a more elegant solution than using \texttt{else if ()} multiple times.
-<<ifelse, echo = TRUE, eval = FALSE>>=
+<<switch, echo = TRUE, eval = FALSE>>=
 method <- "method 5"
 switch(method, 
        "method 1" = <computations>,
