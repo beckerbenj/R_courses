@@ -63,10 +63,7 @@ econRedD<-"#90353B"
 
 
 \begin{document}
-%<<<<<<< HEAD
-%\SweaveOpts{concordance=TRUE}
-%=======
-%>>>>>>> refs/remotes/origin/main
+
 
 \title{Programming with R/Advanced R}
 \institute{FDZ Spring Academy}
@@ -248,7 +245,8 @@ Solutions
 	\end{itemize}
 \end{frame}
 
-\subsection{atomic Vectors}
+
+\subsection{Atomic Vectors}
 
 \begin{frame}{Atomic Vectors}
 \begin{center}
@@ -278,7 +276,6 @@ All elements are of the same type!
 An important object type with special behavior is \texttt{NULL}. \\
 It is an empty object that can be interpreted as \emph{nothing}. It's length is 0.
 <<NULL, echo = TRUE, results = "markup">>=
-c(NULL, "a", NULL)
 length(NULL)
 @
 \texttt{NULL} is mostly used as a default argument in functions, in order to create some default behavior.
@@ -464,6 +461,7 @@ Using a \textbf{logical} vector:
   \item handy when you want to select based on a condition related to the object values
 \end{itemize}
 \end{frame}
+
 
 \begin{frame}[fragile]{Subsetting - Atomic vectors}
 Using a \textbf{logical} vector:
@@ -1015,7 +1013,7 @@ ifelse(age >= 18, "can vote", "too young")
 %\texttt{\textasciigrave if\textasciigrave (test, ifTRUE, ifFALSE)} does exactly the same as \texttt{if (test) {ifTRUE} else {ifFALSE}}
 \end{frame}
 
-\begin{frame}[fragile]{Conditional Computation - vectorization}
+\begin{frame}[fragile]{Conditional Computation - Vectorization}
 Vectorization can bring you a long way. But it may be less readable
 <<vectorize2, echo = TRUE, results = "markup">>=
 age <- c(8, 17, 25, 39, 55)
@@ -1301,8 +1299,8 @@ Some useful terms to know:
 \begin{itemize}
   \item Anonymouse functions
   \item Primitive functions
-  \item Exported functions 
-  \item Not exported functions 
+  \item Exported functions (::)
+  \item Not exported functions (:::) 
 \end{itemize}
 \end{frame}
 
@@ -1351,6 +1349,16 @@ add_things_def <- function(x = 1) {
   x + 10
 }
 add_things_def()
+@
+\end{frame}
+
+\begin{frame}[fragile]{Lazy Evaluation}
+Sometimes missings arguments are irrelevant!
+<<echo=TRUE, results='asis'>>=
+add_things3 <- function(x, y) {
+  x + 10
+}
+add_things3(2)
 @
 \end{frame}
 
@@ -1456,16 +1464,6 @@ mean2 <- function(x, na.rm = FALSE) {
   Results in easier understanding and higher portability.
 \end{frame}
 
-\begin{frame}[fragile]{Lazy Evaluation}
-Sometimes missings arguments are irrelevant
-<<echo=TRUE, results='asis'>>=
-add_things3 <- function(x, y) {
-  x + 10
-}
-add_things3(2)
-@
-\end{frame}
-
 \begin{frame}{...}
 How can functions receive flexible numbers of inputs? 
 
@@ -1519,6 +1517,53 @@ showArgs(1, 2)
   \item options(error = recover)
   \item options(warn = 2)
 \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{browser()}
+Inspecting a function interactively
+<<echo=TRUE, eval=FALSE>>=
+some_function <- function(x, y) {
+  z <- x + y
+  browser()
+  z
+}
+some_function(x = 1, y = 5)
+@
+\end{frame}
+
+\begin{frame}{browser()}
+\begin{center}
+\includegraphics[width=.75\textwidth]{browser.JPG}
+\end{center}
+\end{frame}
+
+\begin{frame}{traceback()}
+Understanding the call stack
+\begin{center}
+\includegraphics[width=.75\textwidth]{traceback.JPG}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]{Recover}
+Being able to chosse an enrivonment from a call stack
+<<echo=TRUE, eval=FALSE>>=
+# on
+options(error = recover)
+
+# off
+options(error = NULL)
+@
+\end{frame}
+
+\begin{frame}[fragile]{Warnings}
+Turning warnings to errors
+<<echo=TRUE, eval=FALSE>>=
+# on
+options(warn = 2)
+
+# off
+options(warn = 1)
+@
 \end{frame}
 
 \section{Object Oriented Programming (S3)}
