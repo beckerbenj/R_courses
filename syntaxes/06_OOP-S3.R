@@ -36,13 +36,30 @@ summary.my_class <- function(object, new_argument = "default", ...){
 
 summary(my_object)
 
+# works, but not good practice
+print.my_class <- function(object){
+  cat("print my_class: \n")
+  cat("\t a =", object$a,  "\n")
+  cat("\t b =", object$b,  "\n")
+}
 
-# no restrictions on not-working code
+print(my_object)
+
+# works, and good practice
+print.my_class <- function(x, ...){
+  cat("print my_class: \n")
+  cat("\t a =", x$a,  "\n")
+  cat("\t b =", x$b,  "\n")
+}
+
+print(my_object)
+
+
+# no restrictions on bad programming
 #.........................................
 my_object <- list(a = 1:5, b = seq(2, 0))
 summary(my_object)
 class(my_object) <- "my_class"
-summary(my_object) 
 
 # compare to
 my_object <- my_class(a = 1:5, b = seq(2, 0))
@@ -88,17 +105,26 @@ length(methods_for_glm)
 head(methods_for_glm)
 
 
+# packages contain ofte contain methods (for new classes)
+#.......................................................
+# for a generic
+methods(generic = "anova")
+library(lme4)
+methods(generic = "anova")
+
+
 
 # Inspect the source code
 #...........................
+methods(generic = "anova")
 methods(generic = "summary")
 
-# visible functions (in loaded packages)
-summary.aov
+# visible functions
+summary.lm
 
-# invisible functions (in unloaded packages) - indicated with an asterix
-summary.aovlist
-getS3method("summary", "aovlist")
+# invisible functions - indicated with an asterix
+anova.lm
+getS3method("anova", "lm")
 
 
 # further information
@@ -115,7 +141,9 @@ getS3method("summary", "aovlist")
 # constructor function for class "album"
 album <- function(album_name, band, year, 
                   track_list, 
-                  genre = c("undefined", "pop", "rock", "classical", "jazz", "emo", "metal", "blues", "hip-hop", "folk", "world"), rating= 0){
+                  genre = c("undefined", "pop", "rock", "classical", 
+                            "jazz", "emo", "metal", "blues", "hip-hop",
+                            "folk", "world"), rating= 0){
   
   # album_name and band should be a single character
   album_name <- as.character(album_name)
@@ -330,4 +358,27 @@ change_rating.deck <- function(x, album_name,
   x[[this_album]] <- change_rating(x[[this_album]], new_rating = new_rating)
   return(x)
 }
+
+
+# 5. Consider the roundDF funciton the first exercise of Functions II. Make a generic, a default method and a method for the class data.frame. What would be the benefit of using the S3 techniques? 
+
+# generic
+Round <- function(x, digits = 0, ...)
+  UseMethod("Round")
+
+# default method
+Round.default <- function(x, digits, ...){
+  round(x, digits)
+}
+
+# method for class data.frame
+Round.data.frame <- function(x, digits, ...){
+  these <- sapply(x, is.numeric)
+  x[these] <- as.data.frame(lapply(x[these], round, digits = digits))
+  x
+}
+
+# how is this function different from the print method for data.frames
+
+
 

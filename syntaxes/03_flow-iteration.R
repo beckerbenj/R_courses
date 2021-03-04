@@ -9,137 +9,154 @@
 #===========================================================
 #...........................
 
-# Basics
+pisa <- readRDS("data//pisaPlus_CF.RDS")
+
+# Conditional programming
 #...........................
-# Definition of a function:
-countNA <- function(x) {    # Name, Arguments
-  out <- sum(is.na(x))      # Body
-  out                       # Output
-}
-b <- c(NA, 1, 4, NA, 3)
-countNA(b)
+# implement checks in your analysis/function
+subset1 <- pisa[1:10, 1:2]
+subset2 <- pisa[1:10, 1]
 
-# Inspecting the function ('source code')
-countNA
-
-# functions are objects too!
-mean(1:10)
-my_own_mean_fun <- mean
-my_own_mean_fun(1:10)
-
-# existing functions
-ncol
-dim # Primitive functions
-lavaan::sem # from packages
-haven:::add_text
-mean # S3 methods
-lme4::getL # S4 methods
-# anonymous functions
-
-# function components (formals, body, environment)
-add_things <- function(x) {
-  x + 10
-}
-add_things(2)
-formals(add_things)
-body(add_things)
-environment(add_things)
-library(lavaan)
-environment(sem)
-
-# help pages
-?mean
-
-
-#...........................
-
-# Formals/Arguments
-#...........................
-### Usual arguments (R as a tool for data science)
-# a) Data input (vector, data.frame etc.)
-# b) Options
-?mean
-?lavaan::sem
-
-# default arguments
-add_things_def <- function(x = 1) {
-  x + 10
-}
-add_things_def()
-
-
-#...........................
-
-# Environments
-#...........................
-environment()
-simple_fun <- function(){
-  environment()
-}
-simple_fun()
-
-# functions create their own environments!
-
-#...........................
-
-# Scoping
-#...........................
-# where does R find things?
-add_things2 <- function(x) {
-  x + 10 + y
+check_data_frame <- function(object){
+  if(!is.data.frame(object)) stop("The object is not a 'data.frame'.")
 }
 
-add_things2(2)
-y <- 100
-
-add_things2(2)
+check_data_frame(subset1)
+check_data_frame(subset2)
 
 
+# change behavior depending on the "test"
+my_plot1 <- function(x, y, ...) {
+  if(is.character(x)) x <- factor(x)
+  if(is.character(y)) x <- factor(y)
+  plot(x, y, ...)
+}
+
+with(pisa, plot(age, hisei))
+with(pisa, my_plot1(age, hisei))
+
+with(pisa, plot(books, hisei))
+with(pisa, my_plot1(books, hisei))
+
+with(pisa, plot(books, pared))
+with(pisa, my_plot1(books, pared))
+my_plot1(pisa$books, pisa$pared, xlab = "Books", ylab = "Education Years Parents")
+
+
+
+# Set defaults
+my_plot2 <- function(x, y, xlab = NULL, ylab = NULL, ...) {
+  if(is.character(x)) x <- factor(x)
+  if(is.character(y)) x <- factor(y)
+  if(is.null(xlab)) xlab <- deparse(match.call()$x)
+  if(is.null(ylab)) ylab <- deparse(match.call()$y)
+  plot(x, y, xlab = xlab, ylab = ylab, ...)
+}
+
+with(pisa, my_plot2(books, pared))
+my_plot2(pisa$books, pisa$pared)
+my_plot2(pisa$books, pisa$pared, xlab = "Books", ylab = "Education Years Parents")
+
+
+
+# switch
+compute_stat <- function(vector, statistic, ...) {
+  if(is.function(statistic)) return(statistic(vector, ...))
+  if(is.character(statistic)){
+    switch(statistic, 
+           "mean" = mean(vector, ...),
+           "median" = median(vector, ...), 
+           "sd" = sd(vector, ...),
+           "var" = var(vector, ...),
+           "min" = min(vector, ...),
+           "max" = max(vector, ...),
+           stop(paste0("'", statistic, "' does not work. Maybe it works without the quotation marks." )))
+  }
+}
+
+
+# documentation
+#...........................
+?`if`
+?ifelse
+?switch
+
+
+.
 #...........................
 
-# If statements
+# iteration
 #...........................
-mean2 <- function(x, na.rm = FALSE) {
-  if (na.rm){
-    x <- x[!is.na(x)]
+
+n <- 2e+4
+data <- data.frame(x = runif(n), 
+                   y = runif(n), 
+                   z = seq_len(n))
+
+# grow object
+system.time({
+  new_data <- NULL
+  
+  for(row_nr in seq_len(NROW(data))){
+    new_data <- cbind(
+      data[row_nr,], 
+      result = exp(data$x[row_nr]) /
+        log(data$z[row_nr]) + 
+        5 * sqrt(data$y[row_nr]))
+  }  
+})
+
+# replace
+system.time({
+  n_rows <- dim(data)[1]
+  data$result <- rep(NA, n_rows)
+  
+  for(row_nr in seq_len(n_rows)){
+    data$result[row_nr] <- exp(data$x[row_nr]) / 
+      log(data$z[row_nr]) + 
+      5 * sqrt(data$y[row_nr])
   } 
-  sum(x)/length(x)
-}
-
-# Errors, warnings etc.
-mean3 <- function(x, na.rm = FALSE) {
-  if(na.rm){
-    x <- x[!is.na(x)]
-  } 
-  if(length(x) == 0) stop("'x' is way too short to calculate a mean!")
-  if(length(x) == 1) warning("'x' is too short to calculate a mean!")
-  sum(x)/length(x)
-}
-
-mean3(numeric())
-mean3(2)
+})
 
 
-# Early returns
-mean4 <- function(x, na.rm = FALSE) {
-  if(na.rm){
-    x <- x[!is.na(x)]
-  } 
-  if(length(x) == 0) return(NA)
-  sum(x)/length(x)
-}
+# vectorize where possible
+system.time({
+  data$result <- exp(data$x) / log(data$z) + 
+    5 * sqrt(data$y)
+})
 
-mean4(numeric())
-mean(numeric())
 
-## Alternatives
-?stopifnot
 
+# split and apply
+#...........................
+# a function to apply to a (subset of) the data drame 
+# note that the first argument in do_glm is the data, rather than the formula
+do_glm <- function(data, formula, ...) glm(formula, data = data, ...)
+
+# do_glm does exactly what glm() does
+glm(as.factor(books) ~ pared, data = pisa, family = binomial)
+do_glm(data = pisa, as.factor(books) ~ pared, family = binomial)
+
+# we can apply do_glm to the pisa data
+do_glm(pisa, as.factor(books) ~ pared, family = binomial)
+
+# but we can also apply it to subsets of the data
+# split creates subsets
+?split
+pisa_school <- split(pisa, pisa$schtype)
+class(pisa_school)
+length(pisa_school)
+
+# apply do_glm to all splits/subsets
+results_split <- lapply(pisa_school, do_glm, formula = as.factor(books) ~ pared, family = binomial)
+
+# combine results
+sapply(results_split, coef)
 
 
 # Exercises
 #===========================================================
-# 1. Create an object and add some attributes. Write some code that checks whether the object has and attribute called "date". If no, the code should automatically add a "date" attribute to the object with today's date as its value (?Sys.Date). If the object already has a "date" attribute, than make sure the attribute is of "Date".
+# 1. Create an object and add some attributes. Write some code that checks whether the object has and attribute called "date". If not, the code should automatically add a "date" attribute to the object with today's date as its value (?Sys.Date). If the object already has a "date" attribute, than make sure the attribute is of "Date".
 
 my_object <- structure(list(string = c("these", "are", "some", "words"), 
                             numbers = c(-10:10)), 
@@ -155,78 +172,92 @@ if(!inherits(attr(my_object, "date"), "Date")) {
 }
 
 
-# 2. switch
+# 2. consider the pisa data-set. The students should be split into six groups based on how many books they have at home, and the years of parent education. Create a new variable "group" based on the following specifications:
+# pared < 12        and  books >= 26 => group 1
+# 12 <= pared       and  books >= 26 => group 2
+# pared < 12        and  books >= 26 => group 3
+# 12 <= pared       and  books >= 26 => group 4
 
+pisa <- readRDS("data//pisaPlus_CF.RDS")
 
+#  a) use a loop an if statements
+#  b) use ifelse
 
-
-# 3. rewrite the following for loop using 
-#  a) while
-#  b) repeat
-#  c) a functional
-
-pisaPlus_CF$new <- NA
-for (rowNr in seq_len(dim(pisaPlus_CF)[1])){
-  if(pisaPlus_CF$age[rowNr] > 15) {
-    pisaPlus_CF$new[rowNr] <- pisaPlus_CF$hisei[rowNr] - pisaPlus_CF$pared[rowNr]/10
+# loop and if () else
+pisa$group <- NA
+for (rowNr in seq_len(dim(pisa)[1])){
+  if(any(is.na(pisa$books[rowNr]), is.na(pisa$pared[rowNr]))) next
+  pisa$group[rowNr] <- if(pisa$books[rowNr] %in% c("0-10 books", "11-25 books")) {
+    if(pisa$pared[rowNr] < 12) "group_1"
+    else "group_2"
   } else {
-    pisaPlus_CF$new[rowNr] <- pisaPlus_CF$hisei[rowNr] + pisaPlus_CF$pared[rowNr]/5
+    if(pisa$pared[rowNr] < 12) "group_3"
+    else "group_4"
   }
 }
 
+# ifelse
+pisa$group <- ifelse(is.na(pisa$books) & is.na(pisa$pared),
+                     NA, 
+                     ifelse(pisa$books %in% c("0-10 books", "11-25 books"),
+                            ifelse(pisa$pared[rowNr] < 12, 
+                                   "group_1", 
+                                   "group_2"),
+                            ifelse(pisa$pared[rowNr] < 12, 
+                                   "group_3", 
+                                   "group_4")
+                            )
+)
+
+# sapply
+get_group <- function(rowNr) {
+  books <- pisa$books[rowNr]
+  pared <- pisa$pared[rowNr]
+  if(any(is.na(books), is.na(pared))) return(NA)
+  if(books %in% c("0-10 books", "11-25 books")) {
+    if(pared < 12) return("group_1")
+    else return("group_2")
+    } else {
+      if(pared < 12) return("group_3")
+      else return("group_4")
+    }
+}
+sapply(seq_len(dim(pisa)[1]), get_group)
+
+
 # using while
-pisaPlus_CF$new <- NA
+pisa$group <- NA
 rowNr <- 0
-while (rowNr < dim(pisaPlus_CF)[1]){
+while (rowNr < dim(pisa)[1]){
   rowNr <- rowNr + 1
-  if(pisaPlus_CF$age[rowNr] > 15) {
-    pisaPlus_CF$new[rowNr] <- pisaPlus_CF$hisei[rowNr] - pisaPlus_CF$pared[rowNr]/10
+  if(any(is.na(pisa$books[rowNr]), is.na(pisa$pared[rowNr]))) next
+  pisa$group[rowNr] <- if(pisa$books[rowNr] %in% c("0-10 books", "11-25 books")) {
+    if(pisa$pared[rowNr] < 12) "group_1"
+    else "group_2"
   } else {
-    pisaPlus_CF$new[rowNr] <- pisaPlus_CF$hisei[rowNr] + pisaPlus_CF$pared[rowNr]/5
+    if(pisa$pared[rowNr] < 12) "group_3"
+    else "group_4"
   }
 }
 
 # using repeat
-pisaPlus_CF$new <- NA
+pisa$group <- NA
 rowNr <- 0
 repeat {
   rowNr <- rowNr + 1
-  if(pisaPlus_CF$age[rowNr] > 15) {
-    pisaPlus_CF$new[rowNr] <- pisaPlus_CF$hisei[rowNr] - pisaPlus_CF$pared[rowNr]/10
+  if(any(is.na(pisa$books[rowNr]), is.na(pisa$pared[rowNr]))) next
+  pisa$group[rowNr] <- if(pisa$books[rowNr] %in% c("0-10 books", "11-25 books")) {
+    if(pisa$pared[rowNr] < 12) "group_1"
+    else "group_2"
   } else {
-    pisaPlus_CF$new[rowNr] <- pisaPlus_CF$hisei[rowNr] + pisaPlus_CF$pared[rowNr]/5
+    if(pisa$pared[rowNr] < 12) "group_3"
+    else "group_4"
   }
   if(rowNr == dim(pisaPlus_CF)[1]) break
 }
 
-# using sapply
-pisaPlus_CF$new <- sapply(seq_len(dim(pisaPlus_CF)[1]), function(rowNr){
-  if(pisaPlus_CF$age[rowNr] > 15) {
-    pisaPlus_CF$new[rowNr] <- pisaPlus_CF$hisei[rowNr] - pisaPlus_CF$pared[rowNr]/10
-  } else {
-    pisaPlus_CF$new[rowNr] <- pisaPlus_CF$hisei[rowNr] + pisaPlus_CF$pared[rowNr]/5
-  }
-})
 
-# using vapply
-pisaPlus_CF$new <- vapply(seq_len(dim(pisaPlus_CF)[1]), function(rowNr){
-  if(pisaPlus_CF$age[rowNr] > 15) {
-    pisaPlus_CF$new[rowNr] <- pisaPlus_CF$hisei[rowNr] - pisaPlus_CF$pared[rowNr]/10
-  } else {
-    pisaPlus_CF$new[rowNr] <- pisaPlus_CF$hisei[rowNr] + pisaPlus_CF$pared[rowNr]/5
-  }
-}, FUN.VALUE = double(1))
-
-# using lapply
-pisaPlus_CF$new <- do.call(c, lapply(seq_len(dim(pisaPlus_CF)[1]), function(rowNr){
-  if(pisaPlus_CF$age[rowNr] > 15) {
-    pisaPlus_CF$new[rowNr] <- pisaPlus_CF$hisei[rowNr] - pisaPlus_CF$pared[rowNr]/10
-  } else {
-    pisaPlus_CF$new[rowNr] <- pisaPlus_CF$hisei[rowNr] + pisaPlus_CF$pared[rowNr]/5
-  }
-}))
-
-# 4. Write a function based on the code from exercise 1. Use todays date as the default, but let users have the option to specify the date. Don't forget to return the object.
+# 3. Write a function based on the code from exercise 1. Use todays date as the default, but let users have the option to specify the date. Don't forget to return the object.
 
 my_object <- structure(list(string = c("these", "are", "some", "words"), 
                             numbers = c(-10:10)), 
@@ -248,8 +279,16 @@ add_date(5)
 add_date(my_object)
 
 
+# 4. Apply the split-apply paradigm to the pisa data. Create a summary for the hisei column, for each group created in exercise 2.
 
+sapply(split(pisa$hisei, pisa$group), summary)
 
+# other options, each with own arguments
+aggregate(pisa$hisei, by = list(pisa$group), summary)
+by(pisa$hisei, pisa$group, summary)
+tapply(pisa$hisei, pisa$group, summary)
+
+# check the plyr and dplyr packages
 
 
 
