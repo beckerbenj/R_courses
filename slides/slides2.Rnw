@@ -227,7 +227,7 @@ Solutions
 \begin{frame}{R Objects (Recap)}
 	\begin{itemize}
 			\item What are objects?
-			\item Attomic vectors
+			\item Atomic vectors
 			\item Vector structures
 			\item Subsetting
 			\item Replacement
@@ -246,9 +246,9 @@ Solutions
 	\end{itemize}
 \end{frame}
 
-\subsection{Attomic Vectors}
+\subsection{Atomic Vectors}
 
-\begin{frame}{Attomic Vectors}
+\begin{frame}{Atomic Vectors}
 \begin{center}
   \begin{tabular}{| l | l |}
     \hline
@@ -265,8 +265,8 @@ mulitple values in one object $\rightarrow$ \texttt{length()} starting from \tex
 
 \end{frame}
 
-\begin{frame}{Attomic Vectors}
-Elements of the same type can be combined into an attomic vector using \texttt{c()}.
+\begin{frame}{Atomic Vectors}
+Elements of the same type can be combined into an atomic vector using \texttt{c()}.
 <<vector types, echo = TRUE>>=
 c(3, 4, 5, 6)
 seq(3, 6)
@@ -281,7 +281,7 @@ All elements are of the same type!
 
 \end{frame}
 
-\begin{frame}[fragile]{Attomic Vectors}
+\begin{frame}[fragile]{Atomic Vectors}
 An important object type with special behavior is \texttt{NULL}. It is an empty object that can be interpreted as \emph{nothing}. It's length is 0.
 <<NULL, echo = TRUE>>=
 c(NULL, "a", NULL)
@@ -309,7 +309,7 @@ as.null(c(1.1, 1.5, 1.9))
 @
 \end{frame}
 
-\begin{frame}[fragile]{Attomic vectors - check type}
+\begin{frame}[fragile]{Atomic vectors - check type}
 	\begin{itemize}	
 			\item check type using: \texttt{is."type"()}
 	\end{itemize}
@@ -441,7 +441,7 @@ int
 \begin{frame}[fragile]{List}
 A list is a ``vector'' that can contain any type of elements
 \begin{itemize}
-  \item the types of elements can differ $\leftrightarrow$ attomic vectors
+  \item the types of elements can differ $\leftrightarrow$ atomic vectors
   \item possible elements including lists $\rightarrow$ recursive
   \item can have attributes, even \texttt{"dim"} (though mostly not useful)
 \end{itemize}
@@ -508,9 +508,9 @@ data.frame(1:4,
 
 \subsection{Subsetting - Selection}
 
-\subsubsection{Subsetting - Attomic Vectors}
+\subsubsection{Subsetting - Atomic Vectors}
 
-\begin{frame}[fragile]{Subsetting - attomic vectors}
+\begin{frame}[fragile]{Subsetting - atomic vectors}
 A subset of elements from a vector can be accessed using \texttt{object[selection]}, where \texttt{selection} is:
 \begin{itemize}
   \item a \textbf{logical} vector with the same length of the original vector (\texttt{TRUE}: select; \texttt{FALSE}: don't select)
@@ -519,7 +519,7 @@ A subset of elements from a vector can be accessed using \texttt{object[selectio
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Subsetting - attomic vectors}
+\begin{frame}{Subsetting - atomic vectors}
 Using a \textbf{logical} vector:
 \begin{itemize}
   \item the logical vector should have the same length of the object. If shorter, the logical is repeated; if longer, \texttt{NA}s are added if \texttt{TRUE}. $\rightarrow$ always use the same length!
@@ -527,7 +527,7 @@ Using a \textbf{logical} vector:
 \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Subsetting - attomic vectors}
+\begin{frame}[fragile]{Subsetting - atomic vectors}
 Using a \textbf{logical} vector:
 <<selection-logical, echo = TRUE>>=
 my_object <- c(a = 1, b = 5, c = 3, d = 8)
@@ -540,7 +540,7 @@ my_object[1:4 < 4]
 @
 \end{frame}
 
-\begin{frame}{Subsetting - attomic vectors}
+\begin{frame}{Subsetting - atomic vectors}
 Using an \textbf{integer} vector:
 \begin{itemize}
   \item the integer vector can have any length (repeated indices are repeatedly selected)
@@ -552,7 +552,7 @@ Using an \textbf{integer} vector:
 \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Subsetting - attomic vectors}
+\begin{frame}[fragile]{Subsetting - atomic vectors}
 Using an \textbf{integer} vector:
 <<selection-integer, echo = TRUE>>=
 my_object <- c(a = 1, b = 5, c = 3, d = 8)
@@ -566,7 +566,7 @@ my_object[1.999]
 @
 \end{frame}
 
-\begin{frame}{Subsetting - attomic vectors}
+\begin{frame}{Subsetting - atomic vectors}
 Using a \textbf{character} vector:
 \begin{itemize}
   \item the strings that match with the names of the elements in the vector are returned
@@ -576,7 +576,7 @@ Using a \textbf{character} vector:
 \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Subsetting - attomic vectors}
+\begin{frame}[fragile]{Subsetting - atomic vectors}
 Using a \textbf{character} vector:
 <<selection-character, echo = TRUE, eval = FALSE>>=
 my_object <- c(a = 1, b = 5, c = 3, d = 8)
@@ -586,7 +586,7 @@ my_object[-c("a", "b")] # returns error
 @
 \end{frame}
 
-\begin{frame}[fragile]{Subsetting - attomic vectors}
+\begin{frame}[fragile]{Subsetting - atomic vectors}
 A \textbf{sinlge} element from a vector can be accessed using \texttt{object[[selection]]}, where \texttt{selection} is:
 \begin{itemize}
   \item an \textbf{integer} value indicating the index of the element to select
@@ -604,7 +604,7 @@ my_object[[2.2]]   # works due to automatic conversion
 \subsubsection{Subsetting - Matrix \& Arrays}
 
 \begin{frame}[fragile]{Subsetting - Matrix \& Arrays}
-Because arrays and martrices are attomic vectors (with a \texttt{"dim"} argument), the rules for attomic vectors apply.
+Because arrays and martrices are atomic vectors (with a \texttt{"dim"} argument), the rules for atomic vectors apply.
 <<selection-matrix 1, echo = TRUE>>=
 my_matrix <- matrix(c(11, 12, 21, 22), ncol = 2, dimnames = list(paste0("row", 1:2), paste0("col", 1:2)))
 names(my_matrix) <- letters[1:4]
@@ -952,13 +952,14 @@ system.time({
 \end{frame}
 
 \begin{frame}[fragile]{Keep your code slim}
-Try to limit your \emph{package-dependencies}. Only load (i.e., \texttt{library()}) the packages that you absolutely need. I you are only using \texttt{dplyr}, it does not make sense to load the complete \texttt{tidyverse}.
+Try to limit your \emph{package-dependencies}. Only load (i.e., \texttt{library()}) the packages that you absolutely need. If you are only using \texttt{dplyr}, it does not make sense to load the complete \texttt{tidyverse}.
+
 \textbf{Controversial:} when you are only using a function from a package once or twice, DON'T load the package, but directly access the function using the \texttt{::} operator.
 Less loaded packages mean less changes or name conflicts.
 \end{frame}
 
 \begin{frame}[fragile]{Never Attach}
-Forget about \texttt{attacht()}! Don't use it, unless you completely understand what happens (see \texttt{?attach}).
+Forget about \texttt{attach()}! Don't use it, unless you completely understand what happens (see \texttt{?attach}).
 With `data.frames`, use `with(data.frame, expression)` instead.
 <<attach, eval = FALSE, echo = TRUE>>=
 # using with()
@@ -1245,8 +1246,8 @@ Some useful terms to know:
 \begin{itemize}
   \item Anonymouse functions
   \item Primitive functions
-  \item Exported functions 
-  \item Not exported functions 
+  \item Exported functions (::)
+  \item Not exported functions (:::) 
 \end{itemize}
 \end{frame}
 
@@ -1295,6 +1296,16 @@ add_things_def <- function(x = 1) {
   x + 10
 }
 add_things_def()
+@
+\end{frame}
+
+\begin{frame}[fragile]{Lazy Evaluation}
+Sometimes missings arguments are irrelevant!
+<<echo=TRUE, results='asis'>>=
+add_things3 <- function(x, y) {
+  x + 10
+}
+add_things3(2)
 @
 \end{frame}
 
@@ -1400,16 +1411,6 @@ mean2 <- function(x, na.rm = FALSE) {
   Results in easier understanding and higher portability.
 \end{frame}
 
-\begin{frame}[fragile]{Lazy Evaluation}
-Sometimes missings arguments are irrelevant
-<<echo=TRUE, results='asis'>>=
-add_things3 <- function(x, y) {
-  x + 10
-}
-add_things3(2)
-@
-\end{frame}
-
 \begin{frame}{...}
 How can functions receive flexible numbers of inputs? 
 
@@ -1463,6 +1464,53 @@ showArgs(1, 2)
   \item options(error = recover)
   \item options(warn = 2)
 \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{browser()}
+Inspecting a function interactively
+<<echo=TRUE, eval=FALSE>>=
+some_function <- function(x, y) {
+  z <- x + y
+  browser()
+  z
+}
+some_function(x = 1, y = 5)
+@
+\end{frame}
+
+\begin{frame}{browser()}
+\begin{center}
+\includegraphics[width=.75\textwidth]{browser.JPG}
+\end{center}
+\end{frame}
+
+\begin{frame}{traceback()}
+Understanding the call stack
+\begin{center}
+\includegraphics[width=.75\textwidth]{traceback.JPG}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]{Recover}
+Being able to chosse an enrivonment from a call stack
+<<echo=TRUE, eval=FALSE>>=
+# on
+options(error = recover)
+
+# off
+options(error = NULL)
+@
+\end{frame}
+
+\begin{frame}[fragile]{Warnings}
+Turning warnings to errors
+<<echo=TRUE, eval=FALSE>>=
+# on
+options(warn = 2)
+
+# off
+options(warn = 1)
+@
 \end{frame}
 
 \section{Object Oriented Programming (S3)}

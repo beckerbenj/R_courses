@@ -138,10 +138,6 @@ plot_2vars2 <- function(x, y, x_name, y_name) {
 }
 plot_2vars2(pisa$hisei, pisa$pared, x_name = "HISEI", y_name = "PARED")
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 7d53acbcdc6c069ae6e9ed80e2dd6e1584e96f73
 # 5. If one of the variables is dichotomous, the function should return a single bivariate boxplot (instead of three plots). 
 # Modify it.
 plot_2vars3 <- function(x, y, x_name, y_name) {
