@@ -3,7 +3,8 @@
 
 # Functions II
 #::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
+pisa_file <- file.path(dirname(getwd()), "data/pisaPlus_CF.RDS")
+pisa <- readRDS(pisa_file)
 
 # Input
 #===========================================================
@@ -51,8 +52,8 @@ by(mtcars, mtcars$carb, function(sub_dat) {
 traceback()
 
 
-# option(error = recover) and option(error = NULL)
-# option(warn = 2) 
+# options(error = recover) and options(error = NULL)
+# options(warn = 2) 
 
 
 
@@ -61,21 +62,21 @@ traceback()
 # 1. We have written a function that rounds all variables in a data.frame. When applied to
 # mtcars the function seems to work well, when applied to iris it throws an error.
 # Use the appropriate debugging tools to fix the function.
-roundDF <- function (df, roundN = 3) {
+roundDataFrame <- function (df, roundN = 3) {
   for(i in seq_along(df)) {
     df[, i] <- round(df[, i], digits = roundN) 
   }
   df
 }
 
-roundDF(mtcars, roundN = 1)
-roundDF(iris, roundN = 1)
+roundDataFrame(mtcars, roundN = 1)
+roundDataFrame(iris, roundN = 1)
 
 
-# 2. We have written two function to make calculating relative frecuencies easier. prop_table(),
+# 2. We have written two functions to make calculating relative frecuencies easier. prop_table(),
 # a function that creates a simple relative frequency table and prop_table_by_all() which combines
-# multiple tables for a grouping variable. The function works fine for the first call but throws
-# an error for the second call. Use your debugging skills to find the problem and fix the function.
+# multiple tables for a grouping variable. The function prop_table_by_all() works fine in our first example but throws
+# an error for the second one. Use your debugging skills to find the problem and fix the function.
 prop_table <- function (vec, useNA = "no", round_perc = 1) {
   stopifnot(is.vector(vec) || is.factor(vec))
   tab <- round(100 * prop.table(table(vec, useNA = useNA)), 

@@ -37,6 +37,7 @@
 
 \usetheme{metropolis}   
 
+
 <<r setup, echo=FALSE, message=FALSE, results='hide'>>=
 suppressPackageStartupMessages({
   library(knitr)
@@ -179,7 +180,7 @@ Researcher at IQB (Statistics Department)
 
 \begin{frame}{Motivation}
 \begin{center}
-\includegraphics[width=.75\textwidth]{reinhart_rogoff.PNG}
+\includegraphics[width=.6\textwidth]{reinhart_rogoff.PNG}
 \end{center}
 \end{frame}
 
@@ -190,7 +191,7 @@ Researcher at IQB (Statistics Department)
 \end{frame}
 
 \begin{frame}{Motivation}
-Concept of Technical Debt
+\textbf{Concept of Technical Debt}
 \begin{itemize}
   \item We write (messy) code for data cleaning/analyses
   \item We decide on data sets/models/graphs/tables/...
@@ -198,12 +199,17 @@ Concept of Technical Debt
   \item We need to rerun some analyses
   \item Modifying/extending our code is more difficult than it should be
 \end{itemize}
-Solutions
+\textbf{Trade-off}
 \begin{itemize}
-  \item Refactor/rewrite your could before submitting
-  \item \textbf{Write better R code}
+  \item Being fast vs. writing (or refactoring) perfect code
 \end{itemize}
+\textbf{But also}
+\begin{itemize}
+  \item Write better R code
+\end{itemize}
+
 \end{frame}
+
 
 \begin{frame}{Goals of this workshop}
 \begin{itemize}
@@ -1018,8 +1024,11 @@ Usually:
   \item One or two data arguments
   \item Additional Options
 \end{itemize}
-Programming advice:
+
+\metroset{block=fill} %grey blocks
+\begin{block}{Programming advice}
 The less arguments, the better!
+\end{block}
 \end{frame}
 
 \begin{frame}[fragile]{Default arguments}
@@ -1043,7 +1052,7 @@ add_things_def()
 \end{frame}
 
 \begin{frame}[fragile]{Lazy Evaluation}
-Sometimes missings arguments are irrelevant!
+Sometimes missing arguments are irrelevant!
 <<echo=TRUE, results='asis'>>=
 add_things3 <- function(x, y) {
   x + 10
@@ -1080,8 +1089,11 @@ Where does R find things?
   \item Current environment
   \item Parent environment
 \end{itemize}
-Programming advice:
-Keep it simple, this can create chaos.
+
+\metroset{block=fill} %grey blocks
+\begin{block}{Programming advice}
+Keep it simple, this can create chaos!
+\end{block}
 \end{frame}
 
 \begin{frame}[fragile]{Scoping}
@@ -1095,33 +1107,159 @@ add_things2(2)
 @
 \end{frame}
 
-\begin{frame}{If clauses}
-Conditional evaluation of code
+\begin{frame}{Output}
+What does a function return?
 \begin{itemize}
-  \item Requires a logical of length 1
-  \item Almost never useful outside of functions
-  \item if() ... else ... can almost always be substituted by if() ... return()
-\end{itemize}
-Also: stopifnot()
-\end{frame}
-
-\begin{frame}{If clauses}
-Use cases
-\begin{itemize}
-  \item Different behavior within loops
-  \item Input validation
-  \item Different function behavior dependent on option arguments
+  \item (Standard) The last evaluated object 
+  \item Object defined by return()
+  \item An error via stop()
+  \item Additional: Warnings + Messages
 \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{If clauses}
+\begin{frame}[fragile]{Output}
+The last evaluated object
+<<echo=TRUE, results='asis'>>=
+add_things_standard <- function(x = 1) {
+  x2 <- x*2
+  out <- x + x2
+  out
+}
+add_things_standard(2)
+@
+\end{frame}
+
+\begin{frame}[fragile]{Output}
+return()
+<<echo=TRUE, results='asis'>>=
+add_things_return <- function(x = 1) {
+  x2 <- x*2
+  return(x)
+  out <- x + x2
+  out
+}
+add_things_return(2)
+@
+\end{frame}
+
+\begin{frame}[fragile]{Output}
+Error: stop()
+<<echo=TRUE, results='asis'>>=
+add_things_stop <- function(x = 1) {
+  x2 <- x*2
+  stop("My own error message")
+  out <- x + x2
+  out
+}
+add_things_stop(2)
+@
+\end{frame}
+
+\begin{frame}[fragile]{Output}
+Warnings: warning()
+<<echo=TRUE, results='asis', warning=TRUE>>=
+add_things_warning <- function(x = 1) {
+  x2 <- x*2
+  warning("My own warning message")
+  out <- x + x2
+  out
+}
+add_things_warning(2)
+@
+\end{frame}
+
+\begin{frame}[fragile]{Output}
+Messages: message()
+<<echo=TRUE, results='asis', message=TRUE>>=
+add_things_message <- function(x = 1) {
+  x2 <- x*2
+  message("My own message")
+  out <- x + x2
+  out
+}
+add_things_message(2)
+@
+\end{frame}
+
+\begin{frame}[fragile]{Conditional Computation - if}
+\texttt{if} statements have the basic form
+<<if, echo=TRUE, eval = FALSE>>=
+if(test){
+  some_computations
+}
+@
+\begin{itemize}
+  \item \texttt{test} should be either \texttt{TRUE} or \texttt{FALSE} (or code that results one of both). 
+  \item If \texttt{test == TRUE}, than \texttt{some\_computations} is executed, if \texttt{test == FALSE}, than not.
+  \item \textbf{Important}: \texttt{test} should have length 1. If not, only the first element is considered.\end{itemize}
+\end{frame}
+
+\subsubsection{if}
+
+\begin{frame}[fragile]{Conditional Computation - if}
+\texttt{else} can be added, but it is optional
+<<if else, echo=TRUE, eval = FALSE>>=
+if(test){
+  some_computations
+} else if (test_2){
+  other_computations
+} else {
+  more_computations
+}
+@
+\end{frame}
+
+\begin{frame}[fragile]{Conditional Computation - if}
+Typical uses
+<<if typical, echo=TRUE, eval = FALSE>>=
+if(any(is.na(x))){
+  stop("computation impossible due to NA values")
+}
+
+if(!is.integer(vector)){
+  warning("'vector' is automatically converted to interger.
+          This may affect the results")
+  vector <- as.integer(vector)
+}
+
+if(is.null(default_argument)){
+  <default computations>
+} else if (default_argument == specific value) {
+  ...
+}
+@
+\end{frame}
+
+\begin{frame}[fragile]{Conditional Computation - if}
+The \emph{test} should have length 1.
+<<if2, echo = TRUE, results="markup">>=
+# only the first element is evaluated
+age <- c(8, 17, 25, 39, 55)
+if (age >= 18) {
+  "can vote"
+} else {
+    "too young"
+}
+@
+\end{frame}
+
+\begin{frame}{Conditional Computation - if}
+Tipp:
+\begin{itemize}
+  \item If possible, avoid using else()
+  \item Use early return(), stop(), etc. instead
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]{Conditional Computation - if}
+Abbreviation for if(!test) and stop():
 <<echo=TRUE, results='asis'>>=
 mean2 <- function(x, na.rm = FALSE) {
-  if (na.rm){
-    x <- x[!is.na(x)]
-  } 
+  stopifnot(is.numeric(x))
   sum(x)/length(x)
 }
+mean2("a")
 @
 \end{frame}
 
@@ -1206,6 +1344,10 @@ showArgs(1, 2)
   \item traceback()
   \item options(error = recover)
   \item options(warn = 2)
+\end{itemize}
+
+Also:
+\begin{itemize}
   \item trace() \& untrace()
   \item debug() \& undebug(), debugonce()
 \end{itemize}
@@ -1229,15 +1371,32 @@ some_function(x = 1, y = 5)
 \end{center}
 \end{frame}
 
+\begin{frame}{browser()}
+Navigating within a browser:
+\begin{itemize}
+  \item [ls()] Show existing objects in the current environment
+  \item [c] Exit the browser and continue execution
+  \item [Q] Exit the browser, return to top level
+  \item [where] Show call stack
+\end{itemize}
+\end{frame}
+
 \begin{frame}{traceback()}
-Understanding the call stack
+Understanding the call stack:
 \begin{center}
 \includegraphics[width=.75\textwidth]{traceback.JPG}
 \end{center}
 \end{frame}
 
+\begin{frame}{traceback()}
+Understanding the call stack:
+\begin{center}
+\includegraphics[height=.75\textheight]{traceback2.JPG}
+\end{center}
+\end{frame}
+
 \begin{frame}[fragile]{Recover}
-Being able to chosse an enrivonment from a call stack
+Being able to chosse an enrivonment from a call stack:
 <<echo=TRUE, eval=FALSE>>=
 # on
 options(error = recover)
@@ -1247,8 +1406,16 @@ options(error = NULL)
 @
 \end{frame}
 
+\begin{frame}{Recover}
+Being able to chosse an enrivonment from a call stack:
+\begin{center}
+\includegraphics[width=.75\textwidth]{recover.JPG}
+\end{center}
+\end{frame}
+
+
 \begin{frame}[fragile]{Warnings}
-Turning warnings to errors
+Turning warnings into errors
 <<echo=TRUE, eval=FALSE>>=
 # on
 options(warn = 2)
@@ -1263,7 +1430,7 @@ options(warn = 1)
 \begin{frame}[plain]
 
 \begin{center}
-\Large Thank you for your attention!
+\Large That's it for today!
 
 \visible<2>{Questions? Remarks?}
 \end{center}

@@ -180,7 +180,7 @@ if(is.null(default_argument)){
 \end{frame}
 
 \begin{frame}[fragile]{Conditional Computation - if}
-The \emph{test} should have length 0.
+The \emph{test} should have length 1.
 <<if2, echo = TRUE, results="markup">>=
 # only the first element is evaluated
 age <- c(8, 17, 25, 39, 55)
@@ -710,6 +710,24 @@ Git (+ R) Resources
 \item Git Book (\url{http://git-scm.com/book/en/v2})
 \end{itemize}
 
+\end{frame}
+
+\section{Wrap Up}
+
+\begin{frame}{General Advice}
+\begin{itemize}
+\item Investing time in learning R pays off
+\item It's a steady learning curve
+\end{itemize}
+\end{frame}
+
+\begin{frame}{R Advice}
+\begin{itemize}
+\item Document well
+\item Write functions
+\item Use Iteration
+\item Use git
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Literature Recommendations}
