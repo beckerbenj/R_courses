@@ -1,0 +1,738 @@
+\documentclass{beamer}
+%\documentclass[xcolor=table]{beamer}
+
+%\usepackage{graphicx}
+%\usepackage{color}
+
+%\usepackage{alltt}
+%\usepackage{hyperref}
+
+%\usepackage{array}
+%\usepackage[originalparameters]{ragged2e} 
+
+% kable packages
+%\usepackage{longtable}
+%\usepackage{array}
+%\usepackage{multirow}
+%\usepackage{wrapfig}
+%\usepackage{float}
+%\usepackage{colortbl}
+%\usepackage{pdflscape}
+%\usepackage{tabu}
+%\usepackage{threeparttable}
+%\usepackage{threeparttablex}
+%\usepackage[normalem]{ulem}
+%\usepackage{makecell}
+
+%\usepackage{amsmath}
+%\usepackage{booktabs}
+%\usepackage[ansinew]{inputenc}
+%\usepackage[utf8]{inputenc}
+%\usepackage[ngerman, english]{babel}
+
+%\usepackage{bm}
+
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+
+\usetheme{metropolis}   
+
+<<r setup, echo=FALSE, message=FALSE, results='hide'>>=
+suppressPackageStartupMessages({
+  library(knitr)
+})
+
+knit_theme$set("acid")
+opts_chunk$set(message=FALSE, warning=FALSE)
+opts_chunk$set(results="hide")
+opts_chunk$set(strip.white = TRUE)
+opts_chunk$set(size = "small")
+opts_chunk$set(comment = "#")
+
+## R Setup
+#load("~/Documents/Workshops/FDZ_Reporting/IQB-LV-2011_SchuelerInnen-Eltern_CF.rda")
+
+
+# Farben
+mLightBrown<-"#EB811B"
+econBlue<-"#008BBC"
+econRed<-"#C10534"
+econBlueD<-"#3E647D"
+econRedD<-"#90353B"
+@
+
+
+\begin{document}
+
+
+\title{Programming with R/Advanced R}
+\institute{FDZ Spring Academy}
+
+
+\author[Dries Debeer \& Benjamin Becker]{Dries Debeer \& Benjamin Becker}
+\date{18. and 19. March 2021}
+
+
+\begin{frame}
+\titlepage
+\end{frame}
+\addtocounter{framenumber}{-1}
+
+\begin{frame}{Agenda}
+\textbf{Day 1}
+\begin{itemize}
+  \item Recap \& Clean Code
+  \item Functions (Introduction)
+  \item Functions (Advanced)
+\end{itemize}
+\textbf{Day 2}
+\begin{itemize}
+  \item Flow \& Iteration
+  \item Object oriented programming: S3
+  \item Version Controlling
+\end{itemize}
+\end{frame}
+
+\begin{frame}[plain]
+
+\begin{center}
+\Large Open questions from day 1?
+\end{center}
+
+\end{frame}
+
+\section{Flow \& Iteration}
+
+\begin{frame}{Flow \& Iteration}
+R has specific tools (functions) that help organizing the flow of computations. \\
+You can either make computations conditional on other objects (``conditional computation'') or repeat a similar computation multiple times typically with changing options (``iteration'').
+The most commonly used tools are: 
+\begin{itemize}
+  \item \texttt{if} for conditional computation
+  \item \texttt{for} for iteration
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Flow \& Iteration}
+\textbf{conditional computation} 
+\begin{itemize}
+  \item \texttt{if} (+ \texttt{else})
+  \item \texttt{ifelse}
+  \item \texttt{switch}
+\end{itemize} 
+\textbf{iteration} 
+\begin{itemize}
+  \item loops (\texttt{repeat}, \texttt{while}, \texttt{for})
+  \item functionals (\texttt{apply} - family)
+  \item split \& apply \& combine
+\end{itemize}
+\end{frame}
+
+\subsection{Conditional Computation}
+
+\begin{frame}[fragile]{Conditional Computation - if}
+\texttt{if} statements have the basic form
+<<if, echo=TRUE, eval = FALSE>>=
+if(test){
+  some_computations
+}
+@
+\begin{itemize}
+  \item \texttt{test} should be either \texttt{TRUE} or \texttt{FALSE} (or code that results one of both). 
+  \item If \texttt{test == TRUE}, than \texttt{some\_computations} is executed, if \texttt{test == FALSE}, than not.
+  \item \textbf{Important}: \texttt{test} should have length 1. If not, only the first element is considered.\end{itemize}
+\end{frame}
+
+\subsubsection{if}
+
+\begin{frame}[fragile]{Conditional Computation - if}
+\texttt{else} can be added, but it is optional
+<<if else, echo=TRUE, eval = FALSE>>=
+if(test){
+  some_computations
+} else if (test_2){
+  other_computations
+} else {
+  more_computations
+}
+@
+\end{frame}
+
+\begin{frame}[fragile]{Conditional Computation - if}
+Typical uses
+<<if typical, echo=TRUE, eval = FALSE>>=
+if(any(is.na(x))){
+  stop("computation impossible due to NA values")
+}
+
+if(!is.integer(vector)){
+  warning("'vector' is automatically converted to interger.
+          This may affect the results")
+  vector <- as.integer(vector)
+}
+
+if(is.null(default_argument)){
+  <default computations>
+} else if (default_argument == specific value) {
+  ...
+}
+@
+\end{frame}
+
+\begin{frame}[fragile]{Conditional Computation - if}
+The \emph{test} should have length 0.
+<<if2, echo = TRUE, results="markup">>=
+# only the first element is evaluated
+age <- c(8, 17, 25, 39, 55)
+if (age >= 18) {
+  "can vote"
+} else {
+    "too young"
+}
+@
+\end{frame}
+
+\subsubsection{ifelse}
+
+\begin{frame}[fragile]{Conditional Computation - ifelse}
+A vectorized version is \texttt{ifelse()}. \\ 
+<<ifelse, echo = TRUE, results="markup">>=
+# all elements are evaluated
+ifelse(age >= 18, "can vote", "too young")
+@
+%\texttt{\textasciigrave if\textasciigrave (test, ifTRUE, ifFALSE)} does exactly the same as \texttt{if (test) {ifTRUE} else {ifFALSE}}
+\end{frame}
+
+\begin{frame}[fragile]{Conditional Computation - Vectorization}
+Vectorization can bring you a long way. But it may be less readable
+<<vectorize2, echo = TRUE, results = "markup">>=
+age <- c(8, 17, 25, 39, 55)
+c("too young", "can vote")[1 + (age >= 18)]
+@
+\end{frame}
+
+\subsubsection{switch}
+
+\begin{frame}[fragile]{Conditional Computation - switch}
+\texttt{switch()} is often a more elegant solution than using \texttt{else if ()} multiple times.
+<<switch, echo = TRUE, eval = FALSE>>=
+method <- "method 5"
+switch(method, 
+       "method 1" = <computations>,
+       "method 2" = <computations>,
+       "method 3" = <computations>,
+       "method 4" = <computations>,
+       "method 5" = <computations>,
+       "method 6" = <computations>,
+       "method 7" = <computations>,
+       "method 8" = <computations>,
+       stop("Not an existing method"))
+@
+\end{frame}
+
+
+
+\subsection{Iteration}
+
+\subsubsection{for}
+
+\begin{frame}[fragile]{Iteration - for}
+\texttt{for} statements have the basic form
+<<for, echo=TRUE, eval = FALSE>>=
+for (element in vector) {
+  computation
+}
+@
+For each element in the vector, the computation is executed. \\
+Often, the computation depends on the element in that iteration.
+\end{frame}
+
+\begin{frame}[fragile]{Iteration - for}
+<<for2, echo=TRUE, result = "markup">>=
+for (index in 1:3){
+  cat(" computation -")
+}
+
+for (name in c("Alice", "Bob", "Casey")){
+  if(name == "Bob") print(" This was Bob -")
+  else cat(" Not Bob -")
+}
+@
+\end{frame}
+
+\subsubsection{while \& repeat}
+
+\begin{frame}[fragile]{Iteration - while}
+\texttt{while} statements have the basic form
+<<while, echo=TRUE, eval = FALSE>>=
+while (condition){
+  computation
+}
+@
+As long as the condition is TRUE, the computation is executed. \\ Often, the computation depends on something that is related to the condition.
+\end{frame}
+
+\begin{frame}[fragile]{Iteration - repeat}
+\texttt{repeat} statements have the basic form
+<<repeat, echo=TRUE, eval = FALSE>>=
+repeat {
+  computation
+}
+@
+Without a \texttt{break} the computation is repeated infinite times
+\end{frame}
+
+\subsubsection{next \& break}
+
+\begin{frame}[fragile]{Iteration - next break}
+\begin{itemize}
+  \item \texttt{next} starts next iteration
+  \item \texttt{break} ends iteration (of the innermost loop)
+\end{itemize}
+<<next, echo=TRUE, eval = FALSE, results="markup">>=
+index <- 0
+repeat {
+  index <- index + 1
+  if (index %in% c(3, 5)) next
+  if (index > 6) break
+  print(index)
+}
+@
+\end{frame}
+
+\subsubsection{Iteration - good practice}
+
+\begin{frame}[fragile]{Iteration - Good practice}
+\begin{itemize}
+  \item Use \texttt{seq}, \texttt{seq\_len}, or \texttt{seq\_along}
+\end{itemize}
+<<seq, echo=TRUE, eval = TRUE, results="markup">>=
+x <- numeric()
+for (index in 1:length(x)){
+  print(index)
+}
+
+for (index in seq_along(x)){
+  print(index)
+}
+@
+\end{frame}
+
+\begin{frame}[fragile]{Iteration - Good practice}
+\begin{itemize}
+  \item Don't grow, but replace
+\end{itemize}
+<<replace, echo=TRUE, eval = TRUE, results="markup">>=
+x <- letters
+result1 <- numeric()          # grow
+result2 <- numeric(length(x)) # replace
+for (index in seq_along(x)){
+  result1 <- c(result1, paste(index, x[index]))  # grow
+  result2[index] <- paste(index, x[index])       # replace
+}
+@
+\end{frame}
+
+\subsection{Functionals}
+
+\begin{frame}{Functionals}
+A functional is a function that takes another funciton as an argument. \\
+Focus on the \texttt{apply}-family. These functions \emph{apply} a function repeatedly. \\
+Can be seens as an abstraction of a for loop, with the following advantages
+\begin{itemize}
+  \item requires less code to write
+  \item does not store intermediate results
+  \item no need to replace / grow
+\end{itemize}
+@
+\end{frame}
+
+\begin{frame}{Functionals}
+The most commonly used functionals are:
+\begin{itemize}
+  \item \texttt{lapply} vector / list $\rightarrow$ list
+  \item \texttt{sapply} vector / list $\rightarrow$ vector (matrix)
+  \item \texttt{apply} matrix / array / data.frame $\rightarrow$ vector (matrix)
+  \item \texttt{tapply}, \texttt{mapply}, \texttt{vapply}
+  \item \texttt{rapply}, \texttt{eapply} 
+\end{itemize}
+All of which have an argument that should be a function.
+\end{frame}
+
+\subsubsection{lapply}
+
+\begin{frame}[fragile]{lapply}
+Data.frames are lists
+<<lapply, echo=TRUE, eval = TRUE, results="markup">>=
+lapply(iris, FUN = class)
+@
+\end{frame}
+
+\begin{frame}[fragile]{lapply}
+\begin{itemize}
+  \item an annonymous function can be used
+  \item any type of element can be used
+  \item other arguments can be passed through
+\end{itemize}
+<<lapply2, echo=TRUE, eval = TRUE, results="markup">>=
+lapply(c(min, median, max), FUN = function(fun, x) {
+  fun(x)
+}, x = 2:8)
+@
+\end{frame}
+
+\subsubsection{sapply}
+
+\begin{frame}[fragile]{sapply}
+\begin{itemize}
+  \item wrapper around lapply
+  \item if possible, the ouput is combined into a atomic vector or matrix
+\end{itemize}
+<<sapply, echo=TRUE, eval = TRUE, results="markup">>=
+sapply(airquality, FUN = sd)
+sapply(airquality, FUN = quantile, prob = c(.1, .9), 
+       na.rm = TRUE)
+@
+\end{frame}
+
+\subsubsection{apply}
+
+\begin{frame}[fragile]{apply}
+\begin{itemize}
+  \item for objects with dimension (matrix, array, data.frame)
+  \item apply over (a) chosen dimension(s) 
+\end{itemize}
+<<apply, echo=TRUE, eval = TRUE, results="markup">>=
+my_matrix <- matrix(1:6, nrow = 2)
+apply(my_matrix, 1, max)    # apply per row
+apply(my_matrix, 2, max)    # apply per column
+apply(my_matrix, c(1, 2), 
+      function(value) value^2)    # apply per row and column
+apply(airquality, 2, median) 
+@
+\end{frame}
+
+\subsection{Split \& Apply \& Combine}
+
+\begin{frame}[fragile]{Split \& Apply \& Combine}
+\begin{itemize}
+  \item split a data.frame or vector (\texttt{?split})
+  \item apply computations on each split (\texttt{lapply})
+  \item combine the results (\texttt{sapply}, \texttt{?do.call})
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Split \& Apply \& Combine}
+\begin{center}
+\includegraphics[width=.75\textwidth]{split-apply-combine.png}
+\end{center}
+\end{frame}
+
+
+
+\section{Object Oriented Programming (S3)}
+
+\begin{frame}{Object Oriented Programming}
+Why?
+\begin{itemize}
+  \item User-friendly: same function for different objects (\texttt{summary()})
+  \item Coder-friendly: implementation can depends on object
+  \item Coder-friendly: easier to maintain, extend
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Object Oriented Programming}
+Basics
+\begin{itemize}
+  \item a \emph{class} is a definition, it how an object behaves.
+  \item an object is an \emph{instance} of a class.
+  \item a \emph{method} is a procedure that behaves differently depending of the class it is applied to.
+  \item \emph{inheritance}: classes are organized in hierarchy. ``is-a-type-of''-relation. 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Object Oriented Programming in R}
+\begin{itemize}
+  \item \textbf{S3}
+  \item S4
+  \item RC
+  \item R6
+  \item ...
+\end{itemize}
+\end{frame}
+
+\subsection{S3}
+
+\begin{frame}{S3}
+Compromise between interactive use, functional programming and object-oriented programming. 
+\begin{itemize}
+  \item ``naming conventions''
+  \item used in base R
+  \item flexible: new classes, new methods
+\end{itemize}
+\end{frame}
+
+\begin{frame}{S3}
+\begin{itemize}
+  \item \texttt{class}-attribute
+  \item generics and methods
+  \item inheritance and dispatch
+\end{itemize}
+\end{frame}
+
+\subsubsection{class}
+
+\begin{frame}[fragile]{S3 - class}
+A new class is made by adding an arbitrary \texttt{class} attribute to an object.
+<<class, echo=TRUE, results='markup'>>=
+object <- 1:10
+class(object) <- "myClass"
+attributes(object)
+@
+Very flexible! Use it wisely!
+\end{frame}
+
+\begin{frame}[fragile]{S3 - class}
+<<class2, echo=TRUE, results='markup'>>=
+class(iris)
+head(iris)
+@
+\end{frame}
+
+\begin{frame}[fragile]{S3 - class}
+<<class3, echo=TRUE, results='markup'>>=
+class(iris) <- "no data.frame"
+class(iris)
+head(iris)
+@
+\end{frame}
+
+\begin{frame}[fragile]{S3 - class}
+Good practice: \emph{constuctor function}
+\begin{itemize}
+  \item defines the structure of the class
+  \item should be used to create objects of that class
+\end{itemize}
+<<constructor, echo=TRUE>>=
+myClass <- function(element1, element2){
+  # validation of the elements
+  structure(list(element1), 
+            attribute1 = element2,
+            class = "myClass")
+}
+@
+Write a separate validation-function for computationally intensivevvalidation.
+\end{frame}
+
+\subsubsection{Generics and Methods}
+
+\begin{frame}[fragile]{S3 - Generics and Methods}
+\begin{itemize}
+  \item \emph{methods} for a class belong to \emph{generics}
+  \item when a generic is called for a specific class, the corresponing method for that class will be used. 
+  \time common generics are: \texttt{print()}, \texttt{plot()}, \texttt{summary()}, \texttt{anova()}
+  \item same function, but different computation depending on object-class
+\end{itemize}
+<<generic, echo=TRUE, results='markup'>>=
+body(print)
+@
+\end{frame}
+
+\begin{frame}[fragile]{S3 - Generics and Methods}
+Creating a new method (for an existing generic):
+<<method, echo=TRUE, results='markup'>>=
+print.myClass <- function(x, ...){
+  cat("This is a myClass-print:\n")
+  cat(round(c(nValues = length(x), 
+                mean = mean(x), 
+                SD = sd(x)), 3), ...)
+}
+my_object <- 1:5
+class(my_object) <- "myClass"
+print(my_object)
+@
+! Check the generic to see the arguments that should be included. 
+\end{frame}
+
+\begin{frame}[fragile]{S3 - Generics and Methods}
+Good practices (enforced for packages on CRAN):
+\begin{itemize}
+  \item A method must have all the arguments of the generic,
+including \texttt{...} if the generic does.
+  \item A method must have arguments in exactly the same order as
+the generic.
+  \item If the generic specifies defaults, all methods should use the
+same defaults.
+\end{itemize}
+Inspect the generic!
+\end{frame}
+
+\begin{frame}[fragile]{S3 - Generics and Methods}
+Creating a new generic:
+<<method2, echo=TRUE, results='markup'>>=
+center <- function(x, ...)
+  UseMethod("center")
+
+center.myClass <- function(x, ...){
+  print("centering myClass:\n")
+  return(x - mean(x))
+}
+
+center(my_object)
+@
+\end{frame}
+
+\subsubsection{inheritance and dispatch}
+
+
+\begin{frame}[fragile]{S3 - Inheritance and Dispatch}
+<<data, echo=FALSE, eval = TRUE>>=
+pisa_file <- file.path(dirname(getwd()), "data/pisaPlus_CF.RDS")
+pisa <- readRDS(pisa_file)
+@
+Objects can have more than one classes
+<<inheritance1, echo=TRUE, results='markup', size = "small">>=
+my_model <- glm(as.factor(books) ~ pared, data = pisa, 
+                family = "binomial")
+class(my_model)
+class(my_model) == "lm"
+inherits(my_model, "lm")
+@
+Good practice: use inheritance hierachically (subclass and superclass)
+\end{frame}
+
+\begin{frame}[fragile]{S3 - Inheritance and Dispatch}
+When a method is not available for a (sub)class, the next available method (i.e., for the supperclass) will be used.
+
+<<inheritance2, echo=TRUE, results="markup">>=
+"variable.names.glm" %in% methods(class = "glm")
+"variable.names.lm" %in% methods(class = "lm")
+variable.names(my_model)
+@
+
+\end{frame}
+
+\section{Version Controlling (Git + Github)}
+
+\begin{frame}{Motivation}
+\begin{center}
+\includegraphics[height=.75\textheight]{why_version_control.jpg}
+\end{center}
+\end{frame}
+
+\begin{frame}{Motivation}
+\begin{itemize}
+  \item Implementation of long term change history 
+  \begin{itemize}
+  \item No ridiculous file names
+  \item No archive subfolder
+  \item Always perfect overview of file history and changes
+  \end{itemize}
+  \item Collaborations
+  \begin{itemize}
+  \item What has changed?
+  \item Who has changed it?
+  \item Documentation of changes
+  \item Parallel working possible (merging)
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{But...}
+\begin{center}
+\includegraphics[height=.75\textheight]{git_no_idea.png}
+\end{center}
+\end{frame}
+
+\begin{frame}{Requirements}
+\begin{itemize}
+  \item Install git 
+  \item (optional) Install/Setup GUI for git (RStudio, Gitkraken, ...)
+  \item Setup account for Github/Bitbucket/Gitlab/...
+  \item Connect everything
+\end{itemize}
+\end{frame}
+
+\begin{frame}{RStudio}
+\begin{center}
+\includegraphics[height=.75\textheight]{rstudio_git.JPG}
+\end{center}
+\end{frame}
+
+\begin{frame}{RStudio}
+\begin{center}
+\includegraphics[width=.8\textwidth]{rstudio_git2.JPG}
+\end{center}
+\end{frame}
+
+
+\begin{frame}{Workflow}
+\textbf{Creating a repository}
+\begin{itemize}
+  \item Create an online repository (e.g. on Github)
+  \begin{itemize}
+    \item Use an R specific .gitignore
+    \item Initialize with a short readme
+  \end{itemize}
+  \item Clone the repository to your local machine
+  \item (optional) Place an R project in the existing repository
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Workflow}
+\textbf{Working with a repository}
+\begin{itemize}
+  \item Before working: Synch your local repo (\textbf{Pull})
+  \item Perform changes in your local repository
+  \item \textbf{Stage} your changes
+  \item \textbf{Commit} your changes (aka new version)
+  \item \textbf{Push} your changes
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Recommendations}
+\begin{itemize}
+  \item Keep it simple! 
+  \begin{itemize}
+    \item No branches/forks/pull requests
+  \end{itemize}
+  \item Have meaningful commits
+  \item Keep it lean (no big files)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Resources}
+Git (+ R) Resources
+\begin{itemize}
+\item Small Intro (\url{https://r-bio.github.io/intro-git-rstudio/})
+\item Happy Git with R (\url{https://happygitwithr.com/})
+\item R Packages and Git (\url{https://r-pkgs.org/git.html})
+\item Git Book (\url{http://git-scm.com/book/en/v2})
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Literature Recommendations}
+R Resources
+\begin{itemize}
+\item Avanced R Ed. 1 (\url{http://adv-r.had.co.nz/})
+\item Avanced R Ed. 2 (\url{https://adv-r.hadley.nz/})
+\item R Inferno (\url{https://www.burns-stat.com/pages/Tutor/R_inferno.pdf})
+\item R Packages (\url{https://r-pkgs.org/})
+\item Clean Code (\url{https://enos.itcollege.ee/~jpoial/oop/naited/Clean\%20Code.pdf)})
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}[plain]
+
+\begin{center}
+\Large Thank you for your attention!
+
+\visible<2>{Questions? Remarks?}
+\end{center}
+
+\end{frame}
+
+\end{document}
