@@ -1,11 +1,32 @@
 # Advanced R
 # Spring Academy FDZ, March 2021
 
+
+# R studio
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+# 1. Create a new R Studio Project
+### File < New Project < ...
+getwd()
+
+# 2. Create an "R"-folder for R scripts and a "data" folder for data.
+list.dirs()
+
+# 3. Save this script in the "R"-folder
+list.files(".\\R")
+
+# 4. Try out some keyboard shortcuts
+### Tools < Keyboard Shortcuts Help
+
+# 5. Set your preferences via the global options
+### Tools < Global Options
+
+
+
 # R objects (recap)
 #::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-
-# Input
+# Try to predict the output for each of the following lines
 #===========================================================
 #...........................
 
@@ -65,7 +86,7 @@ typeof(TRUE + FALSE)
 # assignment
 my_object <- 55
 my_object
-assign("object2", "This also works, but <- is easier to see.")
+assign("object2", "This also works, but <- is easier to read for humans.")
 object2
 ?assign
 
@@ -192,8 +213,8 @@ my_object[-c("a", "b")]   # returns error
 # select one element
 my_object[[2]]
 my_object[["c"]]
-my_object[[TRUE]]  # works due to automatic conversion
-my_object[[2.2]]   # works due to automatic conversion
+my_object[[TRUE]]  # why does this work?
+my_object[[2.2]]   # why does this work?
 
 
 # subsetting matrix and arrays
@@ -258,9 +279,4 @@ my_dat["col3"] <- 44
 my_dat
 my_dat[,1] <- NULL
 my_dat
-
-# Exercises
-#===========================================================
-
-
 

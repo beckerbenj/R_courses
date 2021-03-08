@@ -30,7 +30,7 @@ str(my_object)
 # create an method for an existing generic
 #.........................................
 summary.my_class <- function(object, new_argument = "default", ...){
-  cat("new_argument = ", new_argument, "\n")
+  cat("new_argument =", new_argument, "\n")
   data.frame(a = object$a, b = object$b)
 }
 
@@ -75,12 +75,12 @@ new_generic.data.frame <- function(object, ...){
   object
 }
 
-new_generic.my_class <- function(object, new_argument, ...){
+new_generic.my_class <- function(object, ...){
   cat("This code simply returns a data.frame. \n")
   summary(object, ...)
 }
 
-new_generic.default <- function(object, new_argument, ...){
+new_generic.default <- function(object, ...){
   cat("This code returns the object invisibly. \n")
   invisible(object)
 }
@@ -89,7 +89,9 @@ new_generic.default <- function(object, new_argument, ...){
 new_generic(head(iris))
 my_object <- my_class(a = c("some", "words"), b = c(5L, 1L))
 new_generic(my_object)
+new_generic(my_object, new_argument = "this is passed through")
 new_generic(5)
+(new_generic(5))
 
 
 # List methods
@@ -136,7 +138,7 @@ getS3method("anova", "lm")
 
 # Exercises
 #===========================================================
-# Consider the following two S3 constructor functions. The first constructor function can be used to generate an object of class "album", the second constructor function creates an object of class "deck".
+# Consider the following two S3 constructor functions. The first constructor function can be used to generate an object of class "album", the second constructor function creates an object of class "collection".
 
 # constructor function for class "album"
 album <- function(album_name, band, year, 
@@ -182,17 +184,17 @@ album <- function(album_name, band, year,
 }
 
 
-# constructor function for class "deck"
-deck <- function(...){
+# constructor function for class "collection"
+collection <- function(...){
   albums <- list(...)
   # all objects should be albums
-  if(!all(sapply(albums, function(album) inherits(album, what = "album")))) stop("A 'deck' can only containg objects of class 'album'.")
+  if(!all(sapply(albums, function(album) inherits(album, what = "album")))) stop("A 'collection' can only containg objects of class 'album'.")
   structure(albums, 
-            class = "deck")
+            class = "collection")
 }
 
 
-# In addition, the following code creates a couple of albums and collects them in a deck.
+# In addition, the following code creates a couple of albums and collects them in a collection.
 
 # album Rubber Soul (Beatles)
 rubber_soul <- album(
@@ -201,7 +203,7 @@ rubber_soul <- album(
   year = 1965,
   track_list = data.frame(
     track_number = 1:14, 
-    song_title = c("Drive My Car", "Norwegian Wood (This Bird Has Flown)", 
+    song_title = c("Drive My Car", "Norwegian Wood", 
                    "You Won't See Me", "Nowhere Man", "Think for Yourself", 
                    "The Word", "Michelle", "What Goes On", "Girl",
                    "I'm Looking Through You", "In My Life", "Wait", 
@@ -245,8 +247,8 @@ croocked_rain <- album(
   genre = "rock")
 
 
-# Create a deck with the three albums 
-my_deck <- deck(nevermind, rubber_soul, croocked_rain)
+# Create a collection with the three albums 
+my_collection <- collection(nevermind, rubber_soul, croocked_rain)
 
 
 # 1. write a print method for the "album"-class. Make sure you include an argument that specifies the number of tracks to be printed. The output should look something like:
@@ -277,11 +279,12 @@ print.album <- function(x, n_tracks = 3, ...){
     print(x$track_list[seq_len(n_tracks), ])
   }
 }
+rubber_soul
 
-# 2. write a print method for the "deck"-class. In addition to some information about the deck, the album with the highest rating should also be printed. The output should look something like:
+# 2. write a print method for the "collection"-class. In addition to some information about the collection, the album with the highest rating should also be printed. The output should look something like:
 
-#  >my_deck
-#  A deck with 3 albums. 
+#  >my_collection
+#  A collection with 3 albums. 
 #  Average rating: 2.2 / 10. 
 #  
 #  The album with the highest rating is ... 
@@ -290,14 +293,15 @@ print.album <- function(x, n_tracks = 3, ...){
 #  Current rating: 6.6 / 10 
 
 # solution
-print.deck <- function(x, get_top_rated = TRUE, ...){
-  cat("A deck with ", length(x), " albums. \n", sep = "")
+print.collection <- function(x, get_top_rated = TRUE, ...){
+  cat("A collection with ", length(x), " albums. \n", sep = "")
   ratings <- sapply(x, function(album) album$rating)
   cat("Average rating: ", round(mean(ratings), 1), " / 10. \n \n", sep = "")
   
   cat("The album with the highest rating is ... \n", sep = "")
   print(x[[which.max(ratings)]], n_tracks = 0)
 }
+my_collection
 
 # 3. Write a generic to change the rating of an album. Add a method for the "album" class. There should be a "new_rating"-argument with the new rating. The return object should be of the same class of the input-object.
 # the following could should give similar output:
@@ -324,14 +328,15 @@ change_rating.album <- function(x, new_rating, ...){
     genre = x$genre, 
     rating = new_rating)
 }
+rubber_soul <- change_rating(rubber_soul, new_rating = 7.13)
+print(rubber_soul, n_tracks = 0)
 
 
-
-# 4. Add a method for the "deck" class. The return object should be of the same class of the input-object.
+# 4. Add a method for the "collection" class. The return object should be of the same class of the input-object.
 # the following could should give similar output:
-# > change_rating(my_deck, album_name = "Croocked Rain, Croocked Rain", 
+# > change_rating(my_collection, album_name = "Croocked Rain, Croocked Rain", 
 #                 +               new_rating = 7.52)
-# A deck with 3 albums. 
+# A collection with 3 albums. 
 # Average rating: 4.7 / 10. 
 # 
 # The album with the highest rating is ... 
@@ -340,8 +345,8 @@ change_rating.album <- function(x, new_rating, ...){
 # Current rating: 7.5 / 10 
 
 
-## method for "deck"-class
-change_rating.deck <- function(x, album_name, 
+## method for "collection"-class
+change_rating.collection <- function(x, album_name, 
                                band = NULL, year = NULL, 
                                new_rating, ...){
   this_album <- which(sapply(x, function(album) album$album_name == album_name))
@@ -358,7 +363,8 @@ change_rating.deck <- function(x, album_name,
   x[[this_album]] <- change_rating(x[[this_album]], new_rating = new_rating)
   return(x)
 }
-
+change_rating(my_collection, album_name = "Croocked Rain, Croocked Rain", 
+              new_rating = 7.52)
 
 # 5. Consider the roundDF funciton the first exercise of Functions II. Make a generic, a default method and a method for the class data.frame. What would be the benefit of using the S3 techniques? 
 

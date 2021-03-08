@@ -74,6 +74,12 @@ compute_stat <- function(vector, statistic, ...) {
   }
 }
 
+compute_stat(pisa$hisei, "min", na.rm = TRUE)
+compute_stat(pisa$hisei, mean, na.rm = TRUE)
+compute_stat(pisa$hisei, "quantile", na.rm = TRUE, prob = c(.2, .5, .8))
+compute_stat(pisa$hisei, quantile, na.rm = TRUE, prob = c(.2, .5, .8))
+
+
 
 # documentation
 #...........................
@@ -146,9 +152,13 @@ do_glm(pisa, as.factor(books) ~ pared, family = binomial)
 pisa_school <- split(pisa, pisa$schtype)
 class(pisa_school)
 length(pisa_school)
+names(pisa_school)
+class(pisa_school[[1]])
 
 # apply do_glm to all splits/subsets
 results_split <- lapply(pisa_school, do_glm, formula = as.factor(books) ~ pared, family = binomial)
+names(results_split)
+results_split$`Gymnasium (academic track)`
 
 # combine results
 sapply(results_split, coef)
@@ -253,7 +263,7 @@ repeat {
     if(pisa$pared[rowNr] < 12) "group_3"
     else "group_4"
   }
-  if(rowNr == dim(pisaPlus_CF)[1]) break
+  if(rowNr == dim(pisa)[1]) break
 }
 
 

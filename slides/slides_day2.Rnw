@@ -248,13 +248,13 @@ Often, the computation depends on the element in that iteration.
 \end{frame}
 
 \begin{frame}[fragile]{Iteration - for}
-<<for2, echo=TRUE, result = "markup">>=
+<<for2, echo=TRUE, eval = TRUE, results = "markup">>=
 for (index in 1:3){
   cat(" computation -")
 }
 
 for (name in c("Alice", "Bob", "Casey")){
-  if(name == "Bob") print(" This was Bob -")
+  if(name == "Bob") cat(" This was Bob -")
   else cat(" Not Bob -")
 }
 @
@@ -289,7 +289,7 @@ Without a \texttt{break} the computation is repeated infinite times
   \item \texttt{next} starts next iteration
   \item \texttt{break} ends iteration (of the innermost loop)
 \end{itemize}
-<<next, echo=TRUE, eval = FALSE, results="markup">>=
+<<next, echo=TRUE, eval = TRUE, results="markup">>=
 index <- 0
 repeat {
   index <- index + 1
@@ -303,9 +303,10 @@ repeat {
 \subsubsection{Iteration - good practice}
 
 \begin{frame}[fragile]{Iteration - Good practice}
-\begin{itemize}
-  \item Use \texttt{seq}, \texttt{seq\_len}, or \texttt{seq\_along}
-\end{itemize}
+\metroset{block=fill} %grey blocks
+\begin{block}{Programming advice}
+Use \texttt{seq()}, \texttt{seq\_len()}, or \texttt{seq\_along()}.
+\end{block}
 <<seq, echo=TRUE, eval = TRUE, results="markup">>=
 x <- numeric()
 for (index in 1:length(x)){
@@ -319,9 +320,10 @@ for (index in seq_along(x)){
 \end{frame}
 
 \begin{frame}[fragile]{Iteration - Good practice}
-\begin{itemize}
-  \item Don't grow, but replace
-\end{itemize}
+\metroset{block=fill} %grey blocks
+\begin{block}{Programming advice}
+Don't grow, replace.
+\end{block}
 <<replace, echo=TRUE, eval = TRUE, results="markup">>=
 x <- letters
 result1 <- numeric()          # grow
@@ -336,7 +338,7 @@ for (index in seq_along(x)){
 \subsection{Functionals}
 
 \begin{frame}{Functionals}
-A functional is a function that takes another funciton as an argument. \\
+A functional is a function that takes another function as an argument. \\
 Focus on the \texttt{apply}-family. These functions \emph{apply} a function repeatedly. \\
 Can be seens as an abstraction of a for loop, with the following advantages
 \begin{itemize}
@@ -344,7 +346,6 @@ Can be seens as an abstraction of a for loop, with the following advantages
   \item does not store intermediate results
   \item no need to replace / grow
 \end{itemize}
-@
 \end{frame}
 
 \begin{frame}{Functionals}
@@ -551,7 +552,6 @@ my_object <- 1:5
 class(my_object) <- "myClass"
 print(my_object)
 @
-! Check the generic to see the arguments that should be included. 
 \end{frame}
 
 \begin{frame}[fragile]{S3 - Generics and Methods}
@@ -590,8 +590,8 @@ center(my_object)
 pisa_file <- file.path(dirname(getwd()), "data/pisaPlus_CF.RDS")
 pisa <- readRDS(pisa_file)
 @
-Objects can have more than one classes
-<<inheritance1, echo=TRUE, results='markup', size = "small">>=
+Objects can have more than one clas
+<<inheritance1, echo=TRUE, results='markup', size = "footnotesize">>=
 my_model <- glm(as.factor(books) ~ pared, data = pisa, 
                 family = "binomial")
 class(my_model)
@@ -718,14 +718,20 @@ Git (+ R) Resources
 \begin{itemize}
 \item Investing time in learning R pays off
 \item It's a steady learning curve
+\item Learn from masters
+\item rewrite important code - the first attempt is usualy not the best approach
 \end{itemize}
 \end{frame}
 
 \begin{frame}{R Advice}
 \begin{itemize}
 \item Document well
+\item Use a consitent style
 \item Write functions
-\item Use Iteration
+\item split long functions in smaller ones
+\item write wrappers
+\item Use Iteration (don't copy paste)
+\item Use matrix operations and vectorized functions instead of loops
 \item Use git
 \end{itemize}
 \end{frame}

@@ -751,8 +751,8 @@ final_results <- data.frame(
 \begin{frame}{Go easy on your mind}
 \begin{itemize}
   \item use meaningful names: ``self-explainable''
-  \item benefit from autocompletion (\texttt{<tab>}) => embrace longer names
   \item always write the formal arguments in function calls (except the first)
+  \item benefit from autocompletion (\texttt{<tab>}) => embrace longer names
   \item use \texttt{TRUE} and \texttt{FALSE} not \texttt{T} and \texttt{F}
   \item comment, comment, comment
   \begin{itemize}
@@ -761,6 +761,17 @@ final_results <- data.frame(
     \item explain the reasoning, not the code 
   \end{itemize}
 \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Use meaningful names}
+<<Use meaningful names, eval = FALSE, echo = TRUE>>=
+V <- myFun(m1_B)
+
+# versus
+
+RMSE_age_gender <- get_RMSE(lm_age_gender)
+@
+Use \texttt{verbs} for functions and \texttt{nouns} for objects.
 \end{frame}
 
 \begin{frame}[fragile]{Write formal arguments}
@@ -776,17 +787,6 @@ lm_age_gender <- lm(outcome ~ age*gender,
                     subset = condition_1, 
                     weigths = freq)
 @
-\end{frame}
-
-\begin{frame}[fragile]{Use meaningful names}
-<<Use meaningful names, eval = FALSE, echo = TRUE>>=
-V <- myFun(m1_B)
-
-# versus
-
-RMSE_age_gender <- get_RMSE(lm_age_gender)
-@
-Use \texttt{verbs} for functions and \texttt{nouns} for objects.
 \end{frame}
 
 \begin{frame}[fragile]{Comment, comment, comment}
@@ -810,7 +810,9 @@ dat[dat %in% c(99, 999)] <- NA  # missings coded 99 or 999
 \subsection{R Peculiarities}
 
 \begin{frame}[fragile]{Keep your code slim}
-Try to limit your \emph{package-dependencies}. Only load \texttt{library()} the packages that you absolutely need. If you are only using \texttt{dplyr}, it does not make sense to load the complete \texttt{tidyverse}. \\
+Try to limit your \emph{package-dependencies}. \\
+Only load \texttt{library()} the packages that you absolutely need. If you are only using \texttt{dplyr}, it does not make sense to load the complete \texttt{tidyverse}. \\ 
+ \\
 \textbf{Controversial:} when possible, use the \texttt{::} operator(and consider not loading the package). \texttt{<package>::<function>} 
 \begin{itemize}
   \item explicit dependencies
@@ -821,7 +823,7 @@ Try to limit your \emph{package-dependencies}. Only load \texttt{library()} the 
 \begin{frame}[fragile]{Never Attach}
 Forget about \texttt{attacht()}! \\
 Don't use it, unless you completely understand what happens (see \texttt{?attach}).\\
-Use `with(data.frame, expression)` instead.
+Use \texttt{with(data.frame, expression)} instead.
 <<attach, eval = FALSE, echo = TRUE>>=
 # using with()
 n <- 2e+4
