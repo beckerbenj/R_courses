@@ -130,20 +130,20 @@ The most commonly used tools are:
 
 \subsection{Conditional Computation}
 
-\begin{frame}[fragile]{Conditional Computation - if}
-\texttt{if} statements have the basic form
-<<if, echo=TRUE, eval = FALSE>>=
-if(test){
-  some_computations
-}
-@
-\begin{itemize}
-  \item \texttt{test} should be either \texttt{TRUE} or \texttt{FALSE} (or code that results one of both). 
-  \item If \texttt{test == TRUE}, than \texttt{some\_computations} is executed, if \texttt{test == FALSE}, than not.
-  \item \textbf{Important}: \texttt{test} should have length 1. If not, only the first element is considered.\end{itemize}
-\end{frame}
-
 \subsubsection{if}
+
+%\begin{frame}[fragile]{Conditional Computation - if}
+%\texttt{if} statements have the basic form
+%<<if, echo=TRUE, eval = FALSE>>=
+%if(test){
+%  some_computations
+%}
+%@
+%\begin{itemize}
+%  \item \texttt{test} should be either \texttt{TRUE} or \texttt{FALSE} %(or code that results one of both). 
+%  \item If \texttt{test == TRUE}, than \texttt{some\_computations} is %executed, if \texttt{test == FALSE}, than not.
+%  \item \textbf{Important}: \texttt{test} should have length 1. If not, %only the first element is considered.\end{itemize}
+%\end{frame}
 
 \begin{frame}[fragile]{Conditional Computation - if}
 \texttt{else} can be added, but it is optional
@@ -158,32 +158,32 @@ if(test){
 @
 \end{frame}
 
+%\begin{frame}[fragile]{Conditional Computation - if}
+%Typical uses
+%<<if typical, echo=TRUE, eval = FALSE, size = "footnotesize">>=
+%if(any(is.na(x))){
+%  stop("computation impossible due to NA values")
+%}
+%
+%if(!is.integer(vector)){
+%  warning("'vector' is automatically converted to interger.
+%          This may affect the results")
+%  vector <- as.integer(vector)
+%}
+%
+%if(is.null(default_argument)){
+%  <default computations>
+%} else if (default_argument == specific value) {
+%  ...
+%}
+%@
+%\end{frame}
+
 \begin{frame}[fragile]{Conditional Computation - if}
-Typical uses
-<<if typical, echo=TRUE, eval = FALSE>>=
-if(any(is.na(x))){
-  stop("computation impossible due to NA values")
-}
-
-if(!is.integer(vector)){
-  warning("'vector' is automatically converted to interger.
-          This may affect the results")
-  vector <- as.integer(vector)
-}
-
-if(is.null(default_argument)){
-  <default computations>
-} else if (default_argument == specific value) {
-  ...
-}
-@
-\end{frame}
-
-\begin{frame}[fragile]{Conditional Computation - if}
-The \emph{test} should have length 1.
+The \emph{test} should have length 1!
 <<if2, echo = TRUE, results="markup">>=
 # only the first element is evaluated
-age <- c(8, 17, 25, 39, 55)
+age <- c(8, 17, 39, 55)
 if (age >= 18) {
   "can vote"
 } else {
@@ -198,6 +198,7 @@ if (age >= 18) {
 A vectorized version is \texttt{ifelse()}. \\ 
 <<ifelse, echo = TRUE, results="markup">>=
 # all elements are evaluated
+age <- c(8, 17, 39, 55)
 ifelse(age >= 18, "can vote", "too young")
 @
 %\texttt{\textasciigrave if\textasciigrave (test, ifTRUE, ifFALSE)} does exactly the same as \texttt{if (test) {ifTRUE} else {ifFALSE}}
@@ -206,7 +207,7 @@ ifelse(age >= 18, "can vote", "too young")
 \begin{frame}[fragile]{Conditional Computation - Vectorization}
 Vectorization can bring you a long way. But it may be less readable
 <<vectorize2, echo = TRUE, results = "markup">>=
-age <- c(8, 17, 25, 39, 55)
+age <- c(8, 17, 39, 55)
 c("too young", "can vote")[1 + (age >= 18)]
 @
 \end{frame}
@@ -307,7 +308,7 @@ repeat {
 \begin{block}{Programming advice}
 Use \texttt{seq()}, \texttt{seq\_len()}, or \texttt{seq\_along()}.
 \end{block}
-<<seq, echo=TRUE, eval = TRUE, results="markup">>=
+<<seq, echo=TRUE, eval = TRUE, results="markup", size="footnotesize">>=
 x <- numeric()
 for (index in 1:length(x)){
   print(index)
@@ -364,7 +365,7 @@ All of which have an argument that should be a function.
 
 \begin{frame}[fragile]{lapply}
 Data.frames are lists
-<<lapply, echo=TRUE, eval = TRUE, results="markup">>=
+<<lapply, echo=TRUE, results="markup", size="footnotesize">>=
 lapply(iris, FUN = class)
 @
 \end{frame}
@@ -375,7 +376,7 @@ lapply(iris, FUN = class)
   \item any type of element can be used
   \item other arguments can be passed through
 \end{itemize}
-<<lapply2, echo=TRUE, eval = TRUE, results="markup">>=
+<<lapply2, echo=TRUE, results="markup", size="footnotesize">>=
 lapply(c(min, median, max), FUN = function(fun, x) {
   fun(x)
 }, x = 2:8)
@@ -403,10 +404,16 @@ sapply(airquality, FUN = quantile, prob = c(.1, .9),
   \item for objects with dimension (matrix, array, data.frame)
   \item apply over (a) chosen dimension(s) 
 \end{itemize}
-<<apply, echo=TRUE, eval = TRUE, results="markup">>=
+<<apply, echo=TRUE, results="markup", size="footnotesize">>=
 my_matrix <- matrix(1:6, nrow = 2)
 apply(my_matrix, 1, max)    # apply per row
 apply(my_matrix, 2, max)    # apply per column
+@
+\end{frame}
+
+\begin{frame}[fragile]{apply}
+<<apply2, echo=TRUE, results="markup", size="footnotesize">>=
+my_matrix <- matrix(1:6, nrow = 2)
 apply(my_matrix, c(1, 2), 
       function(value) value^2)    # apply per row and column
 apply(airquality, 2, median) 
@@ -494,27 +501,28 @@ Very flexible! Use it wisely!
 \end{frame}
 
 \begin{frame}[fragile]{S3 - class}
-<<class2, echo=TRUE, results='markup'>>=
+<<class2, echo=TRUE, results="markup", size="footnotesize">>=
 class(iris)
-head(iris)
+iris[1:4, 1:3]
 @
 \end{frame}
 
 \begin{frame}[fragile]{S3 - class}
-<<class3, echo=TRUE, results='markup'>>=
+Changing the class changes the behavior!
+<<class3, echo=TRUE, results="markup", size="footnotesize">>=
 class(iris) <- "no data.frame"
 class(iris)
-head(iris)
+iris[1:4, 1:3]
 @
 \end{frame}
 
 \begin{frame}[fragile]{S3 - class}
-Good practice: \emph{constuctor function}
+Good practice: \emph{\textbf{constuctor function}}
 \begin{itemize}
   \item defines the structure of the class
   \item should be used to create objects of that class
 \end{itemize}
-<<constructor, echo=TRUE>>=
+<<constructor, echo=TRUE, results="markup", size="footnotesize">>=
 myClass <- function(element1, element2){
   # validation of the elements
   structure(list(element1), 
@@ -541,7 +549,7 @@ body(print)
 
 \begin{frame}[fragile]{S3 - Generics and Methods}
 Creating a new method (for an existing generic):
-<<method, echo=TRUE, results='markup'>>=
+<<method, echo=TRUE, results="markup", size="footnotesize">>=
 print.myClass <- function(x, ...){
   cat("This is a myClass-print:\n")
   cat(round(c(nValues = length(x), 
@@ -564,12 +572,19 @@ the generic.
   \item If the generic specifies defaults, all methods should use the
 same defaults.
 \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{S3 - Generics and Methods}
 Inspect the generic!
+<<inspect, echo=TRUE, results="markup", size="footnotesize">>=
+formalArgs(print)
+formalArgs(summary)
+@
 \end{frame}
 
 \begin{frame}[fragile]{S3 - Generics and Methods}
 Creating a new generic:
-<<method2, echo=TRUE, results='markup'>>=
+<<method2, echo=TRUE, results="markup", size="footnotesize">>=
 center <- function(x, ...)
   UseMethod("center")
 
@@ -584,13 +599,12 @@ center(my_object)
 
 \subsubsection{inheritance and dispatch}
 
-
 \begin{frame}[fragile]{S3 - Inheritance and Dispatch}
 <<data, echo=FALSE, eval = TRUE>>=
 pisa_file <- file.path(dirname(getwd()), "data/pisaPlus_CF.RDS")
 pisa <- readRDS(pisa_file)
 @
-Objects can have more than one clas
+Objects can have more than one class
 <<inheritance1, echo=TRUE, results='markup', size = "footnotesize">>=
 my_model <- glm(as.factor(books) ~ pared, data = pisa, 
                 family = "binomial")
@@ -598,13 +612,13 @@ class(my_model)
 class(my_model) == "lm"
 inherits(my_model, "lm")
 @
-Good practice: use inheritance hierachically (subclass and superclass)
+Good practice: hierachical inheritance (subclass and superclass)
 \end{frame}
 
 \begin{frame}[fragile]{S3 - Inheritance and Dispatch}
 When a method is not available for a (sub)class, the next available method (i.e., for the supperclass) will be used.
 
-<<inheritance2, echo=TRUE, results="markup">>=
+<<inheritance2, echo=TRUE, results="markup", size = "footnotesize">>=
 "variable.names.glm" %in% methods(class = "glm")
 "variable.names.lm" %in% methods(class = "lm")
 variable.names(my_model)
@@ -743,7 +757,7 @@ R Resources
 \item Avanced R Ed. 2 (\url{https://adv-r.hadley.nz/})
 \item R Inferno (\url{https://www.burns-stat.com/pages/Tutor/R_inferno.pdf})
 \item R Packages (\url{https://r-pkgs.org/})
-\item Clean Code (\url{https://enos.itcollege.ee/~jpoial/oop/naited/Clean\%20Code.pdf)})
+\item Clean Code (\url{https://enos.itcollege.ee/~jpoial/oop/naited/Clean\%20Code.pdf})
 \end{itemize}
 
 \end{frame}

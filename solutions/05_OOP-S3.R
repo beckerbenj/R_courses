@@ -5,138 +5,7 @@
 #::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
-# Input
-#===========================================================
-#...........................
-
-# create an S3 class
-#...........................
-# dirty way:
-my_object <- list(a = 1, b = 2)
-class(my_object) <- "my_class"
-str(my_object)
-
-# using a constructor funciton 
-my_class <- function(a, b = 0L) {
-  if(!is.integer(b)) stop("'b' should be an integer.")
-  if(length(a) != length(b)) stop("'a' and 'b' should have the same length.")
-  structure(list(a = a, b = b),
-            class = "my_class")
-}
-my_object <- my_class(a = 1, b = 2L)
-str(my_object)
-
-
-# create an method for an existing generic
-#.........................................
-summary.my_class <- function(object, new_argument = "default", ...){
-  cat("new_argument =", new_argument, "\n")
-  data.frame(a = object$a, b = object$b)
-}
-
-summary(my_object)
-
-# works, but not good practice
-print.my_class <- function(object){
-  cat("print my_class: \n")
-  cat("\t a =", object$a,  "\n")
-  cat("\t b =", object$b,  "\n")
-}
-
-print(my_object)
-
-# works, and good practice
-print.my_class <- function(x, ...){
-  cat("print my_class: \n")
-  cat("\t a =", x$a,  "\n")
-  cat("\t b =", x$b,  "\n")
-}
-
-print(my_object)
-
-
-# no restrictions on bad programming
-#.........................................
-my_object <- list(a = 1:5, b = seq(2, 0))
-summary(my_object)
-class(my_object) <- "my_class"
-
-# compare to
-my_object <- my_class(a = 1:5, b = seq(2, 0))
-
-
-# create a new generic 
-#......................
-new_generic <- function(object, ...)
-  UseMethod("new_generic")
-
-new_generic.data.frame <- function(object, ...){
-  cat("This code does nothing. \n")
-  object
-}
-
-new_generic.my_class <- function(object, ...){
-  cat("This code simply returns a data.frame. \n")
-  summary(object, ...)
-}
-
-new_generic.default <- function(object, ...){
-  cat("This code returns the object invisibly. \n")
-  invisible(object)
-}
-
-
-new_generic(head(iris))
-my_object <- my_class(a = c("some", "words"), b = c(5L, 1L))
-new_generic(my_object)
-new_generic(my_object, new_argument = "this is passed through")
-new_generic(5)
-(new_generic(5))
-
-
-# List methods
-#...........................
-# for a generic
-print_methods <- methods(generic = "print")
-length(print_methods)
-head(print_methods)
-
-# for a class
-methods_for_glm <- methods(class = "glm")
-length(methods_for_glm)
-head(methods_for_glm)
-
-
-# packages contain ofte contain methods (for new classes)
-#.......................................................
-# for a generic
-methods(generic = "anova")
-library(lme4)
-methods(generic = "anova")
-
-
-
-# Inspect the source code
-#...........................
-methods(generic = "anova")
-methods(generic = "summary")
-
-# visible functions
-summary.lm
-
-# invisible functions - indicated with an asterix
-anova.lm
-getS3method("anova", "lm")
-
-
-# further information
-#...........................
-?methods
-?S3Methods
-
-
-
-# Exercises
+# Exercises + Possible Sollutions
 #===========================================================
 # Consider the following two S3 constructor functions. The first constructor function can be used to generate an object of class "album", the second constructor function creates an object of class "collection".
 
@@ -267,7 +136,19 @@ my_collection <- collection(nevermind, rubber_soul, croocked_rain)
 #   2      121       0
 #   3      198       0
 
-
+# solution
+print.album <- function(x, n_tracks = 3, ...){
+  cat(x$album_name, " \n", sep = "")
+  cat("by ", x$band,  " (", x$year, ") \n", sep = "")
+  cat("Current rating: ", round(x$rating, 1), " / 10 \n", sep = "")
+  
+  if(n_tracks > 0){
+    cat("\n", "Displaying first ", n_tracks, 
+        " of ", dim(x$track_list)[1], " tracks: \n", sep = "")
+    print(x$track_list[seq_len(n_tracks), ])
+  }
+}
+rubber_soul
 
 # 2. write a print method for the "collection"-class. In addition to some information about the collection, the album with the highest rating should also be printed. The output should look something like:
 
@@ -280,7 +161,16 @@ my_collection <- collection(nevermind, rubber_soul, croocked_rain)
 #  by The Beatles (1965) 
 #  Current rating: 6.6 / 10 
 
-
+# solution
+print.collection <- function(x, get_top_rated = TRUE, ...){
+  cat("A collection with ", length(x), " albums. \n", sep = "")
+  ratings <- sapply(x, function(album) album$rating)
+  cat("Average rating: ", round(mean(ratings), 1), " / 10. \n \n", sep = "")
+  
+  cat("The album with the highest rating is ... \n", sep = "")
+  print(x[[which.max(ratings)]], n_tracks = 0)
+}
+my_collection
 
 # 3. Write a generic to change the rating of an album. Add a method for the "album" class. There should be a "new_rating"-argument with the new rating. The return object should be of the same class of the input-object.
 # the following could should give similar output:
@@ -290,6 +180,25 @@ my_collection <- collection(nevermind, rubber_soul, croocked_rain)
 # by The Beatles (1965) 
 # Current rating: 7.1 / 10 
 
+
+# solution
+## generic
+change_rating <- function(x, new_rating, ...)
+  UseMethod("change_rating")
+
+
+## method for "album"-class
+change_rating.album <- function(x, new_rating, ...){
+  album(
+    album_name = x$album_name, 
+    band = x$band, 
+    year = x$year,
+    track_list = x$track_list,
+    genre = x$genre, 
+    rating = new_rating)
+}
+rubber_soul <- change_rating(rubber_soul, new_rating = 7.13)
+print(rubber_soul, n_tracks = 0)
 
 
 # 4. Add a method for the "collection" class. The return object should be of the same class of the input-object.
@@ -305,11 +214,46 @@ my_collection <- collection(nevermind, rubber_soul, croocked_rain)
 # Current rating: 7.5 / 10 
 
 
+## method for "collection"-class
+change_rating.collection <- function(x, album_name, 
+                               band = NULL, year = NULL, 
+                               new_rating, ...){
+  this_album <- which(sapply(x, function(album) album$album_name == album_name))
+  if(!is.null(band)) {
+    this_album <-  this_album[sapply(x[this_album], function(album) album$band == band)]
+  }
+  if(!is.null(year)) {
+    this_album <-  this_album[sapply(x[this_album], function(album) album$year == year)]
+  }
+  
+  if(length(this_album) == 0) stop("No album found with these specifications.")
+  if(length(this_album) > 1) stop("Multiple albums correspond to the spefications. Consider adding 'band' and/or 'year' information.")
+  
+  x[[this_album]] <- change_rating(x[[this_album]], new_rating = new_rating)
+  return(x)
+}
+change_rating(my_collection, album_name = "Croocked Rain, Croocked Rain", 
+              new_rating = 7.52)
 
 # 5. Consider the roundDF funciton the first exercise of Functions II. Make a generic, a default method and a method for the class data.frame. What would be the benefit of using the S3 techniques? 
 
+# generic
+Round <- function(x, digits = 0, ...)
+  UseMethod("Round")
 
+# default method
+Round.default <- function(x, digits, ...){
+  round(x, digits)
+}
 
+# method for class data.frame
+Round.data.frame <- function(x, digits, ...){
+  these <- sapply(x, is.numeric)
+  x[these] <- as.data.frame(lapply(x[these], round, digits = digits))
+  x
+}
+
+# how is this function different from the print method for data.frames
 
 
 

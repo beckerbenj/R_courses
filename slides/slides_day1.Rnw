@@ -353,7 +353,7 @@ Attributes can be attached to objects. An attribute: \\
   \item is itself also an object
   \item attributes are easily lost in computations. (One of the reasons to use OOP with classes and methods.)
 \end{itemize}
-<<attributes, echo = TRUE, results="markup">>=
+<<attributes, echo = TRUE, results="markup", size="footnotesize">>=
 my_object <- structure(5, 
                        my_attribute = "string", 
                        other_attribute = FALSE)
@@ -431,7 +431,7 @@ A list is a ``vector'' that can contain any type of elements
   \item possible elements including lists $\rightarrow$ recursive
   \item can have attributes
 \end{itemize}
-<<lists, echo = TRUE, results = "markup">>=
+<<lists, echo = TRUE, results = "markup", size="footnotesize">>=
 my_list <- list("this", 
                 a = list(a = c(1:2)))
 my_list
@@ -556,7 +556,7 @@ In addition, selection is possible per dimension:
   \item the first vector selects the rows, the second the columns (and so on)
   \item dimensions are dropped, unless \texttt{drop = FALSE} 
 \end{itemize}
-<<selection-matrix 2, echo = TRUE, results = "markup">>=
+<<selection-matrix 2, echo = TRUE, results = "markup", size="footnotesize">>=
 my_matrix <- matrix(c(11, 12, 21, 22), ncol = 2, 
                     dimnames = list(paste0("row", 1:2), 
                                     paste0("col", 1:2)))
@@ -568,7 +568,7 @@ my_matrix[,2]
 
 \begin{frame}[fragile]{Subsetting - Matrix \& Arrays}
 Finally, the selection ellement can also be a matrix (with one column per dimension). Each row in the matrix selects one value.
-<<selection-matrix 3, echo = TRUE, results = "markup">>=
+<<selection-matrix 3, echo = TRUE, results = "markup", size="footnotesize">>=
 my_matrix <- matrix(c(11, 12, 21, 22), ncol = 2, 
                     dimnames = list(paste0("row", 1:2), 
                                     paste0("col", 1:2)))
@@ -586,7 +586,7 @@ For list, the rules are similar as for atomic vectors.
   \item \texttt{list[[selection]]} gives the element (which can be a list)
   \item \texttt{list[["element\_name"]]} is the same as \texttt{list\$element\_name}
 \end{itemize}
-<<selection-list, echo = TRUE, results = "markup">>=
+<<selection-list, echo = TRUE, results = "markup", size="footnotesize">>=
 my_list<- list(a = 1, b = 5, c = 3, d = 8)
 is.list(my_list["a"])
 is.list(my_list[["a"]])
@@ -710,7 +710,7 @@ new_var <- (var1 * var2 / 2) - 5 / (var3 + var4)
 \end{frame}
 
 \begin{frame}[fragile]{Indentation}
-<<Indentation, eval = FALSE, echo = TRUE>>=
+<<Indentation, eval = FALSE, echo = TRUE, size="footnotesize">>=
 for(name in names){formula=as.formula(paste0("y~.-",name))
 fit<-lm(formula,data=my_data)
 coefs[["name"]]=coef(fit)
@@ -730,7 +730,7 @@ for(name in names){
 \end{frame}
 
 \begin{frame}[fragile]{Wrap long lines}
-<<Wrap long lines, eval = FALSE, echo = TRUE>>=
+<<Wrap long lines, eval = FALSE, echo = TRUE, size="footnotesize">>=
 final_results <- data.frame(first_variable = 
 sqrt(results$mean_squared_error), second_variable = 
 paste0(results$condition, results$class, sep = ":"), 
@@ -776,7 +776,7 @@ Use \texttt{verbs} for functions and \texttt{nouns} for objects.
 
 \begin{frame}[fragile]{Write formal arguments}
 Benefit from auto completion using \texttt{tab}
-<<Write formal arguments, eval = FALSE, echo = TRUE>>=
+<<Write formal arguments, eval = FALSE, echo = TRUE, size="footnotesize">>=
 m1_B <- lm(outcome ~ age*gender, 
            exp1, condition_1, freq)
 
@@ -790,7 +790,7 @@ lm_age_gender <- lm(outcome ~ age*gender,
 \end{frame}
 
 \begin{frame}[fragile]{Comment, comment, comment}
-<<Comment, eval = FALSE, echo = TRUE>>=
+<<Comment, eval = FALSE, echo = TRUE, size="footnotesize">>=
 ## Start every Rscript with a comment that explains 
 ##  what the code in the script does, why it does 
 ##  this, and to which project it belongs. 
@@ -1213,7 +1213,7 @@ if(test){
 
 \begin{frame}[fragile]{Conditional Computation - if}
 Typical uses
-<<if typical, echo=TRUE, eval = FALSE>>=
+<<if typical, echo=TRUE, eval = FALSE, size = "footnotesize">>=
 if(any(is.na(x))){
   stop("computation impossible due to NA values")
 }
@@ -1246,11 +1246,13 @@ if (age >= 18) {
 \end{frame}
 
 \begin{frame}{Conditional Computation - if}
-Tipp:
+\metroset{block=fill} %grey blocks
+\begin{block}{Programming advice}
 \begin{itemize}
   \item If possible, avoid using else()
   \item Use early return(), stop(), etc. instead
 \end{itemize}
+\end{block}
 \end{frame}
 
 
