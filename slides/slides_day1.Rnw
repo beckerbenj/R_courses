@@ -5,30 +5,12 @@
 %\usepackage{color}
 
 %\usepackage{alltt}
-%\usepackage{hyperref}
-
-%\usepackage{array}
-%\usepackage[originalparameters]{ragged2e} 
-
-% kable packages
-%\usepackage{longtable}
-%\usepackage{array}
-%\usepackage{multirow}
-%\usepackage{wrapfig}
-%\usepackage{float}
-%\usepackage{colortbl}
-%\usepackage{pdflscape}
-%\usepackage{tabu}
-%\usepackage{threeparttable}
-%\usepackage{threeparttablex}
-%\usepackage[normalem]{ulem}
-%\usepackage{makecell}
+\usepackage{hyperref}
 
 %\usepackage{amsmath}
 %\usepackage{booktabs}
 %\usepackage[ansinew]{inputenc}
 %\usepackage[utf8]{inputenc}
-%\usepackage[ngerman, english]{babel}
 
 %\usepackage{bm}
 
@@ -310,7 +292,8 @@ length(NULL)
 <<auto-conversion, echo = TRUE, results = "markup">>=
 1 + TRUE
 @
-\textbf{explicit conversion}: \texttt{as."type"()} \texttt{as.vector(, mode = "type")}
+\textbf{Explicit conversion}: \\
+\texttt{as."type"()} \texttt{as.vector(, mode = "type")}
 <<explicit conversion, echo = TRUE, results = "markup">>=
 as.logical(0:5)
 @
@@ -362,6 +345,7 @@ attributes(my_object)
 \end{frame}
 
 \begin{frame}[fragile]{Attributes}
+There are several attributes with a specific use: \texttt{"names"}, \texttt{"dim"}, \texttt{"class"}, \texttt{"levels"}
 \begin{itemize}
   \item \texttt{"names"} is a character vector that contains the names of elements of the vector/object. Names can be printed and set using \texttt{names(object) <- }.
   \item \texttt{"dim"} is an integer vector that specifies how we should interpret the vector (i.e., as a matrix, as an array). The dimensions of a vector can be printed and set using \texttt{dim(object) <- }.\\
@@ -370,7 +354,6 @@ attributes(my_object)
 \end{frame}
 
 \begin{frame}[fragile]{Attributes}
-There are several attributes with a specific use: \texttt{"names"}, \texttt{"dim "}, \texttt{"class"}, \texttt{"levels"}
 \begin{itemize}
   \item \texttt{"class"} is a character vector that contains class names. Classes can be printed and set using \texttt{class(object) <- }. \\
   See \textbf{Object Oriented Programming (S3)}
@@ -413,12 +396,12 @@ A factor in R is actually an integer vector with
     \hline
     \multicolumn{2}{|c|}{More basic object types} \\ \hline
     list        & \texttt{list()}, \texttt{as.list()}, ...  \\    \hline
-    matrix      & an \textbf{vector} with \texttt{"dim"} argument: two dimensions \\
-                & \texttt{matrix()} \texttt{as.matrix()} \\ 
+    matrix      & a \textbf{vector} with \texttt{"dim"} argument: two dimensions \\
+                & \texttt{matrix()}, \texttt{as.matrix()} \\ 
                 & matrix algebra \\ 
     array       & a \textbf{vector} with with \texttt{"dim"} argument \\            \hline
     data.frame  & a \textbf{list} with vectors of equal length  \\
-                & \texttt{data.frame}, \texttt{as.dataframe}  \\
+                & \texttt{data.frame()}, \texttt{as.data.frame()}  \\
     \hline
   \end{tabular}
 \end{center}
@@ -478,7 +461,7 @@ A subset of elements from a vector can be accessed using \texttt{object[selectio
 \begin{frame}{Subsetting - Atomic vectors}
 Using a \textbf{logical} vector:
 \begin{itemize}
-  \item the logical vector should have the same length of the object. If shorter, the logical is repeated; if longer, \texttt{NA}s are added if \texttt{TRUE}. $\rightarrow$ always use the same length!
+  \item the logical vector should have the same length as the object. If shorter, the logical is repeated; if longer, \texttt{NA}s are added if \texttt{TRUE}. $\rightarrow$ always use the same length!
   \item handy when you want to select based on a condition related to the object values
 \end{itemize}
 \end{frame}
@@ -500,7 +483,7 @@ Using an \textbf{integer} vector:
   \item positive and negative values cannot be combined
   \item for integers higher than the number of elements in the vector, \texttt{NA}s are added
   \item using \texttt{which()} a logical vector is transformed in an integer vector with the indices of the elements that were \texttt{TRUE}
-  \item double elements are truncated towards zero (using \texttt{as.integer()}))
+  \item double elements are truncated towards zero (using \texttt{as.integer()})
 \end{itemize}
 \end{frame}
 
@@ -508,7 +491,7 @@ Using an \textbf{integer} vector:
 Using an \textbf{integer} vector:
 <<selection-integer, echo = TRUE, results = "markup">>=
 my_object <- c(a = 1, b = 5, c = 3, d = 8)
-my_object[c(1, 2, 1, 2, 1, 2, 1 ,2, 1, 2, 1, 2)]
+my_object[c(1, 2, 1, 2, 1, 2, 1 , 2, 1, 2, 1, 2)]
 @
 \end{frame}
 
@@ -534,7 +517,7 @@ my_object[c("a", "b")]
 A \textbf{sinlge} element from a vector can be accessed using \texttt{object[[selection]]}, where \texttt{selection} is:
 \begin{itemize}
   \item an \textbf{integer} value indicating the index of the element to select
-  \item a \textbf{character} vector with the names of the elements to select
+  \item a \textbf{character} vector with the name of the element to select
 \end{itemize}
 <<selection-2, echo = TRUE, results = "markup">>=
 my_object <- c(a = 1, b = 5, c = 3, c2 = 8)
@@ -545,7 +528,7 @@ my_object[[2]]
 \subsubsection{Subsetting - Matrix \& Arrays}
 
 \begin{frame}[fragile]{Subsetting - Matrix \& Arrays}
-Because arrays and martrices are atomic vectors (with a \texttt{"dim"} argument), the rules for atomic vectors apply.
+Because arrays and matrices are atomic vectors (with a \texttt{"dim"} argument), the rules for atomic vectors apply.
 \end{frame}
 
 \begin{frame}[fragile]{Subsetting - Matrix \& Arrays}
@@ -567,7 +550,7 @@ my_matrix[,2]
 \subsubsection{Subsetting - Matrix \& Arrays}
 
 \begin{frame}[fragile]{Subsetting - Matrix \& Arrays}
-Finally, the selection ellement can also be a matrix (with one column per dimension). Each row in the matrix selects one value.
+Finally, the selection element can also be a matrix (with one column per dimension). Each row in the matrix selects one value.
 <<selection-matrix 3, echo = TRUE, results = "markup", size="footnotesize">>=
 my_matrix <- matrix(c(11, 12, 21, 22), ncol = 2, 
                     dimnames = list(paste0("row", 1:2), 
@@ -580,7 +563,7 @@ my_matrix[selection_matrix]
 \subsubsection{Subsetting - Vector Structures}
 
 \begin{frame}[fragile]{Subsetting - Lists}
-For list, the rules are similar as for atomic vectors.
+For lists, the rules are similar as for atomic vectors.
 \begin{itemize}
   \item \texttt{list[selection]} gives a list (i.e., a subset of the original list)
   \item \texttt{list[[selection]]} gives the element (which can be a list)
@@ -651,7 +634,7 @@ my_dat[1, 2] <- 33
   \item The typical use is: \\ 
   \texttt{function\_name(object1, argument\_name = object2)}
   \item Computations that seem not to be done using functions are actually also functions. Check \texttt{\textasciigrave <-\textasciigrave (a, 5)} or \texttt{\textasciigrave >\textasciigrave (5, 2)}
-  \item most functions that seem not to return an object, return it invisibly. Check \texttt{\textasciigrave <-\textasciigrave (a, 5)}.
+  \item most functions that seem not to return an object, return it invisibly. Check \texttt{(a <- 5)}.
 \end{itemize}
 \end{frame}
 
@@ -678,9 +661,9 @@ my_dat[1, 2] <- 33
 \begin{frame}{Code Style}
 Invest time in writing readable R-code.
 \begin{itemize}
-  \item It will make collaboration easier
+  \item It will make collaborations easier
   \item It will make debugging easier
-  \item It will help make your analysis reproducible 
+  \item It will help make your analyses reproducible 
 \end{itemize}
 There is a complete \emph{tidyverse} style-guide \url{https://style.tidyverse.org/}.
 \end{frame}
@@ -692,7 +675,7 @@ There is a complete \emph{tidyverse} style-guide \url{https://style.tidyverse.or
   \item with spaces before and after: \texttt{-  +  /  *  =  <-  <  ==  > }
   \item always use \texttt{<-} for assignments
   \item only use \texttt{=} in function calls
-  \item use indentation (largely automatical in RStudio)
+  \item use indentation (largely automatic in RStudio)
   \item \texttt{CamelCaseNames} vs \texttt{snake\_case\_names}
   \item be consistent!
   \item wrap long lines at column 70-80 (Rstudio)
@@ -813,7 +796,7 @@ dat[dat %in% c(99, 999)] <- NA  # missings coded 99 or 999
 Try to limit your \emph{package-dependencies}. \\
 Only load \texttt{library()} the packages that you absolutely need. If you are only using \texttt{dplyr}, it does not make sense to load the complete \texttt{tidyverse}. \\ 
  \\
-\textbf{Controversial:} when possible, use the \texttt{::} operator(and consider not loading the package). \texttt{<package>::<function>} 
+\textbf{Controversial:} when possible, use the \texttt{::} operator (and consider not loading the package). \texttt{<package>::<function>} 
 \begin{itemize}
   \item explicit dependencies
   \item less name conflicts
@@ -821,7 +804,7 @@ Only load \texttt{library()} the packages that you absolutely need. If you are o
 \end{frame}
 
 \begin{frame}[fragile]{Never Attach}
-Forget about \texttt{attacht()}! \\
+Forget about \texttt{attach()}! \\
 Don't use it, unless you completely understand what happens (see \texttt{?attach}).\\
 Use \texttt{with(data.frame, expression)} instead.
 <<attach, eval = FALSE, echo = TRUE>>=
@@ -853,7 +836,7 @@ Issues when:
   \item folders names are changed
   \item folders are moved
   \item a shared drive is used
-  \item you ZIP and send folder
+  \item you ZIP and send the folder
 \end{itemize}
 \end{frame}
 
@@ -893,7 +876,7 @@ Organize your project folder
   \item R-folder with R scripts
   \item Data-folder with data
   \item split long scripts in meaningful chunks
-  \ttem use relative paths (alternative: \href{https://CRAN.R-project.org/package=here}{here}-package)
+  \item use relative paths (alternative: \href{https://CRAN.R-project.org/package=here}{here}-package)
 \end{itemize}
 <<organize, echo=TRUE, eval = FALSE>>=
 # read data
@@ -921,7 +904,6 @@ Use keyboard shortcuts
 \end{frame}
 
 \begin{frame}{Working with RStudio}
-Use keyboard shortcuts
 More useful shortcuts (defaults):
 \begin{itemize}
   \item run selection/selected line: \texttt{ctrl + enter}
@@ -934,8 +916,29 @@ More useful shortcuts (defaults):
 More on this \href{https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts}{HERE}.
 \end{frame}
 
+\begin{frame}[plain]
+\begin{center}
+\Large Exercises \\
+
+\vspace{1.5cm}
+\includegraphics[height=.25\textheight]{exercises.jpg}
+\end{center}
+\end{frame}
 
 \section{Functions I}
+
+\begin{frame}{Functions I}
+\begin{itemize}
+  \item Why write functions?
+  \item Basics
+  \item Arguments
+  \item Environments
+  \item Scoping
+  \item Output
+  \item Conditional Computation - if
+  \item Work flow
+\end{itemize}
+\end{frame}
 
 \begin{frame}{Building Blocks}
 Functions are the building blocks of R code. As frequent users of functions we know that they should:
@@ -945,6 +948,8 @@ Functions are the building blocks of R code. As frequent users of functions we k
   \item be portable
 \end{itemize}
 \end{frame}
+
+\subsection{Why write functions?}
 
 \begin{frame}{Stepping Stone}
 Central stepping stone for R users: Move from solely using functions written by others to writing your own functions. 
@@ -992,6 +997,8 @@ round(c("Min." = min(mtcars$mpg),
 @
 \end{frame}
 
+\subsection{Basics}
+
 \begin{frame}{Types of functions}
 Some useful terms to know:
 \begin{itemize}
@@ -1019,6 +1026,8 @@ countNA <- function(x) {    # Name, Arguments/Formals
 }
 @
 \end{frame}
+
+\subsection{Arguments}
 
 \begin{frame}{Arguments}
 Usually:
@@ -1063,6 +1072,8 @@ add_things3(2)
 @
 \end{frame}
 
+\subsection{Environments}
+
 \begin{frame}{Environments}
 Like boxes, containing objects.
 \begin{center}
@@ -1083,6 +1094,8 @@ a <- simple_fun()
 rlang::env_print(a)
 @
 \end{frame}
+
+\subsection{Scoping}
 
 \begin{frame}{Scoping}
 Where does R find things?
@@ -1108,6 +1121,8 @@ y <- 100
 add_things2(2)
 @
 \end{frame}
+
+\subsection{Output}
 
 \begin{frame}{Output}
 What does a function return?
@@ -1183,6 +1198,8 @@ add_things_message(2)
 @
 \end{frame}
 
+\subsection{Conditional Computation - if}
+
 \begin{frame}[fragile]{Conditional Computation - if}
 \texttt{if} statements have the basic form
 <<if, echo=TRUE, eval = FALSE>>=
@@ -1195,8 +1212,6 @@ if(test){
   \item If \texttt{test == TRUE}, than \texttt{some\_computations} is executed, if \texttt{test == FALSE}, than not.
   \item \textbf{Important}: \texttt{test} should have length 1. If not, only the first element is considered.\end{itemize}
 \end{frame}
-
-\subsubsection{if}
 
 \begin{frame}[fragile]{Conditional Computation - if}
 \texttt{else} can be added, but it is optional
@@ -1267,6 +1282,7 @@ mean2("a")
 @
 \end{frame}
 
+\subsection{Work flow}
 
 \begin{frame}{Writing Functions}
   Before creating the function
@@ -1283,7 +1299,28 @@ mean2("a")
   \end{itemize}
 \end{frame}
 
+\begin{frame}[plain]
+\begin{center}
+\Large Exercises \\
+
+\vspace{1.5cm}
+\includegraphics[height=.25\textheight]{exercises.jpg}
+\end{center}
+\end{frame}
+
 \section{Functions II}
+
+\begin{frame}{Functions I}
+\begin{itemize}
+  \item Good functions?
+  \item dot dot dot
+  \item on.exit()
+  \item Accessing the call
+  \item Debugging
+\end{itemize}
+\end{frame}
+
+\subsection{Good functions?}
 
 \begin{frame}{What makes a good function?}
 \textbf{Pure functions!}
@@ -1295,6 +1332,8 @@ mean2("a")
   \end{itemize}
   Results in easier understanding and higher portability.
 \end{frame}
+
+\subsection{dot dot dot}
 
 \begin{frame}{...}
 How can functions receive flexible numbers of inputs? 
@@ -1318,18 +1357,22 @@ add_all_things2(2, 3, 5, 10)
 @
 \end{frame}
 
+\subsection{on.exit()}
+
 \begin{frame}[fragile]{on.exit()}
 Performing an action when the function terminates
 <<echo=TRUE, results='asis'>>=
 add_things <- function(x, y) {
   on.exit(cat("Sum of", x, "and", y))
   x <- x + 20
-  x+y
+  x + y
 }
 out <- add_things(1, 2)
 out
 @
 \end{frame}
+
+\subsection{Accessing the function call}
 
 \begin{frame}[fragile]{Accessing the function call}
 Accessing the function call
@@ -1341,6 +1384,7 @@ showArgs(1, 2)
 @
 \end{frame}
 
+\subsection{Debugging}
 
 \begin{frame}{Debugging}
 \begin{itemize}
@@ -1400,7 +1444,7 @@ Understanding the call stack:
 \end{frame}
 
 \begin{frame}[fragile]{Recover}
-Being able to chosse an enrivonment from a call stack:
+Being able to chose an environment from the call stack:
 <<echo=TRUE, eval=FALSE>>=
 # on
 options(error = recover)
@@ -1429,7 +1473,14 @@ options(warn = 1)
 @
 \end{frame}
 
+\begin{frame}[plain]
+\begin{center}
+\Large Exercises \\
 
+\vspace{1.5cm}
+\includegraphics[height=.25\textheight]{exercises.jpg}
+\end{center}
+\end{frame}
 
 \begin{frame}[plain]
 

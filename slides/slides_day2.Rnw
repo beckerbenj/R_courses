@@ -355,8 +355,9 @@ The most commonly used functionals are:
   \item \texttt{lapply} vector / list $\rightarrow$ list
   \item \texttt{sapply} vector / list $\rightarrow$ vector (matrix)
   \item \texttt{apply} matrix / array / data.frame $\rightarrow$ vector (matrix)
-  \item \texttt{tapply}, \texttt{mapply}, \texttt{vapply}
-  \item \texttt{rapply}, \texttt{eapply} 
+  \item \texttt{tapply}, \texttt{by}
+  \item \texttt{mapply}, \texttt{Map}
+  \item \texttt{rapply}, \texttt{eapply}, \texttt{vapply} 
 \end{itemize}
 All of which have an argument that should be a function.
 \end{frame}
@@ -436,6 +437,14 @@ apply(airquality, 2, median)
 \end{center}
 \end{frame}
 
+\begin{frame}[plain]
+\begin{center}
+\Large Exercises \\
+
+\vspace{1.5cm}
+\includegraphics[height=.25\textheight]{exercises.jpg}
+\end{center}
+\end{frame}
 
 
 \section{Object Oriented Programming (S3)}
@@ -452,7 +461,7 @@ Why?
 \begin{frame}{Object Oriented Programming}
 Basics
 \begin{itemize}
-  \item a \emph{class} is a definition, it how an object behaves.
+  \item a \emph{class} is a definition
   \item an object is an \emph{instance} of a class.
   \item a \emph{method} is a procedure that behaves differently depending of the class it is applied to.
   \item \emph{inheritance}: classes are organized in hierarchy. ``is-a-type-of''-relation. 
@@ -469,7 +478,7 @@ Basics
 \end{itemize}
 \end{frame}
 
-\subsection{S3}
+\subsection{What is S3?}
 
 \begin{frame}{S3}
 Compromise between interactive use, functional programming and object-oriented programming. 
@@ -488,7 +497,7 @@ Compromise between interactive use, functional programming and object-oriented p
 \end{itemize}
 \end{frame}
 
-\subsubsection{class}
+\subsection{class}
 
 \begin{frame}[fragile]{S3 - class}
 A new class is made by adding an arbitrary \texttt{class} attribute to an object.
@@ -517,7 +526,7 @@ iris[1:4, 1:3]
 \end{frame}
 
 \begin{frame}[fragile]{S3 - class}
-Good practice: \emph{\textbf{constuctor function}}
+Good practice: \emph{\textbf{constructor function}}
 \begin{itemize}
   \item defines the structure of the class
   \item should be used to create objects of that class
@@ -530,10 +539,10 @@ myClass <- function(element1, element2){
             class = "myClass")
 }
 @
-Write a separate validation-function for computationally intensivevvalidation.
+Write a separate validation-function for computationally intensive validation.
 \end{frame}
 
-\subsubsection{Generics and Methods}
+\subsection{Generics and Methods}
 
 \begin{frame}[fragile]{S3 - Generics and Methods}
 \begin{itemize}
@@ -597,7 +606,7 @@ center(my_object)
 @
 \end{frame}
 
-\subsubsection{inheritance and dispatch}
+\subsection{inheritance and dispatch}
 
 \begin{frame}[fragile]{S3 - Inheritance and Dispatch}
 <<data, echo=FALSE, eval = TRUE>>=
@@ -626,7 +635,29 @@ variable.names(my_model)
 
 \end{frame}
 
+\begin{frame}[plain]
+\begin{center}
+\Large Exercises \\
+
+\vspace{1.5cm}
+\includegraphics[height=.25\textheight]{exercises.jpg}
+\end{center}
+\end{frame}
+
+
 \section{Version Controlling (Git + Github)}
+
+\begin{frame}{Version Controlling}
+\begin{itemize}
+  \item Motivation
+  \item Setup
+  \item Work flow
+  \item Recommendations
+  \item Resources
+\end{itemize}
+\end{frame}
+
+\subsection{Motivation}
 
 \begin{frame}{Motivation}
 \begin{center}
@@ -658,6 +689,8 @@ variable.names(my_model)
 \end{center}
 \end{frame}
 
+\subsection{Setup}
+
 \begin{frame}{Requirements}
 \begin{itemize}
   \item Install git 
@@ -679,8 +712,9 @@ variable.names(my_model)
 \end{center}
 \end{frame}
 
+\subsection{Work flow}
 
-\begin{frame}{Workflow}
+\begin{frame}{Work flow}
 \textbf{Creating a repository}
 \begin{itemize}
   \item Create an online repository (e.g. on Github)
@@ -693,7 +727,7 @@ variable.names(my_model)
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Workflow}
+\begin{frame}{Work flow}
 \textbf{Working with a repository}
 \begin{itemize}
   \item Before working: Synch your local repo (\textbf{Pull})
@@ -703,6 +737,8 @@ variable.names(my_model)
   \item \textbf{Push} your changes
 \end{itemize}
 \end{frame}
+
+\subsection{Recommendations}
 
 \begin{frame}{Recommendations}
 \begin{itemize}
@@ -714,6 +750,8 @@ variable.names(my_model)
   \item Keep it lean (no big files)
 \end{itemize}
 \end{frame}
+
+\subsection{Resources}
 
 \begin{frame}{Resources}
 Git (+ R) Resources
@@ -733,17 +771,17 @@ Git (+ R) Resources
 \item Investing time in learning R pays off
 \item It's a steady learning curve
 \item Learn from masters
-\item rewrite important code - the first attempt is usualy not the best approach
+\item Rewrite important code - the first attempt is usually not the best approach
 \end{itemize}
 \end{frame}
 
-\begin{frame}{R Advice}
+\begin{frame}{General R Advice}
 \begin{itemize}
 \item Document well
-\item Use a consitent style
+\item Use a consistent style
 \item Write functions
-\item split long functions in smaller ones
-\item write wrappers
+\item Split long functions in smaller ones
+\item Write wrappers
 \item Use Iteration (don't copy paste)
 \item Use matrix operations and vectorized functions instead of loops
 \item Use git
