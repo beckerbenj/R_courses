@@ -201,6 +201,8 @@ Also:
 \end{itemize}
 \end{frame}
 
+\subsection{browser}
+
 \begin{frame}[fragile]{browser()}
 Inspecting a function interactively
 <<echo=TRUE, eval=FALSE>>=
@@ -229,6 +231,8 @@ Navigating within a browser:
 \end{itemize}
 \end{frame}
 
+\subsection{traceback}
+
 \begin{frame}{traceback()}
 Understanding the call stack:
 \begin{center}
@@ -242,6 +246,8 @@ Understanding the call stack:
 \includegraphics[height=.75\textheight]{traceback2.JPG}
 \end{center}
 \end{frame}
+
+\subsection{recover}
 
 \begin{frame}[fragile]{Recover}
 Being able to chose an environment from the call stack:
@@ -261,6 +267,7 @@ Being able to chosse an enrivonment from a call stack:
 \end{center}
 \end{frame}
 
+\subsection{warnings}
 
 \begin{frame}[fragile]{Warnings}
 Turning warnings into errors

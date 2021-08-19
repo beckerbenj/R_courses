@@ -51,7 +51,6 @@ econRedD<-"#90353B"
 \title{Introduction to Programming with R}
 \institute{Zurich University}
 
-
 \author[Dries Debeer \& Benjamin Becker]{Dries Debeer \& Benjamin Becker}
 \date{31. September and 01. October 2021}
 
