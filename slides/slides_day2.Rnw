@@ -101,7 +101,61 @@ econRedD<-"#90353B"
 
 \end{frame}
 
+% ----------------------------------------------------------------------------------------------------------------------
 \section{Functions II}
+
+\subsection{Environments}
+
+\begin{frame}{Environments}
+Like boxes, containing objects.
+\begin{center}
+\includegraphics[height=.4\textheight]{envir.JPG}
+\end{center}
+A bit simplified: If a function is called, its own environment is created with its parent being the environment from which it was called.
+\end{frame}
+
+
+\begin{frame}[fragile]{Environments}
+<<echo=TRUE, results='markup'>>=
+simple_fun <- function(){
+  a <- 1
+  b <- "a"
+  environment()
+}
+a <- simple_fun()
+rlang::env_print(a)
+@
+\end{frame}
+
+\subsection{Scoping}
+
+\begin{frame}{Scoping}
+Where does R find things?
+\begin{itemize}
+  \item Argument matching (name, place...)
+  \item Current environment
+  \item Parent environment
+\end{itemize}
+
+\metroset{block=fill} %grey blocks
+\begin{block}{Programming advice}
+Keep it simple, this can create chaos!
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Scoping}
+<<echo=TRUE, results='asis'>>=
+add_things2 <- function(x) {
+  x + 10 + y
+}
+add_things2(2)
+y <- 100
+add_things2(2)
+@
+\end{frame}
+
+% ----------------------------------------------------------------------------------------------------------------------
+\section{Functions III}
 
 \begin{frame}{Functions I}
 \begin{itemize}

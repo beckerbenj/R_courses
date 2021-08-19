@@ -934,18 +934,18 @@ More on this \href{https://support.rstudio.com/hc/en-us/articles/200711853-Keybo
 
 \subsection{if}
 
-%\begin{frame}[fragile]{Conditional Computation - if}
-%\texttt{if} statements have the basic form
-%<<if, echo=TRUE, eval = FALSE>>=
-%if(test){
-%  some_computations
-%}
-%@
-%\begin{itemize}
-%  \item \texttt{test} should be either \texttt{TRUE} or \texttt{FALSE} %(or code that results one of both). 
-%  \item If \texttt{test == TRUE}, than \texttt{some\_computations} is %executed, if \texttt{test == FALSE}, than not.
-%  \item \textbf{Important}: \texttt{test} should have length 1. If not, %only the first element is considered.\end{itemize}
-%\end{frame}
+\begin{frame}[fragile]{Conditional Computation - if}
+\texttt{if} statements have the basic form
+<<if, echo=TRUE, eval = FALSE>>=
+if(test){
+  some_computations
+}
+@
+\begin{itemize}
+  \item \texttt{test} should be either \texttt{TRUE} or \texttt{FALSE} (or code that results in one of both). 
+  \item If \texttt{test == TRUE}, than \texttt{some\_computations} is executed, if \texttt{test == FALSE}, than not.
+  \item \textbf{Important}: \texttt{test} should have length 1. If not, only the first element is considered.\end{itemize}
+\end{frame}
 
 \begin{frame}[fragile]{Conditional Computation - if}
 \texttt{else} can be added, but it is optional
@@ -960,26 +960,22 @@ if(test){
 @
 \end{frame}
 
-%\begin{frame}[fragile]{Conditional Computation - if}
-%Typical uses
-%<<if typical, echo=TRUE, eval = FALSE, size = "footnotesize">>=
-%if(any(is.na(x))){
-%  stop("computation impossible due to NA values")
-%}
-%
-%if(!is.integer(vector)){
-%  warning("'vector' is automatically converted to interger.
-%          This may affect the results")
-%  vector <- as.integer(vector)
-%}
-%
-%if(is.null(default_argument)){
-%  <default computations>
-%} else if (default_argument == specific value) {
-%  ...
-%}
-%@
-%\end{frame}
+\begin{frame}{Typical test functions}
+\textbf{Vectorized} 
+\begin{itemize}
+  \item \texttt{==}, \texttt{!=}, \texttt{>}, \texttt{>=}, ... 
+  \item \texttt{is.na()}
+  \item \texttt{\&}, \texttt{|}  
+\end{itemize} 
+\textbf{Not vectorized} 
+\begin{itemize}
+  \item \texttt{identical()}
+  \item \texttt{all.equal()}
+  \item \texttt{\&\&}, \texttt{||}
+  \item \texttt{any()}, \texttt{all()}
+  \item \texttt{is.character()}, \texttt{is.data.frame()}, ... 
+\end{itemize}
+\end{frame}
 
 \begin{frame}[fragile]{Conditional Computation - if}
 The \emph{test} should have length 1!
@@ -994,27 +990,84 @@ if (age >= 18) {
 @
 \end{frame}
 
-\subsubsection{ifelse}
+\begin{frame}[fragile]{Conditional Computation - if}
+Typical uses
+<<if typical, echo=TRUE, eval = FALSE, size = "footnotesize">>=
+if(any(is.na(x))){
+  stop("computation impossible due to NA values")
+}
+
+if(!is.integer(vector)){
+  warning("'vector' is automatically converted to interger.
+          This may affect the results")
+  vector <- as.integer(vector)
+}
+
+if(is.null(default_argument)){
+  <default computations>
+} else if (default_argument == specific value) {
+  ...
+}
+@
+\end{frame}
+
+\begin{frame}{Conditional Computation - if}
+\metroset{block=fill} %grey blocks
+\begin{block}{Programming advice}
+\begin{itemize}
+  \item \emph{if} is almost always used inside of functions or loops
+  \item If possible, avoid using \emph{else}
+  \item Use meaningful initialisation, early return(), stop(), etc. instead
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Conditional Computation - if}
+Abbreviation for if(!test) and stop():
+<<echo=TRUE, results='asis'>>=
+mean2 <- function(x, na.rm = FALSE) {
+  stopifnot(is.numeric(x))
+  sum(x)/length(x)
+}
+mean2("a")
+@
+\end{frame}
+
+\subsection{ifelse}
 
 \begin{frame}[fragile]{Conditional Computation - ifelse}
 A vectorized version is \texttt{ifelse()}. \\ 
 <<ifelse, echo = TRUE, results="markup">>=
 # all elements are evaluated
 age <- c(8, 17, 39, 55)
-ifelse(age >= 18, "can vote", "too young")
+ifelse(age >= 18, yes = "can vote", 
+       no = "too young")
 @
 %\texttt{\textasciigrave if\textasciigrave (test, ifTRUE, ifFALSE)} does exactly the same as \texttt{if (test) {ifTRUE} else {ifFALSE}}
 \end{frame}
 
+\begin{frame}[fragile]{Conditional Computation - ifelse}
+Go-to tool for conditional recoding
+<<ifelse typical, echo=TRUE, results = "markup">>=
+age_estimated <- c(10, 20, 35, 60) 
+age_self_rep <- c(NA, 17, 39, NA)
+
+# Use available information, prioritize self report
+ifelse(!is.na(age_self_rep), yes = age_self_rep, 
+       no = age_estimated)
+
+@
+\end{frame}
+
 \begin{frame}[fragile]{Conditional Computation - Vectorization}
-Vectorization can bring you a long way. But it may be less readable
+Pure vectorization can bring you a long way. But it is certainly less readable
 <<vectorize2, echo = TRUE, results = "markup">>=
 age <- c(8, 17, 39, 55)
 c("too young", "can vote")[1 + (age >= 18)]
 @
 \end{frame}
 
-\subsubsection{switch}
+\subsection{switch}
 
 \begin{frame}[fragile]{Conditional Computation - switch}
 \texttt{switch()} is often a more elegant solution than using \texttt{else if ()} multiple times.
@@ -1037,7 +1090,7 @@ switch(method,
 \section{Flow \& Iteration}
 
 \begin{frame}{Flow \& Iteration}
-R has specific tools (functions) that help organizing the flow of computations. \\
+R has specific tools (functions) that help organize the flow of computations. \\
 You can either make computations conditional on other objects (``conditional computation'') or repeat a similar computation multiple times typically with changing options (``iteration'').
 The most commonly used tools are: 
 \begin{itemize}
@@ -1176,10 +1229,7 @@ for (index in seq_along(x)){
   \item Why write functions?
   \item Basics
   \item Arguments
-  \item Environments
-  \item Scoping
   \item Output
-  \item Conditional Computation - if
   \item Work flow
 \end{itemize}
 \end{frame}
@@ -1243,16 +1293,6 @@ round(c("Min." = min(mtcars$mpg),
 
 \subsection{Basics}
 
-\begin{frame}{Types of functions}
-Some useful terms to know:
-\begin{itemize}
-  \item Anonymouse functions
-  \item Primitive functions
-  \item Exported functions (::)
-  \item Not exported functions (:::) 
-\end{itemize}
-\end{frame}
-
 \begin{frame}{Elements of a function}
 \begin{itemize}
   \item Name
@@ -1269,6 +1309,14 @@ countNA <- function(x) {    # Name, Arguments/Formals
   out                       # Output
 }
 @
+\end{frame}
+
+\begin{frame}{Function Names}
+\begin{itemize}
+  \item Usually a verb (what does the function do?)
+  \item Avoid existing names 
+  \item Better longer than unclear
+\end{itemize}
 \end{frame}
 
 \subsection{Arguments}
@@ -1313,56 +1361,6 @@ add_things3 <- function(x, y) {
   x + 10
 }
 add_things3(2)
-@
-\end{frame}
-
-\subsection{Environments}
-
-\begin{frame}{Environments}
-Like boxes, containing objects.
-\begin{center}
-\includegraphics[height=.4\textheight]{envir.JPG}
-\end{center}
-A bit simplified: If a function is called, its own environment is created with its parent being the environment from which it was called.
-\end{frame}
-
-
-\begin{frame}[fragile]{Environments}
-<<echo=TRUE, results='markup'>>=
-simple_fun <- function(){
-  a <- 1
-  b <- "a"
-  environment()
-}
-a <- simple_fun()
-rlang::env_print(a)
-@
-\end{frame}
-
-\subsection{Scoping}
-
-\begin{frame}{Scoping}
-Where does R find things?
-\begin{itemize}
-  \item Argument matching (name, place...)
-  \item Current environment
-  \item Parent environment
-\end{itemize}
-
-\metroset{block=fill} %grey blocks
-\begin{block}{Programming advice}
-Keep it simple, this can create chaos!
-\end{block}
-\end{frame}
-
-\begin{frame}[fragile]{Scoping}
-<<echo=TRUE, results='asis'>>=
-add_things2 <- function(x) {
-  x + 10 + y
-}
-add_things2(2)
-y <- 100
-add_things2(2)
 @
 \end{frame}
 
@@ -1442,89 +1440,6 @@ add_things_message(2)
 @
 \end{frame}
 
-\subsection{Conditional Computation - if}
-
-\begin{frame}[fragile]{Conditional Computation - if}
-\texttt{if} statements have the basic form
-<<if, echo=TRUE, eval = FALSE>>=
-if(test){
-  some_computations
-}
-@
-\begin{itemize}
-  \item \texttt{test} should be either \texttt{TRUE} or \texttt{FALSE} (or code that results one of both). 
-  \item If \texttt{test == TRUE}, than \texttt{some\_computations} is executed, if \texttt{test == FALSE}, than not.
-  \item \textbf{Important}: \texttt{test} should have length 1. If not, only the first element is considered.\end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Conditional Computation - if}
-\texttt{else} can be added, but it is optional
-<<if else2, echo=TRUE, eval = FALSE>>=
-if(test){
-  some_computations
-} else if (test_2){
-  other_computations
-} else {
-  more_computations
-}
-@
-\end{frame}
-
-\begin{frame}[fragile]{Conditional Computation - if}
-Typical uses
-<<if typical, echo=TRUE, eval = FALSE, size = "footnotesize">>=
-if(any(is.na(x))){
-  stop("computation impossible due to NA values")
-}
-
-if(!is.integer(vector)){
-  warning("'vector' is automatically converted to interger.
-          This may affect the results")
-  vector <- as.integer(vector)
-}
-
-if(is.null(default_argument)){
-  <default computations>
-} else if (default_argument == specific value) {
-  ...
-}
-@
-\end{frame}
-
-\begin{frame}[fragile]{Conditional Computation - if}
-The \emph{test} should have length 1.
-<<if2, echo = TRUE, results="markup">>=
-# only the first element is evaluated
-age <- c(8, 17, 25, 39, 55)
-if (age >= 18) {
-  "can vote"
-} else {
-    "too young"
-}
-@
-\end{frame}
-
-\begin{frame}{Conditional Computation - if}
-\metroset{block=fill} %grey blocks
-\begin{block}{Programming advice}
-\begin{itemize}
-  \item If possible, avoid using else()
-  \item Use early return(), stop(), etc. instead
-\end{itemize}
-\end{block}
-\end{frame}
-
-
-\begin{frame}[fragile]{Conditional Computation - if}
-Abbreviation for if(!test) and stop():
-<<echo=TRUE, results='asis'>>=
-mean2 <- function(x, na.rm = FALSE) {
-  stopifnot(is.numeric(x))
-  sum(x)/length(x)
-}
-mean2("a")
-@
-\end{frame}
 
 \subsection{Work flow}
 
