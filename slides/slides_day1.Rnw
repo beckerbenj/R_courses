@@ -48,12 +48,12 @@ econRedD<-"#90353B"
 \begin{document}
 
 
-\title{Programming with R/Advanced R}
-\institute{FDZ Spring Academy}
+\title{Introduction to Programming with R}
+\institute{Zurich University}
 
 
 \author[Dries Debeer \& Benjamin Becker]{Dries Debeer \& Benjamin Becker}
-\date{18. and 19. March 2021}
+\date{31. September and 01. October 2021}
 
 
 \begin{frame}
@@ -204,18 +204,21 @@ Researcher at IQB (Statistics Department)
 \begin{frame}{Agenda}
 \textbf{Day 1}
 \begin{itemize}
-  \item Recap \& Clean Code
+  \item Basic Elements \& Data Types
+  \item Flow \& Conditional Programming
+  \item Loops \& Iteration
   \item Functions (Introduction)
-  \item Functions (Advanced)
 \end{itemize}
 \textbf{Day 2}
 \begin{itemize}
-  \item Flow \& Iteration
-  \item Object oriented programming: S3
-  \item Version Controlling
+  \item Functions (Advanced)
+  \item Debugging
+  \item Efficient Programming
 \end{itemize}
 \end{frame}
 
+
+% ----------------------------------------------------------------------------------------------------------------------
 \section{R Objects (Recap)}
 
 \begin{frame}[fragile]
@@ -925,6 +928,247 @@ More on this \href{https://support.rstudio.com/hc/en-us/articles/200711853-Keybo
 \end{center}
 \end{frame}
 
+
+% ----------------------------------------------------------------------------------------------------------------------
+\section{Conditional Computation}
+
+\subsection{if}
+
+%\begin{frame}[fragile]{Conditional Computation - if}
+%\texttt{if} statements have the basic form
+%<<if, echo=TRUE, eval = FALSE>>=
+%if(test){
+%  some_computations
+%}
+%@
+%\begin{itemize}
+%  \item \texttt{test} should be either \texttt{TRUE} or \texttt{FALSE} %(or code that results one of both). 
+%  \item If \texttt{test == TRUE}, than \texttt{some\_computations} is %executed, if \texttt{test == FALSE}, than not.
+%  \item \textbf{Important}: \texttt{test} should have length 1. If not, %only the first element is considered.\end{itemize}
+%\end{frame}
+
+\begin{frame}[fragile]{Conditional Computation - if}
+\texttt{else} can be added, but it is optional
+<<if else, echo=TRUE, eval = FALSE>>=
+if(test){
+  some_computations
+} else if (test_2){
+  other_computations
+} else {
+  more_computations
+}
+@
+\end{frame}
+
+%\begin{frame}[fragile]{Conditional Computation - if}
+%Typical uses
+%<<if typical, echo=TRUE, eval = FALSE, size = "footnotesize">>=
+%if(any(is.na(x))){
+%  stop("computation impossible due to NA values")
+%}
+%
+%if(!is.integer(vector)){
+%  warning("'vector' is automatically converted to interger.
+%          This may affect the results")
+%  vector <- as.integer(vector)
+%}
+%
+%if(is.null(default_argument)){
+%  <default computations>
+%} else if (default_argument == specific value) {
+%  ...
+%}
+%@
+%\end{frame}
+
+\begin{frame}[fragile]{Conditional Computation - if}
+The \emph{test} should have length 1!
+<<if3, echo = TRUE, results="markup">>=
+# only the first element is evaluated
+age <- c(8, 17, 39, 55)
+if (age >= 18) {
+  "can vote"
+} else {
+    "too young"
+}
+@
+\end{frame}
+
+\subsubsection{ifelse}
+
+\begin{frame}[fragile]{Conditional Computation - ifelse}
+A vectorized version is \texttt{ifelse()}. \\ 
+<<ifelse, echo = TRUE, results="markup">>=
+# all elements are evaluated
+age <- c(8, 17, 39, 55)
+ifelse(age >= 18, "can vote", "too young")
+@
+%\texttt{\textasciigrave if\textasciigrave (test, ifTRUE, ifFALSE)} does exactly the same as \texttt{if (test) {ifTRUE} else {ifFALSE}}
+\end{frame}
+
+\begin{frame}[fragile]{Conditional Computation - Vectorization}
+Vectorization can bring you a long way. But it may be less readable
+<<vectorize2, echo = TRUE, results = "markup">>=
+age <- c(8, 17, 39, 55)
+c("too young", "can vote")[1 + (age >= 18)]
+@
+\end{frame}
+
+\subsubsection{switch}
+
+\begin{frame}[fragile]{Conditional Computation - switch}
+\texttt{switch()} is often a more elegant solution than using \texttt{else if ()} multiple times.
+<<switch, echo = TRUE, eval = FALSE>>=
+method <- "method 5"
+switch(method, 
+       "method 1" = <computations>,
+       "method 2" = <computations>,
+       "method 3" = <computations>,
+       "method 4" = <computations>,
+       "method 5" = <computations>,
+       "method 6" = <computations>,
+       "method 7" = <computations>,
+       "method 8" = <computations>,
+       stop("Not an existing method"))
+@
+\end{frame}
+
+% ----------------------------------------------------------------------------------------------------------------------
+\section{Flow \& Iteration}
+
+\begin{frame}{Flow \& Iteration}
+R has specific tools (functions) that help organizing the flow of computations. \\
+You can either make computations conditional on other objects (``conditional computation'') or repeat a similar computation multiple times typically with changing options (``iteration'').
+The most commonly used tools are: 
+\begin{itemize}
+  \item \texttt{if} for conditional computation
+  \item \texttt{for} for iteration
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Flow \& Iteration}
+\textbf{conditional computation} 
+\begin{itemize}
+  \item \texttt{if} (+ \texttt{else})
+  \item \texttt{ifelse}
+  \item \texttt{switch}
+\end{itemize} 
+\textbf{iteration} 
+\begin{itemize}
+  \item loops (\texttt{repeat}, \texttt{while}, \texttt{for})
+  \item functionals (\texttt{apply} - family)
+  \item split \& apply \& combine
+\end{itemize}
+\end{frame}
+
+
+
+
+\subsection{Iteration}
+
+\subsubsection{for}
+
+\begin{frame}[fragile]{Iteration - for}
+\texttt{for} statements have the basic form
+<<for, echo=TRUE, eval = FALSE>>=
+for (element in vector) {
+  computation
+}
+@
+For each element in the vector, the computation is executed. \\
+Often, the computation depends on the element in that iteration.
+\end{frame}
+
+\begin{frame}[fragile]{Iteration - for}
+<<for2, echo=TRUE, eval = TRUE, results = "markup">>=
+for (index in 1:3){
+  cat(" computation -")
+}
+
+for (name in c("Alice", "Bob", "Casey")){
+  if(name == "Bob") cat(" This was Bob -")
+  else cat(" Not Bob -")
+}
+@
+\end{frame}
+
+\subsubsection{while \& repeat}
+
+\begin{frame}[fragile]{Iteration - while}
+\texttt{while} statements have the basic form
+<<while, echo=TRUE, eval = FALSE>>=
+while (condition){
+  computation
+}
+@
+As long as the condition is TRUE, the computation is executed. \\ Often, the computation depends on something that is related to the condition.
+\end{frame}
+
+\begin{frame}[fragile]{Iteration - repeat}
+\texttt{repeat} statements have the basic form
+<<repeat, echo=TRUE, eval = FALSE>>=
+repeat {
+  computation
+}
+@
+Without a \texttt{break} the computation is repeated infinite times
+\end{frame}
+
+\subsubsection{next \& break}
+
+\begin{frame}[fragile]{Iteration - next break}
+\begin{itemize}
+  \item \texttt{next} starts next iteration
+  \item \texttt{break} ends iteration (of the innermost loop)
+\end{itemize}
+<<next, echo=TRUE, eval = TRUE, results="markup">>=
+index <- 0
+repeat {
+  index <- index + 1
+  if (index %in% c(3, 5)) next
+  if (index > 6) break
+  print(index)
+}
+@
+\end{frame}
+
+\subsubsection{Iteration - good practice}
+
+\begin{frame}[fragile]{Iteration - Good practice}
+\metroset{block=fill} %grey blocks
+\begin{block}{Programming advice}
+Use \texttt{seq()}, \texttt{seq\_len()}, or \texttt{seq\_along()}.
+\end{block}
+<<seq, echo=TRUE, eval = TRUE, results="markup", size="footnotesize">>=
+x <- numeric()
+for (index in 1:length(x)){
+  print(index)
+}
+
+for (index in seq_along(x)){
+  print(index)
+}
+@
+\end{frame}
+
+\begin{frame}[fragile]{Iteration - Good practice}
+\metroset{block=fill} %grey blocks
+\begin{block}{Programming advice}
+Don't grow, replace.
+\end{block}
+<<replace, echo=TRUE, eval = TRUE, results="markup">>=
+x <- letters
+result1 <- numeric()          # grow
+result2 <- numeric(length(x)) # replace
+for (index in seq_along(x)){
+  result1 <- c(result1, paste(index, x[index]))  # grow
+  result2[index] <- paste(index, x[index])       # replace
+}
+@
+\end{frame}
+
+
+% ----------------------------------------------------------------------------------------------------------------------
 \section{Functions I}
 
 \begin{frame}{Functions I}
@@ -1215,7 +1459,7 @@ if(test){
 
 \begin{frame}[fragile]{Conditional Computation - if}
 \texttt{else} can be added, but it is optional
-<<if else, echo=TRUE, eval = FALSE>>=
+<<if else2, echo=TRUE, eval = FALSE>>=
 if(test){
   some_computations
 } else if (test_2){
@@ -1308,179 +1552,7 @@ mean2("a")
 \end{center}
 \end{frame}
 
-\section{Functions II}
 
-\begin{frame}{Functions I}
-\begin{itemize}
-  \item Good functions?
-  \item dot dot dot
-  \item on.exit()
-  \item Accessing the call
-  \item Debugging
-\end{itemize}
-\end{frame}
-
-\subsection{Good functions?}
-
-\begin{frame}{What makes a good function?}
-\textbf{Pure functions!}
-  \begin{itemize}
-    \item no side effects
-    \item the only output is returned
-    \item no dependency on global environment
-    \item only input via arguments
-  \end{itemize}
-  Results in easier understanding and higher portability.
-\end{frame}
-
-\subsection{dot dot dot}
-
-\begin{frame}{...}
-How can functions receive flexible numbers of inputs? 
-
-\textbf{Examples:}
-  \begin{itemize}
-    \item sum()
-    \item save()
-    \item ...
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{...}
-via dot dot dot (...)
-<<echo=TRUE, results='asis'>>=
-add_all_things2 <- function(...) {
-  l <- list(...)
-  do.call(sum, l)
-}
-add_all_things2(2, 3, 5, 10)
-@
-\end{frame}
-
-\subsection{on.exit()}
-
-\begin{frame}[fragile]{on.exit()}
-Performing an action when the function terminates
-<<echo=TRUE, results='asis'>>=
-add_things <- function(x, y) {
-  on.exit(cat("Sum of", x, "and", y))
-  x <- x + 20
-  x + y
-}
-out <- add_things(1, 2)
-out
-@
-\end{frame}
-
-\subsection{Accessing the function call}
-
-\begin{frame}[fragile]{Accessing the function call}
-Accessing the function call
-<<echo=TRUE, results='asis'>>=
-showArgs <- function(x, y) {
-  match.call()
-}
-showArgs(1, 2)
-@
-\end{frame}
-
-\subsection{Debugging}
-
-\begin{frame}{Debugging}
-\begin{itemize}
-  \item browser()
-  \item traceback()
-  \item options(error = recover)
-  \item options(warn = 2)
-\end{itemize}
-
-Also:
-\begin{itemize}
-  \item trace() \& untrace()
-  \item debug() \& undebug(), debugonce()
-\end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{browser()}
-Inspecting a function interactively
-<<echo=TRUE, eval=FALSE>>=
-some_function <- function(x, y) {
-  z <- x + y
-  browser()
-  z
-}
-some_function(x = 1, y = 5)
-@
-\end{frame}
-
-\begin{frame}{browser()}
-\begin{center}
-\includegraphics[width=.75\textwidth]{browser.JPG}
-\end{center}
-\end{frame}
-
-\begin{frame}{browser()}
-Navigating within a browser:
-\begin{itemize}
-  \item [ls()] Show existing objects in the current environment
-  \item [c] Exit the browser and continue execution
-  \item [Q] Exit the browser, return to top level
-  \item [where] Show call stack
-\end{itemize}
-\end{frame}
-
-\begin{frame}{traceback()}
-Understanding the call stack:
-\begin{center}
-\includegraphics[width=.75\textwidth]{traceback.JPG}
-\end{center}
-\end{frame}
-
-\begin{frame}{traceback()}
-Understanding the call stack:
-\begin{center}
-\includegraphics[height=.75\textheight]{traceback2.JPG}
-\end{center}
-\end{frame}
-
-\begin{frame}[fragile]{Recover}
-Being able to chose an environment from the call stack:
-<<echo=TRUE, eval=FALSE>>=
-# on
-options(error = recover)
-
-# off
-options(error = NULL)
-@
-\end{frame}
-
-\begin{frame}{Recover}
-Being able to chosse an enrivonment from a call stack:
-\begin{center}
-\includegraphics[width=.75\textwidth]{recover.JPG}
-\end{center}
-\end{frame}
-
-
-\begin{frame}[fragile]{Warnings}
-Turning warnings into errors
-<<echo=TRUE, eval=FALSE>>=
-# on
-options(warn = 2)
-
-# off
-options(warn = 1)
-@
-\end{frame}
-
-\begin{frame}[plain]
-\begin{center}
-\Large Exercises \\
-
-\vspace{1.5cm}
-\includegraphics[height=.25\textheight]{exercises.jpg}
-\end{center}
-\end{frame}
 
 \begin{frame}[plain]
 
