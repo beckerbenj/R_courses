@@ -65,12 +65,11 @@ econRedD<-"#90353B"
 \begin{document}
 
 
-\title{Programming with R/Advanced R}
-\institute{FDZ Spring Academy}
-
+\title{Introduction to Programming with R}
+\institute{Zurich University}
 
 \author[Dries Debeer \& Benjamin Becker]{Dries Debeer \& Benjamin Becker}
-\date{18. and 19. March 2021}
+\date{31. September and 01. October 2021}
 
 
 \begin{frame}
@@ -81,17 +80,19 @@ econRedD<-"#90353B"
 \begin{frame}{Agenda}
 \textbf{Day 1}
 \begin{itemize}
-  \item Recap \& Clean Code
+  \item Basic Elements \& Data Types
+  \item Flow \& Conditional Programming
+  \item Loops \& Iteration
   \item Functions (Introduction)
-  \item Functions (Advanced)
 \end{itemize}
 \textbf{Day 2}
 \begin{itemize}
-  \item Flow \& Iteration
-  \item Object oriented programming: S3
-  \item Version Controlling
+  \item Functions (Advanced)
+  \item Debugging
+  \item Efficient Programming
 \end{itemize}
 \end{frame}
+
 
 \begin{frame}[plain]
 
@@ -104,66 +105,17 @@ econRedD<-"#90353B"
 % ----------------------------------------------------------------------------------------------------------------------
 \section{Functions II}
 
-\subsection{Environments}
 
-\begin{frame}{Environments}
-Like boxes, containing objects.
-\begin{center}
-\includegraphics[height=.4\textheight]{envir.JPG}
-\end{center}
-A bit simplified: If a function is called, its own environment is created with its parent being the environment from which it was called.
-\end{frame}
-
-
-\begin{frame}[fragile]{Environments}
-<<echo=TRUE, results='markup'>>=
-simple_fun <- function(){
-  a <- 1
-  b <- "a"
-  environment()
-}
-a <- simple_fun()
-rlang::env_print(a)
-@
-\end{frame}
-
-\subsection{Scoping}
-
-\begin{frame}{Scoping}
-Where does R find things?
-\begin{itemize}
-  \item Argument matching (name, place...)
-  \item Current environment
-  \item Parent environment
-\end{itemize}
-
-\metroset{block=fill} %grey blocks
-\begin{block}{Programming advice}
-Keep it simple, this can create chaos!
-\end{block}
-\end{frame}
-
-\begin{frame}[fragile]{Scoping}
-<<echo=TRUE, results='asis'>>=
-add_things2 <- function(x) {
-  x + 10 + y
-}
-add_things2(2)
-y <- 100
-add_things2(2)
-@
-\end{frame}
 
 % ----------------------------------------------------------------------------------------------------------------------
 \section{Functions III}
 
-\begin{frame}{Functions I}
+\begin{frame}{Functions III}
 \begin{itemize}
   \item Good functions?
   \item dot dot dot
   \item on.exit()
   \item Accessing the call
-  \item Debugging
 \end{itemize}
 \end{frame}
 
@@ -232,7 +184,7 @@ showArgs(1, 2)
 \end{frame}
 
 % ----------------------------------------------------------------------------------------------------------------------
-\subsection{Debugging}
+\section{Debugging}
 
 \begin{frame}{Debugging}
 \begin{itemize}
@@ -330,435 +282,12 @@ options(warn = 1)
 \end{center}
 \end{frame}
 
+% ----------------------------------------------------------------------------------------------------------------------
+\section{Efficient Programming}
 
-\subsection{Functionals}
 
-\begin{frame}{Functionals}
-A functional is a function that takes another function as an argument. \\
-Focus on the \texttt{apply}-family. These functions \emph{apply} a function repeatedly. \\
-Can be seens as an abstraction of a for loop, with the following advantages
-\begin{itemize}
-  \item requires less code to write
-  \item does not store intermediate results
-  \item no need to replace / grow
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Functionals}
-The most commonly used functionals are:
-\begin{itemize}
-  \item \texttt{lapply} vector / list $\rightarrow$ list
-  \item \texttt{sapply} vector / list $\rightarrow$ vector (matrix)
-  \item \texttt{apply} matrix / array / data.frame $\rightarrow$ vector (matrix)
-  \item \texttt{tapply}, \texttt{by}
-  \item \texttt{mapply}, \texttt{Map}
-  \item \texttt{rapply}, \texttt{eapply}, \texttt{vapply} 
-\end{itemize}
-All of which have an argument that should be a function.
-\end{frame}
-
-\subsubsection{lapply}
-
-\begin{frame}[fragile]{lapply}
-Data.frames are lists
-<<lapply, echo=TRUE, results="markup", size="footnotesize">>=
-lapply(iris, FUN = class)
-@
-\end{frame}
-
-\begin{frame}[fragile]{lapply}
-\begin{itemize}
-  \item an annonymous function can be used
-  \item any type of element can be used
-  \item other arguments can be passed through
-\end{itemize}
-<<lapply2, echo=TRUE, results="markup", size="footnotesize">>=
-lapply(c(min, median, max), FUN = function(fun, x) {
-  fun(x)
-}, x = 2:8)
-@
-\end{frame}
-
-\subsubsection{sapply}
-
-\begin{frame}[fragile]{sapply}
-\begin{itemize}
-  \item wrapper around lapply
-  \item if possible, the ouput is combined into a atomic vector or matrix
-\end{itemize}
-<<sapply, echo=TRUE, eval = TRUE, results="markup">>=
-sapply(airquality, FUN = sd)
-sapply(airquality, FUN = quantile, prob = c(.1, .9), 
-       na.rm = TRUE)
-@
-\end{frame}
-
-\subsubsection{apply}
-
-\begin{frame}[fragile]{apply}
-\begin{itemize}
-  \item for objects with dimension (matrix, array, data.frame)
-  \item apply over (a) chosen dimension(s) 
-\end{itemize}
-<<apply, echo=TRUE, results="markup", size="footnotesize">>=
-my_matrix <- matrix(1:6, nrow = 2)
-apply(my_matrix, 1, max)    # apply per row
-apply(my_matrix, 2, max)    # apply per column
-@
-\end{frame}
-
-\begin{frame}[fragile]{apply}
-<<apply2, echo=TRUE, results="markup", size="footnotesize">>=
-my_matrix <- matrix(1:6, nrow = 2)
-apply(my_matrix, c(1, 2), 
-      function(value) value^2)    # apply per row and column
-apply(airquality, 2, median) 
-@
-\end{frame}
-
-\subsection{Split \& Apply \& Combine}
-
-\begin{frame}[fragile]{Split \& Apply \& Combine}
-\begin{itemize}
-  \item split a data.frame or vector (\texttt{?split})
-  \item apply computations on each split (\texttt{lapply})
-  \item combine the results (\texttt{sapply}, \texttt{?do.call})
-\end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Split \& Apply \& Combine}
-\begin{center}
-\includegraphics[width=.75\textwidth]{split-apply-combine.png}
-\end{center}
-\end{frame}
-
-\begin{frame}[plain]
-\begin{center}
-\Large Exercises \\
-
-\vspace{1.5cm}
-\includegraphics[height=.25\textheight]{exercises.jpg}
-\end{center}
-\end{frame}
 
 % ----------------------------------------------------------------------------------------------------------------------
-\section{Object Oriented Programming (S3)}
-
-\begin{frame}{Object Oriented Programming}
-Why?
-\begin{itemize}
-  \item User-friendly: same function for different objects (\texttt{summary()})
-  \item Coder-friendly: implementation can depends on object
-  \item Coder-friendly: easier to maintain, extend
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Object Oriented Programming}
-Basics
-\begin{itemize}
-  \item a \emph{class} is a definition
-  \item an object is an \emph{instance} of a class.
-  \item a \emph{method} is a procedure that behaves differently depending of the class it is applied to.
-  \item \emph{inheritance}: classes are organized in hierarchy. ``is-a-type-of''-relation. 
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Object Oriented Programming in R}
-\begin{itemize}
-  \item \textbf{S3}
-  \item S4
-  \item RC
-  \item R6
-  \item ...
-\end{itemize}
-\end{frame}
-
-\subsection{What is S3?}
-
-\begin{frame}{S3}
-Compromise between interactive use, functional programming and object-oriented programming. 
-\begin{itemize}
-  \item ``naming conventions''
-  \item used in base R
-  \item flexible: new classes, new methods
-\end{itemize}
-\end{frame}
-
-\begin{frame}{S3}
-\begin{itemize}
-  \item \texttt{class}-attribute
-  \item generics and methods
-  \item inheritance and dispatch
-\end{itemize}
-\end{frame}
-
-\subsection{class}
-
-\begin{frame}[fragile]{S3 - class}
-A new class is made by adding an arbitrary \texttt{class} attribute to an object.
-<<class, echo=TRUE, results='markup'>>=
-object <- 1:10
-class(object) <- "myClass"
-attributes(object)
-@
-Very flexible! Use it wisely!
-\end{frame}
-
-\begin{frame}[fragile]{S3 - class}
-<<class2, echo=TRUE, results="markup", size="footnotesize">>=
-class(iris)
-iris[1:4, 1:3]
-@
-\end{frame}
-
-\begin{frame}[fragile]{S3 - class}
-Changing the class changes the behavior!
-<<class3, echo=TRUE, results="markup", size="footnotesize">>=
-class(iris) <- "no data.frame"
-class(iris)
-iris[1:4, 1:3]
-@
-\end{frame}
-
-\begin{frame}[fragile]{S3 - class}
-Good practice: \emph{\textbf{constructor function}}
-\begin{itemize}
-  \item defines the structure of the class
-  \item should be used to create objects of that class
-\end{itemize}
-<<constructor, echo=TRUE, results="markup", size="footnotesize">>=
-myClass <- function(element1, element2){
-  # validation of the elements
-  structure(list(element1), 
-            attribute1 = element2,
-            class = "myClass")
-}
-@
-Write a separate validation-function for computationally intensive validation.
-\end{frame}
-
-\subsection{Generics and Methods}
-
-\begin{frame}[fragile]{S3 - Generics and Methods}
-\begin{itemize}
-  \item \emph{methods} for a class belong to \emph{generics}
-  \item when a generic is called for a specific class, the corresponing method for that class will be used. 
-  \time common generics are: \texttt{print()}, \texttt{plot()}, \texttt{summary()}, \texttt{anova()}
-  \item same function, but different computation depending on object-class
-\end{itemize}
-<<generic, echo=TRUE, results='markup'>>=
-body(print)
-@
-\end{frame}
-
-\begin{frame}[fragile]{S3 - Generics and Methods}
-Creating a new method (for an existing generic):
-<<method, echo=TRUE, results="markup", size="footnotesize">>=
-print.myClass <- function(x, ...){
-  cat("This is a myClass-print:\n")
-  cat(round(c(nValues = length(x), 
-                mean = mean(x), 
-                SD = sd(x)), 3), ...)
-}
-my_object <- 1:5
-class(my_object) <- "myClass"
-print(my_object)
-@
-\end{frame}
-
-\begin{frame}[fragile]{S3 - Generics and Methods}
-Good practices (enforced for packages on CRAN):
-\begin{itemize}
-  \item A method must have all the arguments of the generic,
-including \texttt{...} if the generic does.
-  \item A method must have arguments in exactly the same order as
-the generic.
-  \item If the generic specifies defaults, all methods should use the
-same defaults.
-\end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{S3 - Generics and Methods}
-Inspect the generic!
-<<inspect, echo=TRUE, results="markup", size="footnotesize">>=
-formalArgs(print)
-formalArgs(summary)
-@
-\end{frame}
-
-\begin{frame}[fragile]{S3 - Generics and Methods}
-Creating a new generic:
-<<method2, echo=TRUE, results="markup", size="footnotesize">>=
-center <- function(x, ...)
-  UseMethod("center")
-
-center.myClass <- function(x, ...){
-  print("centering myClass:\n")
-  return(x - mean(x))
-}
-
-center(my_object)
-@
-\end{frame}
-
-\subsection{inheritance and dispatch}
-
-\begin{frame}[fragile]{S3 - Inheritance and Dispatch}
-<<data, echo=FALSE, eval = TRUE>>=
-pisa_file <- file.path(dirname(getwd()), "data/pisaPlus_CF.RDS")
-pisa <- readRDS(pisa_file)
-@
-Objects can have more than one class
-<<inheritance1, echo=TRUE, results='markup', size = "footnotesize">>=
-my_model <- glm(as.factor(books) ~ pared, data = pisa, 
-                family = "binomial")
-class(my_model)
-class(my_model) == "lm"
-inherits(my_model, "lm")
-@
-Good practice: hierachical inheritance (subclass and superclass)
-\end{frame}
-
-\begin{frame}[fragile]{S3 - Inheritance and Dispatch}
-When a method is not available for a (sub)class, the next available method (i.e., for the supperclass) will be used.
-
-<<inheritance2, echo=TRUE, results="markup", size = "footnotesize">>=
-"variable.names.glm" %in% methods(class = "glm")
-"variable.names.lm" %in% methods(class = "lm")
-variable.names(my_model)
-@
-
-\end{frame}
-
-\begin{frame}[plain]
-\begin{center}
-\Large Exercises \\
-
-\vspace{1.5cm}
-\includegraphics[height=.25\textheight]{exercises.jpg}
-\end{center}
-\end{frame}
-
-% ----------------------------------------------------------------------------------------------------------------------
-\section{Version Controlling (Git + Github)}
-
-\begin{frame}{Version Controlling}
-\begin{itemize}
-  \item Motivation
-  \item Setup
-  \item Work flow
-  \item Recommendations
-  \item Resources
-\end{itemize}
-\end{frame}
-
-\subsection{Motivation}
-
-\begin{frame}{Motivation}
-\begin{center}
-\includegraphics[height=.75\textheight]{why_version_control.jpg}
-\end{center}
-\end{frame}
-
-\begin{frame}{Motivation}
-\begin{itemize}
-  \item Implementation of long term change history 
-  \begin{itemize}
-  \item No ridiculous file names
-  \item No archive subfolder
-  \item Always perfect overview of file history and changes
-  \end{itemize}
-  \item Collaborations
-  \begin{itemize}
-  \item What has changed?
-  \item Who has changed it?
-  \item Documentation of changes
-  \item Parallel working possible (merging)
-  \end{itemize}
-\end{itemize}
-\end{frame}
-
-\begin{frame}{But...}
-\begin{center}
-\includegraphics[height=.75\textheight]{git_no_idea.png}
-\end{center}
-\end{frame}
-
-\subsection{Setup}
-
-\begin{frame}{Requirements}
-\begin{itemize}
-  \item Install git 
-  \item (optional) Install/Setup GUI for git (RStudio, Gitkraken, ...)
-  \item Setup account for Github/Bitbucket/Gitlab/...
-  \item Connect everything
-\end{itemize}
-\end{frame}
-
-\begin{frame}{RStudio}
-\begin{center}
-\includegraphics[height=.75\textheight]{rstudio_git.JPG}
-\end{center}
-\end{frame}
-
-\begin{frame}{RStudio}
-\begin{center}
-\includegraphics[width=.8\textwidth]{rstudio_git2.JPG}
-\end{center}
-\end{frame}
-
-\subsection{Work flow}
-
-\begin{frame}{Work flow}
-\textbf{Creating a repository}
-\begin{itemize}
-  \item Create an online repository (e.g. on Github)
-  \begin{itemize}
-    \item Use an R specific .gitignore
-    \item Initialize with a short readme
-  \end{itemize}
-  \item Clone the repository to your local machine
-  \item (optional) Place an R project in the existing repository
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Work flow}
-\textbf{Working with a repository}
-\begin{itemize}
-  \item Before working: Synch your local repo (\textbf{Pull})
-  \item Perform changes in your local repository
-  \item \textbf{Stage} your changes
-  \item \textbf{Commit} your changes (aka new version)
-  \item \textbf{Push} your changes
-\end{itemize}
-\end{frame}
-
-\subsection{Recommendations}
-
-\begin{frame}{Recommendations}
-\begin{itemize}
-  \item Keep it simple! 
-  \begin{itemize}
-    \item No branches/forks/pull requests
-  \end{itemize}
-  \item Have meaningful commits
-  \item Keep it lean (no big files)
-\end{itemize}
-\end{frame}
-
-\subsection{Resources}
-
-\begin{frame}{Resources}
-Git (+ R) Resources
-\begin{itemize}
-\item Small Intro (\url{https://r-bio.github.io/intro-git-rstudio/})
-\item Happy Git with R (\url{https://happygitwithr.com/})
-\item R Packages and Git (\url{https://r-pkgs.org/git.html})
-\item Git Book (\url{http://git-scm.com/book/en/v2})
-\end{itemize}
-
-\end{frame}
-
 \section{Wrap Up}
 
 \begin{frame}{General Advice}
