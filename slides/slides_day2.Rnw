@@ -292,6 +292,283 @@ options(warn = 1)
 % ----------------------------------------------------------------------------------------------------------------------
 \section{Efficient Programming}
 
+\subsection{Code Style}
+
+\begin{frame}[fragile]
+\begin{exampleblock}{}
+  {\large ``Write code for humans, not for machines!''}
+  \vskip5mm
+  \hspace*\fill{\small}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}{Code Style}
+Invest time in writing readable R-code.
+\begin{itemize}
+  \item It will make collaborations easier
+  \item It will make debugging easier
+  \item It will help make your analyses reproducible 
+\end{itemize}
+There is a complete \emph{tidyverse} style-guide \url{https://style.tidyverse.org/}.
+\end{frame}
+
+\subsection{Go easy on your eyes}
+
+\begin{frame}{Go easy on your eyes}
+\begin{itemize}
+  \item with spaces before and after: \texttt{-  +  /  *  =  <-  <  ==  > }
+  \item always use \texttt{<-} for assignments
+  \item only use \texttt{=} in function calls
+  \item use indentation (largely automatic in RStudio)
+  \item \texttt{CamelCaseNames} vs \texttt{snake\_case\_names}
+  \item be consistent!
+  \item wrap long lines at column 70-80 (Rstudio)
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{White spaces}
+<<White spaces, eval = FALSE, echo = TRUE>>=
+new_var=(var1*var2/2)-5/(var3+var4)
+
+# versus
+
+new_var <- (var1 * var2 / 2) - 5 / (var3 + var4)
+@
+\end{frame}
+
+\begin{frame}[fragile]{Indentation}
+<<Indentation, eval = FALSE, echo = TRUE, size="footnotesize">>=
+for(name in names){formula=as.formula(paste0("y~.-",name))
+fit<-lm(formula,data=my_data)
+coefs[["name"]]=coef(fit)
+print(name)
+print(summary(fit))}
+
+# versus
+
+for(name in names){
+  formula <- as.formula(paste0("y~.-", name))
+  fit <- lm(formula, data = my_data)
+  coefs[["name"]] <- coef(fit)
+  print(name)
+  print(summary(fit))
+}
+@
+\end{frame}
+
+\begin{frame}[fragile]{Wrap long lines}
+<<Wrap long lines, eval = FALSE, echo = TRUE, size="footnotesize">>=
+final_results <- data.frame(first_variable = 
+sqrt(results$mean_squared_error), second_variable = 
+paste0(results$condition, results$class, sep = ":"), 
+third_variable = results$bias)
+
+# versus
+
+final_results <- data.frame(
+  first_variable = sqrt(results$mean_squared_error), 
+  second_variable = paste0(results$condition, 
+                           results$class, sep = ":"),
+  third_variable = results$bias)
+@
+\end{frame}
+
+\subsection{Go easy on your mind}
+
+\begin{frame}{Go easy on your mind}
+\begin{itemize}
+  \item use meaningful names: ``self-explainable''
+  \item always write the formal arguments in function calls (except the first)
+  \item benefit from autocompletion (\texttt{<tab>}) => embrace longer names
+  \item use \texttt{TRUE} and \texttt{FALSE} not \texttt{T} and \texttt{F}
+  \item comment, comment, comment
+  \begin{itemize}
+    \item not what (should be clear from the code)
+    \item but why
+    \item explain the reasoning, not the code 
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Use meaningful names}
+<<Use meaningful names, eval = FALSE, echo = TRUE>>=
+V <- myFun(m1_B)
+
+# versus
+
+RMSE_age_gender <- get_RMSE(lm_age_gender)
+@
+Use \texttt{verbs} for functions and \texttt{nouns} for objects.
+\end{frame}
+
+\begin{frame}[fragile]{Write formal arguments}
+Benefit from auto completion using \texttt{tab}
+<<Write formal arguments, eval = FALSE, echo = TRUE, size="footnotesize">>=
+m1_B <- lm(outcome ~ age*gender, 
+           exp1, condition_1, freq)
+
+# versus
+
+lm_age_gender <- lm(outcome ~ age*gender, 
+                    data = exp1, 
+                    subset = condition_1, 
+                    weigths = freq)
+@
+\end{frame}
+
+\begin{frame}[fragile]{Comment, comment, comment}
+<<Comment, eval = FALSE, echo = TRUE, size="footnotesize">>=
+## Start every Rscript with a comment that explains 
+##  what the code in the script does, why it does 
+##  this, and to which project it belongs. 
+##  Your future self will be very thankful!
+##
+## Mention which packages you are using in this Rscript.
+
+## Use sections to separate chunks ----------------------
+
+## Maybe even subsections ===============================
+
+## Recode variables so that missings are coded as "NA"
+dat[dat %in% c(99, 999)] <- NA  # missings coded 99 or 999
+@
+\end{frame}
+
+\subsection{R Peculiarities}
+
+\begin{frame}[fragile]{Keep your code slim}
+Try to limit your \emph{package-dependencies}. \\
+Only load \texttt{library()} the packages that you absolutely need. If you are only using \texttt{dplyr}, it does not make sense to load the complete \texttt{tidyverse}. \\ 
+ \\
+\textbf{Controversial:} when possible, use the \texttt{::} operator (and consider not loading the package). \texttt{<package>::<function>} 
+\begin{itemize}
+  \item explicit dependencies
+  \item less name conflicts
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Never Attach}
+Forget about \texttt{attach()}! \\
+Don't use it, unless you completely understand what happens (see \texttt{?attach}).\\
+Use \texttt{with(data.frame, expression)} instead.
+<<attach, eval = FALSE, echo = TRUE>>=
+# using with()
+n <- 2e+4
+data <- data.frame(x = runif(n), 
+                   y = runif(n), 
+                   z = seq_len(n))
+result <- with(data, exp(x) / log(z) + 5 * sqrt(y))
+@
+\end{frame}
+
+\begin{frame}{Testing R code}
+Writing code is error prone. Incorporate tests and checks in your workflow. For instance, when you do data manipulations like a complex restructuring of the data, or a complex recoding of multiple variable, write some code that allows you the check whether the obtained results are what you want them to be.
+\begin{itemize}
+  \item minimal examples
+  \item write test and checks
+  \item helpful packages: \texttt{testthat}, \texttt{RUnit}, \texttt{testit}, ...
+\end{itemize}
+\end{frame}
+
+\subsection{Working with RStudio}
+
+\begin{frame}{Working with RStudio}
+``Every project should get an RStudio Project!'' \\
+Don't use \texttt{setwd(``path\/to\/my\/local\_folder'')}\\
+Issues when:
+\begin{itemize}
+  \item folders names are changed
+  \item folders are moved
+  \item a shared drive is used
+  \item you ZIP and send the folder
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Working with RStudio}
+Don't save workspace to \texttt{.RData}.
+\begin{itemize}
+  \item Tools < Global Options < Workspace < Save workspace ....
+  \item Save the code instead!
+  \item \texttt{saveRDS()} and \texttt{readRDS()} for objects that require long computations
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Working with RStudio}
+Don't use \texttt{rm(list = ls())} at the start of an Rscript.
+\begin{itemize}
+  \item Start clean, everytime. 
+  \item Keep it clean. No outside code, no outside computing.
+  \item Regularly completely clean the workspace (or restart the session).
+\end{itemize}
+<<restart, echo=TRUE, eval = FALSE>>=
+.rs.restartR()
+@
+\end{frame}
+
+\begin{frame}{Working with RStudio}
+Keep it clean
+\begin{itemize}
+  \item one folder per project!
+  \item work on different projects in different RStudio instances!
+  \item each with own R console, working directory, ...
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Working with RStudio}
+Organize your project folder
+\begin{itemize}
+  \item R-folder with R scripts
+  \item Data-folder with data
+  \item split long scripts in meaningful chunks
+  \item use relative paths (alternative: \href{https://CRAN.R-project.org/package=here}{here}-package)
+\end{itemize}
+<<organize, echo=TRUE, eval = FALSE>>=
+# read data
+this_data <- read.csv("Data\the-correct-file.csv")
+
+# source Rscript
+source("R\01_first-script-to-source.R")
+@
+\end{frame}
+
+\begin{frame}{Working with RStudio}
+Use keyboard shortcuts
+\begin{itemize}
+  \item Can make working in RStudio more efficient
+  \item Completely tunable: Tools < Modify Keyboard Shortcuts...
+  \item Useful shortcuts (defaults):
+  \begin{itemize}
+    \item jump to editor: \texttt{ctrl + 1}
+    \item jump to console: \texttt{ctrl + 2}
+    \item jump to ...: \texttt{ctrl + 3-9}
+    \item jump to next tab: \texttt{ctrl + tab}
+    \item jump to previous tab: \texttt{ctrl + shift + tab}
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Working with RStudio}
+More useful shortcuts (defaults):
+\begin{itemize}
+  \item run selection/selected line: \texttt{ctrl + enter}
+  \item save current file: \texttt{ctrl + s}
+  \item close current file: \texttt{ctrl + w} 
+  \item restart R: \texttt{ctrl + shift + F10}
+  \item Show help (for function at cursor) \texttt{F1}
+  \item Show source code (for function at cursor) \texttt{F2}
+\end{itemize}
+More on this \href{https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts}{HERE}.
+\end{frame}
+
+\begin{frame}[plain]
+\begin{center}
+\Large Exercises \\
+
+\vspace{1.5cm}
+\includegraphics[height=.25\textheight]{exercises.jpg}
+\end{center}
+\end{frame}
+
 
 
 % ----------------------------------------------------------------------------------------------------------------------
