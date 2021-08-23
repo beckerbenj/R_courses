@@ -1335,6 +1335,88 @@ for (index in seq_along(x)){
 @
 \end{frame}
 
+\subsubsection{Functionals}
+
+\begin{frame}{Loops \& Iteration - Functionals}
+A functional is a function that takes another function as an argument. \\
+Focus on the \texttt{apply}-family. These functions \emph{apply} a function repeatedly. \\
+Can be seen as an abstraction of a for loop, with the following advantages
+\begin{itemize}
+  \item requires less code to write
+  \item does not store intermediate results
+  \item no need to replace / grow
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Functionals}
+The most commonly used functionals are:
+\begin{itemize}
+  \item \texttt{lapply} vector / list $\rightarrow$ list
+  \item \texttt{sapply} vector / list $\rightarrow$ vector (matrix)
+  \item \texttt{apply} matrix / array / data.frame $\rightarrow$ vector (matrix)
+  \item \texttt{tapply}, \texttt{by}, \texttt{aggregate}
+  \item \texttt{mapply}, \texttt{Map}
+  \item \texttt{rapply}, \texttt{eapply}, \texttt{vapply} 
+\end{itemize}
+All of which have an argument that should be a function.
+\end{frame}
+
+\subsubsection{lapply}
+
+\begin{frame}[fragile]{lapply}
+Data.frames are lists
+<<lapply, echo=TRUE, results="markup", size="footnotesize">>=
+lapply(iris, FUN = class)
+@
+\end{frame}
+
+\begin{frame}[fragile]{lapply}
+\begin{itemize}
+  \item any type of element can be used
+  \item other arguments can be passed through
+  \item an annonymous function can be used
+\end{itemize}
+<<lapply2, echo=TRUE, results="markup", size="footnotesize">>=
+lapply(airquality, FUN = mean, rm.na = TRUE)
+@
+\end{frame}
+
+\subsubsection{sapply}
+
+\begin{frame}[fragile]{sapply}
+\begin{itemize}
+  \item wrapper around lapply
+  \item if possible, the ouput is combined into a atomic vector or matrix
+\end{itemize}
+<<sapply, echo=TRUE, eval = TRUE, results="markup">>=
+sapply(airquality, FUN = sd)
+sapply(airquality, FUN = quantile, prob = c(.1, .9), 
+       na.rm = TRUE)
+@
+\end{frame}
+
+\subsubsection{apply}
+
+\begin{frame}[fragile]{apply}
+\begin{itemize}
+  \item for objects with dimension (matrix, array, data.frame)
+  \item apply over (a) chosen dimension(s) 
+\end{itemize}
+<<apply, echo=TRUE, results="markup", size="footnotesize">>=
+my_matrix <- matrix(1:6, nrow = 2)
+apply(my_matrix, 1, max)    # apply per row
+apply(my_matrix, 2, max)    # apply per column
+@
+\end{frame}
+
+\begin{frame}[fragile]{apply}
+<<apply2, echo=TRUE, results="markup", size="footnotesize">>=
+my_array <- array(1, dim = c(2, 3, 4))
+apply(my_array, c(1, 2), sum)    # apply per row and column
+apply(my_array, 3, sum)  
+@
+\end{frame}
+
 
 % ----------------------------------------------------------------------------------------------------------------------
 \section{Functions I}
