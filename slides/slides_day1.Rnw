@@ -1028,7 +1028,19 @@ More on this \href{https://support.rstudio.com/hc/en-us/articles/200711853-Keybo
 
 
 % ----------------------------------------------------------------------------------------------------------------------
-\section{Conditional Computation}
+\section{Flow \& conditional programming}
+
+
+\begin{frame}{Flow \& conditional programming}
+R has specific tools (functions) that help organize the flow of computations. \\
+You can make computations conditional on other objects (``conditional computation'') 
+The most commonly used tools are: 
+\begin{itemize}
+  \item \texttt{if} (+ \texttt{else})
+  \item \texttt{ifelse}
+  \item \texttt{switch}
+\end{itemize}
+\end{frame}
 
 \subsection{if}
 
@@ -1185,41 +1197,22 @@ switch(method,
 \end{frame}
 
 % ----------------------------------------------------------------------------------------------------------------------
-\section{Flow \& Iteration}
+\section{Loops \& Iteration}
 
-\begin{frame}{Flow \& Iteration}
+\begin{frame}{Loops \& iteration}
 R has specific tools (functions) that help organize the flow of computations. \\
-You can either make computations conditional on other objects (``conditional computation'') or repeat a similar computation multiple times typically with changing options (``iteration'').
+You can repeat a similar computation multiple times typically with changing options (``iteration'').
 The most commonly used tools are: 
-\begin{itemize}
-  \item \texttt{if} for conditional computation
-  \item \texttt{for} for iteration
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Flow \& Iteration}
-\textbf{conditional computation} 
-\begin{itemize}
-  \item \texttt{if} (+ \texttt{else})
-  \item \texttt{ifelse}
-  \item \texttt{switch}
-\end{itemize} 
-\textbf{iteration} 
 \begin{itemize}
   \item loops (\texttt{repeat}, \texttt{while}, \texttt{for})
   \item functionals (\texttt{apply} - family)
-  \item split \& apply \& combine
 \end{itemize}
 \end{frame}
 
 
-
-
-\subsection{Loops \& iteration}
-
 \subsubsection{for}
 
-\begin{frame}[fragile]{Iteration - for}
+\begin{frame}[fragile]{Loops \& Iteration - for}
 \texttt{for} statements have the basic form
 <<for, echo=TRUE, eval = FALSE>>=
 for (element in vector) {
@@ -1230,7 +1223,7 @@ For each element in the vector, the computation is executed. \\
 Often, the computation depends on the element in that iteration.
 \end{frame}
 
-\begin{frame}[fragile]{Iteration - for}
+\begin{frame}[fragile]{Loops \& Iteration - for}
 <<for2, echo=TRUE, eval = TRUE, results = "markup">>=
 for (index in 1:3){
   cat(" computation -")
@@ -1243,7 +1236,7 @@ for (name in c("Alice", "Bob", "Casey")){
 @
 \end{frame}
 
-\begin{frame}[fragile]{Iteration - for}
+\begin{frame}[fragile]{Loops \& Iteration - for}
 <<for3, echo=TRUE, eval = TRUE, results = "markup">>=
 matrix <- matrix(NA, nrow = 2, ncol = 3)
 for (rowNr in 1:2){
@@ -1257,7 +1250,7 @@ matrix
 
 \subsubsection{while \& repeat}
 
-\begin{frame}[fragile]{Iteration - while}
+\begin{frame}[fragile]{Loops \& Iteration - while}
 \texttt{while} statements have the basic form
 <<while, echo=TRUE, eval = FALSE>>=
 while (condition){
@@ -1267,7 +1260,7 @@ while (condition){
 As long as the condition is TRUE, the computation is executed. \\ Often, the computation depends on something that is related to the condition.
 \end{frame}
 
-\begin{frame}[fragile]{Iteration - while}
+\begin{frame}[fragile]{Loops \& Iteration - while}
 <<while2, echo=TRUE, eval = FALSE>>=
 max_abs <- 0
 while (max_abs <= 3){
@@ -1279,7 +1272,7 @@ max_abs
 @
 \end{frame}
 
-\begin{frame}[fragile]{Iteration - repeat}
+\begin{frame}[fragile]{Loops \& Iteration - repeat}
 \texttt{repeat} statements have the basic form
 <<repeat, echo=TRUE, eval = FALSE>>=
 repeat {
@@ -1291,7 +1284,7 @@ Without a \texttt{break} the computation is repeated infinite times
 
 \subsubsection{next \& break}
 
-\begin{frame}[fragile]{Iteration - next break}
+\begin{frame}[fragile]{Loops \& Iteration - next break}
 \begin{itemize}
   \item \texttt{next} starts next iteration
   \item \texttt{break} ends iteration (of the innermost loop)
@@ -1307,7 +1300,7 @@ repeat {
 @
 \end{frame}
 
-\subsubsection{Iteration - good practice}
+\subsubsection{Loops \& Iteration - good practice}
 
 \begin{frame}[fragile]{Iteration - Good practice}
 \metroset{block=fill} %grey blocks
@@ -1326,7 +1319,7 @@ for (index in seq_along(x)){
 @
 \end{frame}
 
-\begin{frame}[fragile]{Iteration - Good practice}
+\begin{frame}[fragile]{Loops \& Iteration - Good practice}
 \metroset{block=fill} %grey blocks
 \begin{block}{Programming advice}
 Don't grow, replace.
