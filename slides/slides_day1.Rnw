@@ -17,10 +17,10 @@
 \usepackage[T1]{fontenc}
 \usepackage{textcomp}
 
-\usetheme{metropolis}   
+\usetheme{metropolis}
 
 
-<<r setup, echo=FALSE, message=FALSE, results='hide'>>=
+<<r setup, echo=FALSE, message=FALSE, results="hide">>=
 suppressPackageStartupMessages({
   library(knitr)
 })
@@ -49,7 +49,8 @@ econRedD<-"#90353B"
 
 
 \title{Introduction to Programming with R}
-\institute{Zurich University}
+\institute{Zurich R Courses}
+
 
 \author[Dries Debeer \& Benjamin Becker]{Dries Debeer \& Benjamin Becker}
 \date{31. September and 01. October 2021}
@@ -114,6 +115,8 @@ Researcher at IQB (Statistics Department)
 \vspace{1.5em}
 \end{frame}
 
+\section{Introduction}
+
 \begin{frame}{Introduction}
 \textbf{Who are you?}
 \begin{enumerate}%\itemsep0em
@@ -128,6 +131,9 @@ Researcher at IQB (Statistics Department)
 \end{enumerate}
 \end{frame}
 
+
+\section{Motivation}
+
 \begin{frame}{Motivation}
 	\begin{itemize}
 			\item Being more efficient in your research
@@ -137,7 +143,7 @@ Researcher at IQB (Statistics Department)
 			  \item High transfer effect to all projects (with data analyses)
 			\end{itemize}
 			\item Successful collaborations (with your future self?)
-			\item Syntaxes as part of paper submissions
+			\item Code as part of paper submissions
 	\end{itemize}
 \end{frame}
 
@@ -192,7 +198,12 @@ Researcher at IQB (Statistics Department)
 \end{frame}
 
 
-\begin{frame}{Goals of this workshop}
+\section{goal}
+
+
+\begin{frame}{Goal of this workshop}
+
+\textbf{An introduction to R as a Programming language}
 \begin{itemize}
   \item Better practical R skills
   \item Better theoretical understanding of R (and programming)
@@ -200,25 +211,68 @@ Researcher at IQB (Statistics Department)
 \end{itemize}
 \end{frame}
 
+
 \begin{frame}{Agenda}
 \textbf{Day 1}
 \begin{itemize}
-  \item Basic Elements \& Data Types
-  \item Flow \& Conditional Programming
-  \item Loops \& Iteration
-  \item Functions (Introduction)
+  \item Basic elements \& data types of the R language
+  \item Flow \& conditional programming
+  \item Loops \& iteration
+  \item Writing \& using functions (part I)
 \end{itemize}
-\textbf{Day 2}
+
+\textbf{Day 1}
 \begin{itemize}
-  \item Functions (Advanced)
-  \item Debugging
-  \item Efficient Programming
+  \item Writing \& using functions (part II)
+  \item Programming tools in R: run time analysis, debugging, exception handling
+  \item Good programming practices
 \end{itemize}
 \end{frame}
 
 
-% ----------------------------------------------------------------------------------------------------------------------
-\section{R Objects (Recap)}
+\section{RStudio setup}
+
+
+\begin{frame}{RStudio setup}
+\begin{enumerate}
+  \item Copy the course content from the usb-stick to a directory on your machine
+  \item Open RStudio
+  \item Choose \texttt{File < New Project ... }
+  \item Choose \texttt{Existing Directory}
+  \item Browse to the directory on your machine where you copied the course content and select the ``Intro-R-programming'' folder as the \texttt{Project working directory}
+  \item Click \texttt{Open in new session}
+  \item Click \texttt{Create Project}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{RStudio setup - optional}
+\begin{enumerate}
+  \item Choose \texttt{Tools < Global options}
+  \item Under \texttt{General}
+  \begin{itemize}
+    \item DON'T \texttt{Restore .RData into workspace at startup}
+    \item NEVER \texttt{Save workspace to .Rdata on exit:}
+  \end{itemize}
+  \item Further personalize RStudio
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Agenda}
+\textbf{Day 1}
+\begin{itemize}
+  \item Basic elements \& data types 
+  \item Flow and conditional programming
+  \item Loops and iteration
+\end{itemize}
+\textbf{Day 2}
+\begin{itemize}
+  \item Functions
+  \item Good programming practices
+  \item Programming tools in R: run time analysis, debugging, exception handling
+\end{itemize}
+\end{frame}
+
+\section{Basic elements \& data types}
 
 \begin{frame}[fragile]
 \begin{exampleblock}{}
@@ -228,7 +282,7 @@ Researcher at IQB (Statistics Department)
 \end{exampleblock}
 \end{frame}
 
-\begin{frame}{R Objects (Recap)}
+\begin{frame}{Basic elements \& data types}
 	\begin{itemize}
 			\item What are objects?
 			\item Atomic vectors
@@ -243,7 +297,7 @@ Researcher at IQB (Statistics Department)
 \begin{frame}{What are objects?}
 	\begin{itemize}
 			\item Data-structures that can be used in computations
-			\item Collections of data of al kinds that are dynamically created and manipulated
+			\item Collections of data of all kinds that are dynamically created and manipulated
 			\item Can be very small, or very big. $\rightarrow$ \emph{Everything in R is an object}
 			\item Elementary data structures can be combined in more complex data structures
 			\item Creating new types of \emph{complex} objects is part of programming in R (S3, S4)
@@ -253,7 +307,10 @@ Researcher at IQB (Statistics Department)
 
 \subsection{Atomic Vectors}
 
-\begin{frame}{Atomic Vectors}
+
+\subsection{Atomic Vectors}
+
+\begin{frame}{Atomic Vectors - Basic Building Blocks}
 \begin{center}
   \begin{tabular}{| l | l |}
     \hline
@@ -269,15 +326,15 @@ Researcher at IQB (Statistics Department)
 mulitple values in one object $\rightarrow$ \texttt{length()} starting from \texttt{0}
 \end{frame}
 
-\begin{frame}{Atomic Vectors}
-Elements of the same type can be combined into an atomic vector using {c}.
+\begin{frame}{Atomic Vectors - Basic Building Blocks}
+Elements of the same type can be combined into an atomic vector using \texttt{c}.
 <<combine, echo = TRUE, results = "asis">>=
 c(3.3, 2.44, 9, 634)
 @
 All elements are of the same type!
 \end{frame}
 
-\begin{frame}[fragile]{Atomic Vectors}
+\begin{frame}[fragile]{Atomic Vectors - Basic Building Blocks}
 An important object type with special behavior is \texttt{NULL}. \\
 It is an empty object that can be interpreted as \emph{nothing}. It's length is 0.
 <<NULL, echo = TRUE, results = "markup">>=
@@ -285,6 +342,58 @@ length(NULL)
 @
 \texttt{NULL} is mostly used as a default argument in functions, in order to create some default behavior.
 \end{frame}
+
+
+\subsubsection{Useful Functions}
+
+
+\begin{frame}{Useful Functions}
+\texttt{?seq} Creates a vector with a sequence of numerical values.
+<<seq, echo = TRUE, results = "asis">>=
+seq(0, 10, by = 2)
+seq(0, 1, length.out = 11)
+seq_along(letters)
+seq_len(10)
+@
+Avoid \texttt{:} when programming!
+\end{frame}
+
+
+\begin{frame}{Useful Functions}
+\texttt{?rep} Creates a new vector by repeating the elements of a vector.
+<<rep, echo = TRUE, results = "asis">>=
+rep(1:3, each = 2)
+rep(1:3, times = 2)
+rep(c("a", "b", "c"), times = 2)
+rep(c("this", "may", "be", "useful", "!"), 1:5)
+@
+\end{frame}
+
+
+\begin{frame}{Useful Functions}
+\texttt{?paste} Creates a character vector by pasting multiple vectors together.
+<<paste, echo = TRUE, results = "asis">>=
+paste("one", "big", "string", sep = " ")
+paste0("word_", seq(1, 10))
+paste(c("ONE", "TWO"), seq(1, 3), sep = " || ", collapse = "_-_")
+@
+\end{frame}
+
+
+\begin{frame}{Useful Functions}
+\texttt{?unique} Creates a vector with the unique values of a vector.
+<<unique, echo = TRUE, results = "asis">>=
+unique(c("b", "a", "a", "b"))
+@
+
+\texttt{?sort} Creates a sorted version a Vector.
+<<sort, echo = TRUE, results = "asis">>=
+sort(c("b", "a", NA, "a", "b"))
+sort(c("b", "a", NA, "a", "b"), na.last = TRUE)
+sort(c(4, 2, 6, 1, 3, 5), decreasing = TRUE)
+@
+\end{frame}
+
 
 \subsubsection{Coercion/Conversion}
 
@@ -455,7 +564,7 @@ A data.frame is a list of (named) vectors of equal length.
 A subset of elements from a vector can be accessed using \texttt{object[selection]}, where \texttt{selection} is:
 \begin{itemize}
   \item a \textbf{logical} vector with the same length of the original vector (\texttt{TRUE}: select; \texttt{FALSE}: don't select)
-  \item an \textbf{integer} vector indicating the indeces of the elements to select (or exclude)
+  \item an \textbf{integer} vector indicating the indexes of the elements to select (or exclude)
   \item a \textbf{character} vector with the names of the elements to select
 \end{itemize}
 \end{frame}
@@ -637,16 +746,6 @@ my_dat[1, 2] <- 33
   \texttt{function\_name(object1, argument\_name = object2)}
   \item Computations that seem not to be done using functions are actually also functions. Check \texttt{\textasciigrave <-\textasciigrave (a, 5)} or \texttt{\textasciigrave >\textasciigrave (5, 2)}
   \item most functions that seem not to return an object, return it invisibly. Check \texttt{(a <- 5)}.
-\end{itemize}
-\end{frame}
-
-\section{Clean Code}
-
-\begin{frame}{Clean Code}
-\begin{itemize}
-  \item Code Style 
-  \item R Peculiarities
-  \item Working with RStudio
 \end{itemize}
 \end{frame}
 
@@ -1116,7 +1215,7 @@ The most commonly used tools are:
 
 
 
-\subsection{Iteration}
+\subsection{Loops \& iteration}
 
 \subsubsection{for}
 
@@ -1144,6 +1243,18 @@ for (name in c("Alice", "Bob", "Casey")){
 @
 \end{frame}
 
+\begin{frame}[fragile]{Iteration - for}
+<<for3, echo=TRUE, eval = TRUE, results = "markup">>=
+matrix <- matrix(NA, nrow = 2, ncol = 3)
+for (rowNr in 1:2){
+  for (colNr in 1:3){
+    matrix[rowNr, colNr] <- rowNr * 10 + colNr
+  }
+}
+matrix
+@
+\end{frame}
+
 \subsubsection{while \& repeat}
 
 \begin{frame}[fragile]{Iteration - while}
@@ -1154,6 +1265,18 @@ while (condition){
 }
 @
 As long as the condition is TRUE, the computation is executed. \\ Often, the computation depends on something that is related to the condition.
+\end{frame}
+
+\begin{frame}[fragile]{Iteration - while}
+<<while2, echo=TRUE, eval = FALSE>>=
+max_abs <- 0
+while (max_abs <= 3){
+  cat("|")
+  values <- rnorm(20)
+  max_abs <- max(abs(values))
+}
+max_abs
+@
 \end{frame}
 
 \begin{frame}[fragile]{Iteration - repeat}
@@ -1191,7 +1314,7 @@ repeat {
 \begin{block}{Programming advice}
 Use \texttt{seq()}, \texttt{seq\_len()}, or \texttt{seq\_along()}.
 \end{block}
-<<seq, echo=TRUE, eval = TRUE, results="markup", size="footnotesize">>=
+<<seq2, echo=TRUE, eval = TRUE, results="markup", size="footnotesize">>=
 x <- numeric()
 for (index in 1:length(x)){
   print(index)
