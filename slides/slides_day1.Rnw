@@ -1421,16 +1421,6 @@ apply(my_array, 3, sum)
 % ----------------------------------------------------------------------------------------------------------------------
 \section{Functions I}
 
-\begin{frame}{Functions I}
-\begin{itemize}
-  \item Why write functions?
-  \item Basics
-  \item Arguments
-  \item Output
-  \item Work flow
-\end{itemize}
-\end{frame}
-
 \begin{frame}{Building Blocks}
 Functions are the building blocks of R code. As frequent users of functions we know that they should:
 \begin{itemize}
@@ -1440,18 +1430,23 @@ Functions are the building blocks of R code. As frequent users of functions we k
 \end{itemize}
 \end{frame}
 
+\begin{frame}{Stepping Stone}
+\textbf{Central stepping stone for R users:} \\
+Move from solely using functions written by others to writing your own functions. 
+\end{frame}
+
+
 \subsection{Why write functions?}
 
-\begin{frame}{Stepping Stone}
-Central stepping stone for R users: Move from solely using functions written by others to writing your own functions. 
-
-\textbf{Reasons:}
+\begin{frame}{Reasons}
+\textbf{Why write functions?}
 \begin{itemize}
   \item Readability
   \begin{itemize}
-    \item Shorter
-    \item Easier understanding
+    \item Shortens the code
     \item Removes distractions, like references in a paper
+    \item Avoids repetition (DRY)
+    \item Easier understanding
   \end{itemize}
   \item Transferability
   \begin{itemize}
@@ -1464,20 +1459,25 @@ Central stepping stone for R users: Move from solely using functions written by 
 
 
 \begin{frame}[fragile]{Readability}
+\textbf{Writing a function:}
 <<echo=TRUE, results='asis'>>=
 mean(mtcars$mpg)
-# vs.
-sum(mtcars$mpg)/dim(mtcars)[1]
+@
+\textbf{Not writing a function:}
+<<echo=TRUE, results='asis'>>=
+mean(mtcars$mpg)
 @
 \end{frame}
 
 \begin{frame}[fragile]{Readability}
+\textbf{Writing a function:}
 <<echo=TRUE, results='markup'>>=
 summary(mtcars$mpg)
 @
 \end{frame}
 
 \begin{frame}[fragile]{Readability}
+\textbf{Not writing a function:}
 <<echo=TRUE, results='markup'>>=
 round(c("Min." = min(mtcars$mpg),
   "1st Qu." = as.numeric(quantile(mtcars$mpg)[2]),
@@ -1509,17 +1509,17 @@ countNA <- function(x) {    # Name, Arguments/Formals
 \end{frame}
 
 \begin{frame}{Function Names}
+Every function needs a (meaningful) name!
 \begin{itemize}
   \item Usually a verb (what does the function do?)
   \item Avoid existing names 
   \item Better longer than unclear
+  \item CamelCase vs Snake\_Case
 \end{itemize}
 \end{frame}
 
-\subsection{Arguments}
-
 \begin{frame}{Arguments}
-Usually:
+Most functions take one or multiple inputs. These are usually:
 \begin{itemize}
   \item One or two data arguments
   \item Additional Options
@@ -1531,50 +1531,8 @@ The less arguments, the better!
 \end{block}
 \end{frame}
 
-\begin{frame}[fragile]{Default arguments}
-What happens if the user omits an argument?
-<<echo=TRUE, results='asis'>>=
-add_things_def <- function(x) {
-  x + 10
-}
-add_things_def()
-@
-\end{frame}
-
-\begin{frame}[fragile]{Default arguments}
-What happens if the user omits an argument?
-<<echo=TRUE, results='asis'>>=
-add_things_def <- function(x = 1) {
-  x + 10
-}
-add_things_def()
-@
-\end{frame}
-
-\begin{frame}[fragile]{Lazy Evaluation}
-Sometimes missing arguments are irrelevant!
-<<echo=TRUE, results='asis'>>=
-add_things3 <- function(x, y) {
-  x + 10
-}
-add_things3(2)
-@
-\end{frame}
-
-\subsection{Output}
-
-\begin{frame}{Output}
-What does a function return?
-\begin{itemize}
-  \item (Standard) The last evaluated object 
-  \item Object defined by return()
-  \item An error via stop()
-  \item Additional: Warnings + Messages
-\end{itemize}
-\end{frame}
-
 \begin{frame}[fragile]{Output}
-The last evaluated object
+Functions usually return a single object, namely the last evaluated object.
 <<echo=TRUE, results='asis'>>=
 add_things_standard <- function(x = 1) {
   x2 <- x*2
@@ -1585,75 +1543,6 @@ add_things_standard(2)
 @
 \end{frame}
 
-\begin{frame}[fragile]{Output}
-return()
-<<echo=TRUE, results='asis'>>=
-add_things_return <- function(x = 1) {
-  x2 <- x*2
-  return(x)
-  out <- x + x2
-  out
-}
-add_things_return(2)
-@
-\end{frame}
-
-\begin{frame}[fragile]{Output}
-Error: stop()
-<<echo=TRUE, results='asis'>>=
-add_things_stop <- function(x = 1) {
-  x2 <- x*2
-  stop("My own error message")
-  out <- x + x2
-  out
-}
-add_things_stop(2)
-@
-\end{frame}
-
-\begin{frame}[fragile]{Output}
-Warnings: warning()
-<<echo=TRUE, results='asis', warning=TRUE>>=
-add_things_warning <- function(x = 1) {
-  x2 <- x*2
-  warning("My own warning message")
-  out <- x + x2
-  out
-}
-add_things_warning(2)
-@
-\end{frame}
-
-\begin{frame}[fragile]{Output}
-Messages: message()
-<<echo=TRUE, results='asis', message=TRUE>>=
-add_things_message <- function(x = 1) {
-  x2 <- x*2
-  message("My own message")
-  out <- x + x2
-  out
-}
-add_things_message(2)
-@
-\end{frame}
-
-
-\subsection{Work flow}
-
-\begin{frame}{Writing Functions}
-  Before creating the function
-  \begin{itemize}
-    \item What should my function do?
-    \item Input (Arguments)
-    \item Output
-  \end{itemize}
-  After creating the function
-  \begin{itemize}
-    \item Test it
-    \item Add input validation
-    \item Document it
-  \end{itemize}
-\end{frame}
 
 \begin{frame}[plain]
 \begin{center}
