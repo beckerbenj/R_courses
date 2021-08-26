@@ -80,18 +80,21 @@ econRedD<-"#90353B"
 \begin{frame}{Agenda}
 \textbf{Day 1}
 \begin{itemize}
-  \item Basic Elements \& Data Types
-  \item Flow \& Conditional Programming
-  \item Loops \& Iteration
-  \item Functions (Introduction)
+  \item RStudio setup
+  \item Basic elements \& data types of the R language
+  \item Flow \& conditional programming
+  \item Loops \& iteration
+  \item Writing \& using functions (part I)
 \end{itemize}
+
 \textbf{Day 2}
 \begin{itemize}
-  \item Functions (Advanced)
-  \item Debugging
-  \item Efficient Programming
+  \item Writing \& using functions (part II)
+  \item Programming tools in R: run time analysis, debugging, exception handling
+  \item Good programming practices
 \end{itemize}
 \end{frame}
+
 
 
 \begin{frame}[plain]
@@ -105,7 +108,128 @@ econRedD<-"#90353B"
 % ----------------------------------------------------------------------------------------------------------------------
 \section{Functions II}
 
+\subsection{Default Arguments}
 
+\begin{frame}[fragile]{Default arguments}
+What happens if the user omits an argument?
+<<echo=TRUE, results='asis'>>=
+add_things_def <- function(x) {
+  x + 10
+}
+add_things_def()
+@
+\end{frame}
+
+\begin{frame}[fragile]{Default arguments}
+Default arguments are made for such instances!
+<<echo=TRUE, results='asis'>>=
+add_things_def <- function(x = 1) {
+  x + 10
+}
+add_things_def()
+@
+\end{frame}
+
+\begin{frame}[fragile]{Lazy Evaluation}
+Sometimes missing arguments are irrelevant!
+<<echo=TRUE, results='asis'>>=
+add_things3 <- function(x, y) {
+  x + 10
+}
+add_things3(2)
+@
+\end{frame}
+
+\subsection{Non-standard Output}
+
+\begin{frame}{Output}
+Functions usually return a single object.
+\begin{itemize}
+  \item (Standard) The last evaluated object 
+  \item Object defined by return()
+  \item An error via stop()
+  \item Additional: Warnings + Messages
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Output}
+return()
+<<echo=TRUE, results='asis'>>=
+add_things_return <- function(x = 1) {
+  x2 <- x*2
+  return(x)
+  out <- x + x2
+  out
+}
+add_things_return(2)
+@
+\end{frame}
+
+\begin{frame}[fragile]{Output}
+Error: stop()
+<<echo=TRUE, results='asis'>>=
+add_things_stop <- function(x = 1) {
+  x2 <- x*2
+  stop("My own error message")
+  out <- x + x2
+  out
+}
+add_things_stop(2)
+@
+\end{frame}
+
+\begin{frame}[fragile]{Output}
+Warnings: warning()
+<<echo=TRUE, results='asis', warning=TRUE>>=
+add_things_warning <- function(x = 1) {
+  x2 <- x*2
+  warning("My own warning message")
+  out <- x + x2
+  out
+}
+add_things_warning(2)
+@
+\end{frame}
+
+\begin{frame}[fragile]{Output}
+Messages: message()
+<<echo=TRUE, results='asis', message=TRUE>>=
+add_things_message <- function(x = 1) {
+  x2 <- x*2
+  message("My own message")
+  out <- x + x2
+  out
+}
+add_things_message(2)
+@
+\end{frame}
+
+
+\subsection{Work flow}
+
+\begin{frame}{Writing Functions}
+  Before creating the function
+  \begin{itemize}
+    \item What should my function do?
+    \item Input (Arguments)
+    \item Output
+  \end{itemize}
+  After creating the function
+  \begin{itemize}
+    \item Test it
+    \item Add input validation
+    \item Document it
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[plain]
+\begin{center}
+\Large Exercises \\
+
+\vspace{1.5cm}
+\includegraphics[height=.25\textheight]{exercises.jpg}
+\end{center}
+\end{frame}
 
 % ----------------------------------------------------------------------------------------------------------------------
 \section{Functions III}
@@ -181,6 +305,15 @@ showArgs <- function(x, y) {
 }
 showArgs(1, 2)
 @
+\end{frame}
+
+\begin{frame}[plain]
+\begin{center}
+\Large Exercises \\
+
+\vspace{1.5cm}
+\includegraphics[height=.25\textheight]{exercises.jpg}
+\end{center}
 \end{frame}
 
 % ----------------------------------------------------------------------------------------------------------------------
