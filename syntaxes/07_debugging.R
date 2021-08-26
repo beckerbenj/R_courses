@@ -73,7 +73,7 @@ roundDataFrame(mtcars, roundN = 1)
 roundDataFrame(iris, roundN = 1)
 
 
-# 2. We have written two functions to make calculating relative frecuencies easier. prop_table(),
+# 2. We have written two functions to make calculating relative frequencies easier. prop_table(),
 # a function that creates a simple relative frequency table and prop_table_by_all() which combines
 # multiple tables for a grouping variable. The function prop_table_by_all() works fine in our first example but throws
 # an error for the second one. Use your debugging skills to find the problem and fix the function.

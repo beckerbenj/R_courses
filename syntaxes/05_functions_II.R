@@ -92,3 +92,6 @@ boxplot(mtcars$mpg)
 # 2. Implement 'input checks' for your boxplot function. The function should throw an error, if the input is not a single numeric vector.
 # If the vector contains missing values, the function should throw a warning.
 
+# 3. Write a function that creates either a histogram or a bar chart for a variable, depending on the input 
+# (chracater/factor -> bar chart; numeric -> histogram)
+

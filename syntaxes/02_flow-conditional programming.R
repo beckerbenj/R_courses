@@ -67,7 +67,7 @@ table(pisa$Gym_afternoon, pisa$schtype)
 
 pisa <- readRDS("data//pisaPlus_CF.RDS")
 
-# Bonus: Use the cat function.
+# Bonus: Use the cat()-function instead.
 
 
 

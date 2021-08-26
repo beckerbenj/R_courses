@@ -67,5 +67,8 @@ computeDescriptives <- function(x) {
 
 computeDescriptives(mtcars$mpg)
 
-
-
+# 3. Write a function that takes a vector and creates a relative frequency table (output in percentage).
+computeRelFreq <- function(x) {
+  prop.table(table(x)) * 100
+}
+computeRelFreq(iris$Species)
