@@ -1465,7 +1465,7 @@ mean(mtcars$mpg)
 @
 \textbf{Not writing a function:}
 <<echo=TRUE, results='asis'>>=
-mean(mtcars$mpg)
+sum(mtcars$mpg)/dim(mtcars)[1]
 @
 \end{frame}
 
