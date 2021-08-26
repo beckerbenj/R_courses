@@ -93,5 +93,5 @@ boxplot(mtcars$mpg)
 # If the vector contains missing values, the function should throw a warning.
 
 # 3. Write a function that creates either a histogram or a bar chart for a variable, depending on the input 
-# (chracater/factor -> bar chart; numeric -> histogram)
+# (chracater/factor -> bar chart; numeric -> histogram).
 
