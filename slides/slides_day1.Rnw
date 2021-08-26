@@ -61,6 +61,8 @@ econRedD<-"#90353B"
 \end{frame}
 \addtocounter{framenumber}{-1}
 
+\section{Introduction}
+
 \begin{frame}{Introduction}
 \textbf{Who are we?}
 
@@ -115,8 +117,6 @@ Researcher at IQB (Statistics Department)
 \vspace{1.5em}
 \end{frame}
 
-\section{Introduction}
-
 \begin{frame}{Introduction}
 \textbf{Who are you?}
 \begin{enumerate}%\itemsep0em
@@ -132,7 +132,7 @@ Researcher at IQB (Statistics Department)
 \end{frame}
 
 
-\section{Motivation}
+\subsection{Motivation}
 
 \begin{frame}{Motivation}
 	\begin{itemize}
@@ -198,8 +198,7 @@ Researcher at IQB (Statistics Department)
 \end{frame}
 
 
-\section{goal}
-
+\subsection{Goal}
 
 \begin{frame}{Goal of this workshop}
 
@@ -211,17 +210,19 @@ Researcher at IQB (Statistics Department)
 \end{itemize}
 \end{frame}
 
+\subsection{Agenda}
 
 \begin{frame}{Agenda}
 \textbf{Day 1}
 \begin{itemize}
+  \item RStudio setup
   \item Basic elements \& data types of the R language
   \item Flow \& conditional programming
   \item Loops \& iteration
   \item Writing \& using functions (part I)
 \end{itemize}
 
-\textbf{Day 1}
+\textbf{Day 2}
 \begin{itemize}
   \item Writing \& using functions (part II)
   \item Programming tools in R: run time analysis, debugging, exception handling
@@ -230,8 +231,8 @@ Researcher at IQB (Statistics Department)
 \end{frame}
 
 
+% ----------------------------------------------------------------------------------------------------------------------
 \section{RStudio setup}
-
 
 \begin{frame}{RStudio setup}
 \begin{enumerate}
@@ -257,21 +258,8 @@ Researcher at IQB (Statistics Department)
 \end{enumerate}
 \end{frame}
 
-\begin{frame}{Agenda}
-\textbf{Day 1}
-\begin{itemize}
-  \item Basic elements \& data types 
-  \item Flow and conditional programming
-  \item Loops and iteration
-\end{itemize}
-\textbf{Day 2}
-\begin{itemize}
-  \item Functions
-  \item Good programming practices
-  \item Programming tools in R: run time analysis, debugging, exception handling
-\end{itemize}
-\end{frame}
 
+% ----------------------------------------------------------------------------------------------------------------------
 \section{Basic elements \& data types}
 
 \begin{frame}[fragile]
@@ -1196,6 +1184,15 @@ switch(method,
 @
 \end{frame}
 
+\begin{frame}[plain]
+\begin{center}
+\Large Exercises \\
+
+\vspace{1.5cm}
+\includegraphics[height=.25\textheight]{exercises.jpg}
+\end{center}
+\end{frame}
+
 % ----------------------------------------------------------------------------------------------------------------------
 \section{Loops \& Iteration}
 
@@ -1417,6 +1414,14 @@ apply(my_array, 3, sum)
 @
 \end{frame}
 
+\begin{frame}[plain]
+\begin{center}
+\Large Exercises \\
+
+\vspace{1.5cm}
+\includegraphics[height=.25\textheight]{exercises.jpg}
+\end{center}
+\end{frame}
 
 % ----------------------------------------------------------------------------------------------------------------------
 \section{Functions I}
