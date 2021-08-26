@@ -290,7 +290,7 @@ options(warn = 1)
 \end{frame}
 
 % ----------------------------------------------------------------------------------------------------------------------
-\section{Efficient Programming}
+\section{Good programming practices}
 
 \subsection{Code Style}
 
@@ -398,7 +398,10 @@ V <- myFun(m1_B)
 
 RMSE_age_gender <- get_RMSE(lm_age_gender)
 @
+\metroset{block=fill} %grey blocks
+\begin{block}{Programming advice}
 Use \texttt{verbs} for functions and \texttt{nouns} for objects.
+\end{block}
 \end{frame}
 
 \begin{frame}[fragile]{Write formal arguments}
@@ -465,7 +468,7 @@ result <- with(data, exp(x) / log(z) + 5 * sqrt(y))
 Writing code is error prone. Incorporate tests and checks in your workflow. For instance, when you do data manipulations like a complex restructuring of the data, or a complex recoding of multiple variable, write some code that allows you the check whether the obtained results are what you want them to be.
 \begin{itemize}
   \item minimal examples
-  \item write test and checks
+  \item write tests and checks
   \item helpful packages: \texttt{testthat}, \texttt{RUnit}, \texttt{testit}, ...
 \end{itemize}
 \end{frame}
@@ -485,7 +488,7 @@ Issues when:
 \end{frame}
 
 \begin{frame}{Working with RStudio}
-Don't save workspace to \texttt{.RData}.
+Don't save work space to \texttt{.RData}.
 \begin{itemize}
   \item Tools < Global Options < Workspace < Save workspace ....
   \item Save the code instead!
@@ -496,9 +499,9 @@ Don't save workspace to \texttt{.RData}.
 \begin{frame}[fragile]{Working with RStudio}
 Don't use \texttt{rm(list = ls())} at the start of an Rscript.
 \begin{itemize}
-  \item Start clean, everytime. 
+  \item Start clean, every time. 
   \item Keep it clean. No outside code, no outside computing.
-  \item Regularly completely clean the workspace (or restart the session).
+  \item Regularly completely clean the work space (or restart the session).
 \end{itemize}
 <<restart, echo=TRUE, eval = FALSE>>=
 .rs.restartR()
