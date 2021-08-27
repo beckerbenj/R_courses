@@ -287,31 +287,27 @@ add_things_console(2)
 \begin{frame}[fragile]{Output}
 Graphics output: Standard plots, ggplot2
 <<echo=TRUE, eval=FALSE>>=
-add_things_message <- function(x = 1) {
-  x2 <- x*2
-  out <- x + x2
-  plot(out)
+createHist <- function(x) {
+  hist(x)
   NULL
 }
-add_things_message(2)
+createHist(1:10)
 @
 \end{frame}
 
 \begin{frame}[fragile]{Output}
 Graphics output: Standard plots, ggplot2
-<<echo=FALSE, results='asis', message=TRUE>>=
-add_things_plot <- function(x = 1) {
-  x2 <- x*2
-  out <- x + x2
-  plot(out)
+<<echo=FALSE, results='markup', message=TRUE, fig.width=3.5, fig.height=3>>=
+createHist <- function(x) {
+  hist(x)
   NULL
 }
-add_things_plot(2)
+x <- createHist(1:10)
 @
 \end{frame}
 
 
-\begin{frame}{Conditional Computation - if}
+\begin{frame}{Output}
 \metroset{block=fill} %grey blocks
 \begin{block}{Programming advice}
 \begin{itemize}
