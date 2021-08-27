@@ -846,13 +846,29 @@ if(is.null(default_argument)){
 \end{frame}
 
 \begin{frame}[fragile]{Conditional Computation - if}
-Abbreviation for if(!test) and stop():
-<<echo=TRUE, results='asis'>>=
-mean2 <- function(x, na.rm = FALSE) {
-  stopifnot(is.numeric(x))
-  sum(x)/length(x)
+Solution using \emph{if} and \emph{else} 
+<<if else2, echo = TRUE, results="markup">>=
+# only the first element is evaluated
+age <- 17
+if (age >= 18) {
+  vote <- "can vote"
+} else {
+  vote <- "too young"
 }
-mean2("a")
+vote
+@
+\end{frame}
+
+\begin{frame}[fragile]{Conditional Computation - if}
+Solution using meaningful initialisation
+<<if init, echo = TRUE, results="markup">>=
+# only the first element is evaluated
+age <- 17
+vote <- "too young"
+if (age >= 18) {
+  vote <- "can vote"
+} 
+vote
 @
 \end{frame}
 

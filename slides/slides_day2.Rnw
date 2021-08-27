@@ -149,6 +149,8 @@ Functions usually return a single object.
   \item Object defined by return()
   \item An error via stop()
   \item Additional: Warnings + Messages
+  \item Additional: Console output
+  \item Additional: Output to graphic device
 \end{itemize}
 \end{frame}
 
@@ -178,6 +180,18 @@ add_things_stop(2)
 @
 \end{frame}
 
+
+\begin{frame}[fragile]{Output}
+Abbreviation for if(!test) and stop():
+<<echo=TRUE, results='asis'>>=
+mean2 <- function(x, na.rm = FALSE) {
+  stopifnot(is.numeric(x))
+  sum(x)/length(x)
+}
+mean2("a")
+@
+\end{frame}
+
 \begin{frame}[fragile]{Output}
 Warnings: warning()
 <<echo=TRUE, results='asis', warning=TRUE>>=
@@ -204,6 +218,57 @@ add_things_message(2)
 @
 \end{frame}
 
+\begin{frame}[fragile]{Output}
+Console output: cat() and print()
+<<echo=TRUE, results='asis', message=TRUE>>=
+add_things_console <- function(x = 1) {
+  x2 <- x*2
+  print("My own console output")
+  cat("The output is not", x2)
+  out <- x + x2
+  out
+}
+add_things_console(2)
+@
+\end{frame}
+
+\begin{frame}[fragile]{Output}
+Graphics output: Standard plots, ggplot2
+<<echo=TRUE, eval=FALSE>>=
+add_things_message <- function(x = 1) {
+  x2 <- x*2
+  out <- x + x2
+  plot(out)
+  NULL
+}
+add_things_message(2)
+@
+\end{frame}
+
+\begin{frame}[fragile]{Output}
+Graphics output: Standard plots, ggplot2
+<<echo=FALSE, results='asis', message=TRUE>>=
+add_things_plot <- function(x = 1) {
+  x2 <- x*2
+  out <- x + x2
+  plot(out)
+  NULL
+}
+add_things_plot(2)
+@
+\end{frame}
+
+
+\begin{frame}{Conditional Computation - if}
+\metroset{block=fill} %grey blocks
+\begin{block}{Programming advice}
+\begin{itemize}
+  \item Avoid output to the console
+  \item Choose carefully if something warrants a message, warning or error
+  \item Plotting functions should return nothing or the plot as an object
+\end{itemize}
+\end{block}
+\end{frame}
 
 \subsection{Work flow}
 
