@@ -15,7 +15,11 @@ pisa <- readRDS("data//pisaPlus_CF.RDS")
 #...........................
 ?`if`
 ?ifelse
+
+# related functions
+#...........................
 ?switch
+?cut
 
 
 # if

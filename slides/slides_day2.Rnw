@@ -90,7 +90,7 @@ econRedD<-"#90353B"
 \textbf{Day 2}
 \begin{itemize}
   \item Writing \& using functions (part II)
-  \item Programming tools in R: run time analysis, debugging, exception handling
+  \item Debugging
   \item Good programming practices
 \end{itemize}
 \end{frame}
@@ -107,6 +107,58 @@ econRedD<-"#90353B"
 
 % ----------------------------------------------------------------------------------------------------------------------
 \section{Functions II}
+
+\subsection{Why write functions?}
+
+\begin{frame}{Reasons}
+\textbf{Why write functions?}
+\begin{itemize}
+  \item Readability
+  \begin{itemize}
+    \item Shortens the code
+    \item Removes distractions, like references in a paper
+    \item Avoids repetition (DRY)
+    \item Easier understanding
+  \end{itemize}
+  \item Transferability
+  \begin{itemize}
+    \item Other use cases
+    \item Other projects
+    \item Other persons
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]{Readability}
+\textbf{Writing a function:}
+<<echo=TRUE, results='asis'>>=
+mean(mtcars$mpg)
+@
+\textbf{Not writing a function:}
+<<echo=TRUE, results='asis'>>=
+sum(mtcars$mpg)/dim(mtcars)[1]
+@
+\end{frame}
+
+\begin{frame}[fragile]{Readability}
+\textbf{Writing a function:}
+<<echo=TRUE, results='markup'>>=
+summary(mtcars$mpg)
+@
+\end{frame}
+
+\begin{frame}[fragile]{Readability}
+\textbf{Not writing a function:}
+<<echo=TRUE, results='markup'>>=
+round(c("Min." = min(mtcars$mpg),
+  "1st Qu." = as.numeric(quantile(mtcars$mpg)[2]),
+  "Median" = median(mtcars$mpg),
+  "Mean" = mean(mtcars$mpg),
+  "3rd Qu." = as.numeric(quantile(mtcars$mpg)[4]),
+  "Max." = max(mtcars$mpg)), 2)
+@
+\end{frame}
 
 \subsection{Default Arguments}
 
@@ -270,6 +322,18 @@ add_things_plot(2)
 \end{block}
 \end{frame}
 
+\begin{frame}[plain]
+\begin{center}
+\Large Exercises \\
+
+\vspace{1.5cm}
+\includegraphics[height=.25\textheight]{exercises.jpg}
+\end{center}
+\end{frame}
+
+% ----------------------------------------------------------------------------------------------------------------------
+\section{Functions III}
+
 \subsection{Work flow}
 
 \begin{frame}{Writing Functions}
@@ -287,26 +351,6 @@ add_things_plot(2)
   \end{itemize}
 \end{frame}
 
-\begin{frame}[plain]
-\begin{center}
-\Large Exercises \\
-
-\vspace{1.5cm}
-\includegraphics[height=.25\textheight]{exercises.jpg}
-\end{center}
-\end{frame}
-
-% ----------------------------------------------------------------------------------------------------------------------
-\section{Functions III}
-
-\begin{frame}{Functions III}
-\begin{itemize}
-  \item Good functions?
-  \item dot dot dot
-  \item on.exit()
-  \item Accessing the call
-\end{itemize}
-\end{frame}
 
 \subsection{Good functions?}
 

@@ -59,6 +59,13 @@ traceback()
 
 # Exercises
 #===========================================================
+# other ideas
+# for without seq (1:0)
+# if with test length > 1
+# matrix/df becomes vector (drop = TRUE)
+# existing column name?
+# coersion/wrong input
+
 # 1. We have written a function that rounds all variables in a data.frame. When applied to
 # mtcars the function seems to work well, when applied to iris it throws an error.
 # Use the appropriate debugging tools to fix the function.

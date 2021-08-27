@@ -225,7 +225,7 @@ Researcher at IQB (Statistics Department)
 \textbf{Day 2}
 \begin{itemize}
   \item Writing \& using functions (part II)
-  \item Programming tools in R: run time analysis, debugging, exception handling
+  \item Debugging
   \item Good programming practices
 \end{itemize}
 \end{frame}
@@ -751,7 +751,6 @@ The most commonly used tools are:
 \begin{itemize}
   \item \texttt{if} (+ \texttt{else})
   \item \texttt{ifelse}
-  \item \texttt{switch}
 \end{itemize}
 \end{frame}
 
@@ -848,7 +847,6 @@ if(is.null(default_argument)){
 \begin{frame}[fragile]{Conditional Computation - if}
 Solution using \emph{if} and \emph{else} 
 <<if else2, echo = TRUE, results="markup">>=
-# only the first element is evaluated
 age <- 17
 if (age >= 18) {
   vote <- "can vote"
@@ -862,7 +860,6 @@ vote
 \begin{frame}[fragile]{Conditional Computation - if}
 Solution using meaningful initialisation
 <<if init, echo = TRUE, results="markup">>=
-# only the first element is evaluated
 age <- 17
 vote <- "too young"
 if (age >= 18) {
@@ -895,33 +892,6 @@ age_self_rep <- c(NA, 17, 39, NA)
 ifelse(!is.na(age_self_rep), yes = age_self_rep, 
        no = age_estimated)
 
-@
-\end{frame}
-
-\begin{frame}[fragile]{Conditional Computation - Vectorization}
-Pure vectorization can bring you a long way. But it is certainly less readable
-<<vectorize2, echo = TRUE, results = "markup">>=
-age <- c(8, 17, 39, 55)
-c("too young", "can vote")[1 + (age >= 18)]
-@
-\end{frame}
-
-\subsection{switch}
-
-\begin{frame}[fragile]{Conditional Computation - switch}
-\texttt{switch()} is often a more elegant solution than using \texttt{else if ()} multiple times.
-<<switch, echo = TRUE, eval = FALSE>>=
-method <- "method 5"
-switch(method, 
-       "method 1" = <computations>,
-       "method 2" = <computations>,
-       "method 3" = <computations>,
-       "method 4" = <computations>,
-       "method 5" = <computations>,
-       "method 6" = <computations>,
-       "method 7" = <computations>,
-       "method 8" = <computations>,
-       stop("Not an existing method"))
 @
 \end{frame}
 
@@ -1182,60 +1152,6 @@ Move from solely using functions written by others to writing your own functions
 \end{frame}
 
 
-\subsection{Why write functions?}
-
-\begin{frame}{Reasons}
-\textbf{Why write functions?}
-\begin{itemize}
-  \item Readability
-  \begin{itemize}
-    \item Shortens the code
-    \item Removes distractions, like references in a paper
-    \item Avoids repetition (DRY)
-    \item Easier understanding
-  \end{itemize}
-  \item Transferability
-  \begin{itemize}
-    \item Other use cases
-    \item Other projects
-    \item Other persons
-  \end{itemize}
-\end{itemize}
-\end{frame}
-
-
-\begin{frame}[fragile]{Readability}
-\textbf{Writing a function:}
-<<echo=TRUE, results='asis'>>=
-mean(mtcars$mpg)
-@
-\textbf{Not writing a function:}
-<<echo=TRUE, results='asis'>>=
-sum(mtcars$mpg)/dim(mtcars)[1]
-@
-\end{frame}
-
-\begin{frame}[fragile]{Readability}
-\textbf{Writing a function:}
-<<echo=TRUE, results='markup'>>=
-summary(mtcars$mpg)
-@
-\end{frame}
-
-\begin{frame}[fragile]{Readability}
-\textbf{Not writing a function:}
-<<echo=TRUE, results='markup'>>=
-round(c("Min." = min(mtcars$mpg),
-  "1st Qu." = as.numeric(quantile(mtcars$mpg)[2]),
-  "Median" = median(mtcars$mpg),
-  "Mean" = mean(mtcars$mpg),
-  "3rd Qu." = as.numeric(quantile(mtcars$mpg)[4]),
-  "Max." = max(mtcars$mpg)), 2)
-@
-\end{frame}
-
-\subsection{Basics}
-
 \begin{frame}{Elements of a function}
 \begin{itemize}
   \item Name
@@ -1254,6 +1170,8 @@ countNA <- function(x) {    # Name, Arguments/Formals
 @
 \end{frame}
 
+\subsection{Function Names}
+
 \begin{frame}{Function Names}
 Every function needs a (meaningful) name!
 \begin{itemize}
@@ -1264,18 +1182,67 @@ Every function needs a (meaningful) name!
 \end{itemize}
 \end{frame}
 
+\begin{frame}{Function Names}
+\textbf{Good}
+\begin{itemize}
+  \item computeAIC()
+  \item removeNAs()
+  \item drop\_NA\_rows()
+  \item factor\_to\_dummies()
+\end{itemize}
+\textbf{Bad}
+\begin{itemize}
+  \item myFun()
+  \item foo()
+  \item computeStat()
+  \item prep\_dat()
+\end{itemize}
+\end{frame}
+
+\subsection{Arguments}
+
 \begin{frame}{Arguments}
-Most functions take one or multiple inputs. These are usually:
+Most functions take one or multiple inputs. \\
+These are usually:
 \begin{itemize}
   \item One or two data arguments
   \item Additional Options
 \end{itemize}
+\end{frame}
 
+\begin{frame}{Arguments}
+Examples for zero arguments
+\begin{itemize}
+  \item getwd()
+  \item Sys.time()
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Arguments}
+Examples for one argument
+\begin{itemize}
+  \item dim()
+  \item names()
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Arguments}
+Examples for multiple arguments
+\begin{itemize}
+  \item mean()
+  \item median()
+  \item lm()
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Arguments}
 \metroset{block=fill} %grey blocks
 \begin{block}{Programming advice}
 The less arguments, the better!
 \end{block}
 \end{frame}
+
+\subsection{Output}
 
 \begin{frame}[fragile]{Output}
 Functions usually return a single object, namely the last evaluated object.
