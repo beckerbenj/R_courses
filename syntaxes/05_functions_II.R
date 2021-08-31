@@ -3,8 +3,9 @@
 
 # Functions II
 #::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-pisa_file <- file.path(dirname(getwd()), "data/pisaPlus_CF.RDS")
-pisa <- readRDS(pisa_file)
+# pisa_file <- file.path(dirname(getwd()), "data/pisaPlus_CF.RDS")
+# pisa <- readRDS(pisa_file)
+pisa <- readRDS("data//pisaPlus_CF.RDS")
 
 # Input
 #===========================================================
@@ -79,10 +80,9 @@ mean3(2)
 
 # Exercises
 #===========================================================
-# 1. Write a function the takes a numeric variable as input and creates a boxplot as output. 
+# 1. Write a function that takes a numeric variable as input and creates a boxplot as output. 
 # How does R provide default values for the main title and axis labels. Would you choose the same?
-# Give sensible default values to assign main title and axis labels.
-
+# Give sensible default values to the main title and axis labels.
 create_boxplot <- function(x, main = "Boxplot", xlab = NULL, ylab = "Values") {
   boxplot(x, main = main, xlab = xlab, ylab = ylab)
 }
@@ -91,7 +91,25 @@ boxplot(mtcars$mpg)
 
 # 2. Implement 'input checks' for your boxplot function. The function should throw an error, if the input is not a single numeric vector.
 # If the vector contains missing values, the function should throw a warning.
+create_boxplot2 <- function(x, main = "Boxplot", xlab = NULL, ylab = "Values") {
+  if(!is.numeric(x)) stop("'x' must be a numeric vector.")
+  if(any(is.na(x))) warning("'x' contains missing values.")
+  boxplot(x, main = main, xlab = xlab, ylab = ylab)
+}
+create_boxplot2(mtcars$mpg)
+create_boxplot2(mtcars)
+create_boxplot2(c(mtcars$mpg, NA))
+
 
 # 3. Write a function that creates either a histogram or a bar chart for a variable, depending on the input 
-# (chracater/factor -> bar chart; numeric -> histogram).
+# (chracater/factor -> bar chart using table(); numeric -> histogram).
+create_graph <- function(x) {
+  if(is.character(x)) barplot(table(x))
+  if(is.numeric(x)) hist(x)
+  if(!is.character(x) && !is.numeric(x)) stop("No suitable input supplied.")
+  return()
+}
 
+create_graph(1:5)
+create_graph(c("a", "b", "c"))
+create_graph(mtcars)

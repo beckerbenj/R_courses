@@ -272,7 +272,7 @@ add_things_message(2)
 
 \begin{frame}[fragile]{Output}
 Console output: cat() and print()
-<<echo=TRUE, results='asis', message=TRUE>>=
+<<echo=TRUE, results='markup', message=TRUE>>=
 add_things_console <- function(x = 1) {
   x2 <- x*2
   print("My own console output")
@@ -312,7 +312,7 @@ x <- createHist(1:10)
 \begin{block}{Programming advice}
 \begin{itemize}
   \item Avoid output to the console
-  \item Choose carefully if something warrants a message, warning or error
+  \item Choose carefully whether something warrants a message, warning or error
   \item Plotting functions should return nothing or the plot as an object
 \end{itemize}
 \end{block}
