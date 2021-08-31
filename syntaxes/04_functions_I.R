@@ -57,6 +57,8 @@ body(add_things)
 computeSum <- function(x, y) {
   x + y
 }
+computeSum(5, 2)
+
 
 # 2. Write a function that computes the following statistics given a numeric vector: (1) sum of NAs, (2) median, (3) number of distinct unique values.
 computeDescriptives <- function(x) {
@@ -64,10 +66,9 @@ computeDescriptives <- function(x) {
     median = median(x, na.rm = TRUE),
     uniqueValues = length(unique(x)))
 }
-
 computeDescriptives(mtcars$mpg)
 
-# 3. Write a function that takes a vector and creates a relative frequency table (output in percentage).
+# 3. Write a function that takes a vector and creates a relative frequency table (output in percentage). Use the function prop.table() to achieve this.
 computeRelFreq <- function(x) {
   prop.table(table(x)) * 100
 }
