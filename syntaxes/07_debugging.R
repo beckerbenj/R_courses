@@ -9,11 +9,20 @@ pisa <- readRDS(pisa_file)
 # Input
 #===========================================================
 
+# documentation
 #...........................
+?browser
+?traceback
 
-# debugging
+# related functions
 #...........................
+?trace
+?debug
+
+
+
 # browser()
+#...........................
 pretty_table_dev <- function(x, x_label, useNA = "ifany"){
   browser()
   stopifnot(length(x) > 1)
@@ -36,6 +45,9 @@ pretty_table <- function(x, x_label, useNA = "ifany"){
 }
 pretty_table(mtcars$cyl, x_label = "Cyl")
 
+
+# traceback()
+#...........................
 pretty_statistics <- function(x, x_label) {
   m <- mean(x, na.rm = TRUE)
   t <- pretty_table(x, x_label = x_label)
@@ -44,14 +56,22 @@ pretty_statistics <- function(x, x_label) {
 
 pretty_statistics(mtcars$cyl, x_label = "Cyl")
 
-by(mtcars, mtcars$carb, function(sub_dat) {
+lapply(unique(mtcars$carb), function(carb_value) {
+  sub_dat <- mtcars[mtcars$carb == carb_value, ]
   pretty_statistics(sub_dat$cyl, x_label = "Cyl")
 })
+
+# by(mtcars, mtcars$carb, function(sub_dat) {
+#   pretty_statistics(sub_dat$cyl, x_label = "Cyl")
+# })
+
 
 # traceback
 traceback()
 
 
+# recover
+#...........................
 # options(error = recover) and options(error = NULL)
 # options(warn = 2) 
 
@@ -59,14 +79,18 @@ traceback()
 
 # Exercises
 #===========================================================
-# other ideas
-# for without seq (1:0)
-# if with test length > 1
-# matrix/df becomes vector (drop = TRUE)
-# existing column name?
-# coersion/wrong input
+# 1. We have written a function, that determines the position of the maximum for a numeric vector. 
+# However, the function sometimes throws an unexpected warning. Can you debug it?
+whichMax <- function(x) {
+  if(is.na(x)) stop("'x' can not contain missing values.")
+  which(x == max(x))
+}
+whichMax(5)
+whichMax(c(NA, 5, 4))
+whichMax(1:3)
 
-# 1. We have written a function that rounds all variables in a data.frame. When applied to
+
+# 2. We have written a function that rounds all variables in a data.frame. When applied to
 # mtcars the function seems to work well, when applied to iris it throws an error.
 # Use the appropriate debugging tools to fix the function.
 roundDataFrame <- function (df, roundN = 3) {
@@ -75,12 +99,11 @@ roundDataFrame <- function (df, roundN = 3) {
   }
   df
 }
-
 roundDataFrame(mtcars, roundN = 1)
 roundDataFrame(iris, roundN = 1)
 
 
-# 2. We have written two functions to make calculating relative frequencies easier. prop_table(),
+# 3. We have written two functions to make calculating relative frequencies easier. prop_table(),
 # a function that creates a simple relative frequency table and prop_table_by_all() which combines
 # multiple tables for a grouping variable. The function prop_table_by_all() works fine in our first example but throws
 # an error for the second one. Use your debugging skills to find the problem and fix the function.

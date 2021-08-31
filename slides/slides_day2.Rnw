@@ -431,12 +431,6 @@ showArgs(1, 2)
   \item options(error = recover)
   \item options(warn = 2)
 \end{itemize}
-
-Also:
-\begin{itemize}
-  \item trace() \& untrace()
-  \item debug() \& undebug(), debugonce()
-\end{itemize}
 \end{frame}
 
 \subsection{browser}
