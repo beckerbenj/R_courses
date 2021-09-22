@@ -1,10 +1,10 @@
-# Advanced R
-# Spring Academy FDZ, March 2021
+# Introduction to Programming in R
+# Zurich R Courses, October 2021
 
 # Functions II
 #::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-pisa_file <- file.path(dirname(getwd()), "data/pisaPlus_CF.RDS")
-pisa <- readRDS(pisa_file)
+
+pisa <- readRDS("data/pisaPlus_CF.RDS")
 
 # Input
 #===========================================================
@@ -121,8 +121,7 @@ prop_table_by_all <- function (df, dep, by_var, useNA = "no", round_perc = 1) {
   stopifnot(is.data.frame(df))
   stopifnot(is.character(dep) && length(dep) == 1)
   stopifnot(is.character(by_var) && length(by_var) == 1)
-  
-  gesamt <- prop_table(df[, dep], useNA = useNA)
+
   out_list <- by(df, INDICES = df[, by_var], function(df) prop_table(df[, dep], useNA = useNA))
   out <- do.call(rbind, out_list)
   rownames(out)[nrow(out)] <- "Total"
@@ -135,6 +134,25 @@ prop_table(pisa$grade_bio_t1)
 
 prop_table_by_all(pisa, dep = "books", by_var = "migration")
 prop_table_by_all(pisa, dep = "grade_bio_t1", by_var = "books")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# TIP
+pisa$grade_bio_t1_F <- factor(pisa$grade_bio_t1)
+prop_table_by_all(pisa, dep = "grade_bio_t1_F", by_var = "books")
+
+
 
 
 

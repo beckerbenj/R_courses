@@ -1,0 +1,163 @@
+# Introduction to Programming in R
+# Zurich R Courses, October 2021
+
+# Loops and Iteration
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+## Useful functions -----
+## __________________________________________________________________________
+
+?`for`       # creates a for loop
+?`while`     # creates a while loop
+?`repeat`    # creates a reap loop
+?`break`     # breaks out of a loop
+?`next`      # jumps to the next iteration
+
+?apply       # applies a function over the margins of an array/matrix
+?lapply      # applies a function over a list/vector
+
+# other functions in the same family
+?tapply
+?mapply
+?Reduce
+?aggregate
+?by
+
+
+## Example Code
+## __________________________________________________________________________
+
+# iterate over a numeric vector
+for (index in 1:3){
+  cat(" computation -")
+}
+
+
+# iterate over a character vector
+for (name in c("Alice", "Bob", "Casey")){
+  if(name == "Bob") cat(" This was Bob -")
+  else cat(" Not Bob -")
+}
+
+
+## nested for loop
+matrix <- matrix(NA, nrow = 2, ncol = 3)
+for (rowNr in 1:2){
+  for (colNr in 1:3){
+    matrix[rowNr, colNr] <- rowNr * 10 + colNr
+  }
+}
+
+
+
+## while loop
+max_abs <- 0
+while (max_abs <= 3){
+  cat("|")
+  values <- rnorm(20)
+  max_abs <- max(abs(values))
+}
+max_abs
+round(values, 3)
+
+
+## repeat loop
+index <- 0
+repeat {
+  index <- index + 1
+  if (index %in% c(3, 5)) next
+  if (index > 6) break
+  print(index)
+}
+
+
+## use seq() and not :
+x <- numeric()
+for (index in 1:length(x)){
+  print(index)
+}
+
+
+for (index in seq_along(x)){
+  print(index)
+}
+
+## Exercises -----
+##===========================================================
+# 1. Consider the following list ("attendance_list"). Write a for loop in which 
+#      (a) the name "Benny" is replaced by "bob"
+#      (b) the Attendees are put in alphabetical order
+#    Tip: You can use the index of the elements, or the names of the elements
+#         to iterate over.
+
+attendance_list <- list(
+  may_02 = c("Benny", "Anna", "Freddy", "Casey"), 
+  may_09 = c("Freddy", "Casey", "Donny", "Anna"), 
+  may_16 = c("Eddy", "Anna", "Freddy", "Casey", "Benny"), 
+  may_23 = c("Donny", "Freddy", "Anna"),
+  may_30 = c("Casey", "Freddy", "Donny", "Anna", "Benny", "Eddy")
+)
+
+
+
+
+
+
+
+
+
+# 2. Consider the zero matrix "A". 
+#    (a) Using a for loop, turn the matrix into a diagonal matrix with these 
+#        values on the diagonal c(1, 2, 3, 5, 7, 11, 13). 
+#    Tip 1: iterate over rows and columns together
+#    Tip 2: iterate over a vector with the values
+#
+#    (b) Using nested loops, fill the upper triangle with ones, leaving the
+#        values on the diagonal unchanged
+#    Tip 1: use a double iteration, and let the inner loop depend on the outer 
+#           loop
+#    Tip 2: use a if() and next, to skip cells that should not be changed
+
+
+A <- matrix(0, ncol = 7, nrow = 7)
+
+
+
+
+
+
+
+# 3. Using the formula (1 + 1 / x)^x, you can approximate Euler's number.
+#    Write a loop in which x increases with 1 each iteration and find the
+#    first x for which the difference between the formula and exp(1) is 
+#    less than 0.00001
+
+
+
+
+
+# 4. Use the lapply function to sort the attendees alphabetically in 
+#    attendance_list 
+attendance_list <- list(
+  may_02 = c("Benny", "Anna", "Freddy", "Casey"), 
+  may_09 = c("Freddy", "Casey", "Donny", "Anna"), 
+  may_16 = c("Eddy", "Anna", "Freddy", "Casey", "Benny"), 
+  may_23 = c("Donny", "Freddy", "Anna"),
+  may_30 = c("Casey", "Freddy", "Donny", "Anna", "Benny", "Eddy")
+)
+
+
+
+
+
+
+# 5. Load the "airquality"-data using data("airquality"). 
+#    (a) Using lapply, plot a pink histogram of each variable (?hist)
+#    (b) Using vapply, compute the first and third quartile (quantile .25 
+#    and .75)for each variable
+#     Tip: ignore missing values using na.rm = TRUE
+data("airquality")
+?hist
+?quantile
+

@@ -1,23 +1,23 @@
 \documentclass{beamer}
-%\documentclass[xcolor=table]{beamer}
 
-%\usepackage{graphicx}
-%\usepackage{color}
-
-%\usepackage{alltt}
-\usepackage{hyperref}
-
-%\usepackage{amsmath}
-%\usepackage{booktabs}
-%\usepackage[ansinew]{inputenc}
-%\usepackage[utf8]{inputenc}
-
-%\usepackage{bm}
-
+\usepackage{multicol}
 \usepackage[T1]{fontenc}
 \usepackage{textcomp}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usetikzlibrary{shapes.geometric}
+\usepackage{hyperref}
 
 \usetheme{metropolis}
+
+
+\title{Introduction to Programming with R}
+\institute{Zurich R Courses}
+
+
+\author[Dries Debeer \& Benjamin Becker]{Dries Debeer \& Benjamin Becker}
+\date{31. September and 01. October 2021}
+
 
 
 <<r setup, echo=FALSE, message=FALSE, results="hide">>=
@@ -25,15 +25,16 @@ suppressPackageStartupMessages({
   library(knitr)
 })
 
-knit_theme$set("acid")
-opts_chunk$set(message=FALSE, warning=FALSE)
-opts_chunk$set(results="hide")
-opts_chunk$set(strip.white = TRUE)
-opts_chunk$set(size = "small")
-opts_chunk$set(comment = "#")
+options(tinytex.verbose = TRUE)
 
-## R Setup
-#load("~/Documents/Workshops/FDZ_Reporting/IQB-LV-2011_SchuelerInnen-Eltern_CF.rda")
+knit_theme$set("acid")
+opts_chunk$set(results="markup")
+opts_chunk$set(echo = TRUE)
+opts_chunk$set(eval = TRUE)
+opts_chunk$set(strip.white = TRUE)
+opts_chunk$set(size = "footnotesize")
+opts_chunk$set(comment = ">")
+opts_chunk$set(fig.width=3.5, fig.height=3) 
 
 
 # Farben
@@ -48,42 +49,37 @@ econRedD<-"#90353B"
 \begin{document}
 
 
-\title{Introduction to Programming with R}
-\institute{Zurich R Courses}
-
-
-\author[Dries Debeer \& Benjamin Becker]{Dries Debeer \& Benjamin Becker}
-\date{31. September and 01. October 2021}
-
 
 \begin{frame}
 \titlepage
 \end{frame}
 \addtocounter{framenumber}{-1}
 
+
+\begin{frame}{Table of Content}
+\fontsize{6pt}{7.2}
+\setcounter{tocdepth}{2}
+\begin{multicols}{2}
+  \tableofcontents
+\end{multicols}
+\end{frame}
+
+
 \section{Introduction}
 
 \begin{frame}{Introduction}
-\textbf{Who are we?}
-
 \begin{columns}[t]
 \begin{column}{.475\textwidth}
-\textcolor{mLightBrown}{Dries Debeer}
-\end{column}
-  \begin{column}{.475\textwidth}
-    \textcolor{mLightBrown}{Benjamin Becker}
-  \end{column}
-\end{columns}
-
-\begin{columns}[t]
-\begin{column}{.475\textwidth}
-Senior Researcher at itec (imec Research Group at KU Leuven)
-  	
+    \textbf{Who are we?} \\
+    \textcolor{mLightBrown}{Dries Debeer} \\
+    Senior Researcher at itec (imec Research Group at KU Leuven)
 \end{column}
 \begin{column}{.475\textwidth}
-Researcher at IQB (Statistics Department)
-
-  \end{column}
+    \\
+    \textcolor{mLightBrown}{Benjamin Becker} \\
+    Researcher at IQB (Statistics Department)
+    
+\end{column}
 \end{columns}
 
 \vspace{0.5cm}
@@ -120,12 +116,12 @@ Researcher at IQB (Statistics Department)
 \begin{frame}{Introduction}
 \textbf{Who are you?}
 \begin{enumerate}%\itemsep0em
-	\item Institution and Status
+	\item Occupation, employer?
 	\item Previous knowledge and experience
 	\begin{itemize}
-	  \item with R
-	  \item with other statistic software
-	  \item with other programming languages
+	  \item with R?
+	  \item with other statistical software?
+	  \item with other programming languages?
 	\end{itemize}
 	\item Specific interest/motivation for this workshop?
 \end{enumerate}
@@ -135,27 +131,27 @@ Researcher at IQB (Statistics Department)
 \subsection{Motivation}
 
 \begin{frame}{Motivation}
-	\begin{itemize}
-			\item Being more efficient in your research
+	\begin{enumerate}
+			\item Increase efficiency!
 			\begin{itemize}
 			  \item Save time and nerves
 			  \item Avoid errors and bugs
 			  \item High transfer effect to all projects (with data analyses)
 			\end{itemize}
-			\item Successful collaborations (with your future self?)
-			\item Code as part of paper submissions
-	\end{itemize}
+			\item Successful collaborations (including with your future self!)
+			\item Code as deliverable (i.e., part of research paper)
+	\end{enumerate}
 \end{frame}
 
 \begin{frame}{Motivation}
-	Two of your worst enemies
+	Two of your worst collaborators
 	\begin{itemize}
 			\item Past Self
 			\begin{itemize}
-			  \item Is the biggest mess in existence
+			  \item the biggest mess in existence
 			  \item Did not document anything
-			  \item Uses a completely different style of writing code than yourself
-			  \item Is the worst collaborator (does not reply to e-mails)
+			  \item Uses a completely different style of writing code
+			  \item does not reply to e-mails
 			\end{itemize}
 			\item Future Self
 			\begin{itemize}
@@ -264,7 +260,9 @@ Researcher at IQB (Statistics Department)
 
 \begin{frame}[fragile]
 \begin{exampleblock}{}
-  {\large ``To understand computations in R, two slogans are helpful: Everything that exists is an object. Everything that happens is a function call.''}
+  {\large \begin{quote}
+``To understand computations in R, two slogans are helpful: Everything that exists is an object. Everything that happens is a function call.''
+\end{quote}}
   \vskip5mm
   \hspace*\fill{\small--- John Chambers}
 \end{exampleblock}
@@ -312,9 +310,9 @@ Researcher at IQB (Statistics Department)
 mulitple values in one object $\rightarrow$ \texttt{length()} starting from \texttt{0}
 \end{frame}
 
-\begin{frame}{Atomic Vectors - Basic Building Blocks}
+\begin{frame}[fragile]{Atomic Vectors - Basic Building Blocks}
 Elements of the same type can be combined into an atomic vector using \texttt{c}.
-<<combine, echo = TRUE, results = "asis">>=
+<<combine, echo = TRUE, results = "markup">>=
 c(3.3, 2.44, 9, 634)
 @
 All elements are of the same type!
@@ -333,45 +331,61 @@ length(NULL)
 \subsubsection{Useful Functions}
 
 
-\begin{frame}{Useful Functions}
+\begin{frame}[fragile]{Useful Functions}
 \texttt{?seq} Creates a vector with a sequence of numerical values.
-<<seq, echo = TRUE, results = "markup">>=
+<<seq, echo = TRUE, results = "markup", size = "footnotesize">>=
 seq(0, 10, by = 2)
 seq(0, 1, length.out = 11)
-seq_along(letters)
+@
+\end{frame}
+
+
+\begin{frame}[fragile]{Useful Functions}
+\texttt{seq\_along} and \texttt{seq\_len} are shortcuts.
+<<seq_, echo = TRUE, results = "markup", size = "footnotesize">>=
+seq_along(c("a", "b", "c", "d"))
 seq_len(10)
 @
 Avoid \texttt{:} when programming!
 \end{frame}
 
-
-\begin{frame}{Useful Functions}
+\begin{frame}[fragile]{Useful Functions}
 \texttt{?rep} Creates a new vector by repeating the elements of a vector.
-<<rep, echo = TRUE, results = "markup">>=
+<<rep, echo = TRUE, results = "markup", size = "footnotesize">>=
 rep(1:3, each = 2)
 rep(1:3, times = 2)
+@
+\end{frame}
+
+\begin{frame}[fragile]{Useful Functions}
+\texttt{?rep} Creates a new vector by repeating the elements of a vector.
+<<rep2, echo = TRUE, results = "markup", size = "footnotesize">>=
 rep(c("a", "b", "c"), times = 2)
 rep(c("this", "may", "be", "useful", "!"), 1:5)
 @
 \end{frame}
 
 
-\begin{frame}{Useful Functions}
+\begin{frame}[fragile]{Useful Functions}
 \texttt{?paste} Creates a character vector by pasting multiple vectors together.
 <<paste, echo = TRUE, results = "markup">>=
 paste("one", "big", "string", sep = " ")
-paste0("word_", seq(1, 10))
-paste(c("ONE", "TWO"), seq(1, 3), sep = " || ", collapse = "_-_")
+paste0("word_", seq(1, 4))
+paste(c("ONE", "TWO"), seq(1, 3), 
+      sep = " || ", collapse = "_-_")
 @
 \end{frame}
 
 
-\begin{frame}{Useful Functions}
+\begin{frame}[fragile]{Useful Functions}
 \texttt{?unique} Creates a vector with the unique values of a vector.
 <<unique, echo = TRUE, results = "markup">>=
 unique(c("b", "a", "a", "b"))
 @
+\end{frame}
 
+
+\begin{frame}[fragile]{Useful Functions}
 \texttt{?sort} Creates a sorted version a Vector.
 <<sort, echo = TRUE, results = "markup">>=
 sort(c("b", "a", NA, "a", "b"))
@@ -453,7 +467,7 @@ There are several attributes with a specific use: \texttt{"names"}, \texttt{"dim
 \begin{frame}[fragile]{Attributes}
 \begin{itemize}
   \item \texttt{"class"} is a character vector that contains class names. Classes can be printed and set using \texttt{class(object) <- }. \\
-  See \Object Oriented Programming (S3).
+  See Object Oriented Programming (S3).
   \item \texttt{"levels"} is a character vector that contains the names levels of a factor. Levels can be printed and set using \texttt{levels(factor) <- }.
 \end{itemize}
 \end{frame}
@@ -486,7 +500,8 @@ A factor in R is actually an integer vector with
 \end{center}
 \end{frame}
 
-\subsection{Vecture Structures}
+\subsection{Vector Structures}
+
 \begin{frame}[fragile]{Vector Structures}
 \begin{center}
   \begin{tabular}{| l | l |}
@@ -504,6 +519,8 @@ A factor in R is actually an integer vector with
 \end{center}
 \end{frame}
 
+\subsubsection{List}
+
 \begin{frame}[fragile]{List}
 A list is a ``vector'' that can contain any type of elements
 \begin{itemize}
@@ -518,18 +535,25 @@ my_list
 @
 \end{frame}
 
+\subsubsection{matrix \& Array}
+
 \begin{frame}[fragile]{Matrix \& Array}
 A matrix or an array is a vector with a \texttt{"dim"}-attribute
 \begin{itemize}
-  \item mostly usefull for numeric vectors (integer and double)
+  \item mostly useful for numeric vectors (integer and double)
   \item matrix algebra!  \texttt{t(matrix)}, \texttt{\%*\%}, \texttt{aperm(array)}, ...
   \item matrix has two dimensions, array has $n$ dimensions
+You can create an matrix array using:
+\end{itemize}
+\begin{itemize}
   \item \texttt{cbind(vector1, vector2)}
   \item \texttt{rbind(vector1, vector2)}
   \item \texttt{matrix(vector, ncol = 4, nrow = 2)}
-  \item \texttt{array(vector), dim = c())}
+  \item \texttt{array(vector, dim = c())}
 \end{itemize}
 \end{frame}
+
+\subsubsection{data.frame}
 
 \begin{frame}[fragile]{Data.frame}
 A data.frame is a list of (named) vectors of equal length.
@@ -548,11 +572,11 @@ A data.frame is a list of (named) vectors of equal length.
 
 \begin{frame}[fragile]{Subsetting - Atomic vectors}
 A subset of elements from a vector can be accessed using \texttt{object[selection]}, where \texttt{selection} is:
-\begin{itemize}
+\begin{enumerate}
   \item a \textbf{logical} vector with the same length of the original vector (\texttt{TRUE}: select; \texttt{FALSE}: don't select)
   \item an \textbf{integer} vector indicating the indexes of the elements to select (or exclude)
   \item a \textbf{character} vector with the names of the elements to select
-\end{itemize}
+\end{enumerate}
 \end{frame}
 
 \begin{frame}{Subsetting - Atomic vectors}
@@ -606,7 +630,7 @@ Using a \textbf{character} vector:
 Using a \textbf{character} vector:
 <<selection-character, echo = TRUE, results = "markup">>=
 my_object <- c(a = 1, b = 5, c = 3, d = 8)
-my_object[c("a", "b")]
+my_object[c("a", "c")]
 @
 \end{frame}
 
@@ -634,10 +658,10 @@ In addition, selection is possible per dimension:
   \item separated by a comma \texttt{[, ]}
   \item selection via character (match row or column names), integer (row and column number) or logical vectors
   \item the first vector selects the rows, the second the columns (and so on)
-  \item dimensions are dropped, unless \texttt{drop = FALSE} 
+  \item \textbf{dimensions are dropped}, unless \texttt{drop = FALSE} 
 \end{itemize}
 <<selection-matrix 2, echo = TRUE, results = "markup", size="footnotesize">>=
-my_matrix <- matrix(c(11, 12, 21, 22), ncol = 2, 
+my_matrix <- matrix(c(11, 21, 12, 22), ncol = 2, 
                     dimnames = list(paste0("row", 1:2), 
                                     paste0("col", 1:2)))
 my_matrix[,2]
@@ -695,6 +719,14 @@ my_dat[,"col1", drop = FALSE]
 @
 \end{frame}
 
+
+\begin{frame}[fragile]{Subsetting - data.frame \& matrixe}
+\metroset{block=fill} %grey blocks
+\begin{block}{Programming advice}
+  Code defensively: always use \texttt{, drop = FALSE} 
+\end{block}
+\end{frame}
+
 \subsection{Element Replacement}
 
 \begin{frame}[fragile]{Element Replacement}
@@ -703,7 +735,7 @@ A subset of elements from a vector or vector structure can be replaced using \te
   \item the modifications are done in place
   \item the structure and class of the object stay unchanged
   \item the length of the new values should correspond with the length of the selection (the number of elements to replace should be a multiple of the number of new values)
-  \item only for lists, the replacement can be \texttt{NULL} (which removes the element from the list)
+  \item \emph{only for lists}: the replacement can be \texttt{NULL} (which removes the element from the list)
 \end{itemize}
 \end{frame}
 
@@ -712,30 +744,9 @@ A subset of elements from a vector or vector structure can be replaced using \te
 my_dat <- data.frame(col1 = c(11, 21), 
                      col2 = c(12, 22))
 my_dat[1, 2] <- 33
+my_dat
 @
 \end{frame}
-
-\begin{frame}[fragile]
-\begin{exampleblock}{}
-  {\large ``To understand computations in R, two slogans are helpful: Everything that exists is an object. Everything that happens is a function call.''}
-  \vskip5mm
-  \hspace*\fill{\small--- John Chambers}
-\end{exampleblock}
-\end{frame}
-
-\subsection{Function Calls}
-
-\begin{frame}{Function Calls}
-\begin{itemize}
-  \item Computing in R happens through function calls. A function is applied to one or more objects, and returns an object after the computation. 
-  \item The typical use is: \\ 
-  \texttt{function\_name(object1, argument\_name = object2)}
-  \item Computations that seem not to be done using functions are actually also functions. Check \texttt{\textasciigrave <-\textasciigrave (a, 5)} or \texttt{\textasciigrave >\textasciigrave (5, 2)}
-  \item most functions that seem not to return an object, return it invisibly. Check \texttt{(a <- 5)}.
-\end{itemize}
-\end{frame}
-
-
 
 
 % ----------------------------------------------------------------------------------------------------------------------
@@ -744,7 +755,7 @@ my_dat[1, 2] <- 33
 
 \begin{frame}{Flow \& conditional programming}
 R has specific tools (functions) that help organize the flow of computations. \\
-You can make computations conditional on other objects (``conditional computation'') 
+You can make computations conditional on other objects (``conditional computation'') \\
 The most commonly used tools are: 
 \begin{itemize}
   \item \texttt{if} (+ \texttt{else})
@@ -781,25 +792,50 @@ if(test){
 \end{frame}
 
 \begin{frame}{Typical test functions}
-\textbf{Vectorized} 
-\begin{itemize}
-  \item \texttt{==}, \texttt{!=}, \texttt{>}, \texttt{>=}, ... 
-  \item \texttt{is.na()}
-  \item \texttt{\&}, \texttt{|}  
-\end{itemize} 
-\textbf{Not vectorized} 
-\begin{itemize}
-  \item \texttt{identical()}
-  \item \texttt{all.equal()}
-  \item \texttt{\&\&}, \texttt{||}
-  \item \texttt{any()}, \texttt{all()}
-  \item \texttt{is.character()}, \texttt{is.data.frame()}, ... 
-\end{itemize}
+\begin{center}
+  \begin{tabular}{| l | l |}
+    \hline
+    \multicolumn{2}{|c|}{Vectorized, or elementwise} \\ \hline
+    \texttt{==}                & equal to \\ 
+    \texttt{!=}                & NOT equal to\\
+    \texttt{>},  \texttt{>}    & is greater, less than \\
+    \texttt{>=},  \texttt{>=}  & is greater, less than or equal to \\
+    \texttt{\&}                 & AND operator \\
+    \texttt{|}                 & OR operator \\
+    \texttt{xor}               & exclusive OR \\
+    \hline
+  \end{tabular}
+\end{center}
+\end{frame}
+
+\begin{frame}{Typical test functions}
+\begin{center}
+  \begin{tabular}{| l | l |}
+    \hline
+    \multicolumn{2}{|c|}{Not Vectorized} \\ \hline
+    \texttt{identical()}       & identical to \\ 
+    \texttt{any()}             & at least one \texttt{TRUE} \\
+    \texttt{all()}             & all \texttt{TRUE} \\
+    \texttt{\&\&}              & AND operator \\
+    \texttt{||}                & OR operator \\
+    \texttt{is.character()}, \texttt{is.data.frame()}, ...  &  \\
+    \hline
+  \end{tabular}
+\end{center}
+\end{frame}
+
+
+\begin{frame}[fragile]{Typical test functions}
+Compare:
+<<test functions, echo = TRUE, results="markup">>=
+c(TRUE, TRUE) & c(FALSE, TRUE)
+c(TRUE, TRUE) && c(FALSE, FALSE)
+@
 \end{frame}
 
 \begin{frame}[fragile]{Conditional Computation - if}
 The \emph{test} should have length 1!
-<<if3, echo = TRUE, results="markup">>=
+<<if3, results="markup", warning = TRUE>>=
 # only the first element is evaluated
 age <- c(8, 17, 39, 55)
 if (age >= 18) {
@@ -823,10 +859,10 @@ if(!is.integer(vector)){
   vector <- as.integer(vector)
 }
 
-if(is.null(default_argument)){
-  <default computations>
-} else if (default_argument == specific value) {
-  ...
+if(is.null(argument)){
+  # default computations
+} else if (argument == specific_value) {
+  # other computations
 }
 @
 \end{frame}
@@ -837,7 +873,7 @@ if(is.null(default_argument)){
 \begin{itemize}
   \item \emph{if} is almost always used inside of functions or loops
   \item If possible, avoid using \emph{else}
-  \item Use meaningful initialisation, early return(), stop(), etc. instead
+  \item Use meaningful initialization, early return(), stop(), etc. instead
 \end{itemize}
 \end{block}
 \end{frame}
@@ -856,7 +892,7 @@ vote
 \end{frame}
 
 \begin{frame}[fragile]{Conditional Computation - if}
-Solution using meaningful initialisation
+Solution using meaningful initialization
 <<if init, echo = TRUE, results="markup">>=
 age <- 17
 vote <- "too young"
@@ -874,7 +910,8 @@ A vectorized version is \texttt{ifelse()}. \\
 <<ifelse, echo = TRUE, results="markup">>=
 # all elements are evaluated
 age <- c(8, 17, 39, 55)
-ifelse(age >= 18, yes = "can vote", 
+ifelse(age >= 18, 
+       yes = "can vote", 
        no = "too young")
 @
 %\texttt{\textasciigrave if\textasciigrave (test, ifTRUE, ifFALSE)} does exactly the same as \texttt{if (test) {ifTRUE} else {ifFALSE}}
@@ -887,7 +924,8 @@ age_estimated <- c(10, 20, 35, 60)
 age_self_rep <- c(NA, 17, 39, NA)
 
 # Use available information, prioritize self report
-ifelse(!is.na(age_self_rep), yes = age_self_rep, 
+ifelse(!is.na(age_self_rep), 
+       yes = age_self_rep, 
        no = age_estimated)
 
 @
@@ -943,6 +981,7 @@ for (name in c("Alice", "Bob", "Casey")){
 \end{frame}
 
 \begin{frame}[fragile]{Loops \& Iteration - for}
+Nested loops (over the rows and columns of a matrix)
 <<for3, echo=TRUE, eval = TRUE, results = "markup">>=
 matrix <- matrix(NA, nrow = 2, ncol = 3)
 for (rowNr in 1:2){
@@ -967,14 +1006,17 @@ As long as the condition is TRUE, the computation is executed. \\ Often, the com
 \end{frame}
 
 \begin{frame}[fragile]{Loops \& Iteration - while}
-<<while2, echo=TRUE, eval = FALSE>>=
-max_abs <- 0
-while (max_abs <= 3){
+Sample five random values from a normal distribution, the distance between the
+minimum and maximum should be at least 4.
+<<while2, echo=TRUE, eval = TRUE>>=
+max_dif <- 0
+while (max_dif <= 4){
   cat("|")
-  values <- rnorm(20)
-  max_abs <- max(abs(values))
+  values <- rnorm(5)
+  max_dif <- max(values) - min(values)
 }
-max_abs
+max_dif
+round(values, 3)
 @
 \end{frame}
 
@@ -1070,7 +1112,7 @@ All of which have an argument that should be a function.
 \subsubsection{lapply}
 
 \begin{frame}[fragile]{lapply}
-Data.frames are lists
+data.frames are lists with the columns as elements:
 <<lapply, echo=TRUE, results="markup", size="footnotesize">>=
 lapply(iris, FUN = class)
 @
@@ -1080,26 +1122,25 @@ lapply(iris, FUN = class)
 \begin{itemize}
   \item any type of element can be used
   \item other arguments can be passed through
-  \item an annonymous function can be used
 \end{itemize}
 <<lapply2, echo=TRUE, results="markup", size="footnotesize">>=
-lapply(airquality, FUN = mean, rm.na = TRUE)
+lapply(airquality, FUN = mean, na.rm = TRUE)
 @
 \end{frame}
 
-\subsubsection{sapply}
-
-\begin{frame}[fragile]{sapply}
-\begin{itemize}
-  \item wrapper around lapply
-  \item if possible, the ouput is combined into a atomic vector or matrix
-\end{itemize}
-<<sapply, echo=TRUE, eval = TRUE, results="markup">>=
-sapply(airquality, FUN = sd)
-sapply(airquality, FUN = quantile, prob = c(.1, .9), 
-       na.rm = TRUE)
-@
-\end{frame}
+%\subsubsection{sapply}
+%
+%\begin{frame}[fragile]{sapply}
+%\begin{itemize}
+%  \item wrapper around lapply
+%  \item if possible, the ouput is combined into a atomic vector or matrix
+%\end{itemize}
+%<<sapply, echo=TRUE, eval = TRUE, results="markup">>=
+%sapply(airquality, FUN = sd)
+%sapply(airquality, FUN = quantile, prob = c(.1, .9), 
+%       na.rm = TRUE)
+%@
+%\end{frame}
 
 \subsubsection{apply}
 
@@ -1119,7 +1160,7 @@ apply(my_matrix, 2, max)    # apply per column
 <<apply2, echo=TRUE, results="markup", size="footnotesize">>=
 my_array <- array(1, dim = c(2, 3, 4))
 apply(my_array, c(1, 2), sum)    # apply per row and column
-apply(my_array, 3, sum)  
+apply(my_array, 3, sum)          # apply per "third dimension"
 @
 \end{frame}
 
@@ -1135,8 +1176,54 @@ apply(my_array, 3, sum)
 % ----------------------------------------------------------------------------------------------------------------------
 \section{Functions I}
 
+
+\begin{frame}[fragile]
+\begin{exampleblock}{}
+  {\large \begin{quote}
+``To understand computations in R, two slogans are helpful: Everything that exists is an object. Everything that happens is a function call.''
+\end{quote}}
+  \vskip5mm
+  \hspace*\fill{\small--- John Chambers}
+\end{exampleblock}
+\end{frame}
+
+
+\subsection{Function Calls}
+
+\begin{frame}{Function Calls}
+Computing in R happens through function calls. A function is applied to one or more objects, and returns an object after the computation. 
+
+\begin{figure}
+\begin{center}
+\begin{tikzpicture}
+\node[draw,ellipse] (s1) at (0,0) {function};
+\node[draw,rectangle] (s2) at (-4,0) {object1, \ (object2, ...)};
+\node[draw,rectangle] (s3) at (3,0) {new object};
+\path
+    (s2) edge[->, double distance=1pt, >=latex'] (s1)
+    (s1) edge[->, double distance=1pt, >=latex'] (s3);
+\end{tikzpicture}
+\end{center}
+\caption{A function call.}
+\label{fig1}
+\end{figure}
+
+The typical use is: \\ 
+  \texttt{function(object1, argument = object2)}
+  
+\end{frame}
+
+\begin{frame}{Function Calls}
+\begin{itemize}
+  \item Computations that seem not to be done using function calls are actually also function calls. \ 
+  Try \texttt{\textasciigrave <-\textasciigrave (a, 5)} or \texttt{\textasciigrave >\textasciigrave (5, 2)}
+  \item most functions that seem not to return an object, return it invisibly. Check \texttt{(a <- 5)}.
+\end{itemize}
+\end{frame}
+
 \begin{frame}{Building Blocks}
-Functions are the building blocks of R code. As frequent users of functions we know that they should:
+Functions are the building blocks of R code. Writing functions allows you to organize and optimize the computations that you want to do. \\
+Functions should:
 \begin{itemize}
   \item have a clear purpose
   \item be well documented
@@ -1150,18 +1237,19 @@ Move from solely using functions written by others to writing your own functions
 \end{frame}
 
 
-\begin{frame}{Elements of a function}
+\begin{frame}{Function definition}
 \begin{itemize}
   \item Name
   \item Arguments/Formals (input)
-  \item Body (what happens inside)
+  \item Body (what happens inside, R-code with the computations)
   \item Output 
 \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]{Function definition}
-<<echo=TRUE, results='asis'>>=
-countNA <- function(x) {    # Name, Arguments/Formals
+<<echo=TRUE, size = "footnotesize">>=
+                            # Name
+countNA <- function(x) {    # Arguments/Formals
   out <- sum(is.na(x))      # Body
   out                       # Output
 }
@@ -1173,10 +1261,10 @@ countNA <- function(x) {    # Name, Arguments/Formals
 \begin{frame}{Function Names}
 Every function needs a (meaningful) name!
 \begin{itemize}
-  \item Usually a verb (what does the function do?)
+  \item Usually \textbf{a verb} (what does the function do?)
   \item Avoid existing names 
   \item Better longer than unclear
-  \item CamelCase vs Snake\_Case
+  \item CamelCase vs snake\_case
 \end{itemize}
 \end{frame}
 
@@ -1192,8 +1280,8 @@ Every function needs a (meaningful) name!
 \begin{itemize}
   \item myFun()
   \item foo()
-  \item computeStat()
-  \item prep\_dat()
+  \item statistics()
+  \item data\_preparation()
 \end{itemize}
 \end{frame}
 
@@ -1236,7 +1324,7 @@ Examples for multiple arguments
 \begin{frame}{Arguments}
 \metroset{block=fill} %grey blocks
 \begin{block}{Programming advice}
-The less arguments, the better!
+Less arguments = better!
 \end{block}
 \end{frame}
 
@@ -1244,14 +1332,23 @@ The less arguments, the better!
 
 \begin{frame}[fragile]{Output}
 Functions usually return a single object, namely the last evaluated object.
-<<echo=TRUE, results='asis'>>=
-add_things_standard <- function(x = 1) {
-  x2 <- x*2
-  out <- x + x2
+<<echo=TRUE>>=
+get_log_xtox <- function(x) {
+  x_x <- x^x
+  out <- log(x_x)
   out
 }
-add_things_standard(2)
+get_log_xtox(2)
 @
+\end{frame}
+
+\begin{frame}[fragile]{Output}
+Often arguments have to by objects of a specific type.
+<<echo=TRUE, eval = FALSE >>=
+sum(c("a", "b", "c"))  # gives an error
+@
+The documentation typically gives (or should give) information about what 
+objects the arguments should be. Check \texttt{?sum}
 \end{frame}
 
 

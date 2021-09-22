@@ -25,16 +25,73 @@
 ?by
 
 
+## Example Code
+## __________________________________________________________________________
+
+# iterate over a numeric vector
+for (index in 1:3){
+  cat(" computation -")
+}
+
+
+# iterate over a character vector
+for (name in c("Alice", "Bob", "Casey")){
+  if(name == "Bob") cat(" This was Bob -")
+  else cat(" Not Bob -")
+}
+
+
+## nested for loop
+matrix <- matrix(NA, nrow = 2, ncol = 3)
+for (rowNr in 1:2){
+  for (colNr in 1:3){
+    matrix[rowNr, colNr] <- rowNr * 10 + colNr
+  }
+}
+
+
+
+## while loop
+max_abs <- 0
+while (max_abs <= 3){
+  cat("|")
+  values <- rnorm(20)
+  max_abs <- max(abs(values))
+}
+max_abs
+round(values, 3)
+
+
+## repeat loop
+index <- 0
+repeat {
+  index <- index + 1
+  if (index %in% c(3, 5)) next
+  if (index > 6) break
+  print(index)
+}
+
+
+## use seq() and not :
+x <- numeric()
+for (index in 1:length(x)){
+  print(index)
+}
+
+
+for (index in seq_along(x)){
+  print(index)
+}
 
 ## Exercises -----
 ##===========================================================
-# 1. Consider the following list ("attendence_list"). Write a for loop in which 
+# 1. Consider the following list ("attendance_list"). Write a for loop in which 
 #      (a) the name "Benny" is replaced by "bob"
-#      (b) the Attendies are put in alphabetical order
+#      (b) the Attendees are put in alphabetical order
 #    Tip: You can use the index of the elements, or the names of the elements
 #         to iterate over.
 
-attendence_list <- list(
+attendance_list <- list(
   may_02 = c("Benny", "Anna", "Freddy", "Casey"), 
   may_09 = c("Freddy", "Casey", "Donny", "Anna"), 
   may_16 = c("Eddy", "Anna", "Freddy", "Casey", "Benny"), 
@@ -43,22 +100,12 @@ attendence_list <- list(
 )
 
 
-# Possible Solutions
-
-for(index in seq_along(attendence_list)){
-  attendees <- attendence_list[[index]]
-  which_benny <- which(attendees == "Benny")
-  attendees[which_benny] <- "Bob"
-  attendence_list[[index]]  <- sort(attendees)
-}
 
 
-for(date in names(attendence_list)){
-  attendees <- attendence_list[[date]]
-  which_benny <- which(attendees == "Benny")
-  attendees[which_benny] <- "Bob"
-  attendence_list[[date]]  <- sort(attendees)
-}
+
+
+
+
 
 # 2. Consider the zero matrix "A". 
 #    (a) Using a for loop, turn the matrix into a diagonal matrix with these 
@@ -67,7 +114,7 @@ for(date in names(attendence_list)){
 #    Tip 2: iterate over a vector with the values
 #
 #    (b) Using nested loops, fill the upper triangle with ones, leaving the
-#        values on the diagonal
+#        values on the diagonal unchanged
 #    Tip 1: use a double iteration, and let the inner loop depend on the outer 
 #           loop
 #    Tip 2: use a if() and next, to skip cells that should not be changed
@@ -75,38 +122,24 @@ for(date in names(attendence_list)){
 
 A <- matrix(0, ncol = 7, nrow = 7)
 
-# Possible solution
-values <- c(1, 2, 3, 5, 7, 11, 13)
 
-for (i in seq_len(ncol(A))){
-  A[i, i] <- values[i]
-}
 
-for(rowNr in seq_len(nrow(A))){
-  for(colNr in seq(rowNr, ncol(A))){
-    if(rowNr == colNr) next
-    A[rowNr, colNr] <- 1
-  }
-}
+
+
 
 
 # 3. Using the formula (1 + 1 / x)^x, you can approximate Euler's number.
 #    Write a loop in which x increases with 1 each iteration and find the
-#    first x for which the formula differs less from exp(1) than 0.00001
+#    first x for which the difference between the formula and exp(1) is 
+#    less than 0.00001
 
-x <- 1
-repeat{
-  approx_e <- (1 + 1 / x)^x
-  if(abs(approx_e - exp(1)) < 0.00001) break
-  x <- x + 1
-}
-approx_e
-x
+
+
 
 
 # 4. Use the lapply function to sort the attendees alphabetically in 
-#    attendence_list 
-attendence_list <- list(
+#    attendance_list 
+attendance_list <- list(
   may_02 = c("Benny", "Anna", "Freddy", "Casey"), 
   may_09 = c("Freddy", "Casey", "Donny", "Anna"), 
   may_16 = c("Eddy", "Anna", "Freddy", "Casey", "Benny"), 
@@ -115,16 +148,16 @@ attendence_list <- list(
 )
 
 
-# Possible solution
-lapply(attendence_list, sort)
+
+
 
 
 # 5. Load the "airquality"-data using data("airquality"). 
 #    (a) Using lapply, plot a pink histogram of each variable (?hist)
-#    (b) Using sapply, compute the first and third quartile for each  
-#        variable (?quantile)
+#    (b) Using vapply, compute the first and third quartile (quantile .25 
+#    and .75)for each variable
 #     Tip: ignore missing values using na.rm = TRUE
 data("airquality")
-lapply(airquality, hist, col = "pink")
-t(sapply(airquality, quantile, probs = c(.25, .75), na.rm = TRUE))
+?hist
+?quantile
 
