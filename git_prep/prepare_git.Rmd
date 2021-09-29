@@ -13,7 +13,7 @@ output:
 }
 </style>
 
-If you are currently not using Git and Github, the following steps should be performed **ahead** of the actual workshop. If you are already using Git and Github (via Rstudio, the Shell/Command line or another GUI) feel free to skip these instructions. If any problems occur while following the instructions, please let us know at the beginning of the workshop.
+If you are currently not using Git and Github, the following steps should be performed **before** the actual workshop. If you are already using Git and Github (via Rstudio, the Shell/Command line or another GUI) feel free to skip these instructions. If any problems occur while following the instructions, please let us know at the beginning of the workshop.
 
 ### 1. Create a [Github](https://github.com) account
 
@@ -55,13 +55,13 @@ use_git_config(user.name = "user name", user.email = "email")
 
 Alternatively, this can be done directly in Git (via your shell): 
 
-> git config --global user.name "user name"
+> `git config --global user.name "user name"`
 
-> git config --global user.email "email"
+> `git config --global user.email "email"`
 
 You can check whether everything is set up correctly via the following shell command:
 
-> git config --global --list
+> `git config --global --list`
 
 ### 6. Github Authentification via RStudio
 

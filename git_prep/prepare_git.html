@@ -178,7 +178,7 @@ pre code {
   font-size: 14pt;
 }
 </style>
-<p>If you are currently not using Git and Github, the following steps should be performed <strong>ahead</strong> of the actual workshop. If you are already using Git and Github (via Rstudio, the Shell/Command line or another GUI) feel free to skip these instructions. If any problems occur while following the instructions, please let us know at the beginning of the workshop.</p>
+<p>If you are currently not using Git and Github, the following steps should be performed <strong>before</strong> the actual workshop. If you are already using Git and Github (via Rstudio, the Shell/Command line or another GUI) feel free to skip these instructions. If any problems occur while following the instructions, please let us know at the beginning of the workshop.</p>
 <div id="create-a-github-account" class="section level3">
 <h3>1. Create a <a href="https://github.com">Github</a> account</h3>
 <p>When creating your Github account, choose your account name carefully, as it should not be changed over time. Tips and advice regarding naming your account can be found in <a href="https://happygitwithr.com/github-acct.html">Jennifer Bryan’s ebook on Git and RStudio</a>. The ebook is a great ressource on the topic in general.</p>
@@ -214,14 +214,14 @@ library(usethis)
 use_git_config(user.name = &quot;user name&quot;, user.email = &quot;email&quot;)</code></pre>
 <p>Alternatively, this can be done directly in Git (via your shell):</p>
 <blockquote>
-<p>git config –global user.name “user name”</p>
+<p><code>git config --global user.name &quot;user name&quot;</code></p>
 </blockquote>
 <blockquote>
-<p>git config –global user.email “email”</p>
+<p><code>git config --global user.email &quot;email&quot;</code></p>
 </blockquote>
 <p>You can check whether everything is set up correctly via the following shell command:</p>
 <blockquote>
-<p>git config –global –list</p>
+<p><code>git config --global --list</code></p>
 </blockquote>
 </div>
 <div id="github-authentification-via-rstudio" class="section level3">
