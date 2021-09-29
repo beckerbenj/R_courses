@@ -25,7 +25,7 @@ If you are using Windows, use the following Link to install Git: [https://git-sc
 
 > C:/Users/accountname/AppData/Local/Programs/Git/bin
 
-If you are using MacOS or a Linux system, follow the instructions on installing Git in [Jennifer Bryan's ebook](https://happygitwithr.com/github-acct.html).
+If you are using MacOS or a Linux system, follow the instructions on installing Git in [Jennifer Bryan's ebook](https://happygitwithr.com/install-git.html).
 
 ### 3. Install R and RStudio 
 
@@ -65,7 +65,23 @@ You can check whether everything is set up correctly via the following shell com
 
 ### 6. Github Authentification via RStudio
 
-We recommend SH authentification...
+We recommend you use HTTPS authentication to access Github from your local machine. First, set up your personal access token (PAT) on the Github homepage using `usethis`. Important: You can never access this PAT again after creating the PAT, therefore make sure to store it somewhere on your machine. 
+
+```{r eval = F}
+usethis::create_github_token()
+```
+
+Then access the Git credential store via R using the `credentials` package.
+
+```{r eval = F}
+# If necessary, install the credentials package.
+# install.packages("credentials")
+library(credentials)
+
+set_github_pat()
+```
+
+If `credentials` requests a password, supply the newly created PAT.
 
 ### 7. Join our workshop repository
 

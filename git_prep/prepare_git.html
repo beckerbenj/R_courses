@@ -189,7 +189,7 @@ pre code {
 <blockquote>
 <p>C:/Users/accountname/AppData/Local/Programs/Git/bin</p>
 </blockquote>
-<p>If you are using MacOS or a Linux system, follow the instructions on installing Git in <a href="https://happygitwithr.com/github-acct.html">Jennifer Bryan’s ebook</a>.</p>
+<p>If you are using MacOS or a Linux system, follow the instructions on installing Git in <a href="https://happygitwithr.com/install-git.html">Jennifer Bryan’s ebook</a>.</p>
 </div>
 <div id="install-r-and-rstudio" class="section level3">
 <h3>3. Install R and RStudio</h3>
@@ -226,7 +226,15 @@ use_git_config(user.name = &quot;user name&quot;, user.email = &quot;email&quot;
 </div>
 <div id="github-authentification-via-rstudio" class="section level3">
 <h3>6. Github Authentification via RStudio</h3>
-<p>We recommend SH authentification…</p>
+<p>We recommend you use HTTPS authentication to access Github from your local machine. First, set up your personal access token (PAT) on the Github homepage using <code>usethis</code>. Important: You can never access this PAT again after creating the PAT, therefore make sure to store it somewhere on your machine.</p>
+<pre class="r"><code>usethis::create_github_token()</code></pre>
+<p>Then access the Git credential store via R using the <code>credentials</code> package.</p>
+<pre class="r"><code># If necessary, install the credentials package.
+# install.packages(&quot;credentials&quot;)
+library(credentials)
+
+set_github_pat()</code></pre>
+<p>If <code>credentials</code> requests a password, supply the newly created PAT.</p>
 </div>
 <div id="join-our-workshop-repository" class="section level3">
 <h3>7. Join our workshop repository</h3>
