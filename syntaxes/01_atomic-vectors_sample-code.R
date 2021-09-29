@@ -48,6 +48,11 @@ seq(0, 1, length.out = 11)
 seq_along(c("a", "b", "c", "d"))
 seq_len(10)
 
+# avoid 1:length(vector)!  
+# compare:
+seq_along(logical(0))
+1:length(logical(0))
+
 
 # rep()
 rep(1:3, each = 2)

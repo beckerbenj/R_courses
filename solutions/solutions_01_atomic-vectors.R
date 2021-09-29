@@ -47,8 +47,6 @@ rep(seq(1, 9, by = 2), 1:5)
 # 2.1
 #  [1] "spice-girl_1" "spice-girl_2" "spice-girl_3" "spice-girl_4" "spice-girl_5" 
 #      "spice-girl_6" "spice-girl_7" "spice-girl_8" "spice-girl_9" 
-#  [1] "spice-girl_1" "spice-girl_2" "spice-girl_3" "spice-girl_4" "spice-girl_5" 
-#      "spice-girl_6" "spice-girl_7" "spice-girl_8" "spice-girl_9" 
 
 # 2.2
 #  [1] "90" "81" "72" "63" "54" "45" "36" "27" "18" "09"

@@ -11,6 +11,7 @@
 \usetheme{metropolis}
 
 
+
 \title{Introduction to Programming with R}
 \institute{Zurich R Courses}
 
@@ -160,15 +161,15 @@ econRedD<-"#90353B"
 	\begin{enumerate}
 			\item Past Self
 			\begin{itemize}
-			  \item the biggest mess in existence
-			  \item Did not document anything
-			  \item Uses a completely different style of writing code
+			  \item The biggest mess in existence
+			  \item did not document anything
+			  \item uses a completely different style of writing code
 			  \item does not reply to e-mails
 			\end{itemize}
 			\item Future Self
 			\begin{itemize}
-			  \item Has the memory of a goldfish
-			  \item Will have zero understanding for your current brilliance
+			  \item has the memory of a goldfish
+			  \item will have zero understanding for your current brilliance
 			\end{itemize}
 	\end{enumerate}
 \end{frame}
@@ -276,7 +277,7 @@ econRedD<-"#90353B"
 \begin{frame}[fragile]
 \begin{exampleblock}{}
   {\large \begin{quote}
-``To understand computations in R, two slogans are helpful: Everything that exists is an object. Everything that happens is a function call.''
+``To understand computations in R, two slogans are helpful: Everything that exists is an object. {Everything} that happens is a function call.''
 \end{quote}}
   \vskip5mm
   \hspace*\fill{\small--- John Chambers}
@@ -361,7 +362,7 @@ seq(0, 1, length.out = 11)
 seq_along(c("a", "b", "c", "d"))
 seq_len(10)
 @
-Avoid \texttt{:} when programming!
+Avoid \texttt{1:length(vector)} when programming!
 \end{frame}
 
 \begin{frame}[fragile]{Useful Functions}
@@ -745,7 +746,7 @@ my_dat[,"col1", drop = FALSE]
 \end{frame}
 
 
-\begin{frame}[fragile]{Subsetting - data.frame \& matrixe}
+\begin{frame}[fragile]{Subsetting - data.frame \& matrix}
 \metroset{block=fill} %grey blocks
 \begin{block}{Programming advice}
   Code defensively: always use \texttt{, drop = FALSE} 
@@ -1220,7 +1221,7 @@ apply(my_array, 3, sum)        # per "third dimension"
 \begin{frame}[fragile]
 \begin{exampleblock}{}
   {\large \begin{quote}
-``To understand computations in R, two slogans are helpful: Everything that exists is an object. Everything that happens is a function call.''
+``To understand computations in R, two slogans are helpful: Everything that exists is an object. {Everything} that happens is a function call.''
 \end{quote}}
   \vskip5mm
   \hspace*\fill{\small--- John Chambers}
@@ -1368,6 +1369,15 @@ Less arguments = better!
 \end{block}
 \end{frame}
 
+\begin{frame}[fragile]{Arguments}
+Often arguments have to by objects of a specific type.
+<<echo=TRUE, eval = FALSE >>=
+sum(c("a", "b", "c"))  # gives an error
+@
+The documentation typically gives (or should give) information about what 
+objects the arguments should be. Check \texttt{?sum}
+\end{frame}
+
 \subsection{Output}
 
 \begin{frame}[fragile]{Output}
@@ -1382,14 +1392,7 @@ get_log_xtox(2)
 @
 \end{frame}
 
-\begin{frame}[fragile]{Output}
-Often arguments have to by objects of a specific type.
-<<echo=TRUE, eval = FALSE >>=
-sum(c("a", "b", "c"))  # gives an error
-@
-The documentation typically gives (or should give) information about what 
-objects the arguments should be. Check \texttt{?sum}
-\end{frame}
+
 
 
 \begin{frame}[plain]
@@ -2258,7 +2261,7 @@ warnings()
 \begin{frame}[fragile]
 \begin{exampleblock}{}
   {\large \begin{quote}
-``To understand computations in R, two slogans are helpful: Everything that exists is an object. Everything that happens is a function call.''
+``To understand computations in R, two slogans are helpful: Everything that exists is an object. {Everything} that happens is a function call.''
 \end{quote}}
   \vskip5mm
   \hspace*\fill{\small--- John Chambers}
