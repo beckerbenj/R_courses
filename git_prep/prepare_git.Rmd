@@ -1,0 +1,78 @@
+---
+title: 'Git-Setup for Workshop: Advanced Programming with R'
+author: "Dries Debeer & Benjamin Becker"
+date: "15.10.2021"
+output:
+  html_document:
+    df_print: paged
+---
+
+<style type="text/css">
+  body{
+  font-size: 14pt;
+}
+</style>
+
+If you are currently not using Git and Github, the following steps should be performed **ahead** of the actual workshop. If you are already using Git and Github (via Rstudio, the Shell/Command line or another GUI) feel free to skip these instructions. If any problems occur while following the instructions, please let us know at the beginning of the workshop.
+
+### 1. Create a [Github](https://github.com) account
+
+When creating your Github account, choose your account name carefully, as it should not be changed over time. Tips and advice regarding naming your account can be found in  [Jennifer Bryan's ebook on Git and RStudio](https://happygitwithr.com/github-acct.html). The ebook is a great ressource on the topic in general.
+
+### 2. Install Git
+
+If you are using Windows, use the following Link to install Git: [https://git-scm.com/download/win](https://git-scm.com/download/win). No Admin rights are required for the installation. However, make sure to remember the location of the installation as you might need to reference it later by hand. A common installation path is: 
+
+> C:/Users/accountname/AppData/Local/Programs/Git/bin
+
+If you are using MacOS or a Linux system, follow the instructions on installing Git in [Jennifer Bryan's ebook](https://happygitwithr.com/github-acct.html).
+
+### 3. Install R and RStudio 
+
+Hopefully you have already installed R and RStudio on your machine. If not, follow these links and the installation instructions: 
+
+* [R](https://ftp.fau.de/cran/) 
+* [RStudio](https://www.rstudio.com/products/rstudio/download/#download)
+
+### 4. Connect RStudio and Git
+
+RStudio needs to know where Git can be found on your machine to access it. The path can be changed via Tools --> Global Options. Sometimes RStudio is able to figure this out automatically, sometimes the path has to be entered manually.
+
+![](Abbildungen_Reader/gitpfad.png)
+
+### 5. Connect Git and Github via R
+
+Git requires our Github account information (user name and email adress). This can be done via the R package `usethis`. 
+
+```{r eval = F}
+
+# if necessary, install usethis from CRAN
+# install.packages("usethis")
+
+library(usethis)
+use_git_config(user.name = "user name", user.email = "email")
+```
+
+Alternatively, this can be done directly in Git (via your shell): 
+
+> git config --global user.name "user name"
+
+> git config --global user.email "email"
+
+You can check whether everything is set up correctly via the following shell command:
+
+> git config --global --list
+
+### 6. Github Authentification via RStudio
+
+We recommend SH authentification...
+
+### 7. Join our workshop repository
+
+Open our example repository on GitHub: [https://github.com/beckerbz/R_advanced](https://github.com/beckerbz/R_advanced)
+
+Create a new issue including your name. We will then add you as a contributor.
+
+### 8. Workshop
+
+You are now ready to participate in our workshop **Advanced Programming with R**! If you have experienced any issues with the setup let us know at the beginning of the workshop and we will help you set everything up on your machine. We are looking forward to the workshop with you!
