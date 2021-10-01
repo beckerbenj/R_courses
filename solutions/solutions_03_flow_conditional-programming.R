@@ -55,10 +55,10 @@ with(pisa, table(books))
 with(pisa, table(pared))
 
 
-pisa$group <- ifelse(pisa$books %in% c("0-10 books", "11-25 books") & !is.na(pisa$books) & pisa$pared < 12, yes = 1, no = 
-                       ifelse(pisa$books %in% c("0-10 books", "11-25 books") & !is.na(pisa$books) & pisa$pared >= 12, yes = 2, no =
-                                ifelse(!pisa$books %in% c("0-10 books", "11-25 books") & !is.na(pisa$books) & pisa$pared < 12, yes = 3, no = 
-                                         ifelse(!pisa$books %in% c("0-10 books", "11-25 books") & !is.na(pisa$books) & pisa$pared >= 12, yes = 4, no = NA))))
+pisa$group <- ifelse(!pisa$books %in% c("0-10 books", "11-25 books") & !is.na(pisa$books) & pisa$pared < 12, yes = 1, no = 
+                       ifelse(!pisa$books %in% c("0-10 books", "11-25 books") & !is.na(pisa$books) & pisa$pared >= 12, yes = 2, no =
+                                ifelse(pisa$books %in% c("0-10 books", "11-25 books") & !is.na(pisa$books) & pisa$pared < 12, yes = 3, no = 
+                                         ifelse(pisa$books %in% c("0-10 books", "11-25 books") & !is.na(pisa$books) & pisa$pared >= 12, yes = 4, no = NA))))
 
 with(pisa, table(group, useNA = "if"))
 with(pisa, table(books, pared, useNA = "if"))

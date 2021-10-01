@@ -345,84 +345,6 @@ length(NULL)
 \texttt{NULL} is mostly used as a default argument in functions, in order to create some default behavior.
 \end{frame}
 
-
-\subsubsection{Useful Functions}
-
-
-\begin{frame}[fragile]{Useful Functions}
-\texttt{?seq} Creates a vector with a sequence of numerical values.
-<<seq, echo = TRUE, results = "markup", size = "footnotesize">>=
-seq(0, 10, by = 2)
-seq(0, 1, length.out = 11)
-@
-\end{frame}
-
-
-\begin{frame}[fragile]{Useful Functions}
-\texttt{seq\_along} and \texttt{seq\_len} are shortcuts.
-<<seq_, echo = TRUE, results = "markup", size = "footnotesize">>=
-seq_along(c("a", "b", "c", "d"))
-seq_len(10)
-@
-Avoid \texttt{1:length(vector)} when programming!
-\end{frame}
-
-\begin{frame}[fragile]{Useful Functions}
-\texttt{?rep} Creates a new vector by repeating the elements of a vector.
-<<rep, echo = TRUE, results = "markup", size = "footnotesize">>=
-rep(1:3, each = 2)
-rep(1:3, times = 2)
-@
-\end{frame}
-
-\begin{frame}[fragile]{Useful Functions}
-\texttt{?rep} Creates a new vector by repeating the elements of a vector.
-<<rep2, echo = TRUE, results = "markup", size = "footnotesize">>=
-rep(c("a", "b", "c"), times = 2)
-rep(c("this", "may", "be", "useful", "!"), 1:5)
-@
-\end{frame}
-
-
-\begin{frame}[fragile]{Useful Functions}
-\texttt{?paste} Creates a character vector by pasting multiple vectors together.
-<<paste, echo = TRUE, results = "markup">>=
-paste("one", "big", "string", sep = " ")
-paste0("word_", seq(1, 4))
-paste(c("ONE", "TWO"), seq(1, 3), 
-      sep = " || ", collapse = "_-_")
-@
-\end{frame}
-
-
-\begin{frame}[fragile]{Useful Functions}
-\texttt{?unique} Creates a vector with the unique values of a vector.
-<<unique, echo = TRUE, results = "markup">>=
-unique(c("b", "a", "a", "b"))
-@
-\end{frame}
-
-
-\begin{frame}[fragile]{Useful Functions}
-\texttt{?sort} Creates a sorted version a Vector.
-<<sort, echo = TRUE, results = "markup">>=
-sort(c("b", "a", NA, "a", "b"))
-sort(c("b", "a", NA, "a", "b"), na.last = TRUE)
-sort(c(4, 2, 6, 1, 3, 5), decreasing = TRUE)
-@
-\end{frame}
-
-
-\begin{frame}[plain]
-\begin{center}
-\Large Exercises \\
-
-\vspace{1.5cm}
-\includegraphics[height=.25\textheight]{exercises.jpg}
-\end{center}
-\end{frame}
-
-
 \subsubsection{Coercion/Conversion}
 
 \begin{frame}[fragile]{Coercion/Conversion}
@@ -507,6 +429,84 @@ A factor in R is actually an integer vector with
   \item a \texttt{"levels"} attribute set to the level-labels that correspond to the integer values from 1 to the highest integer value in the integer vector.
 \end{itemize}
 \end{frame}
+
+
+\subsubsection{Useful Functions}
+
+
+\begin{frame}[fragile]{Useful Functions}
+\texttt{?seq} Creates a vector with a sequence of numerical values.
+<<seq, echo = TRUE, results = "markup", size = "footnotesize">>=
+seq(0, 10, by = 2)
+seq(0, 1, length.out = 11)
+@
+\end{frame}
+
+
+\begin{frame}[fragile]{Useful Functions}
+\texttt{seq\_along} and \texttt{seq\_len} are shortcuts.
+<<seq_, echo = TRUE, results = "markup", size = "footnotesize">>=
+seq_along(c("a", "b", "c", "d"))
+seq_len(10)
+@
+Avoid \texttt{1:length(vector)} when programming!
+\end{frame}
+
+\begin{frame}[fragile]{Useful Functions}
+\texttt{?rep} Creates a new vector by repeating the elements of a vector.
+<<rep, echo = TRUE, results = "markup", size = "footnotesize">>=
+rep(1:3, each = 2)
+rep(1:3, times = 2)
+@
+\end{frame}
+
+\begin{frame}[fragile]{Useful Functions}
+\texttt{?rep} Creates a new vector by repeating the elements of a vector.
+<<rep2, echo = TRUE, results = "markup", size = "footnotesize">>=
+rep(c("a", "b", "c"), times = 2)
+rep(c("this", "may", "be", "useful", "!"), 1:5)
+@
+\end{frame}
+
+
+\begin{frame}[fragile]{Useful Functions}
+\texttt{?paste} Creates a character vector by pasting multiple vectors together.
+<<paste, echo = TRUE, results = "markup">>=
+paste("one", "big", "string", sep = " ")
+paste0("word_", seq(1, 4))
+paste(c("ONE", "TWO"), seq(1, 3), 
+      sep = " || ", collapse = "_-_")
+@
+\end{frame}
+
+
+\begin{frame}[fragile]{Useful Functions}
+\texttt{?unique} Creates a vector with the unique values of a vector.
+<<unique, echo = TRUE, results = "markup">>=
+unique(c("b", "a", "a", "b"))
+@
+\end{frame}
+
+
+\begin{frame}[fragile]{Useful Functions}
+\texttt{?sort} Creates a sorted version a Vector.
+<<sort, echo = TRUE, results = "markup">>=
+sort(c("b", "a", NA, "a", "b"))
+sort(c("b", "a", NA, "a", "b"), na.last = TRUE)
+sort(c(4, 2, 6, 1, 3, 5), decreasing = TRUE)
+@
+\end{frame}
+
+
+\begin{frame}[plain]
+\begin{center}
+\Large Exercises \\
+
+\vspace{1.5cm}
+\includegraphics[height=.25\textheight]{exercises.jpg}
+\end{center}
+\end{frame}
+
 
 \begin{frame}{More Basic Object Types}
 \begin{center}
@@ -836,8 +836,8 @@ if(test){
     \multicolumn{2}{|c|}{Vectorized, elementwise} \\ \hline
     \texttt{==}                & equal to \\ 
     \texttt{!=}                & NOT equal to\\
-    \texttt{>},  \texttt{>}    & is greater, less than \\
-    \texttt{>=},  \texttt{>=}  & is greater, less than or equal to \\
+    \texttt{>},  \texttt{<}    & is greater, less than \\
+    \texttt{>=},  \texttt{<=}  & is greater, less than or equal to \\
     \texttt{\&}                 & AND operator \\
     \texttt{|}                 & OR operator \\
     \texttt{xor}               & exclusive OR \\
@@ -2018,7 +2018,7 @@ R uses specific rules to find objects.
   \item outside the function
 \end{enumerate}
 
-Watch out with number 4! Frequently restart R: \texttt{Ctrl + shift + F4}
+Watch out with number 4! Frequently restart R: \texttt{Ctrl + shift + F10}
 \end{frame}
 
 

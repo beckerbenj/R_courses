@@ -83,6 +83,46 @@ for (index in seq_along(x)){
   print(index)
 }
 
+
+## don't grow, but replace
+x <- letters
+result1 <- numeric() # grow
+result2 <- numeric(length(x)) # replace
+for (index in seq_along(x)){
+  result1 <- c(result1, paste(index, x[index])) # grow
+  result2[index] <- paste(index, x[index]) # replace
+}
+
+
+
+## lapply
+?lapply
+?iris
+str(iris)
+lapply(iris, FUN = class)
+
+
+?airquality
+str(airquality)
+means <- lapply(airquality, FUN = mean, na.rm = TRUE)
+str(means)
+
+
+## apply
+?apply
+my_matrix <- matrix(1:6, nrow = 2)
+apply(my_matrix, 1, max)  # apply per row
+
+apply(my_matrix, 2, max)  # apply per column
+
+
+my_array <- array(1, dim = c(2, 3, 4))
+apply(my_array, c(1, 2), sum) # per row and column
+
+apply(my_array, 3, sum) # per "third dimension"
+
+
+
 ## Exercises -----
 ##===========================================================
 # 1. Consider the following list ("attendance_list"). Write a for loop in which 

@@ -15,7 +15,7 @@ observations <- rnorm(10)
 predictions <- rnorm(10)
 
 # with a function
-get_RMSE <- function(x_hat, x){
+get_RMSE <- function(predictions, observations){
   diff <- observations - predictions
   sq_diff <- diff^2
   m_sq_diff <- mean(diff)
