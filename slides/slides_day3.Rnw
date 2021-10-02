@@ -275,7 +275,7 @@ The \texttt{apply}-family \emph{applies} a function repeatedly.
 This can be seen as an abstraction of a for loop, with the following advantages:
 \begin{itemize}
   \item requires less code to write
-  \item can be easier to read/understand
+  \item can be easier to read / understand
   \item does not store intermediate results
   \item no need to replace / grow
 \end{itemize}
@@ -295,10 +295,10 @@ The members of the \texttt{apply}-family in Base R are:
 \end{frame}
 
 \begin{frame}{\texttt{apply}-family}
-A popular alternative from the tidy-verse: \texttt{purrr}
+A popular alternative from the tidyverse: \texttt{purrr}
 \begin{itemize}
   \item \texttt{map} vector / list $\rightarrow$ list
-  \item \texttt{map2} multiple vectors / lists $\rightarrow$ vector (matrix)
+  \item \texttt{map2} multiple vectors / lists $\rightarrow$ list
   \item ...
 \end{itemize}
 \end{frame}
