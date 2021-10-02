@@ -850,9 +850,9 @@ Git (+ R) Resources
 \begin{frame}{Motivation}
 \begin{itemize}
   \item It is incredibly easy!
-  \item It makes you code easier accessible (for others and yourself)
-  \item It gives a great framework for documenting your code 
-  \item There are great tools for testing your code
+  \item It makes your code easier accessible (for others and yourself)
+  \item It provides a great framework for documenting your code 
+  \item It provides great tools for testing your code
   \item It is a form of scientific output (packages can be cited)
 \end{itemize}
 \end{frame}
@@ -867,7 +867,12 @@ Use \texttt{usethis} and/or \texttt{RStudio} to set up everything.
 \end{frame}
 
 \begin{frame}{R functions}
-Your actual code lives in the \texttt{R} folder. Organize your functions logically and avoid very long scripts.
+Your actual code lives in the \texttt{R} folder. 
+\begin{itemize}
+  \item Write small functions which do one specific thing
+  \item Organize your functions logically
+  \item Avoid very long scripts
+\end{itemize}
 \end{frame}
 
 
@@ -894,7 +899,7 @@ Use \texttt{testthat} for automated testing. This has multiple advantages:
 \begin{frame}{Resources}
 Writing R packages
 \begin{itemize}
-\item Extending R (\url{https://r-bio.github.io/intro-git-rstudio/})
+\item Writing R Extensions (\url{https://cloud.r-project.org/doc/manuals/r-release/R-exts.html})
 \item R Packages (\url{https://r-pkgs.org/})
 \end{itemize}
 \end{frame}
@@ -904,25 +909,14 @@ Writing R packages
 
 \begin{frame}{General Advice}
 \begin{itemize}
-\item Investing time in learning R pays off
-\item It's a steady learning curve
+\item Try to always learn new things about R and / or programming
+\item Try to automate as much as possible
+\item If you are re-using code regularly, write a package!
 \item Learn from masters
 \item Rewrite important code - the first attempt is usually not the best approach
 \end{itemize}
 \end{frame}
 
-\begin{frame}{General R Advice}
-\begin{itemize}
-\item Document well
-\item Use a consistent style
-\item Write functions
-\item Split long functions in smaller ones
-\item Write wrappers
-\item Use Iteration (don't copy paste)
-\item Use matrix operations and vectorized functions instead of loops
-\item Use git
-\end{itemize}
-\end{frame}
 
 \begin{frame}{Literature Recommendations}
 R Resources
