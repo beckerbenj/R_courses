@@ -145,7 +145,6 @@ econRedD<-"#90353B"
 	\item Previous knowledge and experience
 	\begin{itemize}
 	  \item with R?
-	  \item with other statistical software?
 	  \item with other programming languages?
 	\end{itemize}
 	\item Specific interest/motivation for this workshop?
@@ -158,9 +157,9 @@ econRedD<-"#90353B"
 
 \textbf{You ...}
 \begin{itemize}
-  \item are a frequent R user (e.g. for data wrangling/analyses)
-  \item have a rough understanding of R as a programming language
-  \item have already written some R functions yourself
+  \item are a frequent R user (e.g. for data wrangling/analyses/plots)
+  \item have a rough understanding of R as a programming language\\
+  $\rightarrow$ e.g. you have already written some R functions yourself
   \item are interested in learning more about the intricacies of R 
 \end{itemize}
 \end{frame}
@@ -184,7 +183,7 @@ econRedD<-"#90353B"
   \item Functionals \& Split-Apply Paradigm
 \end{itemize} \\ ~ \
 
-\textit{Lunch Break} \\ ~ \
+- \textit{Lunch Break} -\\ ~ \
 
 \begin{itemize}
   \item Object Orientation (S3)
@@ -252,7 +251,7 @@ add_things2(2)
 \section{Functionals}
 
 \begin{frame}{Higher Order Functions}
-Higher order functions are functions that either take \textbf{functions as input} or return \textbf{functions as output}.
+Higher order functions are functions that either \textbf{take functions as input} or \textbf{return functions as output}.
 \end{frame}
 
 
@@ -311,7 +310,7 @@ Our focus: \texttt{lapply} and \texttt{Map}
   \item Consistent output
   \item Fast
   \item No dependencies
-  \item Understanding R basics
+  \item We want to understand R basics
 \end{itemize}
 \end{frame}
 
@@ -762,7 +761,7 @@ See the workshop preparation materials
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Exkurs: gitignore}
+\begin{frame}{Excursion: gitignore}
 \begin{itemize}
   \item Plain text file
   \item Which files should not be tracked by git? \\
@@ -787,7 +786,7 @@ See the workshop preparation materials
 \textbf{Working with an existing repository}
 \begin{itemize}
   \item Before working: Synch your local repo (\textbf{Pull} or \textbf{clone})
-  \item Perform changes in your local repository
+  \item Perform changes in your local repository \\
   $\rightarrow$ Create/modify/delete files
   \item \textbf{Stage} your changes
   \item \textbf{Commit} your changes (aka new version)
@@ -795,23 +794,23 @@ See the workshop preparation materials
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Exkurs: mergen}
+\begin{frame}{Excursion: mergen}
 \textbf{Conflicts between different updated versions}
 \begin{itemize}
   \item Common when working collaborativley
-  \item Own discrepancies between different machines
+  \item Discrepancies between your own different local repos
   $\rightarrow$ Git communicates these and indicates conflicts
   \item Select the desired changes
   \item Stage selection, commit and push
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Exkurs: Branches}
+\begin{frame}{Excursion: Branches}
 \textbf{Multiple parallel versions of a project within one repository}
 \begin{itemize}
   \item e.g. one stable and one development branch
   \item Only certrain modifications should be made in the stable branch
-  \item Careful: RStudion GUI has limited support for this
+  \item \textbf{Note}: RStudio GUI has limited support for this
 \end{itemize}
 \end{frame}
 
@@ -860,9 +859,10 @@ Git (+ R) Resources
 \begin{frame}{Setup}
 Use \texttt{usethis} and/or \texttt{RStudio} to set up everything.
 \begin{itemize}
-  \item Create a Github Repository and clone it locally
-  \item Create an R project (-> R package) in the existing repository
-  \item Use \texttt{usethis} if you want to create more specific architecture
+  \item Create a regular Github Repository
+  \item Clone the repository regularly 
+  \item Use \texttt{usethis::use\_package(getwd())} to create the minimal package structure
+  \item Use \texttt{usethis} if you want to add more specific architecture
 \end{itemize}
 \end{frame}
 
@@ -888,8 +888,8 @@ Use \texttt{roxygen2} to document your code and to manage your namespace.
 \begin{frame}{Testing}
 Use \texttt{testthat} for automated testing. This has multiple advantages:
 \begin{itemize}
-  \item Good test coverage serves is a quality attribute of a good and stable package
-  \item modifying existing code becomes much easier
+  \item Good test coverage serves as a quality attribute of a good and stable package
+  \item Modifying existing code becomes much easier
   \item Your code becomes more robust
   \item It helps you sleep at night
 \end{itemize}
