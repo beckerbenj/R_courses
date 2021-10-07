@@ -77,10 +77,115 @@ econRedD<-"#90353B"
 \end{frame}
 \addtocounter{framenumber}{-1}
 
+% -----------------------------------------------------------------------------------------------------------------
+\section{Introduction}
+
+\begin{frame}{Introduction}
+\begin{columns}[t]
+\begin{column}{.475\textwidth}
+    \textbf{Who are we?} 
+    
+    \vspace{0.3cm}
+    
+    \textcolor{mLightBrown}{Dries Debeer} \\
+    
+    \vspace{0.2cm}
+    
+    Senior Researcher at itec (imec research group at KU Leuven)
+\end{column}
+\begin{column}{.475\textwidth}
+    \textbf{} 
+    
+    \vspace{0.3cm}
+    
+    \textcolor{mLightBrown}{Benjamin Becker} \\
+    
+    \vspace{0.2cm}
+    
+    Researcher at IQB (Statistics Department)
+    
+\end{column}
+\end{columns}
+
+\vspace{0.2cm}
+
+\begin{columns}[t]
+\begin{column}{.475\textwidth}
+\href{https://github.com/ddebeer/scDIFtest}{scDIFtest}, \href{https://github.com/ddebeer/permimp}{permimp}, \href{https://github.com/beckerbenj/eatATA}{eatATA}, \href{https://CRAN.R-project.org/package=mstDIF}{mstDIF}
+  	
+\end{column}
+\begin{column}{.475\textwidth}
+\href{https://github.com/beckerbenj/eatGADS}{eatGADS}, \href{https://github.com/beckerbenj/eatDB}{eatDB}, \href{https://github.com/beckerbenj/eatATA}{eatATA}, \href{https://github.com/beckerbenj/pisaRT}{pisaRT}
+
+  \end{column}
+\end{columns}
+
+\vspace{0.3cm}
+
+\begin{columns}[t]
+\begin{column}{.475\textwidth}
+
+\href{mailto:dries.debeer@kuleuven.be}{dries.debeer@kuleuven.be}
+  	
+\end{column}
+  \begin{column}{.475\textwidth}
+
+\href{b.becker@iqb.hu-berlin.de}{b.becker@iqb.hu-berlin.de}
+
+  \end{column}
+\end{columns}
+
+\vspace{1.5em}
+\end{frame}
+
+\begin{frame}{Introduction}
+\textbf{Who are you?}
+\begin{enumerate}%\itemsep0em
+	\item Occupation, employer?
+	\item Previous knowledge and experience
+	\begin{itemize}
+	  \item with R?
+	  \item with other programming languages?
+	\end{itemize}
+	\item Specific interest/motivation for this workshop?
+\end{enumerate}
+\end{frame}
+
+\subsection{Goal}
+
+\begin{frame}{What do we expect from you?}
+
+\textbf{You ...}
+\begin{itemize}
+  \item are a frequent R user (e.g. for data wrangling/analyses/plots)
+  \item have a rough understanding of R as a programming language\\
+  $\rightarrow$ e.g. you have already written some R functions yourself
+  \item are interested in learning more about the intricacies of R 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Goal of this workshop}
+
+\textbf{A deeper dive into R as a Programming language}
+\begin{itemize}
+  \item Better understanding of how R works as a programming language
+  \item Better understanding of how larger programming projects can/should be structured
+  \item Practical Git skills
+  \item Practical R package building skills
+\end{itemize}
+\end{frame}
+
+\subsection{Agenda}
+
 \begin{frame}{Agenda}
 \begin{itemize}
   \item Scoping \& Environments
   \item Functionals \& Split-Apply Paradigm
+\end{itemize} \\ ~ \
+
+- \textit{Lunch Break} -\\ ~ \
+
+\begin{itemize}
   \item Object Orientation (S3)
   \item Packages \& Version Controlling
 \end{itemize}
@@ -89,7 +194,7 @@ econRedD<-"#90353B"
 
 \end{frame}
 
-% ----------------------------------------------------------------------------------------------------------------------
+% -----------------------------------------------------------------------------------------------------------------
 \section{Scoping \& Environments}
 
 \subsection{Environments}
@@ -145,19 +250,39 @@ add_things2(2)
 % ----------------------------------------------------------------------------------------------------------------------
 \section{Functionals}
 
+\begin{frame}{Higher Order Functions}
+Higher order functions are functions that either \textbf{take functions as input} or \textbf{return functions as output}.
+\end{frame}
+
+
 \begin{frame}{Functionals}
-A functional is a function that takes another function as an argument. \\
-Focus on the \texttt{apply}-family. These functions \emph{apply} a function repeatedly. \\
-Can be seens as an abstraction of a for loop, with the following advantages
+As defined by Hadley Wickham: A \textbf{functional} is a function that takes another function as an input. 
+Common argument names are \texttt{FUN} or \texttt{f}. \\~\
+
+\textbf{Examples}
+\begin{itemize}
+  \item \texttt{apply}-family
+  \item \texttt{Reduce}, \texttt{Filter}
+  \item \texttt{nlm}
+  \item \texttt{optimize}
+  \item ...
+\end{itemize}
+\end{frame}
+
+\begin{frame}{\texttt{apply}-family}
+The \texttt{apply}-family \emph{applies} a function repeatedly. 
+This can be seen as an abstraction of a for loop, with the following advantages:
 \begin{itemize}
   \item requires less code to write
+  \item can be easier to read / understand
   \item does not store intermediate results
   \item no need to replace / grow
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Functionals}
-The most commonly used functionals are:
+
+\begin{frame}{\texttt{apply}-family}
+The members of the \texttt{apply}-family in Base R are:
 \begin{itemize}
   \item \texttt{lapply} vector / list $\rightarrow$ list
   \item \texttt{sapply} vector / list $\rightarrow$ vector (matrix)
@@ -166,75 +291,147 @@ The most commonly used functionals are:
   \item \texttt{mapply}, \texttt{Map}
   \item \texttt{rapply}, \texttt{eapply}, \texttt{vapply} 
 \end{itemize}
-All of which have an argument that should be a function.
 \end{frame}
+
+\begin{frame}{\texttt{apply}-family}
+A popular alternative from the tidyverse: \texttt{purrr}
+\begin{itemize}
+  \item \texttt{map} vector / list $\rightarrow$ list
+  \item \texttt{map2} multiple vectors / lists $\rightarrow$ list
+  \item ...
+\end{itemize}
+\end{frame}
+
+\begin{frame}{\texttt{apply}-family}
+Our focus: \texttt{lapply} and \texttt{Map}
+
+\textbf{Why?}
+\begin{itemize}
+  \item Consistent output
+  \item Fast
+  \item No dependencies
+  \item We want to understand R basics
+\end{itemize}
+\end{frame}
+
 
 \subsubsection{lapply}
 
 \begin{frame}[fragile]{lapply}
-Data.frames are lists
-<<lapply, echo=TRUE, results="markup", size="footnotesize">>=
+\texttt{lapply} takes mainly two arguments
+\begin{itemize}
+  \item[\texttt{X}] the input list/vector
+  \item[\texttt{FUN}] the function that should be repeatedly applied
+\end{itemize}
+<<lapply1, echo=TRUE, results="markup", size="footnotesize">>=
+example_list <- list(vec1 = c(1, 3, 4),
+                     vec2 = c(4, 2, 10), 
+                     vec3 = c(2, NA, 1))
+lapply(example_list, FUN = mean)
+@
+\end{frame}
+
+\begin{frame}[fragile]{lapply}
+Other arguments can be passed through \texttt{lapply} via '\texttt{...}'.
+<<lapply2, echo=TRUE, results="markup", size="footnotesize">>=
+example_list <- list(vec1 = c(1, 3, 4),
+                     vec2 = c(4, 2, 10), 
+                     vec3 = c(2, NA, 1))
+lapply(example_list, FUN = mean, na.rm = TRUE) 
+@
+\end{frame}
+
+\begin{frame}[fragile]{lapply}
+We can use our own functions as input.
+<<lapply3, echo=TRUE, results="markup", size="footnotesize">>=
+dropNAs <- function(x) {
+  x[!is.na(x)]
+}
+lapply(example_list, FUN = dropNAs) 
+@
+\end{frame}
+
+\begin{frame}[fragile]{lapply}
+Anonymous functions can be used as input.
+<<lapply4, echo=TRUE, results="markup", size="footnotesize">>=
+lapply(example_list, FUN = function(x) x[!is.na(x)]) 
+@
+\end{frame}
+
+\begin{frame}[fragile]{lapply}
+Data.frames are lists, too.
+<<lapply5, echo=TRUE, results="markup", size="footnotesize">>=
 lapply(iris, FUN = class)
 @
 \end{frame}
 
 \begin{frame}[fragile]{lapply}
-\begin{itemize}
-  \item an annonymous function can be used
-  \item any type of element can be used
-  \item other arguments can be passed through
-\end{itemize}
-<<lapply2, echo=TRUE, results="markup", size="footnotesize">>=
-lapply(c(min, median, max), FUN = function(fun, x) {
-  fun(x)
-}, x = 2:8)
+Atomic vectors can be used as input, but often vectorization could be used instead.
+<<lapply6, echo=TRUE, results="markup", size="footnotesize">>=
+lapply(c(1, 2, 3), FUN = function(x) {
+  paste0("ID", x)
+})
 @
 \end{frame}
 
-\subsubsection{sapply}
 
-\begin{frame}[fragile]{sapply}
+
+\subsubsection{Map}
+
+\begin{frame}[fragile]{lapply}
+Limitation of \texttt{lapply}:\\
+Only a single list/vector can be supplied as input. \texttt{Map} is a generalization of \texttt{lapply}!
+It is usually needed less often but a very powerful tool.
+\end{frame}
+
+\begin{frame}[fragile]{Map}
+Works very similar to \texttt{lapply}, with a few differences:
 \begin{itemize}
-  \item wrapper around lapply
-  \item if possible, the ouput is combined into a atomic vector or matrix
+  \item Multiple input lists/vectors
+  \item The list input should be named explicitly
+  \item The order of the function and the list-input is switched
 \end{itemize}
-<<sapply, echo=TRUE, eval = TRUE, results="markup">>=
-sapply(airquality, FUN = sd)
-sapply(airquality, FUN = quantile, prob = c(.1, .9), 
-       na.rm = TRUE)
+<<Map1, echo=TRUE, eval = FALSE>>=
+list1 <- list(mtcars[1:2, 1:3], iris[1:2, c(1, 2, 5)])
+list2 <- list(mtcars[3:4, 1:3], iris[3:4, c(1, 2, 5)])
+
+Map(rbind, x = list1, y = list2)
 @
 \end{frame}
 
-\subsubsection{apply}
+\begin{frame}[fragile]{Map}
+<<Map2, echo=FALSE, eval = TRUE, results='markup'>>=
+list1 <- list(mtcars[1:2, 1:3], iris[1:2, c(1, 2, 5)])
+list2 <- list(mtcars[3:4, 1:3], iris[3:4, c(1, 2, 5)])
 
-\begin{frame}[fragile]{apply}
-\begin{itemize}
-  \item for objects with dimension (matrix, array, data.frame)
-  \item apply over (a) chosen dimension(s) 
-\end{itemize}
-<<apply, echo=TRUE, results="markup", size="footnotesize">>=
-my_matrix <- matrix(1:6, nrow = 2)
-apply(my_matrix, 1, max)    # apply per row
-apply(my_matrix, 2, max)    # apply per column
+Map(rbind, list1, list2)
 @
 \end{frame}
 
-\begin{frame}[fragile]{apply}
-<<apply2, echo=TRUE, results="markup", size="footnotesize">>=
-my_matrix <- matrix(1:6, nrow = 2)
-apply(my_matrix, c(1, 2), 
-      function(value) value^2)    # apply per row and column
-apply(airquality, 2, median) 
+\begin{frame}[fragile]{Map}
+Again, anonymous functions can be supplied as input:
+
+<<Map3, echo=TRUE, eval = FALSE>>=
+list1 <- list(mtcars[1:2, 1:3], iris[1:2, c(1, 2, 5)])
+list2 <- list(mtcars[3:4, 1:3], iris[3:4, c(1, 2, 5)])
+
+Map(function(x, y) {
+  rbind(x, y)
+  }, 
+  x = list1, y = list2)
 @
 \end{frame}
 
 \subsection{Split \& Apply \& Combine}
 
 \begin{frame}[fragile]{Split \& Apply \& Combine}
+A common use case for the \texttt{apply-}family is the \textbf{Split \& Apply \& Combine} paradigm.
+Here, we want to perform the same analyses for various subgroups in our data set:
+
 \begin{itemize}
-  \item split a data.frame or vector (\texttt{?split})
-  \item apply computations on each split (\texttt{lapply})
-  \item combine the results (\texttt{sapply}, \texttt{?do.call})
+  \item \textbf{split} a data.frame or vector (\texttt{?split})
+  \item \textbf{apply} computations on each split (\texttt{?lapply})
+  \item \textbf{combine} the results (\texttt{?sapply}, \texttt{?do.call})
 \end{itemize}
 \end{frame}
 
@@ -243,6 +440,53 @@ apply(airquality, 2, median)
 \includegraphics[width=.75\textwidth]{split-apply-combine.png}
 \end{center}
 \end{frame}
+
+\begin{frame}[fragile]{Split \& Apply \& Combine}
+
+<<SAC1, echo=TRUE, eval = TRUE, results='markup'>>=
+head(iris)
+table(iris$Species)
+@
+\end{frame}
+
+\begin{frame}[fragile]{Split \& Apply \& Combine}
+Splitting the data set via a single (or multiple) grouping variables
+
+<<SAC2, echo=TRUE, eval = TRUE, results='markup'>>=
+data_list <- split(iris, f = iris$Species)
+class(data_list)
+length(data_list)
+@
+\end{frame}
+
+\begin{frame}[fragile]{Split \& Apply \& Combine}
+Apply the same computation to all data sets
+
+<<SAC3, echo=TRUE, eval = TRUE, results='markup'>>=
+out_list <- lapply(data_list, function(subdat) {
+  mod <- lm(Sepal.Length ~ Sepal.Width, data = subdat)
+  sum_mod <- summary(mod)
+  out <- c(Intercept = coef(mod)[[1]], 
+    Slope = coef(mod)[[2]],
+    r2 = sum_mod$r.squared)
+  round(out, 3)
+})
+@
+\end{frame}
+
+\begin{frame}[fragile]{Split \& Apply \& Combine}
+<<SAC4, echo=TRUE, eval = TRUE, results='markup'>>=
+out_list[["virginica"]]
+@
+\end{frame}
+
+\begin{frame}[fragile]{Split \& Apply \& Combine}
+Combine the results
+<<SAC5, echo=TRUE, eval = TRUE, results='markup'>>=
+do.call(rbind, out_list)
+@
+\end{frame}
+
 
 \begin{frame}[plain]
 \begin{center}
@@ -451,7 +695,7 @@ variable.names(my_model)
 \end{center}
 \end{frame}
 
-% ----------------------------------------------------------------------------------------------------------------------
+% -----------------------------------------------------------------------------------------------------------------
 \section{Version Controlling (Git + Github)}
 
 \begin{frame}{Version Controlling}
@@ -498,52 +742,79 @@ variable.names(my_model)
 
 \subsection{Setup}
 
-\begin{frame}{Requirements}
-\begin{itemize}
-  \item Install git 
-  \item (optional) Install/Setup GUI for git (RStudio, Gitkraken, ...)
-  \item Setup account for Github/Bitbucket/Gitlab/...
-  \item Connect everything
-\end{itemize}
-\end{frame}
-
-\begin{frame}{RStudio}
-\begin{center}
-\includegraphics[height=.75\textheight]{rstudio_git.JPG}
-\end{center}
-\end{frame}
-
-\begin{frame}{RStudio}
-\begin{center}
-\includegraphics[width=.8\textwidth]{rstudio_git2.JPG}
-\end{center}
+\begin{frame}{Setup}
+See the workshop preparation materials
 \end{frame}
 
 \subsection{Work flow}
 
-\begin{frame}{Work flow}
+\begin{frame}{Work flow 1}
 \textbf{Creating a repository}
 \begin{itemize}
-  \item Create an online repository (e.g. on Github)
+  \item Create an \textbf{online repository} (e.g. on Github)
   \begin{itemize}
-    \item Use an R specific .gitignore
-    \item Initialize with a short readme
+    \item Use an R specific \texttt{.gitignore}
+    \item Initialize with a short readme (\texttt{.md})
   \end{itemize}
   \item Clone the repository to your local machine
-  \item (optional) Place an R project in the existing repository
+  \item An R-Project is added automatically to the existing repository
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Work flow}
-\textbf{Working with a repository}
+\begin{frame}{Excursion: gitignore}
 \begin{itemize}
-  \item Before working: Synch your local repo (\textbf{Pull})
-  \item Perform changes in your local repository
-  \item \textbf{Stage} your changes
-  \item \textbf{Commit} your changes (aka new version)
-  \item \textbf{Push} your changes
+  \item Plain text file
+  \item Which files should not be tracked by git? \\
+  $\rightarrow$ These then only exist locally in their current version!
+  \item Options
+  \begin{itemize}
+    \item Single files
+    \item Folder
+    \item Specific data types
+    \item Combinations of the above
+  \end{itemize}
+  \item Use cases
+    \begin{itemize}
+    \item Large files (Data, images, ...)
+    \item Auxiliary files (e.g. created during latex compilation)
+  \end{itemize}
 \end{itemize}
 \end{frame}
+
+
+\begin{frame}{Work flow 2}
+\textbf{Working with an existing repository}
+\begin{itemize}
+  \item Before working: Synch your local repo (\textbf{Pull} or \textbf{clone})
+  \item Perform changes in your local repository \\
+  $\rightarrow$ Create/modify/delete files
+  \item \textbf{Stage} your changes
+  \item \textbf{Commit} your changes (aka new version)
+  \item \textbf{Push} your changes (online repository is updated)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Excursion: mergen}
+\textbf{Conflicts between different updated versions}
+\begin{itemize}
+  \item Common when working collaborativley
+  \item Discrepancies between your own different local repos
+  $\rightarrow$ Git communicates these and indicates conflicts
+  \item Select the desired changes
+  \item Stage selection, commit and push
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Excursion: Branches}
+\textbf{Multiple parallel versions of a project within one repository}
+\begin{itemize}
+  \item e.g. one stable and one development branch
+  \item Only certrain modifications should be made in the stable branch
+  \item \textbf{Note}: RStudio GUI has limited support for this
+\end{itemize}
+\end{frame}
+
+
 
 \subsection{Recommendations}
 
@@ -551,7 +822,7 @@ variable.names(my_model)
 \begin{itemize}
   \item Keep it simple! 
   \begin{itemize}
-    \item No branches/forks/pull requests
+    \item If not necessary, no branches/forks/pull requests
   \end{itemize}
   \item Have meaningful commits
   \item Keep it lean (no big files)
@@ -571,39 +842,95 @@ Git (+ R) Resources
 
 \end{frame}
 
+
+% -----------------------------------------------------------------------------------------------------------------
+\section{R Packages}
+
+\begin{frame}{Motivation}
+\begin{itemize}
+  \item It is incredibly easy!
+  \item It makes your code easier accessible (for others and yourself)
+  \item It provides a great framework for documenting your code 
+  \item It provides great tools for testing your code
+  \item It is a form of scientific output (packages can be cited)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Setup}
+Use \texttt{usethis} and/or \texttt{RStudio} to set up everything.
+\begin{itemize}
+  \item Create a regular Github Repository
+  \item Clone the repository regularly 
+  \item Use \texttt{usethis::use\_package(getwd())} to create the minimal package structure
+  \item Use \texttt{usethis} if you want to add more specific architecture
+\end{itemize}
+\end{frame}
+
+\begin{frame}{R functions}
+Your actual code lives in the \texttt{R} folder. 
+\begin{itemize}
+  \item Write small functions which do one specific thing
+  \item Organize your functions logically
+  \item Avoid very long scripts
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Using other packages}
+If you want to use another package in your source code, add it to the Imports-Field in your description file and use its functions using \texttt{package::function}. 
+\end{frame}
+
+\begin{frame}{Documentation}
+Use \texttt{roxygen2} to document your code and to manage your namespace.
+\end{frame}
+
+
+\begin{frame}{Testing}
+Use \texttt{testthat} for automated testing. This has multiple advantages:
+\begin{itemize}
+  \item Good test coverage serves as a quality attribute of a good and stable package
+  \item Modifying existing code becomes much easier
+  \item Your code becomes more robust
+  \item It helps you sleep at night
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Resources}
+Writing R packages
+\begin{itemize}
+\item Writing R Extensions (\url{https://cloud.r-project.org/doc/manuals/r-release/R-exts.html})
+\item R Packages (\url{https://r-pkgs.org/})
+\end{itemize}
+\end{frame}
+
+% -----------------------------------------------------------------------------------------------------------------
 \section{Wrap Up}
 
 \begin{frame}{General Advice}
 \begin{itemize}
-\item Investing time in learning R pays off
-\item It's a steady learning curve
+\item Try to always learn new things about R and / or programming
+\item Try to automate as much as possible
+\item If you are re-using code regularly, write a package!
 \item Learn from masters
 \item Rewrite important code - the first attempt is usually not the best approach
 \end{itemize}
 \end{frame}
 
-\begin{frame}{General R Advice}
-\begin{itemize}
-\item Document well
-\item Use a consistent style
-\item Write functions
-\item Split long functions in smaller ones
-\item Write wrappers
-\item Use Iteration (don't copy paste)
-\item Use matrix operations and vectorized functions instead of loops
-\item Use git
-\end{itemize}
-\end{frame}
 
 \begin{frame}{Literature Recommendations}
 R Resources
 \begin{itemize}
-\item Avanced R Ed. 1 (\url{http://adv-r.had.co.nz/})
-\item Avanced R Ed. 2 (\url{https://adv-r.hadley.nz/})
+\item Advanced R Ed. 1 (\url{http://adv-r.had.co.nz/})
+\item Advanced R Ed. 2 (\url{https://adv-r.hadley.nz/})
+\item Notes on Functionals (\url{https://www.stat.umn.edu/geyer/8054/notes/functional.html})
+\item R language definition (\url{https://cloud.r-project.org/doc/manuals/r-release/R-lang.html})
 \item R Inferno (\url{https://www.burns-stat.com/pages/Tutor/R_inferno.pdf})
 \item R Packages (\url{https://r-pkgs.org/})
 \item Clean Code (\url{https://enos.itcollege.ee/~jpoial/oop/naited/Clean\%20Code.pdf})
 \end{itemize}
+
+
 
 \end{frame}
 
