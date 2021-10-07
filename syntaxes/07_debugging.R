@@ -80,7 +80,7 @@ traceback()
 # Exercises
 #===========================================================
 # 1. We have written a function, that determines the position of the maximum for a numeric vector. 
-# However, the function sometimes throws an unexpected error. Can you debug it?
+# However, the function sometimes throws an unexpected warning. Can you debug it?
 whichMax <- function(x) {
   if(is.na(x)) stop("'x' can not contain missing values.")
   which(x == max(x))
