@@ -22,16 +22,20 @@ empty.dump()    # returns the empty environment
 
 
 
-## Creating an environment
+## Create an environment
 env1 <- new.env()
-env1$a <- 15
+env1$a <- 15     
+
+## add objects to environment
 env1$fast_mean <- function(x) sum(x)/length(x)
-env1$myself <- env1
+env1$myself <- env1   # an environment can contain itself
+
 env1
 ls(env1)
 names(env1)
 
 
+## using rlang package
 env2 <- rlang::env(a = 15, 
                    fast_mean = function(x)sum(x)/length(x),
                    env1 = env1)
@@ -39,14 +43,41 @@ rlang::env_print(env2)
 rlang::env_names(env2)
 
 
-# enclosing environments
+## Reference Semantics & modification in place
+# how lists work
+original_l <- list(a = 15, b = "original", c = mean)
+copy_l <- original_l
+copy_l$b <- "new"
+c(original_l$b, copy$b)
+original_l$a <- NULL
+names(original_l)
+
+
+# how environments work
+original_e <- rlang::env(a = 15, b = "original", c = mean)
+copy_e <- original_e
+copy_e$b <- "new"
+c(original_e$b, copy_e$b)
+original_e$a <- NULL
+names(original_e)
+
+
+# environments are unordered
+original_e[[3]]          # fails!
+original_e[["c"]]
+original_e[c("a", "c")]  # fails! 
+
+
+## enclosing environments
 parent.env(env1)
 parent.env(env1$myself)
 parent.env(env1$myself$myself)
 parent.env(env1) <- env2
 parent.env(env1)
+rlang::env_print(env1$myself$myself$myself$myself)
 
 
+# set enclosing environment using rlang::new_environment()
 env3 <- rlang::new_environment(
   list(b = "b", 
        get_current_env = function() environment()), 
@@ -56,7 +87,7 @@ rlang::env_parent(env3)
 
 # lexical scoping: search through environments
 # ctrl + shift + F10
-env1 <- new.env()
+env1 <- new.env(parent = emptyenv())
 env2 <- new.env(parent = env1)
 env3 <- new.env(parent = env2)
 
@@ -66,52 +97,51 @@ env3$c <- "c"
 
 lapply(c(env1, env2, env3), ls)
 
+
+exists("a", envir = env3)
+exists("a", envir = env2)
+exists("a", envir = env1)
+
+exists("c", envir = env3)
+exists("c", envir = env2)
+exists("c", envir = env1)
+
+exists("a", envir = env3, inherits = FALSE)
+exists("a", envir = env2, inherits = FALSE)
+exists("a", envir = env1, inherits = FALSE)
+
+
+
 # get looks in the environment, when inherits = TRUE, the search continues
 #   in the enclosing environment (and so on)
 lapply(c(env1, env2, env3), 
-       function(env) try(get(x = "a", envir = env)))
+       function(env) get(x = "a", envir = env))
 lapply(c(env1, env2, env3), 
-       function(env) try(get(x = "b", envir = env)))
+       function(env) exists(x = "b", envir = env))
 lapply(c(env1, env2, env3), 
-       function(env) try(get(x = "a", envir = env, inherits = FALSE)))
+       function(env) exists(x = "a", envir = env, inherits = FALSE))
 
 # assign assigns a name/reverence to an object in a specific environment.
 #   when inherits = TRUE, assign tries to replace the object looking in 
-#   the chain of enclosing enironments. If the name is not 
+#   the chain of enclosing environments. If the name is not 
 #   found, the assignment is done in the global environment
 
 ls(env1)
 ls(env3)
+
 assign("d", "new object", envir = env3)
-assign("a", "replaced", envir = env3, inherits = TRUE)
 ls(env3)
+
+assign("a", "replaced", envir = env3, inherits = TRUE)
 get("a", env1)
+
+assign("e", "another new", envir = env3, inherits = TRUE)
+find("e")
 
 # <<- is similar to assign(inherits = TRUE)
 
-# reference semantics
-# ctrl + shift + F10
 
-# lists can be copied on modification
-list1 <- list(a = "a", b = "5", c = mean)
-list2 <- list1
-list2$b <- 10
-list1$b
-list1$a <- NULL
-names(list1)
 
-# environments are NOT copied on modification
-env1 <- rlang::env(a = "a", b = "5", c = mean)
-env2 <- env1
-env2$b <- 10
-env1$b
-env1$a <- NULL
-names(env1)
-
-# environments are unordered
-env1[[3]]
-env1[["c"]]
-env1[c("a", "c")]  # fails! 
 
 
 # search path
@@ -123,16 +153,7 @@ rlang::search_envs()
 
 # where does R find stuff
 
-a <- b <- c <- d <- e <- 5
-create_fun <- function(){
-  a <- b <- c <- d <- 5
-  return(function(a = 3, b = 3, c = 3){
-    a <- 1
-    c(a = a, b = b, c = c, d = d, e = e)
-  })
-}
-fun <- create_fun()
-fun(a = 2, b = 2)
+
 
 
 
@@ -205,15 +226,31 @@ e1$print_number()
 print_number_global <- e1$print_number
 print_number_global()
 environment(print_number_global)
+e1
+
+
+
+# 3. Run the following code. Explain why the R finds all objects in the 
+#    return object
+
+a <- b <- c <- d <- e <- 5
+create_fun <- function(){
+  a <- b <- c <- d <- 5
+  return(function(a = 3, b = 3, c = 3){
+    a <- 1
+    c(a = a, b = b, c = c, d = d, e = e)
+  })
+}
+fun <- create_fun()
+fun(a = 2, b = 2)
 
 
 
 
-
-# 3. write a function that creates a environment. Use two arguments: 
+# 4. write a function that creates an environment. Use two arguments: 
 #    - ... = named objects
 #    - enclosing_env = an environment or "self"
-# TIP: make use of list2env, and list(...)
+# TIP: make use of list2env, ... and list(...)
 #
 #    Use the function you wrote to repeat exercise 2.
 
@@ -230,8 +267,15 @@ environment(e1$print_number) <- e1
 
 
 
-# 4. write a set_enclosing_env function that can set the enclosing environment
+# Advanced exercises
+
+
+
+# 5. write a set_enclosing_env function that can set the enclosing environment
 #    both for a function and for an environment
+# TIPS: 
+#    - `environment<-` sets the enclosing environment of a function
+#    - `parent.env<-` sets the enclosing environment of an environment
 
 set_enclosing_env <- function(object, enclosing_env){
   `fun<-` <- switch(typeof(object), 
@@ -254,36 +298,51 @@ rlang::env_print(e1)
 
 
 
-# 5. write a recursive function that returns a list with the enclosing environments of
-#    an environment
+# 6. You can jump from environment to environment via the link (i.e., to the 
+#    enclosing environment). Write a loop that prints all the enclosing 
+#    environments of an environment, until the empty environment is reached. 
+#    Alternatively, write a recursive function that returns a list with the 
+#    enclosing environments of an environment
 # Tips: 
-#    - make use of the fact that environments are modified in place
+#    - for the function, make use of the fact that environments are modified 
+#      in place
 
 
-get_enclosing_envs <- function(env = environment(), where = new.env()){
+env <- globalenv()   # set the environment to start with
+while(!identical(env, emptyenv())){
+  print(parent.env(env))
+  env <- parent.env(env)
+}
+
+
+get_enclosing_envs <- function(env = environment(), 
+                               where = new.env(), 
+                               message = FALSE){
   if(is.null(where$n)) where$n <- 0
   where$n <- where$n + 1
   enclosing_env <- parent.env(env)
   assign(as.character(where$n), enclosing_env, envir = where)
   if(identical(enclosing_env, emptyenv())) {
-    cat("Empty environment reached. \n")
+    if(message) message("Empty environment reached. \n")
     rm(n, envir = where)
     out <- as.list(where)
     return(out[order(as.numeric(names(out)))])
-  } else get_enclosing_envs(enclosing_env, where)
+  } else get_enclosing_envs(enclosing_env, where, message)
 }
 
 
-get_enclosing_envs()
+get_enclosing_envs(message = TRUE)
 
 
 
 
-# 6. Modify the function you wrote in exercise 4, so that it also lists the
+# 7. Modify the function you wrote in exercise 6, so that it also lists the
 #    the enclosing environments of a function
 #    try out the function
 
-get_enclosing_envs <- function(object = environment(), where = new.env()){
+get_enclosing_envs <- function(object = environment(), 
+                               where = new.env(),
+                               message = FALSE){
   if(is.null(where$n)) where$n <- 0
   where$n <- where$n + 1
   enclosing_env <- switch(typeof(object), 
@@ -293,24 +352,28 @@ get_enclosing_envs <- function(object = environment(), where = new.env()){
   )
   assign(as.character(where$n), enclosing_env, envir = where)
   if(identical(enclosing_env, emptyenv())) {
-    cat("Empty environment reached. \n")
+    if(message) message("Empty environment reached. \n")
     rm(n, envir = where)
     out <- as.list(where)
     return(out[order(as.numeric(names(out)))])
-  } else get_enclosing_envs(enclosing_env, where)
+  } else get_enclosing_envs(enclosing_env, where, message)
 }
 
 get_enclosing_envs(lm)
 
 
 
-# 7. Write a recursive function that returns the binding environment of 
+# 8. Write a recursive function that returns the binding environment of 
 #    a function
 #    TIP: use ?exists
+#
 #    
 #    use the function to find the binding environment of the var() function.
 #    debug the sd() function, and while debugging find the binding environment
 #    of the var() function.
+#    
+#    compare your function with find()
+
 
 get_binding_env <- function(name, env = parent.frame()){
   if(exists(name, envir = env, inherits = FALSE)) return(env)

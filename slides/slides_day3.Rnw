@@ -1,56 +1,41 @@
 \documentclass{beamer}
-%\documentclass[xcolor=table]{beamer}
 
-%\usepackage{graphicx}
-%\usepackage{color}
-
-%\usepackage{alltt}
-%\usepackage{hyperref}
-
-%\usepackage{array}
-%\usepackage[originalparameters]{ragged2e} 
-
-% kable packages
-%\usepackage{longtable}
-%\usepackage{array}
-%\usepackage{multirow}
-%\usepackage{wrapfig}
-%\usepackage{float}
-%\usepackage{colortbl}
-%\usepackage{pdflscape}
-%\usepackage{tabu}
-%\usepackage{threeparttable}
-%\usepackage{threeparttablex}
-%\usepackage[normalem]{ulem}
-%\usepackage{makecell}
-
-%\usepackage{amsmath}
-%\usepackage{booktabs}
-%\usepackage[ansinew]{inputenc}
-%\usepackage[utf8]{inputenc}
-%\usepackage[ngerman, english]{babel}
-
-%\usepackage{bm}
-
+\usepackage{multicol}
 \usepackage[T1]{fontenc}
 \usepackage{textcomp}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usetikzlibrary{shapes.geometric}
+\usepackage{hyperref}
 
-\usetheme{metropolis}   
+\usetheme{metropolis}
 
-<<r setup, echo=FALSE, message=FALSE, results='hide'>>=
-suppressPackageStartupMessages({
-  library(knitr)
-})
+
+
+\title{Advanced Programming in R}
+\institute{Zurich R Courses}
+
+
+\author[Dries Debeer \& Benjamin Becker]{Dries Debeer \& Benjamin Becker}
+\date{15. October 2021}
+
+
+
+<<r setup, echo=FALSE, message=FALSE, results="hide">>=
+  suppressPackageStartupMessages({
+    library(knitr)
+  })
+
+options(tinytex.verbose = TRUE)
 
 knit_theme$set("acid")
-opts_chunk$set(message=FALSE, warning=FALSE)
-opts_chunk$set(results="hide")
+opts_chunk$set(results="markup")
+opts_chunk$set(echo = TRUE)
+opts_chunk$set(eval = TRUE)
 opts_chunk$set(strip.white = TRUE)
-opts_chunk$set(size = "small")
-opts_chunk$set(comment = "#")
-
-## R Setup
-#load("~/Documents/Workshops/FDZ_Reporting/IQB-LV-2011_SchuelerInnen-Eltern_CF.rda")
+opts_chunk$set(size = "footnotesize")
+opts_chunk$set(comment = ">")
+opts_chunk$set(fig.width=3.5, fig.height=3) 
 
 
 # Farben
@@ -60,16 +45,10 @@ econRed<-"#C10534"
 econBlueD<-"#3E647D"
 econRedD<-"#90353B"
 @
+  
+  
+  \begin{document}
 
-
-\begin{document}
-
-
-\title{Advanced Programming with R}
-\institute{Zurich University}
-
-\author[Dries Debeer \& Benjamin Becker]{Dries Debeer \& Benjamin Becker}
-\date{15. October 2021}
 
 
 \begin{frame}
@@ -77,33 +56,42 @@ econRedD<-"#90353B"
 \end{frame}
 \addtocounter{framenumber}{-1}
 
-% -----------------------------------------------------------------------------------------------------------------
+
+\begin{frame}{Table of Content}
+\fontsize{5pt}{4}
+\setcounter{tocdepth}{2}
+\begin{multicols}{3}
+\tableofcontents
+\end{multicols}
+\end{frame}
+
+
 \section{Introduction}
 
 \begin{frame}{Introduction}
 \begin{columns}[t]
 \begin{column}{.475\textwidth}
-    \textbf{Who are we?} 
-    
-    \vspace{0.3cm}
-    
-    \textcolor{mLightBrown}{Dries Debeer} \\
-    
-    \vspace{0.2cm}
-    
-    Senior Researcher at itec (imec research group at KU Leuven)
+\textbf{Who are we?} 
+
+\vspace{0.3cm}
+
+\textcolor{mLightBrown}{Dries Debeer} \\
+
+\vspace{0.2cm}
+
+Senior Researcher at itec (imec research group at KU Leuven)
 \end{column}
 \begin{column}{.475\textwidth}
-    \textbf{} 
-    
-    \vspace{0.3cm}
-    
-    \textcolor{mLightBrown}{Benjamin Becker} \\
-    
-    \vspace{0.2cm}
-    
-    Researcher at IQB (Statistics Department)
-    
+\textbf{} 
+
+\vspace{0.3cm}
+
+\textcolor{mLightBrown}{Benjamin Becker} \\
+
+\vspace{0.2cm}
+
+Researcher at IQB (Statistics Department)
+
 \end{column}
 \end{columns}
 
@@ -112,12 +100,12 @@ econRedD<-"#90353B"
 \begin{columns}[t]
 \begin{column}{.475\textwidth}
 \href{https://github.com/ddebeer/scDIFtest}{scDIFtest}, \href{https://github.com/ddebeer/permimp}{permimp}, \href{https://github.com/beckerbenj/eatATA}{eatATA}, \href{https://CRAN.R-project.org/package=mstDIF}{mstDIF}
-  	
+
 \end{column}
 \begin{column}{.475\textwidth}
 \href{https://github.com/beckerbenj/eatGADS}{eatGADS}, \href{https://github.com/beckerbenj/eatDB}{eatDB}, \href{https://github.com/beckerbenj/eatATA}{eatATA}, \href{https://github.com/beckerbenj/pisaRT}{pisaRT}
 
-  \end{column}
+\end{column}
 \end{columns}
 
 \vspace{0.3cm}
@@ -126,13 +114,13 @@ econRedD<-"#90353B"
 \begin{column}{.475\textwidth}
 
 \href{mailto:dries.debeer@kuleuven.be}{dries.debeer@kuleuven.be}
-  	
+
 \end{column}
-  \begin{column}{.475\textwidth}
+\begin{column}{.475\textwidth}
 
 \href{b.becker@iqb.hu-berlin.de}{b.becker@iqb.hu-berlin.de}
 
-  \end{column}
+\end{column}
 \end{columns}
 
 \vspace{1.5em}
@@ -141,15 +129,17 @@ econRedD<-"#90353B"
 \begin{frame}{Introduction}
 \textbf{Who are you?}
 \begin{enumerate}%\itemsep0em
-	\item Occupation, employer?
-	\item Previous knowledge and experience
-	\begin{itemize}
-	  \item with R?
-	  \item with other programming languages?
-	\end{itemize}
-	\item Specific interest/motivation for this workshop?
-\end{enumerate}
+\item Occupation, employer?
+  \item Previous knowledge and experience
+\begin{itemize}
+\item with R?
+  \item with other statistical software?
+  \item with other programming languages?
+  \end{itemize}
+\item Specific interest/motivation for this workshop?
+  \end{enumerate}
 \end{frame}
+
 
 \subsection{Goal}
 
@@ -181,9 +171,13 @@ econRedD<-"#90353B"
 \begin{itemize}
   \item Scoping \& Environments
   \item Functionals \& Split-Apply Paradigm
-\end{itemize} \\ ~ \
+\end{itemize} 
 
-- \textit{Lunch Break} -\\ ~ \
+\vspace{1.5em}
+
+- \textit{Lunch Break}
+
+\vspace{1.5em}
 
 \begin{itemize}
   \item Object Orientation (S3)
@@ -192,60 +186,489 @@ econRedD<-"#90353B"
 \end{frame}
 
 
-\end{frame}
 
 % -----------------------------------------------------------------------------------------------------------------
-\section{Scoping \& Environments}
 
-\subsection{Environments}
+
+\section{Environments}
+
+\subsection{Environments are bags}
+
 
 \begin{frame}{Environments}
-Like boxes, containing objects.
-\begin{center}
-\includegraphics[height=.4\textheight]{envir.JPG}
-\end{center}
-A bit simplified: If a function is called, its own environment is created with its parent being the environment from which it was called.
+Understanding environments is key to understanding how R behaves, how R finds stuff.
+\begin{itemize}
+  \item Scoping
+  \item Closures
+  \item Namespaces
+\end{itemize}
 \end{frame}
 
 
-\begin{frame}[fragile]{Environments}
-<<echo=TRUE, results='markup'>>=
-simple_fun <- function(){
-  a <- 1
-  b <- "a"
-  environment()
-}
-a <- simple_fun()
-rlang::env_print(a)
+\begin{frame}{Environments}
+An environment = ``a bag of objects''. 
+
+\vspace{0.3cm}
+
+It differs from a list with respect to four key points:
+\begin{enumerate}
+  \item All elements have names
+  \item The elements do not have an order
+  \item Environments are not copied when modified
+  \item Each environment has an \emph{enclosing environment}
+\end{enumerate}
+\end{frame}
+
+
+
+\begin{frame}{Environments}
+Each environment consists of two parts: 
+\begin{enumerate}
+  \item a \emph{frame}: a collection of named objects.
+  \begin{itemize}
+    \item the objects can be of any type (like in \texttt{lists})
+    \item the objects have to be named (\textbf{unlike} in \texttt{lists})
+  \end{itemize}
+  \item an \emph{enclosing enviroment}: a reference or link to another environment.
+  \begin{itemize}
+    \item the link goes in one direction
+    \item determines the search path
+  \end{itemize}
+\end{enumerate}
+\end{frame}
+
+\subsection{Environments - frame}
+
+
+\begin{frame}{Environments - frame}
+The frame is a ``\emph{bag}'' of named objects.
+\begin{itemize}
+  \item Actually, it is a bag of \emph{bindings} between names and objects
+  \item The combination \emph{environment} + \emph{name} points to a specific 
+  object (a location in memory) 
+  \item The names in the bag have no order
+\end{itemize}
+
+\begin{center}
+\includegraphics[height=.5\textheight]{from-Hadley/environment-bindings.png}
+\end{center}
+\end{frame}
+
+
+\begin{frame}{Environments - frame}
+
+An environment can containt itself!
+
+\begin{center}
+\includegraphics[height=.5\textheight]{from-Hadley/environment-self.png}
+\end{center}
+\end{frame}
+
+\subsection{reference semantics}
+
+
+\begin{frame}[fragile]{Environments - Reference Semantics}
+How lists work:
+<<>>=
+original <- list(a = 15, b = "original", c = mean)
+copy <- original
+copy$b <- "new"
+c(original$b, copy$b)
+original$a <- NULL
+names(original)
 @
 \end{frame}
 
-\subsection{Scoping}
 
-\begin{frame}{Scoping}
-Where does R find things?
+\begin{frame}[fragile]{Environments - Refernce Semantics}
+How environments work:
+<<>>=
+original <- rlang::env(a = 15, b = "original", c = mean)
+copy <- original
+copy$b <- "new"
+c(original$b, copy$b)
+original$a <- NULL
+names(original)
+@
+\end{frame}
+
+
+\begin{frame}{Environments - enclosing environment}
+\textbf{The link is used for lexical scoping:}
+
+If the reference to an object is not found in the environment, R starts searching in the enclosing environment
+
+\begin{center}
+\includegraphics[height=.4\textheight]{from-Hadley/environment-link.png}
+\end{center}
+
+  \begin{itemize}
+    \item the link goes in \textbf{one} direction
+    \item an environment has only one enclosing environment
+    \item an environment can enclose multiple environments (but it is hard to find out if so, and which)
+    \item an environment can enclose itself (it is just a link!) $\rightarrow$ not very useful.
+  \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}[plain]
+\begin{center}
+\Large Exercises \\
+
+\vspace{1.5cm}
+
+\includegraphics[height=.25\textheight]{exercises.jpg}
+\end{center}
+\end{frame}
+
+
+\subsection{scoping}
+
+
+\begin{frame}{Environments - scoping}
+
+\texttt{?exists} returns a logical if a reference if found in an environment. The search jumps to the enclosing environment until the object is found when \texttt{inherits = TRUE} (the default).
+
+\texttt{?get} returns an object based on a name and an environment. The search jumps to the enclosing environment until the object is found when \texttt{inherits = TRUE} (the default).
+
+\texttt{?assign} assigns an object to a name in an environment. 
+
+If the reference to an object is not found in the environment, R starts searching in the enclosing environment
+
+\end{frame}
+
+
+\subsection{Important environments}
+
+\begin{frame}{Environments}
+Some important environments:
 \begin{itemize}
-  \item Argument matching (name, place...)
-  \item Current environment
-  \item Parent environment
+  \item the global environment (\texttt{.GlobalEnv} or \texttt{globalenv()})
+  \item the empty enviornment (\texttt{emptyenv()})
+  \item the \texttt{package}-environment
+  \item the \texttt{namespace}-environment
+  \item the \texttt{imports}-environment
 \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{Environments}
+\textbf{The global enviroment}
+\begin{itemize}
+  \item the user's work space
+  \item first item on the search path
+  \item \texttt{.GlobalEnv} or \texttt{globalenv()}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Environments}
+\textbf{The empty enviroment}
+\begin{itemize}
+  \item An ``empty bag''
+  \item last item on the search path
+  \item has no enclosing environment
+  \item \texttt{emptyenv()}
+\end{itemize}
+
+\end{frame}
+
+
+\subsection{search path}
+
+
+\begin{frame}[fragile]{Search path}
+Where does R find objects \emph{during interactive use}?
+
+\texttt{?search()}
+<<>>=
+search()
+@
+
+\texttt{package:<name>} environments have bindings to the exported objects (functions) of the package.
+\end{frame}
+
+
+\begin{frame}{Search path}
+Where does R find objects \emph{during interactive use}?
+
+\begin{center}
+\includegraphics[width=\textheight]{from-Hadley/search-path.png}
+\end{center}
+
+Newly attached packages get a specific place in the search path. They become the enclosing environment of the global environment, and they are enclosed by the previously installed package. 
+\end{frame}
+
+
+\subsection{Environments and functions}
+
+
+\begin{frame}{Environments and functions}
+Four environments are related to functions:
+
+\begin{enumerate}
+  \item the environment that \textbf{binds} the function
+  \item the environment in which the body of the function is \textbf{executed}
+  \item the environment from which the function is \textbf{called}
+  \item the \textbf{enclosing} environment
+\end{enumerate}
+
+\end{frame}
+
+
+\begin{frame}[fragile]{Environments and functions}
+\textbf{1. the environment that binds the function}
+
+\texttt{?find} (can be misleading)
+
+\texttt{?pryr::where}
+
+<<>>=
+add_10 <- function(x) x + 10
+find("add_10")
+
+find("sd")
+
+@
+\end{frame}
+
+\begin{frame}[fragile]{Environments and functions}
+\textbf{1. the environment that binds the function}
+<<>>=
+sd <- sd
+find("add_10")
+
+find("sd")
+@
+Functions (objects) can have references in more than one environment!
+\end{frame}
+
+
+\begin{frame}[fragile]{Environments and functions}
+\textbf{2. the environment in which the body is executed}
+\texttt{environment(NULL)}
+<<>>=
+get_executing_env <- function() environment()
+get_executing_env()
+get_executing_env()  # always new
+@
+The execution environment disappears when the body is executed. Unless it 
+becomes the enclosing environment of another function.
+\end{frame}
+
+
+\begin{frame}[fragile]{Environments and functions}
+\textbf{3. the environment from which the function is called}
+\texttt{?parent.frame()}
+<<>>=
+print_calling_env <- function() parent.frame()
+print_calling_env()
+other_fun <- function() print_calling_env()
+other_fun()
+@
+\end{frame}
+
+
+\begin{frame}[fragile]{Environments and functions}
+\textbf{3. the environment from which the function is called}
+
+This environment is often a execution environment of another function.
+\begin{itemize}
+  \item To get the calling function use \texttt{sys.call()}. 
+  \item To get the complete call stack use \texttt{sys.calls()}. 
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Environments and functions}
+\textbf{3. the environment from which the function is called}
+\texttt{?parent.frame()}
+<<>>=
+print_calling_funs <- function() sys.calls()
+print_calling_funs()
+other_fun <- function() print_calling_funs()
+other_fun()
+@
+\end{frame}
+
+
+
+\begin{frame}[fragile]{Environments and functions}
+\textbf{4. the enclosing environment}
+\texttt{environment(function)}
+<<>>=
+get_enclosing_env <- function() parent.env(environment())
+get_enclosing_env()
+@
+\end{frame}
+
+
+\begin{frame}[fragile]{Environments and functions}
+\textbf{4. the enclosing environment}
+\texttt{environment(function)}
+<<>>=
+make_adder <- function(add = 0) {
+  print(environment())
+  new_fun <- function(x) x + add
+  return(new_fun)}
+add_5 <- make_adder(5)
+environment(add_5)
+add_5(1)
+ls(environment(add_5))
+@
+The execution environment disappears when the body is executed. Unless it becomes the enclosing environment of another function
+\end{frame}
+
+
+\begin{frame}[fragile]{Environments and functions}
+\textbf{4. the enclosing environment}
+
+\vspace{0.3cm}
+
+When a function is created, the binding environment and the enclosing environment
+are typically equal. But the enclosing environment can be changed (using 
+\texttt{environment <-})
+<<>>=
+strange_mean <- function(x, ...) mean(x, ...)
+strange_mean(1:3)
+env1 <- rlang::env(mean = function(x, ...) "Strange!")
+environment(strange_mean) <- env1
+strange_mean(1:3)
+@
+\end{frame}
+
+\begin{frame}{Environments and functions}
+Four environments are related to functions:
+
+\begin{enumerate}
+  \item the environment that \textbf{binds} the function
+  \item the environment in which the body of the function is \textbf{executed}
+  \item the environment from which the function is \textbf{called}
+  \item the \textbf{enclosing} environment
+\end{enumerate}
+
+\end{frame}
+
+
+\subsection{Where does R find stuff?}
+
+
+\begin{frame}{Where does R find stuff?}
+From \emph{inside functions}?
+\begin{enumerate}
+  \item the execution environment
+  \item the enclosing environment
+  \item the enclosing environment of that environment
+  \item ...
+  \item the empty environment
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}{Where does R find stuff?}
+From inside functions \emph{defined in the global environment}?
+\begin{enumerate}
+  \item the executing environment
+  \item the global environment (i.e., the enclosing environment)
+  \item the \texttt{package:<name>} environment of the last attached package
+  \item ...
+  \item the empty environment
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}{Where does R find stuff?}
+From inside functions \emph{defined in packages}?
+\begin{enumerate}
+  \item the executing environment
+  \item the \texttt{namespace:<name>} environment 
+  \item the \texttt{imports:<name>} environment
+  \item the \texttt{namespace:base} environment
+  \item the global environment (i.e., the enclosing environment)
+  \item the \texttt{package:<name>} environment of the last attached package
+  \item ...
+  \item the empty environment
+\end{enumerate}
+\end{frame}
+
+
+
+\begin{frame}{Where does R find stuff?}
+Exported functions from packages have two binding environments!
+\begin{itemize}
+  \item the \texttt{namespace:<name>} environment 
+  \item the \texttt{package:<name>} environment 
+\end{itemize}
+Both \texttt{::} and \texttt{:::} work.
+
+\begin{center}
+\includegraphics[height=.5\textheight]{from-Hadley/namespace-2binds.png}
+\end{center}
+\end{frame}
+
+
+\begin{frame}{Where does R find stuff?}
+\begin{center}
+\includegraphics[height=.5\textheight]{from-Hadley/namespace-2binds.png}
+\end{center}
+But, only one enclosing environment: the \texttt{namespace:<name>} environment!
+
+Thus, first the imported and exported functions of that package are found!
+\end{frame}
+
+
+
+
+\begin{frame}{Where does R find stuff?}
+Unexported functions from packages one binding environment: the \texttt{namespace:<name>} environment 
+
+\vspace{0.3cm}
+
+Which is also the enclosing environment
+
+\vspace{0.3cm}
+
+Only \texttt{:::} works.
+\end{frame}
+
+
+\begin{frame}{Where does R find stuff?}
+Where does R find functions from packages?
+\begin{center}
+\includegraphics[height=.5\textheight]{from-Hadley/namespaces.png}
+\end{center}
+\end{frame}
+
+
+
+\begin{frame}{Enviroments}
+You can do crazy things with environments. 
+
+If you want to make use of reference
+semantic (i.e., modify objects in place), use \href{https://CRAN.R-project.org/package=R6}{R6}
+
+
+\vspace{1.5cm}
+
 
 \metroset{block=fill} %grey blocks
 \begin{block}{Programming advice}
-Keep it simple, this can create chaos!
+Keep it simple, avoid chaos!
 \end{block}
 \end{frame}
 
-\begin{frame}[fragile]{Scoping}
-<<echo=TRUE, results='asis'>>=
-add_things2 <- function(x) {
-  x + 10 + y
-}
-add_things2(2)
-y <- 100
-add_things2(2)
-@
+
+\begin{frame}[plain]
+\begin{center}
+\Large Exercises \\
+
+\vspace{1.5cm}
+
+\includegraphics[height=.25\textheight]{exercises.jpg}
+\end{center}
 \end{frame}
+
 
 % ----------------------------------------------------------------------------------------------------------------------
 \section{Functionals}
@@ -493,6 +916,7 @@ do.call(rbind, out_list)
 \Large Exercises \\
 
 \vspace{1.5cm}
+
 \includegraphics[height=.25\textheight]{exercises.jpg}
 \end{center}
 \end{frame}
@@ -514,10 +938,31 @@ Basics
 \begin{itemize}
   \item a \emph{class} is a definition
   \item an object is an \emph{instance} of a class.
-  \item a \emph{method} is a procedure that behaves differently depending of the class it is applied to.
-  \item \emph{inheritance}: classes are organized in hierarchy. ``is-a-type-of''-relation. 
+  \item a \emph{method} is specific implementation of procedure, and is associated to classes.
+  \item \emph{inheritance}: classes are organized in hierarchy. ``is-a-type-of''-relation.
+  \item \emph{method-dispatch}: the process of finding the correct method to apply for a specific object.
 \end{itemize}
 \end{frame}
+
+\begin{frame}{Object Oriented Programming}
+\textbf{Encapsulated OOP}
+\begin{itemize}
+  \item methods belong to objects or classes
+  \item method calls look like \texttt{object.method(arg1, arg2)}
+  \item most popular 
+  \item python, \href{https://CRAN.R-project.org/package=R6}{R6}
+\end{frame}
+
+\begin{frame}{Object Oriented Programming}
+\textbf{Functional OOP}
+\begin{itemize}
+  \item methods belong \emph{generics} (or generic functions)
+  \item method calls look like \texttt{generic(object, arg1, arg2)}
+  \item looks like a normal function
+  \item internally build on functions
+  \item S3
+\end{frame}
+
 
 \begin{frame}{Object Oriented Programming in R}
 \begin{itemize}
@@ -536,7 +981,7 @@ Compromise between interactive use, functional programming and object-oriented p
 \begin{itemize}
   \item ``naming conventions''
   \item used in base R
-  \item flexible: new classes, new methods
+  \item flexible: new classes, new methods, new generics
 \end{itemize}
 \end{frame}
 
@@ -691,6 +1136,7 @@ variable.names(my_model)
 \Large Exercises \\
 
 \vspace{1.5cm}
+
 \includegraphics[height=.25\textheight]{exercises.jpg}
 \end{center}
 \end{frame}

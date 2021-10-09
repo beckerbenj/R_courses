@@ -38,7 +38,7 @@ example_list <- list(vec1 = c(1, 3, 4),
                      vec3 = c(2, NA, 1))
 lapply(example_list, FUN = mean)
 
-# further arguemnts
+# further arguments
 lapply(example_list, FUN = mean, na.rm = TRUE) 
 
 # own functions
@@ -125,4 +125,32 @@ out_list <- Map(function(dat, name_rater) {
   dat
 }, dat = rater_list, name_rater = names(rater_list))
 do.call(rbind, out_list)
+
+
+
+
+# 5. Read the Pisa data. Inspect the data using View(), str(), summary(),...
+#    We have the hypothesis that parental education (pared) has an effect on 
+#    the number of books at home (books). Use the split-apply-combine paradigm
+#    to make a table that lists the coefficients of a glm() for each school type
+#    (schtype)
+?split
+?glm
+
+pisa <- readRDS("data//pisaPlus_CF.RDS")
+
+# split data accordoing to school type
+pisa_school <- split(pisa, pisa$schtype)
+
+# a wrapper for glm()
+do_glm <- function(data, formula, ...) glm(formula, data = data, ...)
+
+# apply the wrapper to the splitted data
+results_split <- lapply(pisa_school, do_glm, 
+                        formula = as.factor(books) ~ pared, 
+                        family = binomial)
+
+# combine results
+do.call(rbind, lapply(results_split, coef))
+
 
