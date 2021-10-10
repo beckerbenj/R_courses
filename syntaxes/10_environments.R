@@ -13,7 +13,7 @@ environment()   # returns the current evaluation environment
 ?ls             # returns the objects in the current environment
 parent.env()    # returns the enclosing environment
 new.env()       # creates a new environment (with as the current environment 
-                # as the enclosing environment)
+# as the enclosing environment)
 globalenv()     # returns the global environment
 empty.dump()    # returns the empty environment
 
@@ -48,7 +48,7 @@ rlang::env_names(env2)
 original_l <- list(a = 15, b = "original", c = mean)
 copy_l <- original_l
 copy_l$b <- "new"
-c(original_l$b, copy$b)
+c(original_l$b, copy_l$b)
 original_l$a <- NULL
 names(original_l)
 
@@ -95,7 +95,10 @@ env1$a <- "a"
 env2$b <- "b"
 env3$c <- "c"
 
-lapply(c(env1, env2, env3), ls)
+
+ls(env1)
+ls(env2)
+ls(env3)
 
 
 exists("a", envir = env3)
@@ -114,12 +117,12 @@ exists("a", envir = env1, inherits = FALSE)
 
 # get looks in the environment, when inherits = TRUE, the search continues
 #   in the enclosing environment (and so on)
-lapply(c(env1, env2, env3), 
-       function(env) get(x = "a", envir = env))
-lapply(c(env1, env2, env3), 
-       function(env) exists(x = "b", envir = env))
-lapply(c(env1, env2, env3), 
-       function(env) exists(x = "a", envir = env, inherits = FALSE))
+get("a", envir = env3)
+get("a", envir = env2)
+get("a", envir = env1)
+
+get("a", envir = env3, inherits = FALSE)
+
 
 # assign assigns a name/reverence to an object in a specific environment.
 #   when inherits = TRUE, assign tries to replace the object looking in 
@@ -142,18 +145,68 @@ find("e")
 
 
 
-
-
 # search path
 search()
 rlang::search_envs()
 
 
 
+## The environment that binds the function
+add_10 <- function(x) x + 10
+find("add_10")
+find("sd")
 
-# where does R find stuff
+
+# An object can have references in more than one environment
+sd <- sd
+find("add_10")
+find("sd")
 
 
+## The execution environment
+?environment()
+get_executing_env <- function() return(environment(NULL))
+get_executing_env()
+get_executing_env()  # always new
+
+
+## The calling environment
+?parent.frame
+print_calling_env <- function() parent.frame()
+print_calling_env()
+other_fun <- function() print_calling_env()
+other_fun()
+
+# the call stack
+?sys.calls()
+print_calling_funs <- function() sys.calls()
+print_calling_funs()
+other_fun <- function() print_calling_funs()
+other_fun()
+
+
+## The enclosing environment
+get_enclosing_env <- function() parent.env(environment())
+get_enclosing_env()
+
+# The enclosing environment can contain objects
+make_adder <- function(add = 0) {
+  print(environment())
+  return(function(x) x + add)}
+add_5 <- make_adder(5)
+environment(add_5)
+add_5(1)
+ls(environment(add_5))
+add_5
+get("add", envir = environment(add_5))
+
+
+# The enclosing environment can be set
+strange_mean <- function(x, ...) mean(x, ...)
+strange_mean(1:3)
+env1 <- rlang::env(mean = function(x, ...) "Strange!")
+environment(strange_mean) <- env1
+strange_mean(1:3)
 
 
 
@@ -170,36 +223,23 @@ rlang::search_envs()
 #    - the empty environment
 
 # global environment
-ls()
-ls(globalenv())
-parent.env(globalenv())
+
 
 
 # package:stats environment 
-pkg_stats <- as.environment("package:stats")
-ls(pkg_stats)
-length(pkg_stats)
-parent.env(pkg_stats)
+
 
 
 # namespace:stats environment
-nmsp_stats <- asNamespace("stats")
-ls(nmsp_stats)
-length(ls(nmsp_stats))
-parent.env(nmsp_stats)
+
 
 
 # imports:stats environment
-imp_stats <- parent.env(nmsp_stats)
-ls(imp_stats)
-length(ls(imp_stats))
-parent.env(imp_stats)
+
 
 
 # empty environment
-ls(emptyenv())
-length(emptyenv())
-parent.env(emptyenv())
+
 
 
 
@@ -214,19 +254,6 @@ parent.env(emptyenv())
 #    - does print_number_global work?
 #    - check what the enclosing environment of the print_number_global is. 
 
-e1 <- new.env()
-e1$print_number <- function() cat(number, "\n")
-e1$number <- 3
-
-e1$print_number()
-environment(e1$print_number)
-environment(e1$print_number) <- e1
-e1$print_number()
-
-print_number_global <- e1$print_number
-print_number_global()
-environment(print_number_global)
-e1
 
 
 
@@ -254,16 +281,7 @@ fun(a = 2, b = 2)
 #
 #    Use the function you wrote to repeat exercise 2.
 
-new_env <- function(..., enclosing_env = parent.frame()){
-  objects <- list(...)
-  names_objects <- names(objects)
-  if(any(is.na(names_objects))) stop("All objects in '...' should be named.")
-  if(anyDuplicated((names_objects))) stop("All names in '...' should be unique")
-  list2env(objects, parent = enclosing_env)
-}
 
-e1 <- new_env(number = 3, print_number = function() cat(number, "\n"))
-environment(e1$print_number) <- e1
 
 
 
@@ -277,22 +295,6 @@ environment(e1$print_number) <- e1
 #    - `environment<-` sets the enclosing environment of a function
 #    - `parent.env<-` sets the enclosing environment of an environment
 
-set_enclosing_env <- function(object, enclosing_env){
-  `fun<-` <- switch(typeof(object), 
-                "closure" = `environment<-`,
-                "environment" = `parent.env<-`, 
-                stop("'object' should be a closure or an environment."))
-  fun(object) <- enclosing_env
-  return(invisible(object))
-}
-
-print_number2 <- set_enclosing_env(e1$print_number, globalenv())
-print_number2()
-number <- 5
-
-parent.env(e1)
-set_enclosing_env(e1, e1)
-rlang::env_print(e1)
 
 
 
@@ -308,30 +310,7 @@ rlang::env_print(e1)
 #      in place
 
 
-env <- globalenv()   # set the environment to start with
-while(!identical(env, emptyenv())){
-  print(parent.env(env))
-  env <- parent.env(env)
-}
 
-
-get_enclosing_envs <- function(env = environment(), 
-                               where = new.env(), 
-                               message = FALSE){
-  if(is.null(where$n)) where$n <- 0
-  where$n <- where$n + 1
-  enclosing_env <- parent.env(env)
-  assign(as.character(where$n), enclosing_env, envir = where)
-  if(identical(enclosing_env, emptyenv())) {
-    if(message) message("Empty environment reached. \n")
-    rm(n, envir = where)
-    out <- as.list(where)
-    return(out[order(as.numeric(names(out)))])
-  } else get_enclosing_envs(enclosing_env, where, message)
-}
-
-
-get_enclosing_envs(message = TRUE)
 
 
 
@@ -340,26 +319,7 @@ get_enclosing_envs(message = TRUE)
 #    the enclosing environments of a function
 #    try out the function
 
-get_enclosing_envs <- function(object = environment(), 
-                               where = new.env(),
-                               message = FALSE){
-  if(is.null(where$n)) where$n <- 0
-  where$n <- where$n + 1
-  enclosing_env <- switch(typeof(object), 
-                          "environment" = parent.env(object),
-                          "closure" = environment(object), 
-                          stop("The object should be of type 'environmment' or 'closure'.")
-  )
-  assign(as.character(where$n), enclosing_env, envir = where)
-  if(identical(enclosing_env, emptyenv())) {
-    if(message) message("Empty environment reached. \n")
-    rm(n, envir = where)
-    out <- as.list(where)
-    return(out[order(as.numeric(names(out)))])
-  } else get_enclosing_envs(enclosing_env, where, message)
-}
 
-get_enclosing_envs(lm)
 
 
 
@@ -374,22 +334,3 @@ get_enclosing_envs(lm)
 #    
 #    compare your function with find()
 
-
-get_binding_env <- function(name, env = parent.frame()){
-  if(exists(name, envir = env, inherits = FALSE)) return(env)
-  if(identical(env, emptyenv())) stop("'", name, "' not found.", call. = FALSE)
-  env <- parent.env(env)
-  get_binding_env(name, env)
-}
-
-get_binding_env("var")
-#  <environment: package:stats>
-#    attr(,"name")
-#  [1] "package:stats"
-#  attr(,"path")
-#  [1] "C:/R/R-4.1.1/library/stats"
-
-debugonce(sd)
-sd(1:5)
-get_binding_env("var")
-#  <environment: namespace:stats>

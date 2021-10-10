@@ -157,31 +157,6 @@ round(iris)
 #    Add a methods for data.frames, that does the same as round_DF
 
 
-round_DF <- function(x, digits){
-  these <- sapply(x, is.numeric)
-  x[these] <- as.data.frame(lapply(x[these], round, digits = digits))
-  x
-}
-
-round_DF(iris, digits = 2)
-
-# generic
-Round <- function(x, digits = 0, ...)
-  UseMethod("Round")
-
-# default method
-Round.default <- function(x, digits, ...){
-  round(x, digits)
-}
-
-# method for class data.frame
-Round.data.frame <- function(x, digits, ...){
-  these <- sapply(x, is.numeric)
-  x[these] <- as.data.frame(lapply(x[these], round, digits = digits))
-  x
-}
-
-# how is this function different from the print method for data.frames
 
 
 
@@ -216,26 +191,7 @@ drop_NA(fac)
 nlevels(drop_NA(fac))
 #  [1] 3
 
-drop_NA <- function(x, ...)
-  UseMethod("drop_NA", x)
 
-drop_NA.default <- function(x){
-  is_NA <- is.na(x)
-  out <- x[!is_NA]
-  attr(out, "which_NA") <- which(is_NA)
-  attr(out, "class") <- c("no_NA", attr(x, "class"))
-  return(out)
-}
-
-print.no_NA <- function(x, note = TRUE, ...){
-  if(note) 
-    cat("'No NA'-version. \n", length(attr(x, "which_NA")), "NA values were dropped. \n")
-  old_x <- x
-  attr(x, "which_NA") <- NULL
-  attr(x, "class") <- attr(x, "class")[-1]
-  NextMethod(x)
-  return(invisible(old_x))
-}
 
 
 
@@ -254,25 +210,7 @@ restore_NA(drop_NA(fac))
 #  Levels: one two three
 
 
-restore_NA <- function(x, ...)
-  UseMethod("restore_NA", x)
 
-restore_NA.default <- function(x){
-  message("NA values can only be restored for class 'no_NA'")
-  invisible(x)
-}
-
-restore_NA.no_NA <- function(x){
-  na_index <- attr(x, "which_NA")
-  old_length <- length(x) + length(na_index)
-  value_index <- seq_len(old_length)[-na_index]
-  out <- rep(NA, old_length)
-  out[value_index] <- x
-  attributes(out) <- attributes(x)
-  attr(out, "which_NA") <- NULL
-  attr(out, "class") <- attr(out, "class")[-1]
-  return(out)
-}
 
 
 

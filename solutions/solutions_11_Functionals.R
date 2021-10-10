@@ -29,48 +29,6 @@
 ?optimize
 
 
-## Example Code
-## __________________________________________________________________________
-
-## lapply
-example_list <- list(vec1 = c(1, 3, 4),
-                     vec2 = c(4, 2, 10), 
-                     vec3 = c(2, NA, 1))
-lapply(example_list, FUN = mean)
-
-# further arguments
-lapply(example_list, FUN = mean, na.rm = TRUE) 
-
-# own functions
-dropNAs <- function(x) {
-  x[!is.na(x)]
-}
-lapply(example_list, FUN = dropNAs) 
-
-# anonymous functions
-lapply(example_list, FUN = function(x) x[!is.na(x)]) 
-
-# use on data.frames
-lapply(iris, FUN = class)
-
-# use on atomic vectors
-lapply(c(1, 2, 3), FUN = function(x) {
-    paste0("ID", x)
-})
-
-
-## Map
-list1 <- list(mtcars[1:2, 1:3], iris[1:2, c(1, 2, 5)])
-list2 <- list(mtcars[3:4, 1:3], iris[3:4, c(1, 2, 5)])
-
-Map(rbind, x = list1, y = list2)
-
-# using an anonymous function
-Map(function(x, y) {
-  rbind(x, y)
-}, 
-x = list1, y = list2)
-
 
 ## Exercises -----
 ##===========================================================
@@ -139,13 +97,13 @@ do.call(rbind, out_list)
 
 pisa <- readRDS("data//pisaPlus_CF.RDS")
 
-# split data accordoing to school type
+# split data according to school type
 pisa_school <- split(pisa, pisa$schtype)
 
 # a wrapper for glm()
 do_glm <- function(data, formula, ...) glm(formula, data = data, ...)
 
-# apply the wrapper to the splitted data
+# apply the wrapper to the split data
 results_split <- lapply(pisa_school, do_glm, 
                         formula = as.factor(books) ~ pared, 
                         family = binomial)

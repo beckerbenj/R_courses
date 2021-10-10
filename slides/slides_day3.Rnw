@@ -54,16 +54,9 @@ econRedD<-"#90353B"
 \begin{frame}
 \titlepage
 \end{frame}
+
 \addtocounter{framenumber}{-1}
-
-
-\begin{frame}{Table of Content}
-\fontsize{5pt}{4}
-\setcounter{tocdepth}{2}
-\begin{multicols}{3}
-\tableofcontents
-\end{multicols}
-\end{frame}
+\setcounter{tocdepth}{3}
 
 
 \section{Introduction}
@@ -171,15 +164,6 @@ Researcher at IQB (Statistics Department)
 \begin{itemize}
   \item Scoping \& Environments
   \item Functionals \& Split-Apply Paradigm
-\end{itemize} 
-
-\vspace{1.5em}
-
-- \textit{Lunch Break}
-
-\vspace{1.5em}
-
-\begin{itemize}
   \item Object Orientation (S3)
   \item Packages \& Version Controlling
 \end{itemize}
@@ -215,7 +199,7 @@ It differs from a list with respect to four key points:
   \item All elements have names
   \item The elements do not have an order
   \item Environments are not copied when modified
-  \item Each environment has an \emph{enclosing environment}
+  \item Each environment has an \textbf{enclosing environment}
 \end{enumerate}
 \end{frame}
 
@@ -224,12 +208,12 @@ It differs from a list with respect to four key points:
 \begin{frame}{Environments}
 Each environment consists of two parts: 
 \begin{enumerate}
-  \item a \emph{frame}: a collection of named objects.
+  \item a \textbf{frame}: a collection of named objects.
   \begin{itemize}
     \item the objects can be of any type (like in \texttt{lists})
     \item the objects have to be named (\textbf{unlike} in \texttt{lists})
   \end{itemize}
-  \item an \emph{enclosing enviroment}: a reference or link to another environment.
+  \item an \textbf{enclosing enviroment}: a reference or link to another environment.
   \begin{itemize}
     \item the link goes in one direction
     \item determines the search path
@@ -241,7 +225,7 @@ Each environment consists of two parts:
 
 
 \begin{frame}{Environments - frame}
-The frame is a ``\emph{bag}'' of named objects.
+The frame is a ``\textbf{bag}'' of named objects.
 \begin{itemize}
   \item Actually, it is a bag of \emph{bindings} between names and objects
   \item The combination \emph{environment} + \emph{name} points to a specific 
@@ -430,7 +414,6 @@ add_10 <- function(x) x + 10
 find("add_10")
 
 find("sd")
-
 @
 \end{frame}
 
@@ -461,7 +444,7 @@ becomes the enclosing environment of another function.
 
 \begin{frame}[fragile]{Environments and functions}
 \textbf{3. the environment from which the function is called}
-\texttt{?parent.frame()}
+\texttt{?parent.frame}
 <<>>=
 print_calling_env <- function() parent.frame()
 print_calling_env()
@@ -476,15 +459,16 @@ other_fun()
 
 This environment is often a execution environment of another function.
 \begin{itemize}
-  \item To get the calling function use \texttt{sys.call()}. 
-  \item To get the complete call stack use \texttt{sys.calls()}. 
+  \item To get the calling function use \texttt{?sys.call}. 
+  \item To get the complete call stack use \texttt{?sys.calls}. 
 \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]{Environments and functions}
 \textbf{3. the environment from which the function is called}
-\texttt{?parent.frame()}
-<<>>=
+
+\texttt{?sys.calls}
+<< eval = FALSE>>=
 print_calling_funs <- function() sys.calls()
 print_calling_funs()
 other_fun <- function() print_calling_funs()
@@ -496,6 +480,7 @@ other_fun()
 
 \begin{frame}[fragile]{Environments and functions}
 \textbf{4. the enclosing environment}
+
 \texttt{environment(function)}
 <<>>=
 get_enclosing_env <- function() parent.env(environment())
@@ -510,12 +495,9 @@ get_enclosing_env()
 <<>>=
 make_adder <- function(add = 0) {
   print(environment())
-  new_fun <- function(x) x + add
-  return(new_fun)}
+  return(function(x) x + add)}
 add_5 <- make_adder(5)
 environment(add_5)
-add_5(1)
-ls(environment(add_5))
 @
 The execution environment disappears when the body is executed. Unless it becomes the enclosing environment of another function
 \end{frame}
@@ -936,11 +918,11 @@ Why?
 \begin{frame}{Object Oriented Programming}
 Basics
 \begin{itemize}
-  \item a \emph{class} is a definition
-  \item an object is an \emph{instance} of a class.
-  \item a \emph{method} is specific implementation of procedure, and is associated to classes.
-  \item \emph{inheritance}: classes are organized in hierarchy. ``is-a-type-of''-relation.
-  \item \emph{method-dispatch}: the process of finding the correct method to apply for a specific object.
+  \item a \textbf{\textbf{class}} is a definition
+  \item an object is an \textbf{instance} of a class.
+  \item a \textbf{method} is specific implementation of procedure, and is associated to classes.
+  \item \textbf{inheritance}: classes are organized in hierarchy. ``is-a-type-of''-relation.
+  \item \textbf{method-dispatch}: the process of finding the correct method to apply for a specific object.
 \end{itemize}
 \end{frame}
 
@@ -951,16 +933,18 @@ Basics
   \item method calls look like \texttt{object.method(arg1, arg2)}
   \item most popular 
   \item python, \href{https://CRAN.R-project.org/package=R6}{R6}
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Object Oriented Programming}
 \textbf{Functional OOP}
 \begin{itemize}
-  \item methods belong \emph{generics} (or generic functions)
+  \item methods belong \textbf{generics} (or generic functions)
   \item method calls look like \texttt{generic(object, arg1, arg2)}
   \item looks like a normal function
   \item internally build on functions
   \item S3
+\end{itemize}
 \end{frame}
 
 
@@ -1042,7 +1026,7 @@ Write a separate validation-function for computationally intensive validation.
 
 \begin{frame}[fragile]{S3 - Generics and Methods}
 \begin{itemize}
-  \item \emph{methods} for a class belong to \emph{generics}
+  \item \textbf{methods} for a class belong to \textbf{generics}
   \item when a generic is called for a specific class, the corresponing method for that class will be used. 
   \time common generics are: \texttt{print()}, \texttt{plot()}, \texttt{summary()}, \texttt{anova()}
   \item same function, but different computation depending on object-class
