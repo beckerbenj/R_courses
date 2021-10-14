@@ -96,10 +96,16 @@ x = list1, y = list2)
 
 
 # 4. Consider the following list of data.frames. Each data.frame represents a 
-#   rater who has rated various kindergarden kids regarding their behaviour.
+#   rater who has rated various kindergarten kids regarding their behavior.
 #   Use Map() to append the data.frame name to each data.frame, then use
-#   do.call(rbind) to create a single data.frame with all information.
-
+#   do.call(rbind, ...) to create a single data.frame with all information.
+rater1 <- data.frame(ID = 1:3, 
+                     nice = c(1, 3, 2),
+                     help = c(4, 2, 1))
+rater2 <- data.frame(ID = 4:6, 
+                     nice = c(3, 3, 1),
+                     help = c(2, 4, 3))
+rater_list <- list(rater1 = rater1, rater2 = rater2)
 
 
 
