@@ -1186,7 +1186,7 @@ See the workshop preparation materials
     \item Use an R specific \texttt{.gitignore}
     \item Initialize with a short readme (\texttt{.md})
   \end{itemize}
-  \item Clone the repository to your local machine
+  \item Clone the repository to your local machine via RStudio
   \item An R-Project is added automatically to the existing repository
 \end{itemize}
 \end{frame}
