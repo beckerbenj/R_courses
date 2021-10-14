@@ -312,7 +312,7 @@ If the reference to an object is not found in the environment, R starts searchin
 
 \begin{frame}{Environments - scoping}
 
-\texttt{?exists} returns a logical if a reference if found in an environment. The search jumps to the enclosing environment until the object is found when \texttt{inherits = TRUE} (the default).
+\texttt{?exists} returns a logical if a reference is found in an environment. The search jumps to the enclosing environment until the object is found when \texttt{inherits = TRUE} (the default).
 
 \texttt{?get} returns an object based on a name and an environment. The search jumps to the enclosing environment until the object is found when \texttt{inherits = TRUE} (the default).
 
@@ -382,7 +382,7 @@ Where does R find objects \emph{during interactive use}?
 \includegraphics[width=\textheight]{from-Hadley/search-path.png}
 \end{center}
 
-Newly attached packages get a specific place in the search path. They become the enclosing environment of the global environment, and they are enclosed by the previously installed package. 
+Newly attached packages get a specific place in the search path. They become the enclosing environment of the global environment, and they are enclosed by the previously attached package. 
 \end{frame}
 
 
@@ -838,7 +838,7 @@ Here, we want to perform the same analyses for various subgroups in our data set
 \begin{itemize}
   \item \textbf{split} a data.frame or vector (\texttt{?split})
   \item \textbf{apply} computations on each split (\texttt{?lapply})
-  \item \textbf{combine} the results (\texttt{?sapply}, \texttt{?do.call})
+  \item \textbf{combine} the results (\texttt{?do.call})
 \end{itemize}
 \end{frame}
 
@@ -912,8 +912,8 @@ do.call(rbind, out_list)
 Why?
 \begin{itemize}
   \item User-friendly: same function for different objects (\texttt{summary()})
-  \item Coder-friendly: implementation can depends on object
-  \item Coder-friendly: easier to maintain, extend
+  \item Coder-friendly: implementation can depend on object
+  \item Coder-friendly: easier to maintain \& extend
 \end{itemize}
 \end{frame}
 
@@ -941,7 +941,7 @@ Basics
 \begin{frame}{Object Oriented Programming}
 \textbf{Functional OOP}
 \begin{itemize}
-  \item methods belong \textbf{generics} (or generic functions)
+  \item methods belong to \textbf{generics} (or generic functions)
   \item method calls look like \texttt{generic(object, arg1, arg2)}
   \item looks like a normal function
   \item internally build on functions
@@ -1030,7 +1030,7 @@ Write a separate validation-function for computationally intensive validation.
 \begin{itemize}
   \item \textbf{methods} for a class belong to \textbf{generics}
   \item when a generic is called for a specific class, the corresponing method for that class will be used. 
-  \time common generics are: \texttt{print()}, \texttt{plot()}, \texttt{summary()}, \texttt{anova()}
+  \item common generics are: \texttt{print()}, \texttt{plot()}, \texttt{summary()}, \texttt{anova()}
   \item same function, but different computation depending on object-class
 \end{itemize}
 <<generic, echo=TRUE, results='markup'>>=
@@ -1188,7 +1188,7 @@ See the workshop preparation materials
     \item Use an R specific \texttt{.gitignore}
     \item Initialize with a short readme (\texttt{.md})
   \end{itemize}
-  \item Clone the repository to your local machine
+  \item Clone the repository to your local machine via RStudio
   \item An R-Project is added automatically to the existing repository
 \end{itemize}
 \end{frame}
