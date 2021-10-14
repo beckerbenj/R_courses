@@ -80,9 +80,11 @@ rlang::env_print(env1$myself$myself$myself$myself)
 # set enclosing environment using rlang::new_environment()
 env3 <- rlang::new_environment(
   list(b = "b", 
-       get_current_env = function() environment()), 
+       c = 1:5,
+       data = airquality),
   parent = env2)
 rlang::env_parent(env3)
+env3
 
 
 # lexical scoping: search through environments

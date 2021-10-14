@@ -264,7 +264,7 @@ names(original)
 \end{frame}
 
 
-\begin{frame}[fragile]{Environments - Refernce Semantics}
+\begin{frame}[fragile]{Environments - Reference Semantics}
 How environments work:
 <<>>=
 original <- rlang::env(a = 15, b = "original", c = mean)
@@ -425,6 +425,8 @@ find("add_10")
 
 find("sd")
 @
+One name can be used in different environments (for different objects).
+
 Functions (objects) can have references in more than one environment!
 \end{frame}
 
@@ -596,14 +598,14 @@ Both \texttt{::} and \texttt{:::} work.
 \end{center}
 But, only one enclosing environment: the \texttt{namespace:<name>} environment!
 
-Thus, first the imported and exported functions of that package are found!
+Thus, form inside a (package-) function, R first looks for imported and exported functions of that package!
 \end{frame}
 
 
 
 
 \begin{frame}{Where does R find stuff?}
-Unexported functions from packages one binding environment: the \texttt{namespace:<name>} environment 
+Unexported functions from packages have one binding environment: the \texttt{namespace:<name>} environment 
 
 \vspace{0.3cm}
 
@@ -920,7 +922,7 @@ Basics
 \begin{itemize}
   \item a \textbf{\textbf{class}} is a definition
   \item an object is an \textbf{instance} of a class.
-  \item a \textbf{method} is specific implementation of procedure, and is associated to classes.
+  \item a \textbf{method} is specific implementation of procedure, and is associated with classes.
   \item \textbf{inheritance}: classes are organized in hierarchy. ``is-a-type-of''-relation.
   \item \textbf{method-dispatch}: the process of finding the correct method to apply for a specific object.
 \end{itemize}

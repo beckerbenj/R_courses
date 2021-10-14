@@ -129,6 +129,10 @@ methods(generic = "anova")
 #...........................
 methods(generic = "anova")
 methods(generic = "summary")
+anova.loess  # does not work
+
+
+
 
 # visible functions
 summary.lm
@@ -136,7 +140,8 @@ summary.lm
 # invisible functions - indicated with an asterix
 anova.lm
 getS3method("anova", "lm")
-
+getAnywhere("anova.lm")
+stats:::anova.lm
 
 
 
@@ -212,5 +217,8 @@ restore_NA(drop_NA(fac))
 
 
 
-
-
+# 3. Look at your own R code and projects. Where could you make use of
+#    S3 classes and methods?
+#     - Define a new class
+#     - add method(s) for existing generics
+#     - create a generic and add a methods for the new class
