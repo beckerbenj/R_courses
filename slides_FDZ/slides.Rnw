@@ -115,7 +115,7 @@ econRedD<-"#90353B"
 \begin{columns}[t]
 \begin{column}{.475\textwidth}
 
-\href{mailto:dries.debeer@kuleuven.be}{dries.debeer@kuleuven.be}
+\href{mailto:dries.debeer@ugent.be}{dries.debeer@ugent.be}
   	
 \end{column}
   \begin{column}{.475\textwidth}
