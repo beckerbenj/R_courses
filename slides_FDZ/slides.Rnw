@@ -271,6 +271,197 @@ econRedD<-"#90353B"
 
 
 % ----------------------------------------------------------------------------------------------------------------------
+\section{Flow \& conditional programming}
+\label{sec:flow}
+
+\begin{frame}{Flow \& conditional programming}
+R has specific tools (functions) that help organize the flow of computations. \\
+You can make computations conditional on other objects (``conditional computation'') \\
+The most commonly used tools are: 
+\begin{itemize}
+  \item \texttt{if} (+ \texttt{else})
+  \item \texttt{ifelse}
+\end{itemize}
+\end{frame}
+
+\subsection{if}
+
+\begin{frame}[fragile]{Conditional Computation - if}
+\texttt{if} statements have the basic form
+<<if, echo=TRUE, eval = FALSE>>=
+if(test){
+  some_computations
+}
+@
+\begin{itemize}
+  \item \texttt{test} should be either \texttt{TRUE} or \texttt{FALSE} (or code that results in one of both). 
+  \item If \texttt{test == TRUE}, than \texttt{some\_computations} is executed, if \texttt{test == FALSE}, than not.
+  \item \textbf{Important}: \texttt{test} should have length 1. If not, only the first element is considered.\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Conditional Computation - if}
+\texttt{else} can be added, but it is optional
+<<if else, echo=TRUE, eval = FALSE>>=
+if(test){
+  some_computations
+} else if (test_2){
+  other_computations
+} else {
+  more_computations
+}
+@
+\end{frame}
+
+\begin{frame}{Typical test functions}
+\begin{center}
+  \begin{tabular}{| l | l |}
+    \hline
+    \multicolumn{2}{|c|}{Vectorized, elementwise} \\ \hline
+    \texttt{==}                & equal to \\ 
+    \texttt{!=}                & NOT equal to\\
+    \texttt{>},  \texttt{<}    & is greater, less than \\
+    \texttt{>=},  \texttt{<=}  & is greater, less than or equal to \\
+    \texttt{\&}                 & AND operator \\
+    \texttt{|}                 & OR operator \\
+    \texttt{xor}               & exclusive OR \\
+    \hline
+  \end{tabular}
+\end{center}
+\end{frame}
+
+\begin{frame}{Typical test functions}
+\begin{center}
+  \begin{tabular}{| l | l |}
+    \hline
+    \multicolumn{2}{|c|}{Not Vectorized} \\ \hline
+    \texttt{identical()}       & identical to \\ 
+    \texttt{any()}             & at least one \texttt{TRUE} \\
+    \texttt{all()}             & all \texttt{TRUE} \\
+    \texttt{\&\&}              & AND operator \\
+    \texttt{||}                & OR operator \\
+    \texttt{is.character()}, \texttt{is.data.frame()}, ...  &  \\
+    \hline
+  \end{tabular}
+\end{center}
+\end{frame}
+
+
+\begin{frame}[fragile]{Typical test functions}
+Compare:
+<<test functions, echo = TRUE, results="markup">>=
+c(TRUE, TRUE) & c(FALSE, TRUE)
+c(TRUE, TRUE) && c(FALSE, FALSE)
+@
+\end{frame}
+
+\begin{frame}[fragile]{Conditional Computation - if}
+The \emph{test} should have length 1!
+<<if3, results="markup", warning = TRUE>>=
+# only the first element is evaluated
+age <- c(8, 17, 39, 55)
+if (age >= 18) {
+  "can vote"
+} else {
+    "too young"
+}
+@
+\end{frame}
+
+\begin{frame}[fragile]{Conditional Computation - if}
+Typical uses
+<<if typical, echo=TRUE, eval = FALSE, size = "footnotesize">>=
+if(any(is.na(x))){
+  stop("computation impossible due to NA values")
+}
+
+if(!is.integer(vector)){
+  warning("'vector' is automatically converted to interger.
+          This may affect the results")
+  vector <- as.integer(vector)
+}
+
+if(is.null(argument)){
+  # default computations
+} else if (argument == specific_value) {
+  # other computations
+}
+@
+\end{frame}
+
+\begin{frame}{Conditional Computation - if}
+\metroset{block=fill} %grey blocks
+\begin{block}{Programming advice}
+\begin{itemize}
+  \item \emph{if} is almost always used inside of functions or loops
+  \item If possible, avoid using \emph{else}
+  \item Use meaningful initialization, early return(), stop(), etc. instead
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Conditional Computation - if}
+Solution using \emph{if} and \emph{else} 
+<<if else2, echo = TRUE, results="markup">>=
+age <- 17
+if (age >= 18) {
+  vote <- "can vote"
+} else {
+  vote <- "too young"
+}
+vote
+@
+\end{frame}
+
+\begin{frame}[fragile]{Conditional Computation - if}
+Solution using meaningful initialization
+<<if init, echo = TRUE, results="markup">>=
+age <- 17
+vote <- "too young"
+if (age >= 18) {
+  vote <- "can vote"
+} 
+vote
+@
+\end{frame}
+
+\subsection{ifelse}
+
+\begin{frame}[fragile]{Conditional Computation - ifelse}
+A vectorized version is \texttt{ifelse()}. \\ 
+<<ifelse, echo = TRUE, results="markup">>=
+# all elements are evaluated
+age <- c(8, 17, 39, 55)
+ifelse(age >= 18, 
+       yes = "can vote", 
+       no = "too young")
+@
+%\texttt{\textasciigrave if\textasciigrave (test, ifTRUE, ifFALSE)} does exactly the same as \texttt{if (test) {ifTRUE} else {ifFALSE}}
+\end{frame}
+
+\begin{frame}[fragile]{Conditional Computation - ifelse}
+Go-to tool for conditional recoding
+<<ifelse typical, echo=TRUE, results = "markup">>=
+age_estimated <- c(10, 20, 35, 60) 
+age_self_rep <- c(NA, 17, 39, NA)
+
+# Use available information, prioritize self report
+ifelse(!is.na(age_self_rep), 
+       yes = age_self_rep, 
+       no = age_estimated)
+
+@
+\end{frame}
+
+\begin{frame}[plain]
+\begin{center}
+\Large Exercises \\
+
+\vspace{1.5cm}
+\includegraphics[height=.25\textheight]{exercises.jpg}
+\end{center}
+\end{frame}
+
+% ----------------------------------------------------------------------------------------------------------------------
 \section{Loops \& Iteration}
 \label{sec:loops}
 
