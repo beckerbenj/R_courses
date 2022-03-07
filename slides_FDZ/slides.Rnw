@@ -92,7 +92,7 @@ econRedD<-"#90353B"
     
     \vspace{0.2cm}
     
-    Researcher at IQB (Statistics Department)
+    Researcher at IQB (Verbund Forschungsdaten)
     
 \end{column}
 \end{columns}
@@ -1237,7 +1237,7 @@ lapply(example_list, FUN = mean)
 
 \begin{frame}[fragile]{lapply}
 Other arguments can be passed through \texttt{lapply} via '\texttt{...}'.
-<<lapply2, echo=TRUE, results="markup", size="footnotesize">>=
+<<lapply2b, echo=TRUE, results="markup", size="footnotesize">>=
 example_list <- list(vec1 = c(1, 3, 4),
                      vec2 = c(4, 2, 10), 
                      vec3 = c(2, NA, 1))
@@ -1563,7 +1563,7 @@ Useful for passing arguments to other functions like:
 
 \begin{frame}[fragile]{\texttt{...} dot-dot-dot}
 
-TO_DO: include example where the number of arguments is unknown.
+TO DO: include example where the number of arguments is unknown.
 \texttt{plot} example
 << results='markup', eval = FALSE>>=
 
