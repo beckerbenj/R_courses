@@ -53,3 +53,7 @@ vignettes/*.pdf
 *.run.xml
 *concordance.tex
 *.tex
+
+
+# spezifische figure folders (chunks etc.)
+slides_FDZ/figure
