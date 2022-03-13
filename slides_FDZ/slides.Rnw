@@ -163,7 +163,7 @@ econRedD<-"#90353B"
 	\begin{enumerate}
 			\item Past Self
 			\begin{itemize}
-			  \item The biggest mess in existence
+			  \item the biggest mess in existence
 			  \item did not document anything
 			  \item uses a completely different style of writing code
 			  \item does not reply to e-mails
@@ -235,7 +235,7 @@ econRedD<-"#90353B"
 \textbf{Day 2}
 \begin{itemize}
   \item Functions (part II)
-  \item Functional split-apply-combine
+  \item \emph{Functionals} \& split-apply-combine
   \item Good programming practices
 \end{itemize}
 \end{frame}
@@ -247,11 +247,11 @@ econRedD<-"#90353B"
 
 \begin{frame}{RStudio setup}
 \begin{enumerate}
-  \item Copy the course content from the usb-stick to a directory on your machine
+  \item Save the course content to a directory on your machine
   \item Open RStudio
   \item Choose \texttt{File < New Project ... }
   \item Choose \texttt{Existing Directory}
-  \item Browse to the directory on your machine where you copied the course content and select the ``Intro-R-programming'' folder as the \texttt{Project working directory}
+  \item Browse to the directory on your machine where you saved the course content and select the ``{\color{blue}R-programming}'' folder as the \texttt{Project working directory}
   \item Click \texttt{Open in new session}
   \item Click \texttt{Create Project}
 \end{enumerate}
@@ -355,7 +355,7 @@ c(TRUE, TRUE) && c(FALSE, FALSE)
 \end{frame}
 
 \begin{frame}[fragile]{Conditional Computation - if}
-The \emph{test} should have length 1!
+The \textbf{\texttt{test}} should have length 1!
 <<if3, results="markup", warning = TRUE>>=
 # only the first element is evaluated
 age <- c(8, 17, 39, 55)
@@ -471,7 +471,7 @@ You can repeat a similar computation multiple times typically with changing opti
 The most commonly used tools are: 
 \begin{itemize}
   \item loops (\texttt{repeat}, \texttt{while}, \texttt{for})
-  \item functionals (\texttt{apply} - family)
+  \item \emph{functionals }(\texttt{apply} - family)
 \end{itemize}
 \end{frame}
 
@@ -540,7 +540,6 @@ while (max_dif <= 4){
   max_dif <- max(values) - min(values)
 }
 max_dif
-round(values, 3)
 @
 \end{frame}
 
@@ -609,38 +608,38 @@ for (index in seq_along(x)){
 
 \subsection{Functionals}
 
-\begin{frame}{Loops \& Iteration - Functionals}
-TODO: shorter introduction, focus on simple cases:
-\begin{itemize}
-  \item apply examples
-  \item lapply examples
-  \item goodpractice: use lapply (see tomorrow)
-\end{itemize}
-\end{frame}
-
-
-\begin{frame}{Loops \& Iteration - Functionals}
-A functional is a function that takes another function as an argument. \\
-Focus on the \texttt{apply}-family. These functions \emph{apply} a function repeatedly. \\
+\begin{frame}{Loops \& Iteration - \emph{Functionals}}
+There are specific functions that allow efficient and clean iteration. \\
+We focus on the \texttt{apply}-family. These functions \emph{apply} a function repeatedly. \\
 Can be seen as an abstraction of a for loop, with the following advantages
 \begin{itemize}
   \item requires less code to write
   \item does not store intermediate results
   \item no need to replace / grow
 \end{itemize}
+(also see the \href{https://purrr.tidyverse.org/}{\texttt{purrr}} package)
 \end{frame}
 
-\begin{frame}{Functionals}
-The most commonly used functionals are:
+\subsubsection{apply}
+
+\begin{frame}[fragile]{apply}
 \begin{itemize}
-  \item \texttt{lapply} vector / list $\rightarrow$ list
-  \item \texttt{sapply} vector / list $\rightarrow$ vector (matrix)
-  \item \texttt{apply} matrix / array / data.frame $\rightarrow$ vector (matrix)
-  \item \texttt{tapply}, \texttt{by}, \texttt{aggregate}
-  \item \texttt{mapply}, \texttt{Map}
-  \item \texttt{rapply}, \texttt{eapply}, \texttt{vapply} 
+  \item for objects with dimensions (matrix, array, data.frame)
+  \item apply over (a) chosen dimension(s) 
 \end{itemize}
-All of which have an argument that should be a function.
+<<apply, echo=TRUE, results="markup", size="footnotesize">>=
+my_matrix <- matrix(1:6, nrow = 2)
+apply(my_matrix, 1, max)    # apply per row
+apply(my_matrix, 2, max)    # apply per column
+@
+\end{frame}
+
+\begin{frame}[fragile]{apply}
+<<apply2, echo=TRUE, results="markup", size="footnotesize">>=
+my_array <- array(1, dim = c(2, 3, 4))
+apply(my_array, c(1, 2), sum)  # per row and column
+apply(my_array, 3, sum)        # per "third dimension"
+@
 \end{frame}
 
 \subsubsection{lapply}
@@ -658,7 +657,7 @@ lapply(iris, FUN = class)
   \item other arguments can be passed through
 \end{itemize}
 <<lapply2, echo=TRUE, results="markup", size="footnotesize">>=
-means <- lapply(airquality, FUN = mean, na.rm = TRUE)
+means <- lapply(mtcars[1:7], FUN = mean)
 str(means)
 @
 \end{frame}
@@ -677,26 +676,8 @@ str(means)
 %@
 %\end{frame}
 
-\subsubsection{apply}
-
-\begin{frame}[fragile]{apply}
-\begin{itemize}
-  \item for objects with dimension (matrix, array, data.frame)
-  \item apply over (a) chosen dimension(s) 
-\end{itemize}
-<<apply, echo=TRUE, results="markup", size="footnotesize">>=
-my_matrix <- matrix(1:6, nrow = 2)
-apply(my_matrix, 1, max)    # apply per row
-apply(my_matrix, 2, max)    # apply per column
-@
-\end{frame}
-
-\begin{frame}[fragile]{apply}
-<<apply2, echo=TRUE, results="markup", size="footnotesize">>=
-my_array <- array(1, dim = c(2, 3, 4))
-apply(my_array, c(1, 2), sum)  # per row and column
-apply(my_array, 3, sum)        # per "third dimension"
-@
+\begin{frame}{\emph{Functionals}}
+More on how these \emph{functionals} can be used tomorrow.
 \end{frame}
 
 \begin{frame}[plain]
@@ -711,7 +692,6 @@ apply(my_array, 3, sum)        # per "third dimension"
 % ----------------------------------------------------------------------------------------------------------------------
 \section{Functions I}
 \label{sec:fun1}
-
 
 \begin{frame}[fragile]
 \begin{exampleblock}{}
@@ -1305,31 +1285,31 @@ Try \texttt{?lm}
 \end{block}
 \end{frame}
 
-\subsection{Lazy Evaluation}
-
-
-\begin{frame}[fragile]{Lazy Evaluation}
-\texttt{R} only considers (evaluates) an argument when it is used.
-<<echo=TRUE>>=
-add_ten_lazy <- function(x, y) {
-  return(x + 10)
-}
-add_ten_lazy(2, y = stop("This is not evaluated"))
-@
-\end{frame}
-
-\begin{frame}[fragile]{Lazy Evaluation}
-\texttt{R} only considers (evaluates) an argument when it is used.
-But, you can \texttt{force} the evaluation: 
-<<echo=TRUE>>=
-add_ten_force <- function(x, y) {
-  force(y)
-  return(x + 10)
-}
-add_ten_force(2, y = stop("Evaluation was forced"))
-@
-\texttt{?force}
-\end{frame}
+% \subsection{Lazy Evaluation}
+% 
+% 
+% \begin{frame}[fragile]{Lazy Evaluation}
+% \texttt{R} only considers (evaluates) an argument when it is used.
+% <<echo=TRUE>>=
+% add_ten_lazy <- function(x, y) {
+%   return(x + 10)
+% }
+% add_ten_lazy(2, y = stop("This is not evaluated"))
+% @
+% \end{frame}
+% 
+% \begin{frame}[fragile]{Lazy Evaluation}
+% \texttt{R} only considers (evaluates) an argument when it is used.
+% But, you can \texttt{force} the evaluation: 
+% <<echo=TRUE>>=
+% add_ten_force <- function(x, y) {
+%   force(y)
+%   return(x + 10)
+% }
+% add_ten_force(2, y = stop("Evaluation was forced"))
+% @
+% \texttt{?force}
+% \end{frame}
 
 
 \begin{frame}[plain]
@@ -1389,7 +1369,7 @@ The members of the \texttt{apply}-family in Base R are:
 \end{frame}
 
 \begin{frame}{\texttt{apply}-family}
-A popular alternative from the tidyverse: \texttt{purrr}
+A popular alternative from the tidyverse: \href{https://purrr.tidyverse.org/}{\texttt{purrr}} 
 \begin{itemize}
   \item \texttt{map} vector / list $\rightarrow$ list
   \item \texttt{map2} multiple vectors / lists $\rightarrow$ list
@@ -1413,7 +1393,7 @@ Our focus: \texttt{lapply} and \texttt{Map}
 \subsubsection{lapply}
 
 \begin{frame}[fragile]{lapply}
-\texttt{lapply} takes mainly two arguments
+\texttt{lapply} has two main arguments
 \begin{itemize}
   \item[\texttt{X}] the input list/vector
   \item[\texttt{FUN}] the function that should be repeatedly applied
@@ -1734,60 +1714,26 @@ Useful when you don't know how many arguments there will be.
   \begin{itemize}
     \item \texttt{?sum}
     \item \texttt{?save}
+    \item \texttt{?cbind}
+    \item \texttt{?paste}
     \item ...
   \end{itemize}
 \end{frame}
 
 
+\begin{frame}[fragile]{\texttt{...} dot-dot-dot}
+A function that checks for multiple objects if they are character vectors. (A wrapper around \texttt(?is.character))
+<< results='markup', eval = FALSE>>=
+is_character <- function(...){
+  lapply(list(...), is.character)
+}
+is_character(a = "Awesome", b = 5)
+@
+\end{frame}
 
 \begin{frame}{\texttt{...} dot-dot-dot }
-
 \texttt{...} can take \emph{any} number of additional arguments
-
-Useful for passing arguments to other functions like:
-  \begin{itemize}
-    \item \texttt{?apply}
-    \item \texttt{?plot}
-    \item ...
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{\texttt{...} dot-dot-dot}
-
-TO DO: include example where the number of arguments is unknown.
-\texttt{plot} example
-<< results='markup', eval = FALSE>>=
-
-@
-\end{frame}
-
-
-\begin{frame}[fragile]{\texttt{...} dot-dot-dot}
-\texttt{plot} example
-<< results='markup', eval = FALSE>>=
-hist3 <- function(x, ...){
-  hist(x, ...)
-  abline(v = mean(x, ...), 
-         col = "darkred", 
-         lwd = 2)
-}
-hist3(airquality$Wind, col = "pink", 
-      main = "Wind (mph)")
-@
-\end{frame}
-
-\begin{frame}[fragile]{\texttt{...} dot-dot-dot }
-\texttt{plot} example
-<< results='markup', echo = FALSE>>=
-hist3 <- function(x, ...){
-  hist(x, ...)
-  abline(v = mean(x, ...), 
-         col = "darkred", 
-         lwd = 2)
-}
-hist3(airquality$Wind, col = "pink", 
-      main = "Wind (mph)")
-@
+Useful for passing arguments to other functions like.
 \end{frame}
 
 
@@ -1795,8 +1741,7 @@ hist3(airquality$Wind, col = "pink",
 \texttt{apply} example.
 << results='markup'>>=
 get_quantiles <- function(x, ...){
-  out <- lapply(x, quantile, ...)
-  return(do.call(rbind, out))
+  apply(x, 2, quantile, ...)
 }
 get_quantiles(airquality, na.rm = TRUE, 
               probs = c(.25, .5, .27))
@@ -1808,8 +1753,7 @@ get_quantiles(airquality, na.rm = TRUE,
 \textbf{WARNING!} Watch out with spelling mistakes, arguments can get lost!
 << results='markup'>>=
 get_quantiles <- function(x, ...){
-  out <- lapply(x, quantile, ...)
-  return(do.call(rbind, out))
+  apply(x, 2, quantile, ...)
 }
 get_quantiles(airquality, na.rm = TRUE, 
               prosb = c(.25, .5, .27))
@@ -1823,118 +1767,118 @@ get_quantiles(airquality, na.rm = TRUE,
 % \end{frame}
 
 
-\subsection{on.exit()}
-
-\begin{frame}[fragile]{on.exit()}
-Performing an action when the function terminates.
-<< results='markup'>>=
-add_ten_on_exit <- function(x) {
-  on.exit(cat("Finished 'add_ten_on_exit', with input '", 
-              x, "'. \n", sep = ""))
-  return(x + 10)
-}
-add_ten_on_exit(1)
-@
-\end{frame}
-
-
-\begin{frame}[fragile]{on.exit()}
-Performing an action when the function terminates.
-<< results='markup'>>=
-add_ten_on_exit <- function(x) {
-  on.exit(cat("Finished 'add_ten_on_exit', with input '", 
-              x, "'. \n", sep = ""))
-  return(x + 10)
-}
-add_ten_on_exit("one")
-@
-\end{frame}
-
-
-\begin{frame}[fragile]{Error, warning, \& message}
-
-\begin{figure}
-\begin{center}
-\begin{tikzpicture}
-\node[draw,ellipse] (s1) at (0,0) {function};
-\node[draw,rectangle] (s2) at (-4,0) {object1, \ (object2, ...)};
-\node[draw,star, star points=10] (s4) at (3,-2) {ERROR};
-\node[draw,diamond, aspect = 2] (s5) at (3,2) {on.exit()};
-\path
-    (s2) edge[->, double distance=1pt, >=latex'] (s1)
-    (s1) edge[->, double distance=1pt, >=latex'] (s4)
-    (s1) edge[->, double distance=1pt, >=latex'] (s5);
-\end{tikzpicture}
-\end{center}
-\caption{on.exit() with error.}
-\label{on.exit}
-\end{figure}
-\end{frame}
-
-
-\begin{frame}[fragile]{on.exit()}
-Useful when your function has side effects:
-<< results='markup', warning=FALSE, eval=FALSE>>=
-hist3 <- function(x, ...){
-  old_options <- getOption("warn")
-  on.exit(options(warn = old_options))
-  options(warn = -1)
-  hist(x, ...)
-  abline(v = mean(x, ...), 
-         col = "darkred", lwd = 2)
-}
-hist3(airquality$Ozon, na.rm = TRUE)
-@
-\end{frame}
-
-
-\begin{frame}[fragile]{on.exit()}
-Useful when your function has side effects:
-<< results='markup', warning=FALSE, echo=FALSE>>=
-hist3 <- function(x, ...){
-  old_options <- getOption("warn")
-  on.exit(options(warn = old_options))
-  options(warn = -1)
-  hist(x, ...)
-  abline(v = mean(x, ...), 
-         col = "darkred", lwd = 2)
-}
-hist3(airquality$Ozon, na.rm = TRUE)
-@
-\end{frame}
-
-<<echo=FALSE, results="hide">>=
-warnings()
-@
-
-
-\subsection{Functions are objects}
-
-\begin{frame}[fragile]
-\begin{exampleblock}{}
-  {\large \begin{quote}
-``To understand computations in R, two slogans are helpful: Everything that exists is an object. {Everything} that happens is a function call.''
-\end{quote}}
-  \vskip5mm
-  \hspace*\fill{\small--- John Chambers}
-\end{exampleblock}
-\end{frame}
-
-
-\begin{frame}[fragile]{Functions are objects}
-Functions are also objects. They can be arguments.
-  \begin{itemize}
-    \item \texttt{apply}-family
-    \item ...
-  \end{itemize}
-
-<< results='markup'>>=
-do_this_that <- function(function1, function2, x){
-  function2(function1(x))
-}
-do_this_that(sum, log, 0:3)
-@
-\end{frame}
+%\subsection{on.exit()}
+%
+%\begin{frame}[fragile]{on.exit()}
+%Performing an action when the function terminates.
+%<< results='markup'>>=
+%add_ten_on_exit <- function(x) {
+%  on.exit(cat("Finished 'add_ten_on_exit', with input '", 
+%              x, "'. \n", sep = ""))
+%  return(x + 10)
+%}
+%add_ten_on_exit(1)
+%@
+%\end{frame}
+%
+%
+%\begin{frame}[fragile]{on.exit()}
+%Performing an action when the function terminates.
+%<< results='markup'>>=
+%add_ten_on_exit <- function(x) {
+%  on.exit(cat("Finished 'add_ten_on_exit', with input '", 
+%              x, "'. \n", sep = ""))
+%  return(x + 10)
+%}
+%add_ten_on_exit("one")
+%@
+%\end{frame}
+%
+%
+%\begin{frame}[fragile]{Error, warning, \& message}
+%
+%\begin{figure}
+%\begin{center}
+%\begin{tikzpicture}
+%\node[draw,ellipse] (s1) at (0,0) {function};
+%\node[draw,rectangle] (s2) at (-4,0) {object1, \ (object2, ...)};
+%\node[draw,star, star points=10] (s4) at (3,-2) {ERROR};
+%\node[draw,diamond, aspect = 2] (s5) at (3,2) {on.exit()};
+%\path
+%    (s2) edge[->, double distance=1pt, >=latex'] (s1)
+%    (s1) edge[->, double distance=1pt, >=latex'] (s4)
+%    (s1) edge[->, double distance=1pt, >=latex'] (s5);
+%\end{tikzpicture}
+%\end{center}
+%\caption{on.exit() with error.}
+%\label{on.exit}
+%\end{figure}
+%\end{frame}
+%
+%
+%\begin{frame}[fragile]{on.exit()}
+%Useful when your function has side effects:
+%<< results='markup', warning=FALSE, eval=FALSE>>=
+%hist3 <- function(x, ...){
+%  old_options <- getOption("warn")
+%  on.exit(options(warn = old_options))
+%  options(warn = -1)
+%  hist(x, ...)
+%  abline(v = mean(x, ...), 
+%         col = "darkred", lwd = 2)
+%}
+%hist3(airquality$Ozon, na.rm = TRUE)
+%@
+%\end{frame}
+%
+%
+%\begin{frame}[fragile]{on.exit()}
+%Useful when your function has side effects:
+%<< results='markup', warning=FALSE, echo=FALSE>>=
+%hist3 <- function(x, ...){
+%  old_options <- getOption("warn")
+%  on.exit(options(warn = old_options))
+%  options(warn = -1)
+%  hist(x, ...)
+%  abline(v = mean(x, ...), 
+%         col = "darkred", lwd = 2)
+%}
+%hist3(airquality$Ozon, na.rm = TRUE)
+%@
+%\end{frame}
+%
+%<<echo=FALSE, results="hide">>=
+%warnings()
+%@
+%
+%
+%\subsection{Functions are objects}
+%
+%\begin{frame}[fragile]
+%\begin{exampleblock}{}
+%  {\large \begin{quote}
+%``To understand computations in R, two slogans are helpful: Everything that exists %is an object. {Everything} that happens is a function call.''
+%\end{quote}}
+%  \vskip5mm
+%  \hspace*\fill{\small--- John Chambers}
+%\end{exampleblock}
+%\end{frame}
+%
+%
+%\begin{frame}[fragile]{Functions are objects}
+%Functions are also objects. They can be arguments.
+%  \begin{itemize}
+%    \item \texttt{apply}-family
+%    \item ...
+%  \end{itemize}
+%
+%<< results='markup'>>=
+%do_this_that <- function(function1, function2, x){
+%  function2(function1(x))
+%}
+%do_this_that(sum, log, 0:3)
+%@
+%\end{frame}
 
 
 \subsection{Work flow}
