@@ -124,3 +124,16 @@ pisa <- readRDS("data//pisaPlus_CF.RDS")
 
 
 
+# 6. Load the "airquality"-data using data("airquality"). 
+#    (a) Using lapply, plot a pink histogram of each variable (?hist)
+#    (b) Using vapply, compute the first and third quartile (quantile .25 
+#    and .75) for each variable
+#     Tip: ignore missing values using na.rm = TRUE
+data("airquality")
+?hist
+?quantile
+
+
+
+
+

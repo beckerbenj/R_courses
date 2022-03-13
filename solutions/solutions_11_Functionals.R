@@ -112,3 +112,20 @@ results_split <- lapply(pisa_school, do_glm,
 do.call(rbind, lapply(results_split, coef))
 
 
+
+
+
+# 6. Load the "airquality"-data using data("airquality"). 
+#    (a) Using lapply, plot a pink histogram of each variable (?hist)
+#    (b) Using vapply, compute the first and third quartile (quantile .25 
+#    and .75)for each variable
+#     Tip: ignore missing values using na.rm = TRUE
+data("airquality")
+?hist
+?quantile
+
+
+lapply(airquality, hist, col = "pink")
+t(vapply(airquality, quantile, FUN.VALUE = double(2), probs = c(.25, .75), na.rm = TRUE))
+
+
