@@ -57,7 +57,7 @@ purify(c(1, 3, 5, 4, 2, 6, 3, 4, 2), values = c(2, 3, 7))
 
 # 5. Write a function that takes a vector and creates a relative frequency table 
 #    (output in percentage!). TIP: the function prop.table() can help. 
-#    Test you function with the iris data
+#    Test your function with the iris data.
 
 data(iris)
 ?prop.table

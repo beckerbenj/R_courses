@@ -47,7 +47,7 @@ with(pisa, table(Gym_afternoon, schtype))
 # 12 >= pared       and  books >= 26 => group 2
 # pared < 12       and  books <  26 => group 3
 # 12 >= pared      and  books <  26 => group 4
-# TIP: use %in% to check if character string apears in another character string
+# TIP: use %in% to check if character string appears in another character string
 ?'%in%'
 
 
