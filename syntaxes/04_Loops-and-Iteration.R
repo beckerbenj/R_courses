@@ -94,20 +94,6 @@ for (index in seq_along(x)){
 }
 
 
-
-## lapply
-?lapply
-?iris
-str(iris)
-lapply(iris, FUN = class)
-
-
-?airquality
-str(airquality)
-means <- lapply(airquality, FUN = mean, na.rm = TRUE)
-str(means)
-
-
 ## apply
 ?apply
 my_matrix <- matrix(1:6, nrow = 2)
@@ -123,11 +109,28 @@ apply(my_array, 3, sum) # per "third dimension"
 
 
 
+## lapply
+?lapply
+?iris
+str(iris)
+lapply(iris, FUN = class)
+
+
+?airquality
+str(airquality)
+means <- lapply(airquality, FUN = mean, na.rm = TRUE)
+str(means)
+
+
+
+
+
+
 ## Exercises -----
 ##===========================================================
 # 1. Consider the following list ("attendance_list"). Write a for loop in which 
 #      (a) the name "Benny" is replaced by "bob"
-#      (b) the Attendees are put in alphabetical order
+#      (b) the Attendees are put in alphabetical order (using sort())
 #    Tip: You can use the index of the elements, or the names of the elements
 #         to iterate over.
 
@@ -143,11 +146,32 @@ attendance_list <- list(
 
 
 
+# 2. Consider the airquality data. 
+#    (a) Using a for loop, check whether there are NA values each column. 
+#        For instance using the anyNA() function. The result should be a logical
+#        vector with a length that equals the number of columns.
+#    (b) Repeat this, but now for each row.
+#    (c) Repeat (a) and (b), but use the apply() function.
+?airquality
+data("airquality")
 
 
 
 
-# 2. Consider the zero matrix "A". 
+# 3. Use the lapply function to sort the attendees alphabetically in 
+#    attendance_list 
+attendance_list <- list(
+  may_02 = c("Benny", "Anna", "Freddy", "Casey"), 
+  may_09 = c("Freddy", "Casey", "Donny", "Anna"), 
+  may_16 = c("Eddy", "Anna", "Freddy", "Casey", "Benny"), 
+  may_23 = c("Donny", "Freddy", "Anna"),
+  may_30 = c("Casey", "Freddy", "Donny", "Anna", "Benny", "Eddy")
+)
+
+
+
+
+# 4. Consider the zero matrix "A". 
 #    (a) Using a for loop, turn the matrix into a diagonal matrix with these 
 #        values on the diagonal c(1, 2, 3, 5, 7, 11, 13). 
 #    Tip 1: iterate over rows and columns together
@@ -165,39 +189,10 @@ A <- matrix(0, ncol = 7, nrow = 7)
 
 
 
-
-
-
-# 3. Using the formula (1 + 1 / x)^x, you can approximate Euler's number.
+# BONUS. Using the formula (1 + 1 / x)^x, you can approximate Euler's number.
 #    Write a loop in which x increases with 1 each iteration and find the
 #    first x for which the difference between the formula and exp(1) is 
 #    less than 0.00001
 
 
-
-
-
-# 4. Use the lapply function to sort the attendees alphabetically in 
-#    attendance_list 
-attendance_list <- list(
-  may_02 = c("Benny", "Anna", "Freddy", "Casey"), 
-  may_09 = c("Freddy", "Casey", "Donny", "Anna"), 
-  may_16 = c("Eddy", "Anna", "Freddy", "Casey", "Benny"), 
-  may_23 = c("Donny", "Freddy", "Anna"),
-  may_30 = c("Casey", "Freddy", "Donny", "Anna", "Benny", "Eddy")
-)
-
-
-
-
-
-
-# 5. Load the "airquality"-data using data("airquality"). 
-#    (a) Using lapply, plot a pink histogram of each variable (?hist)
-#    (b) Using vapply, compute the first and third quartile (quantile .25 
-#    and .75)for each variable
-#     Tip: ignore missing values using na.rm = TRUE
-data("airquality")
-?hist
-?quantile
 

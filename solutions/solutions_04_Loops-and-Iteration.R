@@ -62,7 +62,60 @@ for(date in names(attendance_list)){
 attendance_list
 
 
-# 2. Consider the zero matrix "A". 
+
+# 2. Consider the airquality data. 
+#    (a) Using a for loop, check whether there are NA values each column. 
+#        For instance using the anyNA() function. The result should be a logical
+#        vector with a length that equals the number of columns.
+#    (b) Repeat this, but now for each row.
+#    (c) Repeat (a) and (b), but use the apply() function.
+?airquality
+data("airquality")
+
+# possible solution (a)
+n_col <- ncol(airquality)
+NA_in_col <- logical(n_col)
+names(NA_in_col) <- names(airquality)
+for(col_nr in seq_len(n_col)){
+  NA_in_col[col_nr] <- anyNA(airquality[, col_nr])
+}
+
+NA_in_col
+
+
+# possible solution (b)
+n_row <- nrow(airquality)
+NA_in_row <- logical(n_row)
+for(row_nr in seq_len(n_row)){
+  NA_in_row[row_nr] <- anyNA(airquality[row_nr, ])
+}
+
+NA_in_row 
+
+
+# possible solution (c)
+apply(airquality, 2, anyNA)
+apply(airquality, 1, anyNA)
+
+
+
+# 3. Use the lapply function to sort the attendees alphabetically in 
+#    attendance_list 
+attendance_list <- list(
+  may_02 = c("Benny", "Anna", "Freddy", "Casey"), 
+  may_09 = c("Freddy", "Casey", "Donny", "Anna"), 
+  may_16 = c("Eddy", "Anna", "Freddy", "Casey", "Benny"), 
+  may_23 = c("Donny", "Freddy", "Anna"),
+  may_30 = c("Casey", "Freddy", "Donny", "Anna", "Benny", "Eddy")
+)
+
+
+# Possible solution
+lapply(attendance_list, sort)
+
+
+
+# 4. Consider the zero matrix "A". 
 #    (a) Using a for loop, turn the matrix into a diagonal matrix with these 
 #        values on the diagonal c(1, 2, 3, 5, 7, 11, 13). 
 #    Tip 1: iterate over rows and columns together
@@ -92,7 +145,7 @@ for(rowNr in seq_len(nrow(A))){
 }
 
 
-# 3. Using the formula (1 + 1 / x)^x, you can approximate Euler's number.
+# BONUS. Using the formula (1 + 1 / x)^x, you can approximate Euler's number.
 #    Write a loop in which x increases with 1 each iteration and find the
 #    first x for which the difference between the formula and exp(1) is 
 #    less than 0.00001
@@ -107,31 +160,6 @@ approx_e
 x
 
 
-# 4. Use the lapply function to sort the attendees alphabetically in 
-#    attendance_list 
-attendance_list <- list(
-  may_02 = c("Benny", "Anna", "Freddy", "Casey"), 
-  may_09 = c("Freddy", "Casey", "Donny", "Anna"), 
-  may_16 = c("Eddy", "Anna", "Freddy", "Casey", "Benny"), 
-  may_23 = c("Donny", "Freddy", "Anna"),
-  may_30 = c("Casey", "Freddy", "Donny", "Anna", "Benny", "Eddy")
-)
 
 
-# Possible solution
-lapply(attendance_list, sort)
-
-
-# 5. Load the "airquality"-data using data("airquality"). 
-#    (a) Using lapply, plot a pink histogram of each variable (?hist)
-#    (b) Using vapply, compute the first and third quartile (quantile .25 
-#    and .75)for each variable
-#     Tip: ignore missing values using na.rm = TRUE
-data("airquality")
-?hist
-?quantile
-
-
-lapply(airquality, hist, col = "pink")
-t(vapply(airquality, quantile, FUN.VALUE = double(2), probs = c(.25, .75), na.rm = TRUE))
 
