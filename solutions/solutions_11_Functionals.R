@@ -1,7 +1,7 @@
-# Advanced Programming with R
-# Zurich R Courses, October 2021
-
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+#
 # Functionals
+# 
 #::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
@@ -65,8 +65,32 @@ lapply(airquality, calc_mode)
 
 
 
+# 4. Consider the following list of data.frames. Each data.frame represents a 
+#    rater who has rated the behavior of various kindergarten children. Use
+#    Map() to append the data.frame name to each data.frame, then use 
+#    do.call(rbind()) to create a single data.frame with all information.
 
-# 4. Read the Pisa data. Inspect the data using View(), str(), summary(),...
+rater1 <- data.frame(childID = 1:3,
+                     nice = c(1, 3, 2),
+                     help = c(4, 2, 1))
+rater2 <- data.frame(childID = 4:6,
+                     nice = c(3, 3, 1),
+                     help = c(2, 4, 3))
+rater_list <- list(rater1 = rater1,
+                   rater2 = rater2)
+
+
+out_list <- Map(function(dat, name_rater) {
+  dat[, "rater_name"] <- name_rater
+  dat
+  }, 
+  dat = rater_list, name_rater = names(rater_list))
+do.call(rbind, out_list)
+
+
+
+
+# 5. Read the Pisa data. Inspect the data using View(), str(), summary(),...
 #    We have the hypothesis that parental education (pared) has an effect on 
 #    the number of books at home (books). Use the split-apply-combine paradigm
 #    to make a table that lists the coefficients of a glm() for each school type
