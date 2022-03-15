@@ -450,7 +450,7 @@ R has specific tools (functions) that help organize the flow of computations. \\
 You can repeat a similar computation multiple times typically with changing options (``iteration'').
 The most commonly used tools are: 
 \begin{itemize}
-  \item loops (\texttt{repeat}, \texttt{while}, \texttt{for})
+  \item loops (\texttt{for}, \texttt{while}, \texttt{repeat})
   \item \emph{functionals }(\texttt{apply} - family)
 \end{itemize}
 \end{frame}
@@ -833,20 +833,120 @@ The documentation typically gives (or should give) information about what
 objects the arguments should be. Check \texttt{?sum}
 \end{frame}
 
-\subsection{Output}
 
-\begin{frame}[fragile]{Output}
-Functions usually return a single object, namely the last evaluated object.
+
+\subsection{Single return object}
+
+\begin{frame}{Single return object}
+Pure functions return a single object.
+\begin{itemize}
+  \item (Standard) The last evaluated object 
+  \item Object defined by return()
+\end{itemize}
+
+\begin{figure}
+\begin{center}
+\begin{tikzpicture}
+\node[draw,ellipse] (s1) at (0,0) {function};
+\node[draw,rectangle] (s2) at (-4,0) {object1, \ (object2, ...)};
+\node[draw,rectangle] (s3) at (3,0) {new object};
+\path
+    (s2) edge[->, double distance=1pt, >=latex'] (s1)
+    (s1) edge[->, double distance=1pt, >=latex'] (s3);
+\end{tikzpicture}
+\end{center}
+\caption{A pure function.}
+\label{pure_function}
+\end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{Single return object}
+\texttt{return()} stops the computation, and returns the object.
 <<echo=TRUE>>=
-get_log_xtox <- function(x) {
-  x_x <- x^x
-  out <- log(x_x)
+return_early <- function(x, early) {
+  x2 <- x*2
+  if(early) (return(x2))
+  out <- x + x2 # not executed
   out
 }
-get_log_xtox(2)
+return_early(2, early = TRUE)
+return_early(2, early = FALSE)
 @
 \end{frame}
 
+
+\begin{frame}[fragile]{Single return object}
+Multiple return objects can be combined in a list!
+<< eval = FALSE, size = "footnotesize">>=
+                            # Name
+do_this <- function(vector, other_vector) { # Arguments
+  # many computations                       # Body
+  return(list(output1 = this, 
+              output2 = that))              # Output
+}
+@
+\end{frame}
+
+\begin{frame}[fragile]{Single Return Object}
+The return object is a list with multiple objects.
+<< eval = TRUE, size = "footnotesize">>=
+get_info <- function(x){
+  mean_x <- mean(x)
+  median_x <- median(x)
+  n_obs_x <- length(x)
+  range_x <- range(x)
+  return(list(mean = mean_x, median = median_x, 
+              n_obs = n_obs_x, range = range_x))
+}
+str(get_info(airquality$Wind))
+@
+\end{frame}
+
+
+
+
+\subsection{Default Arguments}
+
+\begin{frame}[fragile]{Default arguments}
+What happens if the user omits an argument?
+<<echo=TRUE, eval = TRUE>>=
+return_early <- function(x, early) {
+  x2 <- x*2
+  if(early) (return(x2))
+  out <- x + x2 # not executed
+  out
+}
+return_early(2)
+@
+\end{frame}
+
+\begin{frame}[fragile]{Default arguments}
+Default arguments are made for such instances!
+<<echo=TRUE, eval=TRUE>>=
+return_early <- function(x, early = FALSE) {
+  x2 <- x*2
+  if(early) (return(x2))
+  out <- x + x2 # not executed
+  out
+}
+return_early(2)
+@
+\end{frame}
+
+\begin{frame}[fragile]{Default arguments}
+Additional arguments give (the user) flexibility. Default arguments keep the function easy to use. 
+
+\vspace{0.3cm}
+
+Try \texttt{?lm}
+\metroset{block=fill} %grey blocks
+\begin{block}{Programming advice}
+\begin{itemize}
+  \item Think which arguments to include, and which should (not) have defaults
+  \item Choose sensible defaults
+\end{itemize}
+\end{block}
+\end{frame}
 
 
 
@@ -920,71 +1020,7 @@ round(c("Min." = min(mtcars$mpg),
 @
 \end{frame}
 
-\subsection{Single return object}
 
-\begin{frame}{Single return object}
-Pure functions return a single object.
-\begin{itemize}
-  \item (Standard) The last evaluated object 
-  \item Object defined by return()
-\end{itemize}
-
-\begin{figure}
-\begin{center}
-\begin{tikzpicture}
-\node[draw,ellipse] (s1) at (0,0) {function};
-\node[draw,rectangle] (s2) at (-4,0) {object1, \ (object2, ...)};
-\node[draw,rectangle] (s3) at (3,0) {new object};
-\path
-    (s2) edge[->, double distance=1pt, >=latex'] (s1)
-    (s1) edge[->, double distance=1pt, >=latex'] (s3);
-\end{tikzpicture}
-\end{center}
-\caption{A pure function.}
-\label{pure_function}
-\end{figure}
-\end{frame}
-
-\begin{frame}[fragile]{Single return object}
-\texttt{return()} stops the computation, and returns the object.
-<<echo=TRUE>>=
-return_early <- function(x = 1) {
-  x2 <- x*2
-  return(x2)
-  out <- x + x2    # not executed
-  out
-}
-return_early(2)
-@
-\end{frame}
-
-
-\begin{frame}[fragile]{Single return object}
-Multiple return objects can be combined in a list!
-<< eval = FALSE, size = "footnotesize">>=
-                            # Name
-do_this <- function(vector, other_vector) { # Arguments
-  # many computations                       # Body
-  return(list(output1 = this, 
-              output2 = that))              # Output
-}
-@
-\end{frame}
-
-\begin{frame}[fragile]{Single Return Object}
-The return object is a list with multiple objects.
-<< eval = TRUE, size = "footnotesize">>=
-get_info <- function(x){
-  mean_x <- mean(x)
-  median_x <- median(x)
-  n_obs_x <- length(x)
-  range_x <- range(x)
-  return(list(mean = mean_x, median = median_x, 
-              n_obs = n_obs_x, range = range_x))
-}
-str(get_info(airquality$Wind))
-@
-\end{frame}
 
 \subsection{Side effects}
 
@@ -1228,43 +1264,6 @@ Message \& warning: computation is NOT interrupted!
 
 
 
-\subsection{Default Arguments}
-
-\begin{frame}[fragile]{Default arguments}
-What happens if the user omits an argument?
-<<echo=TRUE, eval = TRUE>>=
-add_ten <- function(x) {
-  return(x + 10)
-}
-add_ten()
-@
-\end{frame}
-
-\begin{frame}[fragile]{Default arguments}
-Default arguments are made for such instances!
-<<echo=TRUE, eval=TRUE>>=
-add_ten_default <- function(x = 0) {
-  return(x + 10)
-}
-add_ten_default()
-@
-\end{frame}
-
-\begin{frame}[fragile]{Default arguments}
-Additional arguments give (the user) flexibility. Default arguments keep the function easy to use. 
-
-\vspace{0.3cm}
-
-Try \texttt{?lm}
-\metroset{block=fill} %grey blocks
-\begin{block}{Programming advice}
-\begin{itemize}
-  \item Think which arguments to include, and which should (not) have defaults
-  \item Choose sensible defaults
-\end{itemize}
-\end{block}
-\end{frame}
-
 % \subsection{Lazy Evaluation}
 % 
 % 
@@ -1289,6 +1288,358 @@ Try \texttt{?lm}
 % add_ten_force(2, y = stop("Evaluation was forced"))
 % @
 % \texttt{?force}
+% \end{frame}
+
+
+
+\subsection{Scoping rules}
+
+
+\begin{frame}[fragile]{Where does a function find objects?}
+R uses specific rules to find objects, which lead to the following: 
+<< results='markup'>>=
+a <- 55
+add_a <- function(x){
+  return(x + a)
+}
+add_a(5)
+@
+When a function is called, the computations in the body are run line by line. When \texttt{R} cannot find an object inside the function, it looks outside the function.
+\end{frame}
+
+
+
+\begin{frame}[fragile]{Where does a function find objects?}
+\textbf{Name masking! }
+
+\vspace{0.3cm}
+
+Objects inside the function mask objects outside the function with the same name.
+
+<< results='markup'>>=
+a <- 55
+add_a <- function(x){
+  a <- 5
+  return(x + a)
+}
+add_a(5)
+@
+
+\end{frame}
+
+
+%\begin{frame}[fragile]{Where does a function find objects?}
+%R uses specific rules to find objects.
+%<< results='markup'>>=
+%a <- b <- c <- d <- "fourth"
+%find_object <- function(a, b = "third", c = "third"){
+%  a <- "first"
+%  return(c(a = a, b = b, c = c, d = d))
+%}
+%find_object(b = "second")
+%@
+%\end{frame}
+%
+%
+%
+%\begin{frame}[fragile]{Where does a function find objects?}
+%R uses specific rules to find objects.
+%
+%\begin{enumerate}
+%  \item in the function body
+%  \item in the function call
+%  \item in the function definition
+%  \item outside the function
+%\end{enumerate}
+%
+%Watch out with number 4! Frequently restart R: \texttt{Ctrl + shift + F10}
+%\end{frame}
+
+
+
+\subsection{Functional Programming}
+
+
+
+\begin{frame}[fragile]{Functional programming}
+The return object should only depend on the arguments of the function, \emph{\textbf{not}} on the context! 
+
+\vspace{0.3cm}
+
+\textbf{BAD:}
+<< results='markup'>>=
+a <- 55
+add_a <- function(x){
+  return(x + a)
+}
+add_a(5)
+@
+\end{frame}
+
+
+
+\begin{frame}[fragile]{Functional programming}
+The return object should only depend on the arguments of the function, \emph{\textbf{not}} on the context!  
+
+\vspace{0.3cm}
+
+\textbf{GOOD:}
+<< results='markup'>>=
+add_a <- function(x, a = 55){
+  return(x + a)
+}
+add_a(5)
+@
+\end{frame}
+
+
+
+\begin{frame}[fragile]{Functional programming}
+The function should not change the context.
+
+\vspace{0.3cm}
+
+\textbf{BAD}
+<< results='markup'>>=
+a <- 55
+change_a <- function(new_a){
+  a <<- new_a
+  return(invisible(NULL))
+}
+change_a(5)
+a
+@
+\end{frame}
+
+
+
+\subsection{dot dot dot}
+
+\begin{frame}{\texttt{...} dot-dot-dot }
+R has a special argument (in the definition of the function):
+
+\vspace{0.3cm}
+
+\texttt{...} (dot-dot-dot)
+
+Useful when you don't know how many arguments there will be.
+\textbf{Examples:}
+  \begin{itemize}
+    \item \texttt{?sum}
+    \item \texttt{?save}
+    \item \texttt{?cbind}
+    \item \texttt{?paste}
+    \item ...
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]{\texttt{...} dot-dot-dot}
+A function that checks for multiple objects if they are character vectors. (A wrapper around \texttt(?is.character))
+<< results='markup', eval = TRUE>>=
+is_character <- function(...){
+  lapply(list(...), is.character)
+}
+is_character(a = "Awesome", b = 5)
+@
+\end{frame}
+
+\begin{frame}{\texttt{...} dot-dot-dot }
+\texttt{...} can take \emph{any} number of additional arguments
+Useful for passing arguments to other functions like:
+  \begin{itemize}
+    \item \texttt{apply}-family
+    \item \texttt{plot}-family
+    \item ...
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]{\texttt{...} dot-dot-dot }
+\texttt{apply} example.
+<< results='markup'>>=
+get_quantiles <- function(x, ...){
+  apply(x, 2, quantile, ...)
+}
+get_quantiles(airquality, na.rm = TRUE, 
+              probs = c(.25, .5, .27))
+@
+\end{frame}
+
+
+\begin{frame}[fragile]{\texttt{...} dot-dot-dot}
+\textbf{WARNING!} Watch out with spelling mistakes, arguments can get lost!
+<< results='markup'>>=
+get_quantiles <- function(x, ...){
+  apply(x, 2, quantile, ...)
+}
+get_quantiles(airquality, na.rm = TRUE, 
+              prosb = c(.25, .5, .27))
+@
+\end{frame}
+
+% \begin{frame}{dot-dot-dot \texttt{...}}
+% 
+% force names
+% 
+% \end{frame}
+
+
+%\subsection{on.exit()}
+%
+%\begin{frame}[fragile]{on.exit()}
+%Performing an action when the function terminates.
+%<< results='markup'>>=
+%add_ten_on_exit <- function(x) {
+%  on.exit(cat("Finished 'add_ten_on_exit', with input '", 
+%              x, "'. \n", sep = ""))
+%  return(x + 10)
+%}
+%add_ten_on_exit(1)
+%@
+%\end{frame}
+%
+%
+%\begin{frame}[fragile]{on.exit()}
+%Performing an action when the function terminates.
+%<< results='markup'>>=
+%add_ten_on_exit <- function(x) {
+%  on.exit(cat("Finished 'add_ten_on_exit', with input '", 
+%              x, "'. \n", sep = ""))
+%  return(x + 10)
+%}
+%add_ten_on_exit("one")
+%@
+%\end{frame}
+%
+%
+%\begin{frame}[fragile]{Error, warning, \& message}
+%
+%\begin{figure}
+%\begin{center}
+%\begin{tikzpicture}
+%\node[draw,ellipse] (s1) at (0,0) {function};
+%\node[draw,rectangle] (s2) at (-4,0) {object1, \ (object2, ...)};
+%\node[draw,star, star points=10] (s4) at (3,-2) {ERROR};
+%\node[draw,diamond, aspect = 2] (s5) at (3,2) {on.exit()};
+%\path
+%    (s2) edge[->, double distance=1pt, >=latex'] (s1)
+%    (s1) edge[->, double distance=1pt, >=latex'] (s4)
+%    (s1) edge[->, double distance=1pt, >=latex'] (s5);
+%\end{tikzpicture}
+%\end{center}
+%\caption{on.exit() with error.}
+%\label{on.exit}
+%\end{figure}
+%\end{frame}
+%
+%
+%\begin{frame}[fragile]{on.exit()}
+%Useful when your function has side effects:
+%<< results='markup', warning=FALSE, eval=FALSE>>=
+%hist3 <- function(x, ...){
+%  old_options <- getOption("warn")
+%  on.exit(options(warn = old_options))
+%  options(warn = -1)
+%  hist(x, ...)
+%  abline(v = mean(x, ...), 
+%         col = "darkred", lwd = 2)
+%}
+%hist3(airquality$Ozon, na.rm = TRUE)
+%@
+%\end{frame}
+%
+%
+%\begin{frame}[fragile]{on.exit()}
+%Useful when your function has side effects:
+%<< results='markup', warning=FALSE, echo=FALSE>>=
+%hist3 <- function(x, ...){
+%  old_options <- getOption("warn")
+%  on.exit(options(warn = old_options))
+%  options(warn = -1)
+%  hist(x, ...)
+%  abline(v = mean(x, ...), 
+%         col = "darkred", lwd = 2)
+%}
+%hist3(airquality$Ozon, na.rm = TRUE)
+%@
+%\end{frame}
+%
+%<<echo=FALSE, results="hide">>=
+%warnings()
+%@
+%
+%
+%\subsection{Functions are objects}
+%
+%\begin{frame}[fragile]
+%\begin{exampleblock}{}
+%  {\large \begin{quote}
+%``To understand computations in R, two slogans are helpful: Everything that exists %is an object. {Everything} that happens is a function call.''
+%\end{quote}}
+%  \vskip5mm
+%  \hspace*\fill{\small--- John Chambers}
+%\end{exampleblock}
+%\end{frame}
+%
+%
+%\begin{frame}[fragile]{Functions are objects}
+%Functions are also objects. They can be arguments.
+%  \begin{itemize}
+%    \item \texttt{apply}-family
+%    \item ...
+%  \end{itemize}
+%
+%<< results='markup'>>=
+%do_this_that <- function(function1, function2, x){
+%  function2(function1(x))
+%}
+%do_this_that(sum, log, 0:3)
+%@
+%\end{frame}
+
+
+\subsection{Work flow}
+
+\begin{frame}{Writing Functions}
+  Before creating the function
+  \begin{itemize}
+    \item What should my function do?
+    \item Which input objects (Arguments)?
+    \item which additional options (Arguments)?
+    \item What should the output object be?
+  \end{itemize}
+  After creating the function
+  \begin{itemize}
+    \item Test it
+    \item Add input validation
+    \item Document
+  \end{itemize}
+\end{frame}
+
+
+\subsection{Good functions?}
+
+\begin{frame}{What makes a good function?}
+\textbf{Pure functions!}
+  \begin{itemize}
+    \item no side effects
+    \item no dependency on global environment
+    \item only input via arguments (functional programming)
+  \end{itemize}
+  Results in easier understanding and higher portability.
+\end{frame}
+
+% \subsection{Accessing the function call}
+% 
+% \begin{frame}[fragile]{Accessing the function call}
+% Accessing the function call
+% << results='asis'>>=
+% showArgs <- function(x, y) {
+%   match.call()
+% }
+% showArgs(1, 2)
+% @
 % \end{frame}
 
 
@@ -1512,365 +1863,6 @@ do.call(rbind, out_list)
 \end{center}
 \end{frame}
 
-% ----------------------------------------------------------------------------------------------------------------------
-
-\section{Functions III}
-\label{sec:fun3}
-
-
-\subsection{Scoping rules}
-
-
-\begin{frame}[fragile]{Where does a function find objects?}
-R uses specific rules to find objects, which lead to the following: 
-<< results='markup'>>=
-a <- 55
-add_a <- function(x){
-  return(x + a)
-}
-add_a(5)
-@
-When a function is called, the computations in the body are run line by line. When \texttt{R} cannot find an object inside the function, it looks outside the function.
-\end{frame}
-
-
-
-\begin{frame}[fragile]{Where does a function find objects?}
-\textbf{Name masking! }
-
-\vspace{0.3cm}
-
-Objects inside the function mask objects outside the function with the same name.
-
-<< results='markup'>>=
-a <- 55
-add_a <- function(x){
-  a <- 5
-  return(x + a)
-}
-add_a(5)
-@
-
-\end{frame}
-
-
-\begin{frame}[fragile]{Where does a function find objects?}
-R uses specific rules to find objects.
-<< results='markup'>>=
-a <- b <- c <- d <- "fourth"
-find_object <- function(a, b = "third", c = "third"){
-  a <- "first"
-  return(c(a = a, b = b, c = c, d = d))
-}
-find_object(b = "second")
-@
-\end{frame}
-
-
-
-\begin{frame}[fragile]{Where does a function find objects?}
-R uses specific rules to find objects.
-
-\begin{enumerate}
-  \item in the function body
-  \item in the function call
-  \item in the function definition
-  \item outside the function
-\end{enumerate}
-
-Watch out with number 4! Frequently restart R: \texttt{Ctrl + shift + F10}
-\end{frame}
-
-
-
-\subsection{Functional Programming}
-
-
-
-\begin{frame}[fragile]{Functional programming}
-The return object should only depend on the arguments of the function, \emph{\textbf{not}} on the context! 
-
-\vspace{0.3cm}
-
-\textbf{BAD:}
-<< results='markup'>>=
-a <- 55
-add_a <- function(x){
-  return(x + a)
-}
-add_a(5)
-@
-\end{frame}
-
-
-
-\begin{frame}[fragile]{Functional programming}
-The return object should only depend on the arguments of the function, \emph{\textbf{not}} on the context!  
-
-\vspace{0.3cm}
-
-\textbf{GOOD:}
-<< results='markup'>>=
-add_a <- function(x, a = 55){
-  return(x + a)
-}
-add_a(5)
-@
-\end{frame}
-
-
-
-\begin{frame}[fragile]{Functional programming}
-The function should not change the context.
-
-\vspace{0.3cm}
-
-\textbf{BAD}
-<< results='markup'>>=
-a <- 55
-change_a <- function(new_a){
-  a <<- new_a
-  return(invisible(NULL))
-}
-change_a(5)
-a
-@
-\end{frame}
-
-
-
-\subsection{dot dot dot}
-
-\begin{frame}{\texttt{...} dot-dot-dot }
-R has a special argument (in the definition of the function):
-
-\vspace{0.3cm}
-
-\texttt{...} (dot-dot-dot)
-
-Useful when you don't know how many arguments there will be.
-\textbf{Examples:}
-  \begin{itemize}
-    \item \texttt{?sum}
-    \item \texttt{?save}
-    \item \texttt{?cbind}
-    \item \texttt{?paste}
-    \item ...
-  \end{itemize}
-\end{frame}
-
-
-\begin{frame}[fragile]{\texttt{...} dot-dot-dot}
-A function that checks for multiple objects if they are character vectors. (A wrapper around \texttt(?is.character))
-<< results='markup', eval = FALSE>>=
-is_character <- function(...){
-  lapply(list(...), is.character)
-}
-is_character(a = "Awesome", b = 5)
-@
-\end{frame}
-
-\begin{frame}{\texttt{...} dot-dot-dot }
-\texttt{...} can take \emph{any} number of additional arguments
-Useful for passing arguments to other functions like.
-\end{frame}
-
-
-\begin{frame}[fragile]{\texttt{...} dot-dot-dot }
-\texttt{apply} example.
-<< results='markup'>>=
-get_quantiles <- function(x, ...){
-  apply(x, 2, quantile, ...)
-}
-get_quantiles(airquality, na.rm = TRUE, 
-              probs = c(.25, .5, .27))
-@
-\end{frame}
-
-
-\begin{frame}[fragile]{\texttt{...} dot-dot-dot}
-\textbf{WARNING!} Watch out with spelling mistakes, arguments can get lost!
-<< results='markup'>>=
-get_quantiles <- function(x, ...){
-  apply(x, 2, quantile, ...)
-}
-get_quantiles(airquality, na.rm = TRUE, 
-              prosb = c(.25, .5, .27))
-@
-\end{frame}
-
-% \begin{frame}{dot-dot-dot \texttt{...}}
-% 
-% force names
-% 
-% \end{frame}
-
-
-%\subsection{on.exit()}
-%
-%\begin{frame}[fragile]{on.exit()}
-%Performing an action when the function terminates.
-%<< results='markup'>>=
-%add_ten_on_exit <- function(x) {
-%  on.exit(cat("Finished 'add_ten_on_exit', with input '", 
-%              x, "'. \n", sep = ""))
-%  return(x + 10)
-%}
-%add_ten_on_exit(1)
-%@
-%\end{frame}
-%
-%
-%\begin{frame}[fragile]{on.exit()}
-%Performing an action when the function terminates.
-%<< results='markup'>>=
-%add_ten_on_exit <- function(x) {
-%  on.exit(cat("Finished 'add_ten_on_exit', with input '", 
-%              x, "'. \n", sep = ""))
-%  return(x + 10)
-%}
-%add_ten_on_exit("one")
-%@
-%\end{frame}
-%
-%
-%\begin{frame}[fragile]{Error, warning, \& message}
-%
-%\begin{figure}
-%\begin{center}
-%\begin{tikzpicture}
-%\node[draw,ellipse] (s1) at (0,0) {function};
-%\node[draw,rectangle] (s2) at (-4,0) {object1, \ (object2, ...)};
-%\node[draw,star, star points=10] (s4) at (3,-2) {ERROR};
-%\node[draw,diamond, aspect = 2] (s5) at (3,2) {on.exit()};
-%\path
-%    (s2) edge[->, double distance=1pt, >=latex'] (s1)
-%    (s1) edge[->, double distance=1pt, >=latex'] (s4)
-%    (s1) edge[->, double distance=1pt, >=latex'] (s5);
-%\end{tikzpicture}
-%\end{center}
-%\caption{on.exit() with error.}
-%\label{on.exit}
-%\end{figure}
-%\end{frame}
-%
-%
-%\begin{frame}[fragile]{on.exit()}
-%Useful when your function has side effects:
-%<< results='markup', warning=FALSE, eval=FALSE>>=
-%hist3 <- function(x, ...){
-%  old_options <- getOption("warn")
-%  on.exit(options(warn = old_options))
-%  options(warn = -1)
-%  hist(x, ...)
-%  abline(v = mean(x, ...), 
-%         col = "darkred", lwd = 2)
-%}
-%hist3(airquality$Ozon, na.rm = TRUE)
-%@
-%\end{frame}
-%
-%
-%\begin{frame}[fragile]{on.exit()}
-%Useful when your function has side effects:
-%<< results='markup', warning=FALSE, echo=FALSE>>=
-%hist3 <- function(x, ...){
-%  old_options <- getOption("warn")
-%  on.exit(options(warn = old_options))
-%  options(warn = -1)
-%  hist(x, ...)
-%  abline(v = mean(x, ...), 
-%         col = "darkred", lwd = 2)
-%}
-%hist3(airquality$Ozon, na.rm = TRUE)
-%@
-%\end{frame}
-%
-%<<echo=FALSE, results="hide">>=
-%warnings()
-%@
-%
-%
-%\subsection{Functions are objects}
-%
-%\begin{frame}[fragile]
-%\begin{exampleblock}{}
-%  {\large \begin{quote}
-%``To understand computations in R, two slogans are helpful: Everything that exists %is an object. {Everything} that happens is a function call.''
-%\end{quote}}
-%  \vskip5mm
-%  \hspace*\fill{\small--- John Chambers}
-%\end{exampleblock}
-%\end{frame}
-%
-%
-%\begin{frame}[fragile]{Functions are objects}
-%Functions are also objects. They can be arguments.
-%  \begin{itemize}
-%    \item \texttt{apply}-family
-%    \item ...
-%  \end{itemize}
-%
-%<< results='markup'>>=
-%do_this_that <- function(function1, function2, x){
-%  function2(function1(x))
-%}
-%do_this_that(sum, log, 0:3)
-%@
-%\end{frame}
-
-
-\subsection{Work flow}
-
-\begin{frame}{Writing Functions}
-  Before creating the function
-  \begin{itemize}
-    \item What should my function do?
-    \item Which input objects (Arguments)?
-    \item which additional options (Arguments)?
-    \item What should the output object be?
-  \end{itemize}
-  After creating the function
-  \begin{itemize}
-    \item Test it
-    \item Add input validation
-    \item Document
-  \end{itemize}
-\end{frame}
-
-
-\subsection{Good functions?}
-
-\begin{frame}{What makes a good function?}
-\textbf{Pure functions!}
-  \begin{itemize}
-    \item no side effects
-    \item no dependency on global environment
-    \item only input via arguments (functional programming)
-  \end{itemize}
-  Results in easier understanding and higher portability.
-\end{frame}
-
-% \subsection{Accessing the function call}
-% 
-% \begin{frame}[fragile]{Accessing the function call}
-% Accessing the function call
-% << results='asis'>>=
-% showArgs <- function(x, y) {
-%   match.call()
-% }
-% showArgs(1, 2)
-% @
-% \end{frame}
-
-\begin{frame}[plain]
-\begin{center}
-\Large Exercises \\
-
-\vspace{1.5cm}
-\includegraphics[height=.25\textheight]{exercises.jpg}
-\end{center}
-\end{frame}
 
 
 % ----------------------------------------------------------------------------------------------------------------------
@@ -2185,110 +2177,101 @@ Don't worry about speed before it becomes an issue.
 
 
 
-\subsection{Working with RStudio}
+%\subsection{Working with RStudio}
+%
+%\begin{frame}{Working with RStudio}
+%``Every project should get an RStudio Project!'' 
+%
+%\vspace{0.3cm}
+%
+%Don't use \texttt{setwd(``path\/to\/my\/local\_folder'')} 
+%
+%\vspace{0.3cm}
+%
+%Issues when:
+%\begin{itemize}
+%  \item folders names are changed
+%  \item folders are moved
+%  \item a shared drive is used
+%  \item you ZIP and send the folder
+%\end{itemize}
+%\end{frame}
 
-\begin{frame}{Working with RStudio}
-``Every project should get an RStudio Project!'' 
+%\begin{frame}{Working with RStudio}
+%Don't save work space to \texttt{.RData}.
+%\begin{itemize}
+%  \item Tools < Global Options < Workspace < Save workspace ....
+%  \item Save the code instead!
+%  \item Use \texttt{saveRDS()} and \texttt{readRDS()} for objects that require long %computations
+%\end{itemize}
+%\end{frame}
+%
+%\begin{frame}[fragile]{Working with RStudio}
+%Don't use \texttt{rm(list = ls())} at the start of an Rscript.
+%\begin{itemize}
+%  \item Start clean, every time. 
+%  \item Keep it clean. No outside code, no outside computing.
+%  \item Regularly completely clean the work space (or restart the session).
+%\end{itemize}
+%<<restart,  eval = FALSE>>=
+%.rs.restartR()
+%@
+%\end{frame}
+%
+%\begin{frame}{Working with RStudio}
+%Keep it clean
+%\begin{itemize}
+%  \item one folder per project!
+%  \item work on different projects in different RStudio instances!
+%  \item each with own R console, working directory, ...
+%\end{itemize}
+%\end{frame}
+%
+%\begin{frame}[fragile]{Working with RStudio}
+%Organize your project folder
+%\begin{itemize}
+%  \item R-folder with R scripts
+%  \item Data-folder with data
+%  \item split long scripts in meaningful chunks
+%  \item use relative paths (alternative: \href{https://CRAN.R-project.org/package%=here}{here}-package)
+%\end{itemize}
+%<<organize,  eval = FALSE>>=
+%# read data
+%this_data <- read.csv("Data\the-correct-file.csv")
+%
+%# source Rscript
+%source("R\01_first-script-to-source.R")
+%@
+%\end{frame}
 
-\vspace{0.3cm}
-
-Don't use \texttt{setwd(``path\/to\/my\/local\_folder'')} 
-
-\vspace{0.3cm}
-
-Issues when:
-\begin{itemize}
-  \item folders names are changed
-  \item folders are moved
-  \item a shared drive is used
-  \item you ZIP and send the folder
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Working with RStudio}
-Don't save work space to \texttt{.RData}.
-\begin{itemize}
-  \item Tools < Global Options < Workspace < Save workspace ....
-  \item Save the code instead!
-  \item Use \texttt{saveRDS()} and \texttt{readRDS()} for objects that require long computations
-\end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Working with RStudio}
-Don't use \texttt{rm(list = ls())} at the start of an Rscript.
-\begin{itemize}
-  \item Start clean, every time. 
-  \item Keep it clean. No outside code, no outside computing.
-  \item Regularly completely clean the work space (or restart the session).
-\end{itemize}
-<<restart,  eval = FALSE>>=
-.rs.restartR()
-@
-\end{frame}
-
-\begin{frame}{Working with RStudio}
-Keep it clean
-\begin{itemize}
-  \item one folder per project!
-  \item work on different projects in different RStudio instances!
-  \item each with own R console, working directory, ...
-\end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Working with RStudio}
-Organize your project folder
-\begin{itemize}
-  \item R-folder with R scripts
-  \item Data-folder with data
-  \item split long scripts in meaningful chunks
-  \item use relative paths (alternative: \href{https://CRAN.R-project.org/package=here}{here}-package)
-\end{itemize}
-<<organize,  eval = FALSE>>=
-# read data
-this_data <- read.csv("Data\the-correct-file.csv")
-
-# source Rscript
-source("R\01_first-script-to-source.R")
-@
-\end{frame}
-
-\begin{frame}{Working with RStudio}
-Use keyboard shortcuts
-\begin{itemize}
-  \item Can make working in RStudio more efficient
-  \item Completely tunable: Tools < Modify Keyboard Shortcuts...
-  \item Useful shortcuts (defaults):
-  \begin{itemize}
-    \item jump to editor: \texttt{ctrl + 1}
-    \item jump to console: \texttt{ctrl + 2}
-    \item jump to ...: \texttt{ctrl + 3-9}
-    \item jump to next tab: \texttt{ctrl + tab}
-    \item jump to previous tab: \texttt{ctrl + shift + tab}
-  \end{itemize}
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Working with RStudio}
-More useful shortcuts (defaults):
-\begin{itemize}
-  \item run selection/selected line: \texttt{ctrl + enter}
-  \item save current file: \texttt{ctrl + s}
-  \item close current file: \texttt{ctrl + w} 
-  \item restart R: \texttt{ctrl + shift + F10}
-  \item Show help (for function at cursor) \texttt{F1}
-  \item Show source code (for function at cursor) \texttt{F2}
-\end{itemize}
-More on this \href{https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts}{HERE}.
-\end{frame}
-
-\begin{frame}[plain]
-\begin{center}
-\Large Exercises \\
-
-\vspace{1.5cm}
-\includegraphics[height=.25\textheight]{exercises.jpg}
-\end{center}
-\end{frame}
+%\begin{frame}{Working with RStudio}
+%Use keyboard shortcuts
+%\begin{itemize}
+%  \item Can make working in RStudio more efficient
+%  \item Completely tunable: Tools < Modify Keyboard Shortcuts...
+%  \item Useful shortcuts (defaults):
+%  \begin{itemize}
+%    \item jump to editor: \texttt{ctrl + 1}
+%    \item jump to console: \texttt{ctrl + 2}
+%    \item jump to ...: \texttt{ctrl + 3-9}
+%    \item jump to next tab: \texttt{ctrl + tab}
+%    \item jump to previous tab: \texttt{ctrl + shift + tab}
+%  \end{itemize}
+%\end{itemize}
+%\end{frame}
+%
+%\begin{frame}{Working with RStudio}
+%More useful shortcuts (defaults):
+%\begin{itemize}
+%  \item run selection/selected line: \texttt{ctrl + enter}
+%  \item save current file: \texttt{ctrl + s}
+%  \item close current file: \texttt{ctrl + w} 
+%  \item restart R: \texttt{ctrl + shift + F10}
+%  \item Show help (for function at cursor) \texttt{F1}
+%  \item Show source code (for function at cursor) \texttt{F2}
+%\end{itemize}
+%More on this \href{https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard%-Shortcuts}{HERE}.
+%\end{frame}
 
 
 

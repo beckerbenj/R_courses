@@ -52,20 +52,7 @@ round(c("Min." = min(mtcars$mpg),
 
 
 
-# Single return object
-#...........................
-
-return_early <- function(x, early) {
-  x2 <- x*2
-  if(early) (return(x2))
-  out <- x + x2 # not executed
-  out
-}
-return_early(2, early = TRUE)
-return_early(2, early = FALSE)
-
-
-
+# return object is list
 get_info <- function(x){
   mean_x <- mean(x)
   median_x <- median(x)
@@ -177,85 +164,99 @@ get_log_xtox <- function(x) {
 get_log_xtox(-2)
 
 
-# Default arguments
-#...........................
 
-# missing argument
-add_ten <- function(x) {
-  x + 10
+# Scoping rules in R; Where does R find stuff
+# ...........................................
+a <- 55
+add_a <- function(x){
+  return(x + a)
 }
-add_ten()
+add_a(5)
 
-# with default
-add_ten_default <- function(x = 0) {
-  x + 10
+
+
+
+# name masking
+a <- 55
+add_a <- function(x){
+  a <- 5
+  return(x + a)
 }
-add_ten_default()
-add_ten_default(1)
+add_a(5)
 
 
 
-# Lazy Evaluation
-#...........................
 
-add_ten_lazy <- function(x, y) {
-  x + 10
+# where does R find stuff
+a <- b <- c <- d <- "fourth"
+find_object <- function(a, b = "third", c = "third"){
+  a <- "first"
+  return(c(a = a, b = b, c = c, d = d))
 }
-add_ten_lazy(2, y = stop("This is not evaluated"))
+find_object(b = "second")
 
 
 
-
-get_mean <- function(x, na.rm = FALSE) {
-  if(na.rm){
-    x <- x[!is.na(x)]
-  } 
-  if(length(x) == 0) stop("'x' is way too short to calculate a mean!")
-  if(length(x) == 1) warning("'x' is too short to calculate a mean!")
-  sum(x)/length(x)
+# BAD IDEA!
+a <- 55
+add_a <- function(x){
+  return(x + a)
 }
-
-get_mean(numeric())
-get_mean(2)
-get_mean(1:3)
+add_a(5)
 
 
-
-
-
-
-
-
-
-#...........................
-
-# Non standard output
-#...........................
-# Early returns
-mean_alt <- function(x, na.rm = FALSE) {
-  if(!na.rm & any(is.na(x))){
-    return(NA)
-  } 
-  sum(x, na.rm = TRUE)/length(x)
+# GOOD IDEA!
+add_a <- function(x, a = 55){
+  return(x + a)
 }
+add_a(5)
 
-a <- c(2, 4, 3, NA, 3, NA, 5, 2)
-mean_alt(a)
-mean_alt(1:5)
 
-mean_alt(a, na.rm = TRUE)
 
-##
-mean4 <- function(x, na.rm = FALSE) {
-  if(na.rm){
-    x <- x[!is.na(x)]
-  } 
-  if(length(x) == 0) return(NA)
-  sum(x)/length(x)
+
+# dot-dot-dot
+# ...........
+
+
+# Unknon number of arguments
+# using a for loop
+is_character <- function(...){
+  input <- list(...)
+  out <- input
+  for(ell_nr in seq_along(out)){
+    out[[ell_nr]] <- is.character(out[[ell_nr]])
+  }
+  out
 }
+is_character(a = "Awesome", b = 5, "Yes")
 
-mean4(numeric())
-mean(numeric())
+# using lapply
+is_character <- function(...){
+  lapply(list(...), is.character)
+}
+is_character(a = "Awesome", b = 5, "Yes")
+
+
+
+# passing arguments to other function
+# apply example
+?apply
+get_quantiles <- function(x, ...){
+  out <- lapply(x, quantile, ...)
+  return(do.call(rbind, out))
+}
+get_quantiles(airquality, na.rm = TRUE, 
+              probs = c(.25, .5, .27))
+
+
+
+# spelling mistakes!
+get_quantiles <- function(x, ...){
+  out <- lapply(x, quantile, ...)
+  return(do.call(rbind, out))
+}
+get_quantiles(airquality, na.rm = TRUE, 
+              prosb = c(.25, .5, .27))
 
 
 

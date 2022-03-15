@@ -21,8 +21,12 @@ countNA <- function(x) {    # Name = countNA, 1 Argument = x
 b <- c(NA, 1, 4, NA, 3)
 countNA(b)
 
+
+
 # Inspecting the function ('source code')
 countNA
+
+
 
 # a function with one argument
 get_log_xtox <- function(x) {
@@ -37,6 +41,8 @@ mean(1:10)
 my_own_mean_fun <- mean
 my_own_mean_fun(1:10)
 
+
+
 # existing functions
 ncol
 dim # Primitive functions
@@ -44,7 +50,8 @@ mvtnorm::rmvnorm # from packages
 haven:::add_text
 mean # S3 methods
 
-# anonymous functions
+
+
 
 # function components (formals, body, environment)
 add_ten <- function(x) {
@@ -56,6 +63,59 @@ body(add_ten)
 
 # help pages
 ?mean
+
+
+
+# arguments have to be of a specific object type
+sum(c("a", "b", "c")) # gives an error
+
+
+
+
+# Single return object
+#...........................
+
+return_early <- function(x, early) {
+  x2 <- x*2
+  if(early) (return(x2))
+  out <- x + x2 # not executed
+  out
+}
+return_early(2, early = TRUE)
+return_early(2, early = FALSE)
+
+
+
+get_info <- function(x){
+  mean_x <- mean(x)
+  median_x <- median(x)
+  n_obs_x <- length(x)
+  range_x <- range(x)
+  return(list(mean = mean_x, median = median_x, 
+              n_obs = n_obs_x, range = range_x))
+}
+
+get_info(airquality$Wind)
+
+get_info(airquality$Wind)
+
+
+# Default arguments
+#...........................
+
+# missing argument
+add_ten <- function(x) {
+  x + 10
+}
+add_ten()
+
+# with default
+add_ten_default <- function(x = 0) {
+  x + 10
+}
+add_ten_default()
+add_ten_default(1)
+
 
 
 
