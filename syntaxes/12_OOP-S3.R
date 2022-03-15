@@ -1,9 +1,10 @@
-# Advanced Programming with R
-# Zurich R Courses, October 2021
-
-
-# R Object Oriented Programming - S3
 #::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+#
+# R Object Oriented Programming & S3
+# 
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
 
 
 # Input

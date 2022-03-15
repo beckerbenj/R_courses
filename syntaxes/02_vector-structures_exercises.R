@@ -1,8 +1,11 @@
-# Introduction to Programming in R
-# Zurich R Courses, September - October 2021
-
-# Vector structures
 #::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+#
+# Vector Structures - Exercises
+# 
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+
 
 
 ## Useful functions -----
