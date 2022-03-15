@@ -105,15 +105,6 @@ data(iris)
 
 
 
-# 6. Write a function with one argument that returns a vector with NA values 
-#    removed. Add the following attributes to the return object:
-#       - original_length = the length of the original vector
-#       - which_NA = a vector with the indices of the NA values in the 
-#                    original vector
 
-
-
-# 7. Write a function that allows you to restore the original variable based on 
-#    the return object form the function you wrote in exercise 6
 
 
