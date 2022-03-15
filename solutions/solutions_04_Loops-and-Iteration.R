@@ -102,7 +102,7 @@ apply(airquality, 1, anyNA)
 
 
 
-# 3. Use the lapply function to sort the attendees alphabetically in 
+# 3. Use the lapply() function to sort the attendees alphabetically in 
 #    attendance_list 
 attendance_list <- list(
   may_02 = c("Benny", "Anna", "Freddy", "Casey"), 

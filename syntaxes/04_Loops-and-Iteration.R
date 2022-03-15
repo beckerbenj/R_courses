@@ -36,11 +36,15 @@ for (index in 1:3){
 }
 
 
+
+
 # iterate over a character vector
 for (name in c("Alice", "Bob", "Casey")){
   if(name == "Bob") cat(" This was Bob -")
   else cat(" Not Bob -")
 }
+
+
 
 
 ## nested for loop
@@ -50,6 +54,8 @@ for (rowNr in 1:2){
     matrix[rowNr, colNr] <- rowNr * 10 + colNr
   }
 }
+
+
 
 
 
@@ -64,6 +70,8 @@ max_abs
 round(values, 3)
 
 
+
+
 ## repeat loop
 index <- 0
 repeat {
@@ -72,6 +80,8 @@ repeat {
   if (index > 6) break
   print(index)
 }
+
+
 
 
 ## use seq() and not :
@@ -86,6 +96,9 @@ for (index in seq_along(x)){
 }
 
 
+
+
+
 ## don't grow, but replace
 x <- letters
 result1 <- numeric() # grow
@@ -96,6 +109,8 @@ for (index in seq_along(x)){
 }
 
 
+
+
 ## apply
 ?apply
 my_matrix <- matrix(1:6, nrow = 2)
@@ -104,10 +119,13 @@ apply(my_matrix, 1, max)  # apply per row
 apply(my_matrix, 2, max)  # apply per column
 
 
+
 my_array <- array(1, dim = c(2, 3, 4))
 apply(my_array, c(1, 2), sum) # per row and column
 
 apply(my_array, 3, sum) # per "third dimension"
+
+
 
 
 
@@ -160,7 +178,7 @@ data("airquality")
 
 
 
-# 3. Use the lapply function to sort the attendees alphabetically in 
+# 3. Use the lapply() function to sort the attendees alphabetically in 
 #    attendance_list 
 attendance_list <- list(
   may_02 = c("Benny", "Anna", "Freddy", "Casey"), 
