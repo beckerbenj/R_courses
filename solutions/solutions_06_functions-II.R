@@ -74,36 +74,8 @@ get_info(airquality$Ozone, na.rm = FALSE)
 
 
 
-# 4. Consider the hist2()-function from the examples. Think about which 
-#    arguments you could add, whether they would get default value, and 
-#    what the default value could be.
-#    Implement these arguments and the default values. Test the flexibility
-#    and make sure it is still easy to use.
-#    In addition, made sure you can choose to remove the NA values
 
-hist2 <- function(x, na.rm = TRUE, title = "My Variable", col = "skyblue",
-                  line_col = c("darkred", "darkblue")){
-  info <- get_info(x, na.rm = na.rm)
-  mean_median <- as.numeric(info[c("mean", "median")])
-  hist(x, 
-       main = paste0(title, " (n = ", info$n_obs, ")"),
-       col = col, 
-       freq = FALSE)
-  abline(v = mean_median, 
-         col = line_col, 
-         lwd = 2)
-  text(mean_median, 
-       y = c(.1, .09),
-       labels = paste(c("Mean", "Median"), 
-                      round(mean_median, 2), 
-                      sep = " = "),
-       col = line_col,
-       pos = 4)
-}
-
-hist2(airquality$Ozone, title = "Ozone")
-
-# 5. Write a function that takes a numeric variable as input and creates a 
+# 4. Write a function that takes a numeric variable as input and creates a 
 #    boxplot as output. How does R provide default values for the main 
 #    title and axis labels. Would you choose the same?
 #    Give sensible default values to the main title and axis labels.
@@ -114,7 +86,7 @@ create_boxplot(mtcars$mpg)
 boxplot(mtcars$mpg)
 
 
-# 6. Implement 'input checks' for your boxplot function. The function should throw
+# 5. Implement 'input checks' for your boxplot function. The function should throw
 #    an error, if the input is not a single numeric vector.
 # If the vector contains missing values, the function should throw a warning.
 create_boxplot2 <- function(x, main = "Boxplot", xlab = NULL, ylab = "Values") {
@@ -127,7 +99,7 @@ create_boxplot2(mtcars)
 create_boxplot2(c(mtcars$mpg, NA))
 
 
-# 7. Write a function that creates either a histogram or a bar chart for a 
+# 6. Write a function that creates either a histogram or a bar chart for a 
 #    variable, depending on the input:
 #      + character/factor -> bar chart using table()
 #      + numeric -> histogram

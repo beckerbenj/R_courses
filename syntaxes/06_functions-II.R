@@ -55,13 +55,14 @@ round(c("Min." = min(mtcars$mpg),
 # Single return object
 #...........................
 
-return_early <- function(x = 1) {
+return_early <- function(x, early) {
   x2 <- x*2
-  return(x2)
+  if(early) (return(x2))
   out <- x + x2 # not executed
   out
 }
-return_early(2)
+return_early(2, early = TRUE)
+return_early(2, early = FALSE)
 
 
 
@@ -294,7 +295,17 @@ Ozone_noNA <- drop_NA(airquality$Ozone, message = FALSE)
 #       - remove NA values before computing the statistics
 #       - inform the user how many NA values were removed
 #       - make sure users can choose not to get this information
-#    TIP: make use of the function you wrote for exerise 2.
+#    TIP: make use of the function you wrote for exercise 2.
+
+# original get_info() function
+get_info <- function(x){
+  mean_x <- mean(x)
+  median_x <- median(x)
+  n_obs_x <- length(x)
+  range_x <- range(x)
+  return(list(mean = mean_x, median = median_x, 
+              n_obs = n_obs_x, range = range_x))
+}
 
 get_info(airquality$Ozone)
 get_info(airquality$Ozone, message = TRUE)
@@ -303,19 +314,7 @@ get_info(airquality$Ozone, na.rm = FALSE)
 
 
 
-# 4. Consider the hist2()-function from the examples. Think about which 
-#    arguments you could add, whether they would get default value, and 
-#    what the default value could be.
-#    Implement these arguments and the default values. Test the flexibility
-#    and make sure it is still easy to use.
-#    In addition, made sure you can choose to remove the NA values
-
-hist2(airquality$Ozone, title = "Ozone")
-
-
-
-
-# 5. Write a function that takes a numeric variable as input and creates a 
+# 4. Write a function that takes a numeric variable as input and creates a 
 #    boxplot as output. How does R provide default values for the main 
 #    title and axis labels. Would you choose the same?
 #    Give sensible default values to the main title and axis labels.
@@ -324,7 +323,7 @@ create_boxplot(mtcars$mpg)
 
 
 
-# 6. Implement 'input checks' for your boxplot function. The function should throw
+# 5. Implement 'input checks' for your boxplot function. The function should throw
 #    an error, if the input is not a single numeric vector.
 #    If the vector contains missing values, the function should throw a warning.
 
@@ -333,7 +332,7 @@ create_boxplot2(mtcars)
 create_boxplot2(c(mtcars$mpg, NA))
 
 
-# 7. Write a function that creates either a histogram or a bar chart for a 
+# 6. Write a function that creates either a histogram or a bar chart for a 
 #    variable, depending on the input:
 #      + character/factor -> bar chart using table()
 #      + numeric -> histogram
