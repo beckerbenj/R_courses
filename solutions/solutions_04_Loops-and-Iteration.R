@@ -1,8 +1,11 @@
-# Introduction to Programming in R
-# Zurich R Courses, October 2021
-
-# Loops and Iteration
 #::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+#
+# Loops and Iteration
+# 
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+
 
 
 ## Useful functions -----

@@ -1,8 +1,9 @@
-# Introduction to Programming in R
-# Zurich R Courses, September - October 2021
-
-# R flow & conditional programming
 #::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+#
+# Flow & conditional programming
+# 
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
 
 
 
