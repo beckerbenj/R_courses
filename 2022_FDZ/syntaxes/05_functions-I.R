@@ -71,6 +71,23 @@ sum(c("a", "b", "c")) # gives an error
 
 
 
+# Default arguments
+#...........................
+
+# missing argument
+add_ten <- function(x) {
+  x + 10
+}
+add_ten()
+
+# with default
+add_ten_default <- function(x = 0) {
+  x + 10
+}
+add_ten_default()
+add_ten_default(1)
+
+
 
 # Single return object
 #...........................
@@ -98,23 +115,6 @@ get_info <- function(x){
 get_info(airquality$Wind)
 
 get_info(airquality$Wind)
-
-
-# Default arguments
-#...........................
-
-# missing argument
-add_ten <- function(x) {
-  x + 10
-}
-add_ten()
-
-# with default
-add_ten_default <- function(x = 0) {
-  x + 10
-}
-add_ten_default()
-add_ten_default(1)
 
 
 

@@ -210,7 +210,7 @@ econRedD<-"#90353B"
   \item Loops \& iteration
   \item Functions (part I)
   \item Functions (part II)
-  \item \emph{Functionals} \& split-apply-combine
+  \item Functionals \& split-apply-combine
   \item Good programming practices
 \end{itemize}
 \end{frame}
@@ -816,7 +816,50 @@ objects the arguments should be. Check \texttt{?sum}
 
 
 
-\subsection{Single return object}
+\subsection{Default Arguments}
+
+\begin{frame}[fragile]{Default arguments}
+What happens if the user omits an argument?
+<<echo=TRUE, size = "footnotesize">>=
+countNA <- function(x, percent) {
+  out <- sum(is.na(x))
+  if(percent) out/length(x)
+  out                   
+}
+x <- c(1, 5, NA, 3)
+countNA(x = x)
+@
+\end{frame}
+
+\begin{frame}[fragile]{Default arguments}
+Default arguments are made for such instances!
+<<echo=TRUE, eval=TRUE>>=
+countNA <- function(x, percent = FALSE) {
+  out <- sum(is.na(x))
+  if(percent) out/length(x)
+  out                   
+}
+x <- c(1, 5, NA, 3)
+countNA(x = x)
+@
+\end{frame}
+
+\begin{frame}[fragile]{Default arguments}
+Additional arguments give (the user) flexibility. Default arguments keep the function easy to use. 
+
+\vspace{0.3cm}
+
+Try \texttt{?lm}
+\metroset{block=fill} %grey blocks
+\begin{block}{Programming advice}
+\begin{itemize}
+  \item Think which arguments to include, and which should (not) have defaults
+  \item Choose sensible defaults
+\end{itemize}
+\end{block}
+\end{frame}
+
+\subsection{Return object}
 
 \begin{frame}{Single return object}
 Pure functions return a single object.
@@ -841,7 +884,7 @@ Pure functions return a single object.
 \end{figure}
 \end{frame}
 
-\begin{frame}[fragile]{Single return object}
+\begin{frame}[fragile]{Return object}
 \texttt{return()} stops the computation, and returns the object.
 <<echo=TRUE>>=
 return_early <- function(x, early) {
@@ -856,7 +899,7 @@ return_early(2, early = FALSE)
 \end{frame}
 
 
-\begin{frame}[fragile]{Single return object}
+\begin{frame}[fragile]{Return object}
 Multiple return objects can be combined in a list!
 << eval = FALSE, size = "footnotesize">>=
                             # Name
@@ -868,7 +911,7 @@ do_this <- function(vector, other_vector) { # Arguments
 @
 \end{frame}
 
-\begin{frame}[fragile]{Single Return Object}
+\begin{frame}[fragile]{Return Object}
 The return object is a list with multiple objects.
 << eval = TRUE, size = "footnotesize">>=
 get_info <- function(x){
@@ -885,52 +928,6 @@ str(get_info(airquality$Wind))
 
 
 
-
-\subsection{Default Arguments}
-
-\begin{frame}[fragile]{Default arguments}
-What happens if the user omits an argument?
-<<echo=TRUE, eval = TRUE>>=
-return_early <- function(x, early) {
-  x2 <- x*2
-  if(early) (return(x2))
-  out <- x + x2 # not executed
-  out
-}
-return_early(2)
-@
-\end{frame}
-
-\begin{frame}[fragile]{Default arguments}
-Default arguments are made for such instances!
-<<echo=TRUE, eval=TRUE>>=
-return_early <- function(x, early = FALSE) {
-  x2 <- x*2
-  if(early) (return(x2))
-  out <- x + x2 # not executed
-  out
-}
-return_early(2)
-@
-\end{frame}
-
-\begin{frame}[fragile]{Default arguments}
-Additional arguments give (the user) flexibility. Default arguments keep the function easy to use. 
-
-\vspace{0.3cm}
-
-Try \texttt{?lm}
-\metroset{block=fill} %grey blocks
-\begin{block}{Programming advice}
-\begin{itemize}
-  \item Think which arguments to include, and which should (not) have defaults
-  \item Choose sensible defaults
-\end{itemize}
-\end{block}
-\end{frame}
-
-
-
 \begin{frame}[plain]
 \begin{center}
 \Large Exercises \\
@@ -940,7 +937,7 @@ Try \texttt{?lm}
 \end{center}
 \end{frame}
 
-
+% ----------------------------------------------------------------------------------------------------------------------
 
 \section{Functions II}
 \label{sec:fun2}
@@ -1689,7 +1686,9 @@ A popular alternative from the tidyverse: \href{https://purrr.tidyverse.org/}{\t
 \end{itemize}
 \end{frame}
 
-\begin{frame}{\texttt{apply}-family}
+\subsection{lapply}
+
+\begin{frame}{lapply}
 Our focus: \texttt{lapply}
 
 \textbf{Why?}
