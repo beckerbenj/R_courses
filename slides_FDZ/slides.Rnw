@@ -176,11 +176,11 @@ econRedD<-"#90353B"
 	\end{enumerate}
 \end{frame}
 
-\begin{frame}{Motivation}
-\begin{center}
-\includegraphics[width=.6\textwidth]{reinhart_rogoff.PNG}
-\end{center}
-\end{frame}
+%\begin{frame}{Motivation}
+%\begin{center}
+%\includegraphics[width=.6\textwidth]{reinhart_rogoff.PNG}
+%\end{center}
+%\end{frame}
 
 \begin{frame}{Motivation}
 \begin{center}
@@ -204,16 +204,11 @@ econRedD<-"#90353B"
 \subsection{Agenda}
 
 \begin{frame}{Agenda}
-\textbf{Day 1}
 \begin{itemize}
   \item RStudio setup
   \item Flow \& conditional programming
   \item Loops \& iteration
   \item Functions (part I)
-\end{itemize}
-
-\textbf{Day 2}
-\begin{itemize}
   \item Functions (part II)
   \item \emph{Functionals} \& split-apply-combine
   \item Good programming practices
@@ -392,17 +387,17 @@ vote
 @
 \end{frame}
 
-\begin{frame}[fragile]{Conditional Computation - if}
-Solution using meaningful initialization
-<<if init, echo = TRUE, results="markup">>=
-age <- 17
-vote <- "too young"
-if (age >= 18) {
-  vote <- "can vote"
-} 
-vote
-@
-\end{frame}
+%\begin{frame}[fragile]{Conditional Computation - if}
+%Solution using meaningful initialization
+%<<if init, echo = TRUE, results="markup">>=
+%age <- 17
+%vote <- "too young"
+%if (age >= 18) {
+%  vote <- "can vote"
+%} 
+%vote
+%@
+%\end{frame}
 
 \subsection{ifelse}
 
@@ -450,8 +445,13 @@ R has specific tools (functions) that help organize the flow of computations. \\
 You can repeat a similar computation multiple times typically with changing options (``iteration'').
 The most commonly used tools are: 
 \begin{itemize}
-  \item loops (\texttt{for}, \texttt{while}, \texttt{repeat})
-  \item \emph{functionals }(\texttt{apply} - family)
+  \item loops 
+  \begin{itemize} loops 
+    \item \texttt{for}
+    \item \texttt{while}
+    \ite  \texttt{repeat}
+  \end{itemize}
+  \item \texttt{apply} - family
 \end{itemize}
 \end{frame}
 
@@ -484,18 +484,6 @@ for (name in c("Alice", "Bob", "Casey")){
 @
 \end{frame}
 
-\begin{frame}[fragile]{Loops \& Iteration - for}
-Nested loops (over the rows and columns of a matrix)
-<<for3, echo=TRUE, eval = TRUE, results = "markup">>=
-matrix <- matrix(NA, nrow = 2, ncol = 3)
-for (rowNr in 1:2){
-  for (colNr in 1:3){
-    matrix[rowNr, colNr] <- rowNr * 10 + colNr
-  }
-}
-matrix
-@
-\end{frame}
 
 \subsection{while \& repeat}
 
@@ -509,19 +497,19 @@ while (condition){
 As long as the condition is TRUE, the computation is executed. \\ Often, the computation depends on something that is related to the condition.
 \end{frame}
 
-\begin{frame}[fragile]{Loops \& Iteration - while}
-Sample five random values from a normal distribution, the distance between the
-minimum and maximum should be at least 4.
-<<while2, echo=TRUE, eval = TRUE>>=
-max_dif <- 0
-while (max_dif <= 4){
-  cat("|")
-  values <- rnorm(5)
-  max_dif <- max(values) - min(values)
-}
-max_dif
-@
-\end{frame}
+%\begin{frame}[fragile]{Loops \& Iteration - while}
+%Sample five random values from a normal distribution, the distance between %the
+%minimum and maximum should be at least 4.
+%<<while2, echo=TRUE, eval = TRUE>>=
+%max_dif <- 0
+%while (max_dif <= 4){
+%  cat("|")
+%  values <- rnorm(5)
+%  max_dif <- max(values) - min(values)
+%}
+%max_dif
+%@
+%\end{frame}
 
 \begin{frame}[fragile]{Loops \& Iteration - repeat}
 \texttt{repeat} statements have the basic form
@@ -550,6 +538,38 @@ repeat {
 }
 @
 \end{frame}
+
+
+\begin{frame}[fragile]{Loops \& Iteration - next break}
+\begin{itemize}
+  \item \texttt{next} starts next iteration
+  \item \texttt{break} ends iteration (of the innermost loop)
+\end{itemize}
+Same idea, now with for loop
+<<next, echo=TRUE, eval = TRUE, results="markup">>=
+for(index in 1:6) {
+  index <- index + 1
+  if (index %in% c(3, 5)) next
+  print(index)
+}
+@
+\end{frame}
+
+
+\begin{frame}[fragile]{Loops \& Iteration - nested loop}
+Nested loops (over the rows and columns of a matrix)
+<<for3, echo=TRUE, eval = TRUE, results = "markup">>=
+matrix <- matrix(NA, nrow = 2, ncol = 3)
+for (rowNr in 1:2){
+  for (colNr in 1:3){
+    matrix[rowNr, colNr] <- rowNr * 10 + colNr
+  }
+}
+matrix
+@
+\end{frame}
+
+
 
 \subsection{Loops \& Iteration - good practice}
 
@@ -586,18 +606,17 @@ for (index in seq_along(x)){
 @
 \end{frame}
 
-\subsection{Functionals}
+\subsection{apply}
 
-\begin{frame}{Loops \& Iteration - \emph{Functionals}}
-There are specific functions that allow efficient and clean iteration. \\
-We focus on the \texttt{apply}-family. These functions \emph{apply} a function repeatedly. \\
-Can be seen as an abstraction of a for loop, with the following advantages
-\begin{itemize}
-  \item requires less code to write
-  \item does not store intermediate results
-  \item no need to replace / grow
-\end{itemize}
-(also see the \href{https://purrr.tidyverse.org/}{\texttt{purrr}} package)
+\begin{frame}{Loops \& Iteration - apply}
+\texttt{apply} lets you iterate over rows or columns of a matrix or data.frame. You can \emph{apply} a function to all rows/columns
+<<apply-def, echo=TRUE, results="markup", size="footnotesize", eval = FALSE>>=
+apply(matrix, 
+      MARGIN = 1,       # 1 = iterate over rows; 2 = iterate over columns)
+      FUN = function)   # function to apply to rows/columns
+@
+\\
+
 \end{frame}
 
 \subsubsection{apply}
@@ -622,43 +641,6 @@ apply(my_array, 3, sum)        # per "third dimension"
 @
 \end{frame}
 
-\subsubsection{lapply}
-
-\begin{frame}[fragile]{lapply}
-data.frames are lists with the columns as elements:
-<<lapply, echo=TRUE, results="markup", size="footnotesize">>=
-lapply(iris, FUN = class)
-@
-\end{frame}
-
-\begin{frame}[fragile]{lapply}
-\begin{itemize}
-  \item any type of element can be used
-  \item other arguments can be passed through
-\end{itemize}
-<<lapply2, echo=TRUE, results="markup", size="footnotesize">>=
-means <- lapply(mtcars[1:7], FUN = mean)
-str(means)
-@
-\end{frame}
-
-%\subsubsection{sapply}
-%
-%\begin{frame}[fragile]{sapply}
-%\begin{itemize}
-%  \item wrapper around lapply
-%  \item if possible, the ouput is combined into a atomic vector or matrix
-%\end{itemize}
-%<<sapply, echo=TRUE, eval = TRUE, results="markup">>=
-%sapply(airquality, FUN = sd)
-%sapply(airquality, FUN = quantile, prob = c(.1, .9), 
-%       na.rm = TRUE)
-%@
-%\end{frame}
-
-\begin{frame}{\emph{Functionals}}
-More on how these \emph{functionals} can be used tomorrow.
-\end{frame}
 
 \begin{frame}[plain]
 \begin{center}
