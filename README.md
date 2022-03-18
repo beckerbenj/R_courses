@@ -1,15 +1,23 @@
 # R_courses
 
-## at FDZ Spring academy
+## Upcoming courses 
 
-Thursday & Friday (18.+19.03.2021) 2pm-6pm Uhr  
-Remote  
-probably 15-25 participants
-
-## Substituting R beginner in Zurich (Spring)
+### 2022: FDZ Spring academy
+Programming in R
+18. + 19.03.2021 9am-1pm   
 
 
-## R advanced in Zurich (Autumn)
+## Past courses 
 
+### 2021: FDZ Spring academy
+Programming in R/R for Advanced Users
+18. + 19.03.2021 2pm-6pm   
+  
+### 2021: Zurich 
+Introduction to programming in R
+30.09.-01.10.2021
+
+### 2021: Zurich 
+Advanced programming in R
 15.10.2021
 

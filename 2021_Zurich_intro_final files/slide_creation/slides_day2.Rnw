@@ -1,0 +1,1561 @@
+\documentclass{beamer}
+
+\usepackage{multicol}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usetikzlibrary{shapes.geometric}
+\usepackage{hyperref}
+
+\usetheme{metropolis}   
+
+
+\title{Introduction to Programming with R}
+\institute{Zurich R Courses}
+
+
+\author[Dries Debeer \& Benjamin Becker]{Dries Debeer \& Benjamin Becker}
+\date{31. September and 01. October 2021}
+
+<<r setup, echo=FALSE, message=FALSE, results="hide">>=
+suppressPackageStartupMessages({
+  library(knitr)
+})
+
+options(tinytex.verbose = TRUE)
+
+knit_theme$set("acid")
+opts_chunk$set(results="markup")
+opts_chunk$set(echo = TRUE)
+opts_chunk$set(eval = TRUE)
+opts_chunk$set(strip.white = TRUE)
+opts_chunk$set(size = "footnotesize")
+opts_chunk$set(comment = ">")
+opts_chunk$set(fig.width=3.5, fig.height=3) 
+
+
+# Farben
+mLightBrown<-"#EB811B"
+econBlue<-"#008BBC"
+econRed<-"#C10534"
+econBlueD<-"#3E647D"
+econRedD<-"#90353B"
+@
+
+
+\begin{document}
+
+
+\begin{frame}
+\titlepage
+\end{frame}
+\addtocounter{framenumber}{-1}
+
+
+\begin{frame}{Table of Content}
+\fontsize{6pt}{7.2}
+\setcounter{tocdepth}{2}
+\begin{multicols}{2}
+  \tableofcontents
+\end{multicols}
+\end{frame}
+
+\section{Agenda}
+
+\begin{frame}{Agenda}
+\textbf{Day 1}
+\begin{itemize}
+  \item RStudio setup
+  \item Basic elements \& data types of the R language
+  \item Flow \& conditional programming
+  \item Loops \& iteration
+  \item Writing \& using functions (part I)
+\end{itemize}
+
+\textbf{Day 2}
+\begin{itemize}
+  \item Writing \& using functions (part II)
+  \item Debugging
+  \item Good programming practices
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}[plain]
+
+\begin{center}
+\Large Open questions from day 1?
+\end{center}
+
+\end{frame}
+
+% ----------------------------------------------------------------------------------------------------------------------
+\section{Functions II}
+
+\subsection{Why write functions?}
+
+\begin{frame}{Reasons}
+\textbf{Why write functions? }
+\begin{itemize}
+  \item They make code ...
+  \begin{itemize}
+    \item shorter (less repetition)
+    \item easier to read and understand
+  \end{itemize}
+  \item They help avoid copy-paste errors
+  \item They make it easier to change your code
+  \item They increase transferability to ...
+  \begin{itemize}
+    \item other use cases
+    \item other projects
+    \item other persons
+  \end{itemize}
+  \item They keep your work space clean
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]{Readability}
+\textbf{Writing a function:}
+<<eval=FALSE>>=
+RMSE <- get_RMSE(predictions, observations)
+@
+\textbf{Not writing a function:}
+<<eval=FALSE>>=
+diff <- observations - predictions
+sq_diff <- diff^2
+m_sq_diff <- mean(dif)
+RMSE <- sqrt(m_sq_diff)
+@
+\end{frame}
+
+\begin{frame}[fragile]{Readability}
+\textbf{Writing a function:}
+<< results='markup'>>=
+summary(mtcars$mpg)
+@
+\end{frame}
+
+\begin{frame}[fragile]{Readability}
+\textbf{Not writing a function:}
+<< results='markup'>>=
+round(c("Min." = min(mtcars$mpg),
+  "1st Qu." = as.numeric(quantile(mtcars$mpg)[2]),
+  "Median" = median(mtcars$mpg),
+  "Mean" = mean(mtcars$mpg),
+  "3rd Qu." = as.numeric(quantile(mtcars$mpg)[4]),
+  "Max." = max(mtcars$mpg)), 2)
+@
+\end{frame}
+
+\subsection{Single return object}
+
+\begin{frame}{Single return object}
+Pure functions return a single object.
+\begin{itemize}
+  \item (Standard) The last evaluated object 
+  \item Object defined by return()
+\end{itemize}
+
+\begin{figure}
+\begin{center}
+\begin{tikzpicture}
+\node[draw,ellipse] (s1) at (0,0) {function};
+\node[draw,rectangle] (s2) at (-4,0) {object1, \ (object2, ...)};
+\node[draw,rectangle] (s3) at (3,0) {new object};
+\path
+    (s2) edge[->, double distance=1pt, >=latex'] (s1)
+    (s1) edge[->, double distance=1pt, >=latex'] (s3);
+\end{tikzpicture}
+\end{center}
+\caption{A pure function.}
+\label{pure_function}
+\end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{Single return object}
+\texttt{return()} stops the computation, and returns the object.
+<<echo=TRUE>>=
+return_early <- function(x = 1) {
+  x2 <- x*2
+  return(x2)
+  out <- x + x2    # not executed
+  out
+}
+return_early(2)
+@
+\end{frame}
+
+
+\begin{frame}[fragile]{Single return object}
+Multiple return objects can be combined in a list!
+<< eval = FALSE, size = "footnotesize">>=
+                            # Name
+do_this <- function(vector, other_vector) { # Arguments
+  # many computations                       # Body
+  return(list(output1 = this, 
+              output2 = that))              # Output
+}
+@
+\end{frame}
+
+\begin{frame}[fragile]{Single Return Object}
+The return object is a list with multiple objects.
+<< eval = TRUE, size = "footnotesize">>=
+get_info <- function(x){
+  mean_x <- mean(x)
+  median_x <- median(x)
+  n_obs_x <- length(x)
+  range_x <- range(x)
+  return(list(mean = mean_x, median = median_x, 
+              n_obs = n_obs_x, range = range_x))
+}
+str(get_info(airquality$Wind))
+@
+\end{frame}
+
+\subsection{Side effects}
+
+\begin{frame}[fragile]{Side Effects}
+Functions can have \textbf{``side effects''}:
+\begin{itemize}
+  \item console output
+  \item plots
+  \item write/save on drive
+  \item ...
+\end{itemize}
+
+\begin{figure}
+\begin{center}
+\begin{tikzpicture}
+\node[draw,ellipse] (s1) at (0,0) {function};
+\node[draw,rectangle] (s2) at (-4,0) {object1, \ (object2, ...)};
+\node[draw,rectangle] (s3) at (3,0) {new object};
+\node[draw,diamond, aspect = 2] (s4) at (3,-2) {side effect};
+\path
+    (s2) edge[->, double distance=1pt, >=latex'] (s1)
+    (s1) edge[->, double distance=1pt, >=latex'] (s3)
+    (s1) edge[->, double distance=1pt, >=latex'] (s4);
+\end{tikzpicture}
+\end{center}
+\caption{A function with side effect.}
+\label{with_side_effect}
+\end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{Side Effects}
+Console output: \texttt{?cat} and \texttt{?print}
+<< results='markup', message=TRUE, size = "footnotesize">>=
+print_info <- function(x){
+  info <- get_info(x)
+  cat("There are ", info$n_obs, 
+      " observed values. \nThe mean is ", 
+      round(info$mean, 2), ". \nThe median is ", 
+      round(info$median, 2), ". \n", sep = "")
+}
+print_info(airquality$Wind)
+@
+\end{frame}
+
+\begin{frame}[fragile]{Side effects}
+Graphics output: Standard plot, ggplot2, lattice
+<< eval=FALSE, size = "scriptsize">>=
+hist2 <- function(x, title){
+  info <- get_info(x)
+  mean_median <- as.numeric(info[c("mean", "median")])
+  hist(x, col = "skyblue", freq = FALSE, 
+       main = paste0(title, " (n = ", info$n_obs, ")"))
+  abline(v = mean_median, lwd = 2, 
+         col = c("darkred", "darkblue"))
+  text(mean_median, y = c(.11, .09),
+       labels = paste(c("Mean", "Median"), 
+                      round(mean_median, 2), 
+                      sep = " = "),
+       col = c("darkred", "darkblue"), pos = 4)
+}
+hist2(airquality$Wind, "Wind")
+@
+\end{frame}
+
+\begin{frame}[fragile]{Side effects}
+Graphics output
+<<echo=FALSE, results='markup', message=TRUE, fig.width=3.5, fig.height=3>>=
+hist2 <- function(x, title){
+  info <- get_info(x)
+  mean_median <- as.numeric(info[c("mean", "median")])
+  hist(x, 
+       main = paste0(title, " (n = ", info$n_obs, ")"),
+       col = "skyblue", 
+       freq = FALSE)
+  abline(v = mean_median, 
+         col = c("darkred", "darkblue"), 
+         lwd = 2)
+  text(mean_median, 
+       y = c(.11, .09),
+       labels = paste(c("Mean", "Median"), 
+                      round(mean_median, 2), 
+                      sep = " = "),
+       col = c("darkred", "darkblue"),
+       pos = 4)
+}
+hist2(airquality$Wind, "Wind")
+@
+\end{frame}
+
+
+
+\begin{frame}{Output}
+\metroset{block=fill} %grey blocks
+\begin{block}{Programming advice}
+\begin{itemize}
+  \item Write pure functions (no-side effects)
+  \item Write separate functions for side effects 
+  \item Plotting functions should return \texttt{NULL} or the plot as an object
+\end{itemize}
+\end{block}
+
+\begin{figure}
+\begin{center}
+\begin{tikzpicture}
+\node[draw,ellipse] (s1) at (0,0) {function};
+\node[draw,rectangle] (s2) at (-4,0) {object1, \ (object2, ...)};
+\node[draw,rectangle] (s3) at (3,0) {NULL};
+\node[draw,diamond, aspect = 2] (s4) at (3,-2) {side effect};
+\path
+    (s2) edge[->, double distance=1pt, >=latex'] (s1)
+    (s1) edge[->, double distance=1pt, >=latex'] (s3)
+    (s1) edge[->, double distance=1pt, >=latex'] (s4);
+\end{tikzpicture}
+\end{center}
+\caption{A side effect function.}
+\label{Pure_side_effect}
+\end{figure}
+
+\end{frame}
+
+\subsection{Error, warning, \& message}
+
+\begin{frame}[fragile]{Error, warning, \& message}
+Error: computation is interrupted without return object! 
+
+\vspace{0.3cm}
+
+
+\texttt{?stop}
+<<eval = TRUE>>=
+get_log_xtox <- function(x) {
+  if(!is.numeric(x)) stop("This does not work!")
+  x_x <- x^x
+  return(log(x_x))
+}
+get_log_xtox("a")
+@
+\end{frame}
+
+\begin{frame}[fragile]{Error, warning, \& message}
+Error: computation is interrupted without return object!
+\begin{figure}
+\begin{center}
+\begin{tikzpicture}
+\node[draw,ellipse] (s1) at (0,0) {function};
+\node[draw,rectangle] (s2) at (-4,0) {object1, \ (object2, ...)};
+\node[draw,star, star points=10] (s4) at (3,-2) {ERROR};
+\path
+    (s2) edge[->, double distance=1pt, >=latex'] (s1)
+    (s1) edge[->, double distance=1pt, >=latex'] (s4);
+\end{tikzpicture}
+\end{center}
+\caption{Computation with Error.}
+\label{with_error}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}[fragile]{Error, warning, \& message}
+\texttt{?stopifnot} is an abbreviation for \texttt{if(!test) stop()}:
+<< error = TRUE>>=
+get_log_xtox <- function(x) {
+  stopifnot(is.numeric(x)) 
+  x_x <- x^x
+  return(log(x_x))
+}
+get_log_xtox("a")
+@
+\end{frame}
+
+\begin{frame}[fragile]{Error, warning, \& message}
+Message: To inform the user about something. 
+
+\vspace{0.3cm}
+
+\texttt{?message} 
+<<results='markup'>>=
+get_log_xtox <- function(x) {
+  x_x <- x^x
+  message("Thank you for using this function!")
+  return(log(x_x))
+}
+get_log_xtox(2)
+@
+
+\end{frame}
+
+\begin{frame}[fragile]{Error, warning, \& message}
+Warning: Warn the user that something may be fishy. 
+
+\vspace{0.3cm}
+
+\texttt{?warning}
+<<>>=
+get_log_xtox <- function(x) {
+  if(x < 0 && (x %% 2 == 0)) 
+    warning("Not sure you can trust the result.", 
+            call. = FALSE)
+  x_x <- x^x
+  return(log(x_x))
+}
+get_log_xtox(-2)
+@
+
+\end{frame}
+
+\begin{frame}[fragile]{Error, warning, \& message}
+Message \& warning: computation is NOT interrupted!
+\begin{figure}
+\begin{center}
+\begin{tikzpicture}
+\node[draw,ellipse] (s1) at (0,0) {function};
+\node[draw,rectangle] (s2) at (-4,0) {object1, \ (object2, ...)};
+\node[draw,rectangle] (s3) at (3,0) {new object};
+\node[draw,star, star points=10] (s4) at (3,-2) {\textcolor{white}{T E S T}};
+\node[] (s5) at (3,-1.7) {Message,};
+\node[] (s6) at (3,-2.3) {Warning};
+\path
+    (s2) edge[->, double distance=1pt, >=latex'] (s1)
+    (s1) edge[->, double distance=1pt, >=latex'] (s3)
+    (s1) edge[->, double distance=1pt, >=latex'] (s4);
+\end{tikzpicture}
+\end{center}
+\caption{A message or warning.}
+\label{with_warning}
+\end{figure}
+\end{frame}
+
+
+
+
+\begin{frame}{Output}
+\metroset{block=fill} %grey blocks
+\begin{block}{Programming advice}
+\begin{itemize}
+  \item Choose carefully when something warrants a message, warning or error
+  \item Write clear and helpful warnings, errors, messages
+\end{itemize}
+\end{block}
+\end{frame}
+
+
+
+\subsection{Default Arguments}
+
+\begin{frame}[fragile]{Default arguments}
+What happens if the user omits an argument?
+<<echo=TRUE, eval = TRUE>>=
+add_ten <- function(x) {
+  return(x + 10)
+}
+add_ten()
+@
+\end{frame}
+
+\begin{frame}[fragile]{Default arguments}
+Default arguments are made for such instances!
+<<echo=TRUE, eval=TRUE>>=
+add_ten_default <- function(x = 0) {
+  return(x + 10)
+}
+add_ten_default()
+@
+\end{frame}
+
+\begin{frame}[fragile]{Default arguments}
+Additional arguments give (the user) flexibility. Default arguments keep the function easy to use. 
+
+\vspace{0.3cm}
+
+Try \texttt{?lm}
+\metroset{block=fill} %grey blocks
+\begin{block}{Programming advice}
+\begin{itemize}
+  \item Think which arguments to include, and which should (not) have defaults
+  \item Choose sensible defaults
+\end{itemize}
+\end{block}
+\end{frame}
+
+\subsection{Lazy Evaluation}
+
+
+\begin{frame}[fragile]{Lazy Evaluation}
+\texttt{R} only considers (evaluates) an argument when it is used.
+<<echo=TRUE>>=
+add_ten_lazy <- function(x, y) {
+  return(x + 10)
+}
+add_ten_lazy(2, y = stop("This is not evaluated"))
+@
+\end{frame}
+
+\begin{frame}[fragile]{Lazy Evaluation}
+\texttt{R} only considers (evaluates) an argument when it is used.
+But, you can \texttt{force} the evaluation: 
+<<echo=TRUE>>=
+add_ten_force <- function(x, y) {
+  force(y)
+  return(x + 10)
+}
+add_ten_force(2, y = stop("Evaluation was forced"))
+@
+\texttt{?force}
+\end{frame}
+
+
+\begin{frame}[plain]
+\begin{center}
+\Large Exercises \\
+
+\vspace{1.5cm}
+\includegraphics[height=.25\textheight]{exercises.jpg}
+\end{center}
+\end{frame}
+
+% ----------------------------------------------------------------------------------------------------------------------
+
+
+% ----------------------------------------------------------------------------------------------------------------------
+\section{Debugging}
+
+\begin{frame}{Debugging}
+\begin{itemize}
+  \item browser()
+  \item traceback()
+  \item options(error = recover)
+  \item options(warn = 2)
+\end{itemize}
+\end{frame}
+
+\subsection{browser}
+
+\begin{frame}[fragile]{browser()}
+Inspecting a function interactively
+<< eval=FALSE>>=
+some_function <- function(x, y) {
+  z <- x + y
+  browser()
+  z
+}
+some_function(x = 1, y = 5)
+@
+\end{frame}
+
+\begin{frame}{browser()}
+\begin{center}
+\includegraphics[width=.75\textwidth]{browser.JPG}
+\end{center}
+\end{frame}
+
+\begin{frame}{browser()}
+Navigating within a browser:
+\begin{itemize}
+  \item [ls()] Show existing objects in the current environment
+  \item [c] Exit the browser and continue execution
+  \item [Q] Exit the browser, return to top level
+  \item [where] Show call stack
+\end{itemize}
+\end{frame}
+
+\subsection{traceback}
+
+\begin{frame}{traceback()}
+Understanding the call stack:
+\begin{center}
+\includegraphics[width=.75\textwidth]{traceback.JPG}
+\end{center}
+\end{frame}
+
+\begin{frame}{traceback()}
+Understanding the call stack:
+\begin{center}
+\includegraphics[height=.75\textheight]{traceback2.JPG}
+\end{center}
+\end{frame}
+
+\subsection{recover}
+
+\begin{frame}[fragile]{Recover}
+Being able to chose an environment from the call stack:
+<< eval=FALSE>>=
+# on
+options(error = recover)
+
+# off
+options(error = NULL)
+@
+\end{frame}
+
+\begin{frame}{Recover}
+Being able to chosse an enrivonment from a call stack:
+\begin{center}
+\includegraphics[width=.75\textwidth]{recover.JPG}
+\end{center}
+\end{frame}
+
+\subsection{warnings}
+
+\begin{frame}[fragile]{Warnings}
+Turning warnings into errors
+<< eval=FALSE>>=
+# on
+options(warn = 2)
+
+# off
+options(warn = 1)
+@
+\end{frame}
+
+\begin{frame}[plain]
+\begin{center}
+\Large Exercises \\
+
+\vspace{1.5cm}
+\includegraphics[height=.25\textheight]{exercises.jpg}
+\end{center}
+\end{frame}
+
+
+
+\section{Functions III}
+
+
+\subsection{Scoping rules}
+
+
+\begin{frame}[fragile]{Where does a function find objects?}
+R uses specific rules to find objects, which lead to the following: 
+<< results='markup'>>=
+a <- 55
+add_a <- function(x){
+  return(x + a)
+}
+add_a(5)
+@
+When a function is called, the computations in the body are run line by line. When \texttt{R} cannot find an object inside the function, it looks outside the function.
+\end{frame}
+
+
+
+\begin{frame}[fragile]{Where does a function find objects?}
+\textbf{Name masking! }
+
+\vspace{0.3cm}
+
+Objects inside the function mask objects outside the function with the same name.
+
+<< results='markup'>>=
+a <- 55
+add_a <- function(x){
+  a <- 5
+  return(x + a)
+}
+add_a(5)
+@
+
+\end{frame}
+
+
+\begin{frame}[fragile]{Where does a function find objects?}
+R uses specific rules to find objects.
+<< results='markup'>>=
+a <- b <- c <- d <- "fourth"
+find_object <- function(a, b = "third", c = "third"){
+  a <- "first"
+  return(c(a = a, b = b, c = c, d = d))
+}
+find_object(b = "second")
+@
+\end{frame}
+
+
+
+\begin{frame}[fragile]{Where does a function find objects?}
+R uses specific rules to find objects.
+
+\begin{enumerate}
+  \item in the function body
+  \item in the function call
+  \item in the function definition
+  \item outside the function
+\end{enumerate}
+
+Watch out with number 4! Frequently restart R: \texttt{Ctrl + shift + F4}
+\end{frame}
+
+
+
+\subsection{Functional Programming}
+
+
+
+\begin{frame}[fragile]{Functional programming}
+The return object should only depend on the arguments of the function, \emph{\textbf{not}} on the context! 
+
+\vspace{0.3cm}
+
+\textbf{BAD:}
+<< results='markup'>>=
+a <- 55
+add_a <- function(x){
+  return(x + a)
+}
+add_a(5)
+@
+\end{frame}
+
+
+
+\begin{frame}[fragile]{Functional programming}
+The return object should only depend on the arguments of the function, \emph{\textbf{not}} on the context!  
+
+\vspace{0.3cm}
+
+\textbf{GOOD:}
+<< results='markup'>>=
+add_a <- function(x, a = 55){
+  return(x + a)
+}
+add_a(5)
+@
+\end{frame}
+
+
+
+\begin{frame}[fragile]{Functional programming}
+The function should not change the context.
+
+\vspace{0.3cm}
+
+\textbf{BAD}
+<< results='markup'>>=
+a <- 55
+change_a <- function(new_a){
+  a <<- new_a
+  return(invisible(NULL))
+}
+change_a(5)
+a
+@
+\end{frame}
+
+
+
+\subsection{dot dot dot}
+
+\begin{frame}{\texttt{...} dot-dot-dot }
+R has a special argument (in the definition of the function):
+
+\vspace{0.3cm}
+
+\texttt{...} (dot-dot-dot)
+
+\textbf{Examples:}
+  \begin{itemize}
+    \item \texttt{?sum}
+    \item \texttt{?save}
+    \item ...
+  \end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{\texttt{...} dot-dot-dot }
+
+\texttt{...} can take \emph{any} number of additional arguments
+
+Useful for passing arguments to other functions like:
+  \begin{itemize}
+    \item \texttt{?apply}
+    \item \texttt{?plot}
+    \item ...
+  \end{itemize}
+Useful when you don't know how many arguments there will be.
+\end{frame}
+
+
+\begin{frame}[fragile]{\texttt{...} dot-dot-dot}
+\texttt{plot} example
+<< results='markup', eval = FALSE>>=
+hist3 <- function(x, ...){
+  hist(x, ...)
+  abline(v = mean(x, ...), 
+         col = "darkred", 
+         lwd = 2)
+}
+hist3(airquality$Wind, col = "pink", 
+      main = "Wind (mph)")
+@
+\end{frame}
+
+\begin{frame}[fragile]{\texttt{...} dot-dot-dot }
+\texttt{plot} example
+<< results='markup', echo = FALSE>>=
+hist3 <- function(x, ...){
+  hist(x, ...)
+  abline(v = mean(x, ...), 
+         col = "darkred", 
+         lwd = 2)
+}
+hist3(airquality$Wind, col = "pink", 
+      main = "Wind (mph)")
+@
+\end{frame}
+
+
+\begin{frame}[fragile]{\texttt{...} dot-dot-dot }
+\texttt{apply} example.
+<< results='markup'>>=
+get_quantiles <- function(x, ...){
+  out <- lapply(x, quantile, ...)
+  return(do.call(rbind, out))
+}
+get_quantiles(airquality, na.rm = TRUE, 
+              probs = c(.25, .5, .27))
+@
+\end{frame}
+
+
+\begin{frame}[fragile]{\texttt{...} dot-dot-dot}
+\textbf{WARNING!} Watch out with spelling mistakes, arguments can get lost!
+<< results='markup'>>=
+get_quantiles <- function(x, ...){
+  out <- lapply(x, quantile, ...)
+  return(do.call(rbind, out))
+}
+get_quantiles(airquality, na.rm = TRUE, 
+              prosb = c(.25, .5, .27))
+@
+\end{frame}
+
+% \begin{frame}{dot-dot-dot \texttt{...}}
+% 
+% force names
+% 
+% \end{frame}
+
+
+\subsection{on.exit()}
+
+\begin{frame}[fragile]{on.exit()}
+Performing an action when the function terminates.
+<< results='markup'>>=
+add_ten_on_exit <- function(x) {
+  on.exit(cat("Finished 'add_ten_on_exit', with input '", 
+              x, "'. \n", sep = ""))
+  return(x + 10)
+}
+add_ten_on_exit(1)
+@
+\end{frame}
+
+
+\begin{frame}[fragile]{on.exit()}
+Performing an action when the function terminates.
+<< results='markup'>>=
+add_ten_on_exit <- function(x) {
+  on.exit(cat("Finished 'add_ten_on_exit', with input '", 
+              x, "'. \n", sep = ""))
+  return(x + 10)
+}
+add_ten_on_exit("one")
+@
+\end{frame}
+
+
+\begin{frame}[fragile]{Error, warning, \& message}
+
+\begin{figure}
+\begin{center}
+\begin{tikzpicture}
+\node[draw,ellipse] (s1) at (0,0) {function};
+\node[draw,rectangle] (s2) at (-4,0) {object1, \ (object2, ...)};
+\node[draw,star, star points=10] (s4) at (3,-2) {ERROR};
+\node[draw,diamond, aspect = 2] (s5) at (3,2) {on.exit()};
+\path
+    (s2) edge[->, double distance=1pt, >=latex'] (s1)
+    (s1) edge[->, double distance=1pt, >=latex'] (s4)
+    (s1) edge[->, double distance=1pt, >=latex'] (s5);
+\end{tikzpicture}
+\end{center}
+\caption{on.exit() with error.}
+\label{with_error}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}[fragile]{on.exit()}
+Useful when your function has side effects:
+<< results='markup', warning=FALSE, eval=FALSE>>=
+hist3 <- function(x, ...){
+  old_options <- getOption("warn")
+  on.exit(options(warn = old_options))
+  options(warn = -1)
+  hist(x, ...)
+  abline(v = mean(x, ...), 
+         col = "darkred", lwd = 2)
+}
+hist3(airquality$Ozon, na.rm = TRUE)
+@
+\end{frame}
+
+
+\begin{frame}[fragile]{on.exit()}
+Useful when your function has side effects:
+<< results='markup', warning=FALSE, echo=FALSE>>=
+hist3 <- function(x, ...){
+  old_options <- getOption("warn")
+  on.exit(options(warn = old_options))
+  options(warn = -1)
+  hist(x, ...)
+  abline(v = mean(x, ...), 
+         col = "darkred", lwd = 2)
+}
+hist3(airquality$Ozon, na.rm = TRUE)
+@
+\end{frame}
+
+<<echo=FALSE, results="hide">>=
+warnings()
+@
+
+
+\subsection{Functions are objects}
+
+\begin{frame}[fragile]
+\begin{exampleblock}{}
+  {\large \begin{quote}
+``To understand computations in R, two slogans are helpful: Everything that exists is an object. Everything that happens is a function call.''
+\end{quote}}
+  \vskip5mm
+  \hspace*\fill{\small--- John Chambers}
+\end{exampleblock}
+\end{frame}
+
+
+\begin{frame}[fragile]{Functions are objects}
+Functions are also objects. They can be arguments.
+  \begin{itemize}
+    \item \texttt{apply}-family
+    \item ...
+  \end{itemize}
+
+<< results='markup'>>=
+do_this_that <- function(function1, function2, x){
+  function2(function1(x))
+}
+do_this_that(sum, log, 0:3)
+@
+\end{frame}
+
+\begin{frame}[fragile]{Functions are objects}
+Anonymous functions = functions without a name
+<< results='markup'>>=
+do_this_that(function(x) x^2, 
+             function2 = function(y) sum(y) / (length(y - 1)), 
+             -1:5)
+@
+\end{frame}
+
+
+\begin{frame}[fragile]{Functions are objects}
+The return objects can also be functions:
+<< results='markup', eval=FALSE>>=
+combine_2fun <- function(function_1, function_2){
+  out_function <- function(x, ...) {
+    function_2(function_1(x), ...)
+  }
+  return(out_function)
+}
+
+standardized_hist <- combine_2fun(scale, hist)
+standardized_hist(airquality$Wind, 
+                  col = "skyblue", 
+                  main = "Standardized hist")
+@
+\end{frame}
+
+
+\begin{frame}[fragile]{Functions are objects}
+The return objects can also be functions:
+<< results='markup', echo=FALSE>>=
+combine_2fun <- function(function_1, function_2){
+  out_function <- function(x, ...) {
+    function_2(function_1(x), ...)
+  }
+  return(out_function)
+}
+
+standardized_hist <- combine_2fun(scale, hist)
+standardized_hist(airquality$Wind, 
+                  col = "skyblue", 
+                  main = "Standardized hist")
+@
+\end{frame}
+
+
+\begin{frame}[fragile]{Functions are objects}
+The return objects can also be functions:
+<< results='markup'>>=
+combine_2fun <- function(function_1, function_2){
+  out_function <- function(x, ...) {
+    function_2(function_1(x), ...)
+  }
+  return(out_function)
+}
+mean_abs_deviation <- combine_2fun(abs, mean)
+mean_abs_deviation(airquality$Ozone, na.rm = TRUE)
+@
+\end{frame}
+
+
+\begin{frame}[fragile]{Functions are objects}
+The return objects can also be functions:
+<< results='markup'>>=
+normalize <- combine_2fun(
+  function(x) {x - min(x, na.rm = TRUE)},
+  function(x) {x / max(x, na.rm = TRUE)})
+normalize(airquality$Ozone)[1:4]
+@
+\end{frame}
+
+
+\subsection{Work flow}
+
+\begin{frame}{Writing Functions}
+  Before creating the function
+  \begin{itemize}
+    \item What should my function do?
+    \item Which input objects (Arguments)?
+    \item which additional options (Arguments)?
+    \item What should the output object be?
+  \end{itemize}
+  After creating the function
+  \begin{itemize}
+    \item Test it
+    \item Add input validation
+    \item Document
+  \end{itemize}
+\end{frame}
+
+
+\subsection{Good functions?}
+
+\begin{frame}{What makes a good function?}
+\textbf{Pure functions!}
+  \begin{itemize}
+    \item no side effects
+    \item no dependency on global environment
+    \item only input via arguments (functional programming)
+  \end{itemize}
+  Results in easier understanding and higher portability.
+\end{frame}
+
+% \subsection{Accessing the function call}
+% 
+% \begin{frame}[fragile]{Accessing the function call}
+% Accessing the function call
+% << results='asis'>>=
+% showArgs <- function(x, y) {
+%   match.call()
+% }
+% showArgs(1, 2)
+% @
+% \end{frame}
+
+\begin{frame}[plain]
+\begin{center}
+\Large Exercises \\
+
+\vspace{1.5cm}
+\includegraphics[height=.25\textheight]{exercises.jpg}
+\end{center}
+\end{frame}
+
+
+% ----------------------------------------------------------------------------------------------------------------------
+\section{Good programming practices}
+
+\subsection{Code Style}
+
+\begin{frame}[fragile]
+\begin{exampleblock}{}
+  {\large ``Write code for humans, not for machines!''}
+  \vskip5mm
+  \hspace*\fill{\small}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}{Code Style}
+Invest time in writing readable R-code.
+\begin{itemize}
+  \item It will make collaborations easier
+  \item It will make debugging easier
+  \item It will help make your analyses reproducible 
+\end{itemize}
+There is a complete \emph{tidyverse} style-guide \url{https://style.tidyverse.org/}.
+\end{frame}
+
+\subsection{Go easy on your eyes}
+
+\begin{frame}{Go easy on your eyes}
+\begin{itemize}
+  \item with spaces before and after: \texttt{-  +  /  *  =  <-  <  ==  > }
+  \item always use \texttt{<-} for assignments
+  \item only use \texttt{=} in function calls
+  \item use indentation (largely automatic in RStudio)
+  \item \texttt{CamelCaseNames} vs \texttt{snake\_case\_names}
+  \item be consistent!
+  \item wrap long lines at column 70-80 (Rstudio)
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{White space}
+<<White space, eval = FALSE>>=
+new_var=(var1*var2/2)-5/(var3+var4)
+
+# versus
+
+new_var <- (var1 * var2 / 2) - 5 / (var3 + var4)
+@
+\end{frame}
+
+\begin{frame}[fragile]{Indentation}
+<<Indentation, eval = FALSE, size="footnotesize">>=
+for(name in names){formula=as.formula(paste0("y~.-",name))
+fit<-lm(formula,data=my_data)
+coefs[["name"]]=coef(fit)
+print(name)
+print(summary(fit))}
+
+# versus
+
+for(name in names){
+  formula <- as.formula(paste0("y~.-", name))
+  fit <- lm(formula, data = my_data)
+  coefs[["name"]] <- coef(fit)
+  print(name)
+  print(summary(fit))
+}
+@
+\end{frame}
+
+\begin{frame}[fragile]{Wrap long lines}
+<<Wrap long lines, eval = FALSE , size="footnotesize">>=
+final_results <- data.frame(first_variable = 
+sqrt(results$mean_squared_error), second_variable = 
+paste0(results$condition, results$class, sep = ":"), 
+third_variable = results$bias)
+
+# versus
+
+final_results <- data.frame(
+  first_variable = sqrt(results$mean_squared_error), 
+  second_variable = paste0(results$condition, 
+                           results$class, sep = ":"),
+  third_variable = results$bias)
+@
+\end{frame}
+
+\subsection{Go easy on your mind}
+
+\begin{frame}{Go easy on your mind}
+\begin{itemize}
+  \item use meaningful names: ``self-explainable''
+  \item always write the formal arguments in function calls (except the first)
+  \item benefit from autocompletion (\texttt{<tab>}) => embrace longer names
+  \item use \texttt{TRUE} and \texttt{FALSE} not \texttt{T} and \texttt{F}
+  \item comment, comment, comment
+  \begin{itemize}
+    \item NOT what (should be clear from the code)
+    \item but why
+    \item explain the reasoning, not the code 
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Use meaningful names}
+<<Use meaningful names, eval = FALSE >>=
+V <- myFun(m1_B)
+
+# versus
+
+RMSE_age_gender <- get_RMSE(lm_age_gender)
+@
+\metroset{block=fill} %grey blocks
+\begin{block}{Programming advice}
+Use \texttt{verbs} for functions and \texttt{nouns} for other objects.
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Write formal arguments}
+Benefit from auto completion using \texttt{tab}
+<<Write formal arguments, eval = FALSE , size="footnotesize">>=
+m1_B <- lm(outcome ~ age*gender, 
+           exp1, condition_1, freq)
+
+# versus
+
+lm_age_gender <- lm(outcome ~ age * gender, 
+                    data = exp1, 
+                    subset = condition_1, 
+                    weigths = freq)
+@
+\end{frame}
+
+\begin{frame}[fragile]{Comment, comment, comment}
+<<Comment, eval = FALSE , size="footnotesize">>=
+## Start every Rscript with a comment that explains 
+##  what the code in the script does, why it does 
+##  this, and to which project it belongs. 
+##  Your future self will be very thankful!
+##
+## Mention which packages you are using in this Rscript.
+
+## Use sections to separate chunks ----------------------
+
+## Maybe even subsections ===============================
+
+## Recode variables so that missings are coded as "NA"
+dat[dat %in% c(99, 999)] <- NA  # missings coded 99 or 999
+@
+\end{frame}
+
+
+\subsection{R Peculiarities}
+
+
+\begin{frame}[fragile]{Keep your code slim}
+Try to limit your \emph{package-dependencies}.
+
+\vspace{0.3cm}
+
+Only load \texttt{library()} the packages that you absolutely need. If you are only using \texttt{dplyr}, it does not make sense to load the complete \texttt{tidyverse}.
+
+\vspace{0.3cm}
+
+\textbf{Controversial:} when possible, use the \texttt{::} operator (and consider not loading the package). \texttt{<package>::<function>} 
+\begin{itemize}
+  \item explicit dependencies
+  \item less name conflicts
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]{Never Attach}
+Forget about \texttt{attach()}! 
+
+\vspace{0.3cm}
+
+Don't use it, unless you completely understand what happens (see \texttt{?attach}).
+
+\vspace{0.3cm}
+
+Use \texttt{with(data.frame, expression)} instead.
+<<attach, eval = FALSE >>=
+# using with()
+n <- 2e+4
+data <- data.frame(x = runif(n), 
+                   y = runif(n), 
+                   z = seq_len(n))
+result <- with(data, exp(x) / log(z) + 5 * sqrt(y))
+@
+\end{frame}
+
+
+\begin{frame}{Testing R code}
+Writing code is error prone. Incorporate tests and checks in your workflow. 
+\begin{itemize}
+  \item minimal examples
+  \item write tests and checks
+  \item helpful packages: \texttt{testthat}, \texttt{RUnit}, \texttt{testit}, ...
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]{Speed}
+Computing speed can become an issue. Avoid common pitfalls:
+\begin{itemize}
+  \item don't grow, but replace
+  \item vectorize where possible
+  \item check the computing speed
+\end{itemize}
+\texttt{?system.time},  \text{microbenchmark} or profiling tools
+<< >>=
+n <- 2e+4
+data <- data.frame(x = runif(n), 
+                   y = runif(n), 
+                   z = seq_len(n))
+@
+\end{frame}
+
+
+\begin{frame}[fragile]{Speed}
+Don't grow!
+<< >>=
+system.time({
+  new_data <- NULL
+  
+  for(row_nr in seq_len(NROW(data))){
+    new_data <- cbind(
+      data[row_nr,], 
+      result = exp(data$x[row_nr]) /
+        log(data$z[row_nr]) + 
+        5 * sqrt(data$y[row_nr]))
+  }  
+})
+@
+\end{frame}
+
+
+\begin{frame}[fragile]{Speed}
+Replace!
+<< >>=
+system.time({
+  n_rows <- dim(data)[1]
+  data$result <- rep(NA, n_rows)
+  
+  for(row_nr in seq_len(n_rows)){
+    data$result[row_nr] <- exp(data$x[row_nr]) / 
+      log(data$z[row_nr]) + 
+      5 * sqrt(data$y[row_nr])
+  } 
+})
+@
+\end{frame}
+
+
+\begin{frame}[fragile]{Speed}
+Vectorize!
+<< >>=
+system.time({
+  data$result <- exp(data$x) / log(data$z) + 
+    5 * sqrt(data$y)
+})
+@
+\end{frame}
+
+
+
+\begin{frame}[fragile]{Speed}
+Compare the speed of different implementations using: 
+
+\vspace{0.3cm}
+
+\texttt{microbenchmark::microbenchmark}
+<< >>=
+get_mean1 <- function(x){
+  weight <- 1/length(x)
+  out <- 0
+  for(i in seq_along(x)){
+    out <- out + x[i] * weight 
+  }
+  return(out)
+}
+
+get_mean2 <- function(x){
+  sum(x)/length(x)
+}
+@
+\end{frame}
+
+
+\begin{frame}[fragile]{Speed}
+Compare the speed of different implementations using: 
+
+\vspace{0.3cm}
+
+\texttt{microbenchmark::microbenchmark}
+<< >>=
+x <- rnorm(500)
+microbenchmark::microbenchmark(
+  mean(x), get_mean1(x), get_mean2(x))
+@
+\end{frame}
+
+
+\begin{frame}[fragile]{Speed}
+
+\metroset{block=fill} %grey blocks
+\begin{block}{Programming advice}
+Don't worry about speed before it becomes an issue.
+\end{block}
+\end{frame}
+
+
+
+\subsection{Working with RStudio}
+
+\begin{frame}{Working with RStudio}
+``Every project should get an RStudio Project!'' 
+
+\vspace{0.3cm}
+
+Don't use \texttt{setwd(``path\/to\/my\/local\_folder'')} 
+
+\vspace{0.3cm}
+
+Issues when:
+\begin{itemize}
+  \item folders names are changed
+  \item folders are moved
+  \item a shared drive is used
+  \item you ZIP and send the folder
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Working with RStudio}
+Don't save work space to \texttt{.RData}.
+\begin{itemize}
+  \item Tools < Global Options < Workspace < Save workspace ....
+  \item Save the code instead!
+  \item Use \texttt{saveRDS()} and \texttt{readRDS()} for objects that require long computations
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Working with RStudio}
+Don't use \texttt{rm(list = ls())} at the start of an Rscript.
+\begin{itemize}
+  \item Start clean, every time. 
+  \item Keep it clean. No outside code, no outside computing.
+  \item Regularly completely clean the work space (or restart the session).
+\end{itemize}
+<<restart,  eval = FALSE>>=
+.rs.restartR()
+@
+\end{frame}
+
+\begin{frame}{Working with RStudio}
+Keep it clean
+\begin{itemize}
+  \item one folder per project!
+  \item work on different projects in different RStudio instances!
+  \item each with own R console, working directory, ...
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Working with RStudio}
+Organize your project folder
+\begin{itemize}
+  \item R-folder with R scripts
+  \item Data-folder with data
+  \item split long scripts in meaningful chunks
+  \item use relative paths (alternative: \href{https://CRAN.R-project.org/package=here}{here}-package)
+\end{itemize}
+<<organize,  eval = FALSE>>=
+# read data
+this_data <- read.csv("Data\the-correct-file.csv")
+
+# source Rscript
+source("R\01_first-script-to-source.R")
+@
+\end{frame}
+
+\begin{frame}{Working with RStudio}
+Use keyboard shortcuts
+\begin{itemize}
+  \item Can make working in RStudio more efficient
+  \item Completely tunable: Tools < Modify Keyboard Shortcuts...
+  \item Useful shortcuts (defaults):
+  \begin{itemize}
+    \item jump to editor: \texttt{ctrl + 1}
+    \item jump to console: \texttt{ctrl + 2}
+    \item jump to ...: \texttt{ctrl + 3-9}
+    \item jump to next tab: \texttt{ctrl + tab}
+    \item jump to previous tab: \texttt{ctrl + shift + tab}
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Working with RStudio}
+More useful shortcuts (defaults):
+\begin{itemize}
+  \item run selection/selected line: \texttt{ctrl + enter}
+  \item save current file: \texttt{ctrl + s}
+  \item close current file: \texttt{ctrl + w} 
+  \item restart R: \texttt{ctrl + shift + F10}
+  \item Show help (for function at cursor) \texttt{F1}
+  \item Show source code (for function at cursor) \texttt{F2}
+\end{itemize}
+More on this \href{https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts}{HERE}.
+\end{frame}
+
+\begin{frame}[plain]
+\begin{center}
+\Large Exercises \\
+
+\vspace{1.5cm}
+\includegraphics[height=.25\textheight]{exercises.jpg}
+\end{center}
+\end{frame}
+
+
+
+% ----------------------------------------------------------------------------------------------------------------------
+\section{Wrap Up}
+
+\begin{frame}{General Advice}
+\begin{itemize}
+\item Investing time in learning R pays off
+\item It's a steady learning curve
+\item Learn from masters
+\item Rewrite important code - the first attempt is usually not the best approach
+\end{itemize}
+\end{frame}
+
+\begin{frame}{General R Advice}
+\begin{itemize}
+\item Document well
+\item Use a consistent style
+\item Write functions
+\item Split long functions in smaller ones
+\item Write wrappers
+\item Use Iteration (don't copy paste)
+\item Use matrix operations and vectorized functions instead of loops
+\item Use git
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Literature Recommendations}
+R Resources
+\begin{itemize}
+\item Avanced R Ed. 1 (\url{http://adv-r.had.co.nz/})
+\item Avanced R Ed. 2 (\url{https://adv-r.hadley.nz/})
+\item R Inferno (\url{https://www.burns-stat.com/pages/Tutor/R_inferno.pdf})
+\item R Packages (\url{https://r-pkgs.org/})
+\item Clean Code (\url{https://enos.itcollege.ee/~jpoial/oop/naited/Clean\%20Code.pdf})
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}[plain]
+
+\begin{center}
+\Large Thank you for your attention!
+
+\visible<2>{Questions? Remarks?}
+\end{center}
+
+\end{frame}
+
+\end{document}
