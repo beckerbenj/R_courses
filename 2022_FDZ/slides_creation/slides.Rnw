@@ -443,13 +443,13 @@ ifelse(!is.na(age_self_rep),
 \begin{frame}{Loops \& iteration}
 R has specific tools (functions) that help organize the flow of computations. \\
 You can repeat a similar computation multiple times typically with changing options (``iteration'').
-The most commonly used tools are: 
+The most commonly used tools are:
 \begin{itemize}
-  \item loops 
-  \begin{itemize} loops 
+  \item loops
+  \begin{itemize}
     \item \texttt{for}
     \item \texttt{while}
-    \ite  \texttt{repeat}
+    \item \texttt{repeat}
   \end{itemize}
   \item \texttt{apply} - family
 \end{itemize}
@@ -546,7 +546,7 @@ repeat {
   \item \texttt{break} ends iteration (of the innermost loop)
 \end{itemize}
 Same idea, now with for loop
-<<next, echo=TRUE, eval = TRUE, results="markup">>=
+<<next2, echo=TRUE, eval = TRUE, results="markup">>=
 for(index in 1:6) {
   if (index %in% c(3, 5)) next
   print(index)
@@ -607,16 +607,16 @@ for (index in seq_along(x)){
 
 \subsection{apply}
 
-\begin{frame}{Loops \& Iteration - apply}
+\begin{frame}[fragile]{Loops \& Iteration - apply}
 \texttt{apply} lets you iterate over rows or columns of a matrix or data.frame. You can \emph{apply} a function to all rows/columns
-<<apply-def, echo=TRUE, results="markup", size="footnotesize", eval = FALSE>>=
-apply(matrix, 
-      MARGIN = 1,       # 1 = iterate over rows; 2 = iterate over columns)
-      FUN = function)   # function to apply to rows/columns
+<<applyDef, echo=TRUE, results="markup", size="footnotesize", eval = FALSE>>=
+apply(matrix,
+     MARGIN = 1,       # 1 = iterate over rows
+                       # 2 = iterate over columns
+     FUN = function)   # function to apply to rows/columns
 @
-\\
-
 \end{frame}
+
 
 \subsubsection{apply}
 
