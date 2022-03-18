@@ -548,7 +548,6 @@ repeat {
 Same idea, now with for loop
 <<next, echo=TRUE, eval = TRUE, results="markup">>=
 for(index in 1:6) {
-  index <- index + 1
   if (index %in% c(3, 5)) next
   print(index)
 }
@@ -556,7 +555,7 @@ for(index in 1:6) {
 \end{frame}
 
 
-\begin{frame}[fragile]{Loops \& Iteration - nested loop}
+\begin{frame}[fragile]{Loops \& Iteration - nested loops}
 Nested loops (over the rows and columns of a matrix)
 <<for3, echo=TRUE, eval = TRUE, results = "markup">>=
 matrix <- matrix(NA, nrow = 2, ncol = 3)

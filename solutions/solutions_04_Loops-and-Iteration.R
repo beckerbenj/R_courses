@@ -30,7 +30,33 @@
 
 ## Exercises -----
 ##===========================================================
-# 1. Consider the following list ("attendance_list"). Write a for loop in which 
+# 1. Consider the vector of values. 
+#    (a) Write a for loop in which you compute the square of each value and 
+#        and compare it with the raw value. When the raw values are smaller, 
+#        keep the raw values, else, keep the squared values. The result should
+#        be a vector. 
+#        Note that you do not know in advance how long the vector is, make 
+#        sure your code works regardless of the length of the vector.
+#    (b) Try to do this without a for loop.
+values <- rnorm(sample(5:15))
+
+
+# possible solution
+results <- double(length(values))
+
+for(index in seq_along(values)){
+  square <- values[index]^2
+  results[index] <- ifelse(values[index] < square, values[index], square)
+}
+results
+
+
+# possible solution without loop
+results <- ifelse(values < values^2, values, values^2)
+
+
+
+# 2. Consider the following list ("attendance_list"). Write a for loop in which 
 #      (a) the name "Benny" is replaced by "bob"
 #      (b) the Attendees are put in alphabetical order
 #    Tip: You can use the index of the elements, or the names of the elements
@@ -66,7 +92,7 @@ attendance_list
 
 
 
-# 2. Consider the airquality data. 
+# 3. Consider the airquality data. 
 #    (a) Using a for loop, check whether there are NA values each column. 
 #        For instance using the anyNA() function. The result should be a logical
 #        vector with a length that equals the number of columns.
@@ -99,22 +125,6 @@ NA_in_row
 # possible solution (c)
 apply(airquality, 2, anyNA)
 apply(airquality, 1, anyNA)
-
-
-
-# 3. Use the lapply() function to sort the attendees alphabetically in 
-#    attendance_list 
-attendance_list <- list(
-  may_02 = c("Benny", "Anna", "Freddy", "Casey"), 
-  may_09 = c("Freddy", "Casey", "Donny", "Anna"), 
-  may_16 = c("Eddy", "Anna", "Freddy", "Casey", "Benny"), 
-  may_23 = c("Donny", "Freddy", "Anna"),
-  may_30 = c("Casey", "Freddy", "Donny", "Anna", "Benny", "Eddy")
-)
-
-
-# Possible solution
-lapply(attendance_list, sort)
 
 
 
