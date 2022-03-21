@@ -239,10 +239,14 @@ econRedD<-"#90353B"
   \begin{itemize}
     \item DON'T \texttt{Restore .RData into workspace at startup}
     \item NEVER \texttt{Save workspace to .Rdata on exit:}
+    \item Save the code instead!
+    \item Use \texttt{saveRDS()} and \texttt{readRDS()} for objects that require long %computations
   \end{itemize}
   \item Further personalize RStudio
 \end{enumerate}
 \end{frame}
+
+
 
 
 % ----------------------------------------------------------------------------------------------------------------------
@@ -954,7 +958,7 @@ str(get_info(airquality$Wind))
   \end{itemize}
   \item They help avoid copy-paste errors
   \item They make it easier to change your code
-  \item They increase transferability to ...
+  \item They increase transfer
   \begin{itemize}
     \item other use cases
     \item other projects
@@ -979,24 +983,24 @@ RMSE <- sqrt(m_sq_diff)
 @
 \end{frame}
 
-\begin{frame}[fragile]{Readability}
-\textbf{Writing a function:}
-<< results='markup'>>=
-summary(mtcars$mpg)
-@
-\end{frame}
-
-\begin{frame}[fragile]{Readability}
-\textbf{Not writing a function:}
-<< results='markup'>>=
-round(c("Min." = min(mtcars$mpg),
-  "1st Qu." = as.numeric(quantile(mtcars$mpg)[2]),
-  "Median" = median(mtcars$mpg),
-  "Mean" = mean(mtcars$mpg),
-  "3rd Qu." = as.numeric(quantile(mtcars$mpg)[4]),
-  "Max." = max(mtcars$mpg)), 2)
-@
-\end{frame}
+%\begin{frame}[fragile]{Readability}
+%\textbf{Writing a function:}
+%<< results='markup'>>=
+%summary(mtcars$mpg)
+%@
+%\end{frame}
+%
+%\begin{frame}[fragile]{Readability}
+%\textbf{Not writing a function:}
+%<< results='markup'>>=
+%round(c("Min." = min(mtcars$mpg),
+%  "1st Qu." = as.numeric(quantile(mtcars$mpg)[2]),
+%  "Median" = median(mtcars$mpg),
+%  "Mean" = mean(mtcars$mpg),
+%  "3rd Qu." = as.numeric(quantile(mtcars$mpg)[4]),
+%  "Max." = max(mtcars$mpg)), 2)
+%@
+%\end{frame}
 
 
 
@@ -1043,50 +1047,50 @@ print_info(airquality$Wind)
 @
 \end{frame}
 
-\begin{frame}[fragile]{Side effects}
-Graphics output: Standard plot, ggplot2, lattice
-<< eval=FALSE, size = "scriptsize">>=
-hist2 <- function(x, title){
-  info <- get_info(x)
-  mean_median <- as.numeric(info[c("mean", "median")])
-  hist(x, col = "skyblue", freq = FALSE, 
-       main = paste0(title, " (n = ", info$n_obs, ")"))
-  abline(v = mean_median, lwd = 2, 
-         col = c("darkred", "darkblue"))
-  text(mean_median, y = c(.11, .09),
-       labels = paste(c("Mean", "Median"), 
-                      round(mean_median, 2), 
-                      sep = " = "),
-       col = c("darkred", "darkblue"), pos = 4)
-}
-hist2(airquality$Wind, "Wind")
-@
-\end{frame}
-
-\begin{frame}[fragile]{Side effects}
-Graphics output
-<<echo=FALSE, results='markup', message=TRUE, fig.width=3.5, fig.height=3>>=
-hist2 <- function(x, title){
-  info <- get_info(x)
-  mean_median <- as.numeric(info[c("mean", "median")])
-  hist(x, 
-       main = paste0(title, " (n = ", info$n_obs, ")"),
-       col = "skyblue", 
-       freq = FALSE)
-  abline(v = mean_median, 
-         col = c("darkred", "darkblue"), 
-         lwd = 2)
-  text(mean_median, 
-       y = c(.11, .09),
-       labels = paste(c("Mean", "Median"), 
-                      round(mean_median, 2), 
-                      sep = " = "),
-       col = c("darkred", "darkblue"),
-       pos = 4)
-}
-hist2(airquality$Wind, "Wind")
-@
-\end{frame}
+%\begin{frame}[fragile]{Side effects}
+%Graphics output: Standard plot, ggplot2, lattice
+%<< eval=FALSE, size = "scriptsize">>=
+%hist2 <- function(x, title){
+%  info <- get_info(x)
+%  mean_median <- as.numeric(info[c("mean", "median")])
+%  hist(x, col = "skyblue", freq = FALSE, 
+%       main = paste0(title, " (n = ", info$n_obs, ")"%))
+%  abline(v = mean_median, lwd = 2, 
+%         col = c("darkred", "darkblue"))
+%  text(mean_median, y = c(.11, .09),
+%       labels = paste(c("Mean", "Median"), 
+%                      round(mean_median, 2), 
+%                      sep = " = "),
+%       col = c("darkred", "darkblue"), pos = 4)
+%}
+%hist2(airquality$Wind, "Wind")
+%@
+%\end{frame}
+%
+%\begin{frame}[fragile]{Side effects}
+%Graphics output
+%<<echo=FALSE, results='markup', message=TRUE, fig%.width=3.5, fig.height=3>>=
+%hist2 <- function(x, title){
+%  info <- get_info(x)
+%  mean_median <- as.numeric(info[c("mean", "median")])
+%  hist(x, 
+%       main = paste0(title, " (n = ", info$n_obs, ")"%),
+%       col = "skyblue", 
+%       freq = FALSE)
+%  abline(v = mean_median, 
+%         col = c("darkred", "darkblue"), 
+%         lwd = 2)
+%  text(mean_median, 
+%       y = c(.11, .09),
+%       labels = paste(c("Mean", "Median"), 
+%                      round(mean_median, 2), 
+%                      sep = " = "),
+%       col = c("darkred", "darkblue"),
+%       pos = 4)
+%}
+%hist2(airquality$Wind, "Wind")
+%@
+%\end{frame}
 
 
 
@@ -1334,60 +1338,58 @@ add_a(5)
 %\end{frame}
 
 
-
-\subsection{Functional Programming}
-
-
-
-\begin{frame}[fragile]{Functional programming}
-The return object should only depend on the arguments of the function, \emph{\textbf{not}} on the context! 
-
-\vspace{0.3cm}
-
-\textbf{BAD:}
-<< results='markup'>>=
-a <- 55
-add_a <- function(x){
-  return(x + a)
-}
-add_a(5)
-@
-\end{frame}
-
-
-
-\begin{frame}[fragile]{Functional programming}
-The return object should only depend on the arguments of the function, \emph{\textbf{not}} on the context!  
-
-\vspace{0.3cm}
-
-\textbf{GOOD:}
-<< results='markup'>>=
-add_a <- function(x, a = 55){
-  return(x + a)
-}
-add_a(5)
-@
-\end{frame}
-
-
-
-\begin{frame}[fragile]{Functional programming}
-The function should not change the context.
-
-\vspace{0.3cm}
-
-\textbf{BAD}
-<< results='markup'>>=
-a <- 55
-change_a <- function(new_a){
-  a <<- new_a
-  return(invisible(NULL))
-}
-change_a(5)
-a
-@
-\end{frame}
+%
+%\subsection{Functional Programming}
+%
+%\begin{frame}[fragile]{Functional programming}
+%The return object should only depend on the arguments %of the function, \emph{\textbf{not}} on the context! 
+%
+%\vspace{0.3cm}
+%
+%\textbf{BAD:}
+%<< results='markup'>>=
+%a <- 55
+%add_a <- function(x){
+%  return(x + a)
+%}
+%add_a(5)
+%@
+%\end{frame}
+%
+%
+%
+%\begin{frame}[fragile]{Functional programming}
+%The return object should only depend on the arguments %of the function, \emph{\textbf{not}} on the context!  
+%
+%\vspace{0.3cm}
+%
+%\textbf{GOOD:}
+%<< results='markup'>>=
+%add_a <- function(x, a = 55){
+%  return(x + a)
+%}
+%add_a(5)
+%@
+%\end{frame}
+%
+%
+%
+%\begin{frame}[fragile]{Functional programming}
+%The function should not change the context.
+%
+%\vspace{0.3cm}
+%
+%\textbf{BAD}
+%<< results='markup'>>=
+%a <- 55
+%change_a <- function(new_a){
+%  a <<- new_a
+%  return(invisible(NULL))
+%}
+%change_a(5)
+%a
+%@
+%\end{frame}
 
 
 
@@ -1416,9 +1418,15 @@ Useful when you don't know how many arguments there will be.
 A function that checks for multiple objects if they are character vectors. (A wrapper around \texttt(?is.character))
 << results='markup', eval = TRUE>>=
 is_character <- function(...){
-  lapply(list(...), is.character)
+  input <- list(...)
+  out <- logical(length(input))
+  for(ell_nr in seq_along(input)){
+    out[ell_nr] <- is.character(input[[ell_nr]])
+  }
+  names(out) <- names(input)
+  out
 }
-is_character(a = "Awesome", b = 5)
+is_character(a = "Awesome", b = 5, new = "YES")
 @
 \end{frame}
 
@@ -1437,6 +1445,7 @@ Useful for passing arguments to other functions like:
 \texttt{apply} example.
 << results='markup'>>=
 get_quantiles <- function(x, ...){
+  if(is.null(dim(x))) return(quantile(x, ...))
   apply(x, 2, quantile, ...)
 }
 get_quantiles(airquality, na.rm = TRUE, 
@@ -1449,6 +1458,7 @@ get_quantiles(airquality, na.rm = TRUE,
 \textbf{WARNING!} Watch out with spelling mistakes, arguments can get lost!
 << results='markup'>>=
 get_quantiles <- function(x, ...){
+  if(is.null(dim(x))) return(quantile(x, ...))
   apply(x, 2, quantile, ...)
 }
 get_quantiles(airquality, na.rm = TRUE, 
@@ -1595,19 +1605,19 @@ get_quantiles(airquality, na.rm = TRUE,
   \end{itemize}
 \end{frame}
 
-
-\subsection{Good functions?}
-
-\begin{frame}{What makes a good function?}
-\textbf{Pure functions!}
-  \begin{itemize}
-    \item no side effects
-    \item no dependency on global environment
-    \item only input via arguments (functional programming)
-  \end{itemize}
-  Results in easier understanding and higher portability.
-\end{frame}
-
+%
+%\subsection{Good functions?}
+%
+%\begin{frame}{What makes a good function?}
+%\textbf{Pure functions!}
+%  \begin{itemize}
+%    \item no side effects
+%    \item no dependency on global environment
+%    \item only input via arguments (functional %programming)
+%  \end{itemize}
+%  Results in easier understanding and higher %portability.
+%\end{frame}
+%
 % \subsection{Accessing the function call}
 % 
 % \begin{frame}[fragile]{Accessing the function call}

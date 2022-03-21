@@ -83,8 +83,9 @@ print_info(airquality$Wind)
 test <- print_info(airquality$Wind)
 test
 
-# plot
 
+
+# plot
 hist2 <- function(x, title){
   info <- get_info(x)
   mean_median <- as.numeric(info[c("mean", "median")])
@@ -105,6 +106,8 @@ hist2 <- function(x, title){
 }
 
 hist2(airquality$Wind, "Wind")
+
+
 
 # pipable histogram
 hist_pipe <- function(x) {
@@ -218,23 +221,20 @@ add_a(5)
 # ...........
 
 
-# Unknon number of arguments
+# Unknown number of arguments
 # using a for loop
 is_character <- function(...){
   input <- list(...)
-  out <- input
-  for(ell_nr in seq_along(out)){
-    out[[ell_nr]] <- is.character(out[[ell_nr]])
+  out <- logical(length(input))
+  for(ell_nr in seq_along(input)){
+    out[ell_nr] <- is.character(input[[ell_nr]])
   }
+  names(out) <- names(input)
   out
 }
-is_character(a = "Awesome", b = 5, "Yes")
+is_character(a = "Awesome", b = 5, new = "YES")
 
-# using lapply
-is_character <- function(...){
-  lapply(list(...), is.character)
-}
-is_character(a = "Awesome", b = 5, "Yes")
+
 
 
 
@@ -242,21 +242,17 @@ is_character(a = "Awesome", b = 5, "Yes")
 # apply example
 ?apply
 get_quantiles <- function(x, ...){
-  out <- lapply(x, quantile, ...)
-  return(do.call(rbind, out))
+  if(is.null(dim(x))) return(quantile(x, ...))
+  apply(x, 2, quantile, ...)
 }
 get_quantiles(airquality, na.rm = TRUE, 
-              probs = c(.25, .5, .27))
+              probs = c(.25, .5, .75))
 
 
 
 # spelling mistakes!
-get_quantiles <- function(x, ...){
-  out <- lapply(x, quantile, ...)
-  return(do.call(rbind, out))
-}
 get_quantiles(airquality, na.rm = TRUE, 
-              prosb = c(.25, .5, .27))
+              prosb = c(.25, .5, .75))
 
 
 
