@@ -62,6 +62,8 @@ list.files(".\\R")
 
 # 11. Set your preferences via the global options
 ### Tools < Global Options
+###   DON'T "Restore .RData into workspace at startup"
+###   NEVER "Save workspace to .Rdata on exit:"
 
 
 
