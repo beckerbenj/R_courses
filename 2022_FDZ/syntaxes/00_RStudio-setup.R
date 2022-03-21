@@ -10,7 +10,7 @@
 ## Create a new RStudio Project
 
 
-# 1. Copy the course content from the usb-stick to a directory on your machine
+# 1.Save the course content to a directory on your machine
 
 
 # 2. Open RStudio
@@ -23,7 +23,7 @@
 
 
 # 5. Browse to the directory on your machine where you copied the course 
-#    content and select the ``Intro-R-programming'' folder as the 
+#    content and select the ``R-programming'' folder as the 
 #    Project working directory
 
 
@@ -31,6 +31,9 @@
 
 
 # 7. Click "Create Project"
+
+
+
 
 
 ## After creating the RStudio Project...
@@ -54,6 +57,8 @@ list.files(".\\R")
 
 # 10. Try out some keyboard shortcuts
 ### Tools < Keyboard Shortcuts Help
+
+
 
 # 11. Set your preferences via the global options
 ### Tools < Global Options
