@@ -393,17 +393,6 @@ vote
 @
 \end{frame}
 
-%\begin{frame}[fragile]{Conditional Computation - if}
-%Solution using meaningful initialization
-%<<if init, echo = TRUE, results="markup">>=
-%age <- 17
-%vote <- "too young"
-%if (age >= 18) {
-%  vote <- "can vote"
-%} 
-%vote
-%@
-%\end{frame}
 
 \subsection{ifelse}
 
@@ -502,20 +491,6 @@ while (condition){
 @
 As long as the condition is TRUE, the computation is executed. \\ Often, the computation depends on something that is related to the condition.
 \end{frame}
-
-%\begin{frame}[fragile]{Loops \& Iteration - while}
-%Sample five random values from a normal distribution, the distance between %the
-%minimum and maximum should be at least 4.
-%<<while2, echo=TRUE, eval = TRUE>>=
-%max_dif <- 0
-%while (max_dif <= 4){
-%  cat("|")
-%  values <- rnorm(5)
-%  max_dif <- max(values) - min(values)
-%}
-%max_dif
-%@
-%\end{frame}
 
 \begin{frame}[fragile]{Loops \& Iteration - repeat}
 \texttt{repeat} statements have the basic form
@@ -988,26 +963,6 @@ RMSE <- sqrt(m_sq_diff)
 @
 \end{frame}
 
-%\begin{frame}[fragile]{Readability}
-%\textbf{Writing a function:}
-%<< results='markup'>>=
-%summary(mtcars$mpg)
-%@
-%\end{frame}
-%
-%\begin{frame}[fragile]{Readability}
-%\textbf{Not writing a function:}
-%<< results='markup'>>=
-%round(c("Min." = min(mtcars$mpg),
-%  "1st Qu." = as.numeric(quantile(mtcars$mpg)[2]),
-%  "Median" = median(mtcars$mpg),
-%  "Mean" = mean(mtcars$mpg),
-%  "3rd Qu." = as.numeric(quantile(mtcars$mpg)[4]),
-%  "Max." = max(mtcars$mpg)), 2)
-%@
-%\end{frame}
-
-
 
 \subsection{Side effects}
 
@@ -1051,51 +1006,6 @@ print_info <- function(x){
 print_info(airquality$Wind)
 @
 \end{frame}
-
-%\begin{frame}[fragile]{Side effects}
-%Graphics output: Standard plot, ggplot2, lattice
-%<< eval=FALSE, size = "scriptsize">>=
-%hist2 <- function(x, title){
-%  info <- get_info(x)
-%  mean_median <- as.numeric(info[c("mean", "median")])
-%  hist(x, col = "skyblue", freq = FALSE, 
-%       main = paste0(title, " (n = ", info$n_obs, ")"%))
-%  abline(v = mean_median, lwd = 2, 
-%         col = c("darkred", "darkblue"))
-%  text(mean_median, y = c(.11, .09),
-%       labels = paste(c("Mean", "Median"), 
-%                      round(mean_median, 2), 
-%                      sep = " = "),
-%       col = c("darkred", "darkblue"), pos = 4)
-%}
-%hist2(airquality$Wind, "Wind")
-%@
-%\end{frame}
-%
-%\begin{frame}[fragile]{Side effects}
-%Graphics output
-%<<echo=FALSE, results='markup', message=TRUE, fig%.width=3.5, fig.height=3>>=
-%hist2 <- function(x, title){
-%  info <- get_info(x)
-%  mean_median <- as.numeric(info[c("mean", "median")])
-%  hist(x, 
-%       main = paste0(title, " (n = ", info$n_obs, ")"%),
-%       col = "skyblue", 
-%       freq = FALSE)
-%  abline(v = mean_median, 
-%         col = c("darkred", "darkblue"), 
-%         lwd = 2)
-%  text(mean_median, 
-%       y = c(.11, .09),
-%       labels = paste(c("Mean", "Median"), 
-%                      round(mean_median, 2), 
-%                      sep = " = "),
-%       col = c("darkred", "darkblue"),
-%       pos = 4)
-%}
-%hist2(airquality$Wind, "Wind")
-%@
-%\end{frame}
 
 
 
@@ -1250,35 +1160,6 @@ Message \& warning: computation is NOT interrupted!
 \end{frame}
 
 
-
-% \subsection{Lazy Evaluation}
-% 
-% 
-% \begin{frame}[fragile]{Lazy Evaluation}
-% \texttt{R} only considers (evaluates) an argument when it is used.
-% <<echo=TRUE>>=
-% add_ten_lazy <- function(x, y) {
-%   return(x + 10)
-% }
-% add_ten_lazy(2, y = stop("This is not evaluated"))
-% @
-% \end{frame}
-% 
-% \begin{frame}[fragile]{Lazy Evaluation}
-% \texttt{R} only considers (evaluates) an argument when it is used.
-% But, you can \texttt{force} the evaluation: 
-% <<echo=TRUE>>=
-% add_ten_force <- function(x, y) {
-%   force(y)
-%   return(x + 10)
-% }
-% add_ten_force(2, y = stop("Evaluation was forced"))
-% @
-% \texttt{?force}
-% \end{frame}
-
-
-
 \subsection{Scoping rules}
 
 
@@ -1314,87 +1195,6 @@ add_a(5)
 
 \end{frame}
 
-
-%\begin{frame}[fragile]{Where does a function find objects?}
-%R uses specific rules to find objects.
-%<< results='markup'>>=
-%a <- b <- c <- d <- "fourth"
-%find_object <- function(a, b = "third", c = "third"){
-%  a <- "first"
-%  return(c(a = a, b = b, c = c, d = d))
-%}
-%find_object(b = "second")
-%@
-%\end{frame}
-%
-%
-%
-%\begin{frame}[fragile]{Where does a function find objects?}
-%R uses specific rules to find objects.
-%
-%\begin{enumerate}
-%  \item in the function body
-%  \item in the function call
-%  \item in the function definition
-%  \item outside the function
-%\end{enumerate}
-%
-%Watch out with number 4! Frequently restart R: \texttt{Ctrl + shift + F10}
-%\end{frame}
-
-
-%
-%\subsection{Functional Programming}
-%
-%\begin{frame}[fragile]{Functional programming}
-%The return object should only depend on the arguments %of the function, \emph{\textbf{not}} on the context! 
-%
-%\vspace{0.3cm}
-%
-%\textbf{BAD:}
-%<< results='markup'>>=
-%a <- 55
-%add_a <- function(x){
-%  return(x + a)
-%}
-%add_a(5)
-%@
-%\end{frame}
-%
-%
-%
-%\begin{frame}[fragile]{Functional programming}
-%The return object should only depend on the arguments %of the function, \emph{\textbf{not}} on the context!  
-%
-%\vspace{0.3cm}
-%
-%\textbf{GOOD:}
-%<< results='markup'>>=
-%add_a <- function(x, a = 55){
-%  return(x + a)
-%}
-%add_a(5)
-%@
-%\end{frame}
-%
-%
-%
-%\begin{frame}[fragile]{Functional programming}
-%The function should not change the context.
-%
-%\vspace{0.3cm}
-%
-%\textbf{BAD}
-%<< results='markup'>>=
-%a <- 55
-%change_a <- function(new_a){
-%  a <<- new_a
-%  return(invisible(NULL))
-%}
-%change_a(5)
-%a
-%@
-%\end{frame}
 
 
 
@@ -1472,126 +1272,6 @@ get_quantiles(airquality, na.rm = TRUE,
 @
 \end{frame}
 
-% \begin{frame}{dot-dot-dot \texttt{...}}
-% 
-% force names
-% 
-% \end{frame}
-
-
-%\subsection{on.exit()}
-%
-%\begin{frame}[fragile]{on.exit()}
-%Performing an action when the function terminates.
-%<< results='markup'>>=
-%add_ten_on_exit <- function(x) {
-%  on.exit(cat("Finished 'add_ten_on_exit', with input '", 
-%              x, "'. \n", sep = ""))
-%  return(x + 10)
-%}
-%add_ten_on_exit(1)
-%@
-%\end{frame}
-%
-%
-%\begin{frame}[fragile]{on.exit()}
-%Performing an action when the function terminates.
-%<< results='markup'>>=
-%add_ten_on_exit <- function(x) {
-%  on.exit(cat("Finished 'add_ten_on_exit', with input '", 
-%              x, "'. \n", sep = ""))
-%  return(x + 10)
-%}
-%add_ten_on_exit("one")
-%@
-%\end{frame}
-%
-%
-%\begin{frame}[fragile]{Error, warning, \& message}
-%
-%\begin{figure}
-%\begin{center}
-%\begin{tikzpicture}
-%\node[draw,ellipse] (s1) at (0,0) {function};
-%\node[draw,rectangle] (s2) at (-4,0) {object1, \ (object2, ...)};
-%\node[draw,star, star points=10] (s4) at (3,-2) {ERROR};
-%\node[draw,diamond, aspect = 2] (s5) at (3,2) {on.exit()};
-%\path
-%    (s2) edge[->, double distance=1pt, >=latex'] (s1)
-%    (s1) edge[->, double distance=1pt, >=latex'] (s4)
-%    (s1) edge[->, double distance=1pt, >=latex'] (s5);
-%\end{tikzpicture}
-%\end{center}
-%\caption{on.exit() with error.}
-%\label{on.exit}
-%\end{figure}
-%\end{frame}
-%
-%
-%\begin{frame}[fragile]{on.exit()}
-%Useful when your function has side effects:
-%<< results='markup', warning=FALSE, eval=FALSE>>=
-%hist3 <- function(x, ...){
-%  old_options <- getOption("warn")
-%  on.exit(options(warn = old_options))
-%  options(warn = -1)
-%  hist(x, ...)
-%  abline(v = mean(x, ...), 
-%         col = "darkred", lwd = 2)
-%}
-%hist3(airquality$Ozon, na.rm = TRUE)
-%@
-%\end{frame}
-%
-%
-%\begin{frame}[fragile]{on.exit()}
-%Useful when your function has side effects:
-%<< results='markup', warning=FALSE, echo=FALSE>>=
-%hist3 <- function(x, ...){
-%  old_options <- getOption("warn")
-%  on.exit(options(warn = old_options))
-%  options(warn = -1)
-%  hist(x, ...)
-%  abline(v = mean(x, ...), 
-%         col = "darkred", lwd = 2)
-%}
-%hist3(airquality$Ozon, na.rm = TRUE)
-%@
-%\end{frame}
-%
-%<<echo=FALSE, results="hide">>=
-%warnings()
-%@
-%
-%
-%\subsection{Functions are objects}
-%
-%\begin{frame}[fragile]
-%\begin{exampleblock}{}
-%  {\large \begin{quote}
-%``To understand computations in R, two slogans are helpful: Everything that exists %is an object. {Everything} that happens is a function call.''
-%\end{quote}}
-%  \vskip5mm
-%  \hspace*\fill{\small--- John Chambers}
-%\end{exampleblock}
-%\end{frame}
-%
-%
-%\begin{frame}[fragile]{Functions are objects}
-%Functions are also objects. They can be arguments.
-%  \begin{itemize}
-%    \item \texttt{apply}-family
-%    \item ...
-%  \end{itemize}
-%
-%<< results='markup'>>=
-%do_this_that <- function(function1, function2, x){
-%  function2(function1(x))
-%}
-%do_this_that(sum, log, 0:3)
-%@
-%\end{frame}
-
 
 \subsection{Work flow}
 
@@ -1610,31 +1290,6 @@ get_quantiles(airquality, na.rm = TRUE,
     \item Document
   \end{itemize}
 \end{frame}
-
-%
-%\subsection{Good functions?}
-%
-%\begin{frame}{What makes a good function?}
-%\textbf{Pure functions!}
-%  \begin{itemize}
-%    \item no side effects
-%    \item no dependency on global environment
-%    \item only input via arguments (functional %programming)
-%  \end{itemize}
-%  Results in easier understanding and higher %portability.
-%\end{frame}
-%
-% \subsection{Accessing the function call}
-% 
-% \begin{frame}[fragile]{Accessing the function call}
-% Accessing the function call
-% << results='asis'>>=
-% showArgs <- function(x, y) {
-%   match.call()
-% }
-% showArgs(1, 2)
-% @
-% \end{frame}
 
 
 \begin{frame}[plain]
@@ -2175,102 +1830,6 @@ Don't worry about speed before it becomes an issue.
 \end{frame}
 
 
-
-%\subsection{Working with RStudio}
-%
-%\begin{frame}{Working with RStudio}
-%``Every project should get an RStudio Project!'' 
-%
-%\vspace{0.3cm}
-%
-%Don't use \texttt{setwd(``path\/to\/my\/local\_folder'')} 
-%
-%\vspace{0.3cm}
-%
-%Issues when:
-%\begin{itemize}
-%  \item folders names are changed
-%  \item folders are moved
-%  \item a shared drive is used
-%  \item you ZIP and send the folder
-%\end{itemize}
-%\end{frame}
-
-%\begin{frame}{Working with RStudio}
-%Don't save work space to \texttt{.RData}.
-%\begin{itemize}
-%  \item Tools < Global Options < Workspace < Save workspace ....
-%  \item Save the code instead!
-%  \item Use \texttt{saveRDS()} and \texttt{readRDS()} for objects that require long %computations
-%\end{itemize}
-%\end{frame}
-%
-%\begin{frame}[fragile]{Working with RStudio}
-%Don't use \texttt{rm(list = ls())} at the start of an Rscript.
-%\begin{itemize}
-%  \item Start clean, every time. 
-%  \item Keep it clean. No outside code, no outside computing.
-%  \item Regularly completely clean the work space (or restart the session).
-%\end{itemize}
-%<<restart,  eval = FALSE>>=
-%.rs.restartR()
-%@
-%\end{frame}
-%
-%\begin{frame}{Working with RStudio}
-%Keep it clean
-%\begin{itemize}
-%  \item one folder per project!
-%  \item work on different projects in different RStudio instances!
-%  \item each with own R console, working directory, ...
-%\end{itemize}
-%\end{frame}
-%
-%\begin{frame}[fragile]{Working with RStudio}
-%Organize your project folder
-%\begin{itemize}
-%  \item R-folder with R scripts
-%  \item Data-folder with data
-%  \item split long scripts in meaningful chunks
-%  \item use relative paths (alternative: \href{https://CRAN.R-project.org/package%=here}{here}-package)
-%\end{itemize}
-%<<organize,  eval = FALSE>>=
-%# read data
-%this_data <- read.csv("Data\the-correct-file.csv")
-%
-%# source Rscript
-%source("R\01_first-script-to-source.R")
-%@
-%\end{frame}
-
-%\begin{frame}{Working with RStudio}
-%Use keyboard shortcuts
-%\begin{itemize}
-%  \item Can make working in RStudio more efficient
-%  \item Completely tunable: Tools < Modify Keyboard Shortcuts...
-%  \item Useful shortcuts (defaults):
-%  \begin{itemize}
-%    \item jump to editor: \texttt{ctrl + 1}
-%    \item jump to console: \texttt{ctrl + 2}
-%    \item jump to ...: \texttt{ctrl + 3-9}
-%    \item jump to next tab: \texttt{ctrl + tab}
-%    \item jump to previous tab: \texttt{ctrl + shift + tab}
-%  \end{itemize}
-%\end{itemize}
-%\end{frame}
-%
-%\begin{frame}{Working with RStudio}
-%More useful shortcuts (defaults):
-%\begin{itemize}
-%  \item run selection/selected line: \texttt{ctrl + enter}
-%  \item save current file: \texttt{ctrl + s}
-%  \item close current file: \texttt{ctrl + w} 
-%  \item restart R: \texttt{ctrl + shift + F10}
-%  \item Show help (for function at cursor) \texttt{F1}
-%  \item Show source code (for function at cursor) \texttt{F2}
-%\end{itemize}
-%More on this \href{https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard%-Shortcuts}{HERE}.
-%\end{frame}
 
 
 
