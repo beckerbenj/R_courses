@@ -92,8 +92,30 @@ do.call(rbind, out_list)
 
 
 
+# 5. Consider the following function. Replace the loop in the function body 
+#    with lapply(). If the function works, use do.call(c, ...) to create a 
+#    single vector.
+is_character <- function(...){
+  input <- list(...)
+  out <- logical(length(input))
+  for(ell_nr in seq_along(input)){
+    out[ell_nr] <- is.character(input[[ell_nr]])
+  }
+  names(out) <- names(input)
+  out
+}
+is_character(a = "Awesome", b = 5, new = "YES")
 
-# 5. Read the Pisa data. Inspect the data using View(), str(), summary(),...
+
+# possible solution
+is_character <- function(...){
+  do.call(c, lapply(list(...), is.character))
+}
+is_character(a = "Awesome", b = 5, new = "YES")
+
+
+
+# 6. Read the Pisa data. Inspect the data using View(), str(), summary(),...
 #    We have the hypothesis that parental education (pared) has an effect on 
 #    the number of books at home (books). Use the split-apply-combine paradigm
 #    to make a table that lists the coefficients of a glm() for each school type
@@ -121,7 +143,7 @@ do.call(rbind, lapply(results_split, coef))
 
 
 
-# 6. Load the "airquality"-data using data("airquality"). 
+# 7. Load the "airquality"-data using data("airquality"). 
 #    (a) Using lapply, plot a pink histogram of each variable (?hist)
 #    (b) Using vapply, compute the first and third quartile (quantile .25 
 #    and .75)for each variable
