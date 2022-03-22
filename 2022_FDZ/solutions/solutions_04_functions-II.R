@@ -16,8 +16,6 @@
 #    include a second argument na.rm with default TRUE, to make sure that 
 #    the median is computed (without NA values).
 #    test your function using the mtcars data.
-
-
 data("mtcars")
 
 computeDescriptives <- function(x, na.rm = TRUE) {
@@ -34,8 +32,6 @@ computeDescriptives(mtcars$mpg)
 #    how many NA values were dropped. 
 #    Add a "message" argument with default FALSE, so that 
 #    users can also choose whether to get the information.
-
-
 drop_NA <- function(x, message = TRUE){
   is_NA <- is.na(x)
   if(message) message(sum(is_NA), " NA-values were dropped.")
@@ -57,7 +53,6 @@ Ozone_noNA
 #       - inform the user how many NA values were removed
 #       - make sure users can choose not to get this information
 #    TIP: make use of the function you wrote for exerise 2.
-
 get_info <- function(x, na.rm = TRUE, message = FALSE){
   if(na.rm) x <- drop_NA(x, message = message)
   mean_x <- mean(x)
@@ -103,10 +98,9 @@ create_boxplot2(c(mtcars$mpg, NA))
 #    variable, depending on the input:
 #      + character/factor -> bar chart using table()
 #      + numeric -> histogram
-
 create_graph <- function(x) {
   if(is.character(x) || is.factor(x)) return(barplot(table(x)))
-  else if(is.numeric(x)) return(hist2(x))
+  else if(is.numeric(x)) return(hist(x))
   else stop("No suitable input supplied.")
 }
 

@@ -10,8 +10,8 @@
 ## Useful functions -----
 ## __________________________________________________________________________
 
-?lapply      # Wrapper around a for loop
-?Map         # creates a while loop
+?lapply      
+?Map         
 
 # other functions in the same family
 ?sapply
@@ -60,10 +60,8 @@ lapply(example_list, FUN = function(x) x[!is.na(x)])
 
 
 
-
 # use on data.frames
 lapply(iris, FUN = class)
-
 
 
 
@@ -142,23 +140,9 @@ do.call(rbind, out_list)
 #     all columns of (a) the mtcars data set and (b) of the airquality data set.
 
 
-    
-
-# 4. Consider the following list of data.frames. Each data.frame represents a 
-#   rater who has rated various kindergarten kids regarding their behavior.
-#   Use Map() to append the data.frame name to each data.frame, then use
-#   do.call(rbind, ...) to create a single data.frame with all information.
-rater1 <- data.frame(ID = 1:3, 
-                     nice = c(1, 3, 2),
-                     help = c(4, 2, 1))
-rater2 <- data.frame(ID = 4:6, 
-                     nice = c(3, 3, 1),
-                     help = c(2, 4, 3))
-rater_list <- list(rater1 = rater1, rater2 = rater2)
 
 
-
-# 5. Consider the following function. Replace the loop in the function body 
+# 4. Consider the following function. Replace the loop in the function body 
 #    with lapply(). If the function works, use do.call(c, ...) to create a 
 #    single vector.
 is_character <- function(...){
@@ -175,7 +159,7 @@ is_character(a = "Awesome", b = 5, new = "YES")
 
 
 
-# 6. Read the Pisa data. Inspect the data using View(), str(), summary(),...
+# 5. Read the Pisa data. Inspect the data using View(), str(), summary(),...
 #    We have the hypothesis that parental education (pared) has an effect on 
 #    the number of books at home (books). Use the split-apply-combine paradigm
 #    to make a table that lists the coefficients of a glm() for each school type
@@ -188,7 +172,7 @@ pisa <- readRDS("data//pisaPlus_CF.RDS")
 
 
 
-# 7. Load the "airquality"-data using data("airquality"). 
+# 6. Load the "airquality"-data using data("airquality"). 
 #    (a) Using lapply, plot a pink histogram of each variable (?hist)
 #    (b) Using vapply, compute the first and third quartile (quantile .25 
 #    and .75) for each variable
@@ -199,5 +183,18 @@ data("airquality")
 
 
 
+
+
+# BONUS. Consider the following list of data.frames. Each data.frame represents a 
+#   rater who has rated various kindergarten kids regarding their behavior.
+#   Use Map() to append the data.frame name to each data.frame, then use
+#   do.call(rbind, ...) to create a single data.frame with all information.
+rater1 <- data.frame(ID = 1:3, 
+                     nice = c(1, 3, 2),
+                     help = c(4, 2, 1))
+rater2 <- data.frame(ID = 4:6, 
+                     nice = c(3, 3, 1),
+                     help = c(2, 4, 3))
+rater_list <- list(rater1 = rater1, rater2 = rater2)
 
 

@@ -24,7 +24,7 @@
 ##===========================================================
 # 1. Consider the vector of values. 
 #    (a) Write a for loop in which you compute the square of each value and 
-#        and compare it with the raw value. When the raw values are smaller, 
+#        compare it with the raw value. When the raw values are smaller, 
 #        keep the raw values, else, keep the squared values. The result should
 #        be a vector. 
 #        Note that you do not know in advance how long the vector is, make 
@@ -49,7 +49,7 @@ results <- ifelse(values < values^2, values, values^2)
 
 
 # 2. Consider the following list ("attendance_list"). Write a for loop in which 
-#      (a) the name "Benny" is replaced by "bob"
+#      (a) the name "Benny" is replaced by "Bob"
 #      (b) the Attendees are put in alphabetical order
 #    Tip: You can use the index of the elements, or the names of the elements
 #         to iterate over.
@@ -85,7 +85,7 @@ attendance_list
 
 
 # 3. Consider the airquality data. 
-#    (a) Using a for loop, check whether there are NA values each column. 
+#    (a) Using a for loop, check whether there are NA values for each column. 
 #        For instance using the anyNA() function. The result should be a logical
 #        vector with a length that equals the number of columns.
 #    (b) Repeat this, but now for each row.
@@ -131,8 +131,6 @@ apply(airquality, 1, anyNA)
 #    Tip 1: use a double iteration, and let the inner loop depend on the outer 
 #           loop
 #    Tip 2: use a if() and next, to skip cells that should not be changed
-
-
 A <- matrix(0, ncol = 7, nrow = 7)
 
 # Possible solution
@@ -154,7 +152,6 @@ for(rowNr in seq_len(nrow(A))){
 #    Write a loop in which x increases with 1 each iteration and find the
 #    first x for which the difference between the formula and exp(1) is 
 #    less than 0.00001
-
 x <- 1
 repeat{
   approx_e <- (1 + 1 / x)^x

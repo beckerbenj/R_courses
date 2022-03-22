@@ -96,22 +96,6 @@ countNA(x = x)           # percent argument is missing
 
 
 
-
-# missing argument
-add_ten <- function(x) {
-  x + 10
-}
-add_ten()
-
-# with default
-add_ten_default <- function(x = 0) {
-  x + 10
-}
-add_ten_default()
-add_ten_default(1)
-
-
-
 # Return object
 #...........................
 
@@ -154,7 +138,7 @@ get_info(airquality$Wind)
 
 
 
-# 2. Write a function with two arguments that returns the sum of two 
+# 2. Write a function with two arguments that returns the sum of the two 
 #    arguments divided by 10 as the following character string: 
 #    "A tenth of the sum of <first argument> and <second argument> 
 #    equals <value>."
@@ -183,7 +167,6 @@ get_info(airquality$Wind)
 # 5. Write a function that takes a vector and creates a relative frequency table 
 #    (output in percentage!). TIP: the function prop.table() can help. 
 #    Test you function with the iris data
-
 data(iris)
 ?prop.table
 

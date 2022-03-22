@@ -7,6 +7,7 @@
 \usetikzlibrary{arrows}
 \usetikzlibrary{shapes.geometric}
 \usepackage{hyperref}
+\usepackage{url}
 
 \usetheme{metropolis}
 
@@ -146,6 +147,7 @@ econRedD<-"#90353B"
 \subsection{Motivation}
 
 \begin{frame}{Motivation}
+\textbf{Why care about R coding?}
 	\begin{enumerate}
 			\item Increase efficiency!
 			\begin{itemize}
@@ -158,23 +160,23 @@ econRedD<-"#90353B"
 	\end{enumerate}
 \end{frame}
 
-\begin{frame}{Motivation}
-	Two of your worst collaborators:
-	\begin{enumerate}
-			\item Past Self
-			\begin{itemize}
-			  \item the biggest mess in existence
-			  \item did not document anything
-			  \item uses a completely different style of writing code
-			  \item does not reply to e-mails
-			\end{itemize}
-			\item Future Self
-			\begin{itemize}
-			  \item has the memory of a goldfish
-			  \item will have zero understanding for your current brilliance
-			\end{itemize}
-	\end{enumerate}
-\end{frame}
+% \begin{frame}{Motivation}
+% 	Two of your worst collaborators:
+% 	\begin{enumerate}
+% 			\item Past Self
+% 			\begin{itemize}
+% 			  \item the biggest mess in existence
+% 			  \item did not document anything
+% 			  \item uses a completely different style of writing code
+% 			  \item does not reply to e-mails
+% 			\end{itemize}
+% 			\item Future Self
+% 			\begin{itemize}
+% 			  \item has the memory of a goldfish
+% 			  \item will have zero understanding for your current brilliance
+% 			\end{itemize}
+% 	\end{enumerate}
+% \end{frame}
 
 %\begin{frame}{Motivation}
 %\begin{center}
@@ -814,7 +816,7 @@ Less arguments = better!
 
 \begin{frame}[fragile]{Arguments}
 Often arguments have to by objects of a specific type.
-<<echo=TRUE, eval = FALSE >>=
+<<echo=TRUE, eval = TRUE, error = TRUE >>=
 sum(c("a", "b", "c"))  # gives an error
 @
 The documentation typically gives (or should give) information about what 
@@ -1434,7 +1436,7 @@ is_character(a = "Awesome", b = 5, new = "YES")
 \end{frame}
 
 \begin{frame}{\texttt{...} dot-dot-dot }
-\texttt{...} can take \emph{any} number of additional arguments
+\texttt{...} can take \emph{any} number of additional arguments. \\
 Useful for passing arguments to other functions like:
   \begin{itemize}
     \item \texttt{apply}-family
@@ -1445,7 +1447,7 @@ Useful for passing arguments to other functions like:
 
 
 \begin{frame}[fragile]{\texttt{...} dot-dot-dot }
-\texttt{apply} example.
+\texttt{apply} example:
 << results='markup'>>=
 get_quantiles <- function(x, ...){
   if(is.null(dim(x))) return(quantile(x, ...))
@@ -1594,14 +1596,14 @@ get_quantiles(airquality, na.rm = TRUE,
 \subsection{Work flow}
 
 \begin{frame}{Writing Functions}
-  Before creating the function
+  Before creating a function
   \begin{itemize}
     \item What should my function do?
     \item Which input objects (Arguments)?
     \item which additional options (Arguments)?
     \item What should the output object be?
   \end{itemize}
-  After creating the function
+  After creating a function
   \begin{itemize}
     \item Test it
     \item Add input validation
@@ -1667,6 +1669,9 @@ Common argument names are \texttt{FUN} or \texttt{f}. \\~\
 \end{itemize}
 \end{frame}
 
+
+\subsection{apply-family}
+
 \begin{frame}{\texttt{apply}-family}
 The \texttt{apply}-family \emph{applies} a function repeatedly. 
 This can be seen as an abstraction of a for loop, with the following advantages:
@@ -1692,7 +1697,7 @@ The members of the \texttt{apply}-family in Base R are:
 \end{frame}
 
 \begin{frame}{\texttt{apply}-family}
-A popular alternative from the tidyverse: \href{https://purrr.tidyverse.org/}{\texttt{purrr}} 
+A popular alternative from the tidyverse: \href{https://purrr.tidyverse.org/}{\texttt{purrr-package}} 
 \begin{itemize}
   \item \texttt{map} vector / list $\rightarrow$ list
   \item \texttt{map2} multiple vectors / lists $\rightarrow$ list
@@ -1878,7 +1883,7 @@ Invest time in writing readable R-code.
 \begin{itemize}
   \item It will make collaborations easier
   \item It will make debugging easier
-  \item It will help make your analyses reproducible 
+  \item It will make your analyses more reproducible 
 \end{itemize}
 There is a complete \emph{tidyverse} style-guide \url{https://style.tidyverse.org/}.
 \end{frame}
@@ -2301,7 +2306,7 @@ R Resources
 \item Avanced R Ed. 2 (\url{https://adv-r.hadley.nz/})
 \item R Inferno (\url{https://www.burns-stat.com/pages/Tutor/R_inferno.pdf})
 \item R Packages (\url{https://r-pkgs.org/})
-\item Clean Code (\url{https://enos.itcollege.ee/~jpoial/oop/naited/Clean\%20Code.pdf})
+%\item Clean Code (\url{https://mooc.aptikom.or.id/pluginfile.php/1174/mod_resource/content/1/Clean%20Code_%20A%20Handbook%20of%20Agile%20Software%20C%20-%20Robert%20C.%20Martin.pdf})
 \end{itemize}
 
 \end{frame}

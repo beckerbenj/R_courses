@@ -19,13 +19,13 @@ get_3x_plus1 <- function(x){
 get_3x_plus1(3)
 
 
-# 2. Write a function with two arguments that returns the sum of two 
+# 2. Write a function with two arguments that returns the sum of the two 
 #    arguments divided by 10 as the following character string: 
 #    "A tenth of the sum of <first argument> and <second argument> 
 #    equals <value>."
 get_tenth_sum <- function(x, y) {
   value <- (x + y) / 10
-  out <- paste0("A thenth of the sum of ", x, " and ", y, " equals ", value, ".")
+  out <- paste0("A tenth of the sum of ", x, " and ", y, " equals ", value, ".")
   return(out)
 }
 
@@ -34,7 +34,6 @@ get_tenth_sum(5, 2)
 
 # 3. Write a function with one argument that returns a vector with NA values 
 #    removed. TIP: ?is.na()
-
 drop_NA <- function(vector){
   vector[!is.na(vector)]
 }
@@ -61,7 +60,6 @@ purify(c(1, 3, 5, 4, 2, 6, 3, 4, 2), values = c(2, 3, 7))
 # 5. Write a function that takes a vector and creates a relative frequency table 
 #    (output in percentage!). TIP: the function prop.table() can help. 
 #    Test your function with the iris data.
-
 data(iris)
 ?prop.table
 

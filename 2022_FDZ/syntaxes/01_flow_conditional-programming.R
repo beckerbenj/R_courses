@@ -93,7 +93,6 @@ vote
 
 # ifelse
 #...........................
-
 age <- c(8, 17, 39, 55)
 ifelse(age >= 18, 
        yes = "can vote",

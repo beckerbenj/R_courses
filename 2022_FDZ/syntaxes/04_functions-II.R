@@ -11,9 +11,6 @@
 # Input
 #===========================================================
 #...........................
-
-
-
 set.seed(524)
 observations <- rnorm(10)
 predictions <- rnorm(10)
@@ -64,12 +61,10 @@ get_info <- function(x){
 
 get_info(airquality$Wind)
 
-get_info(airquality$Wind)
 
 
 # Side effects
 #...........................
-
 print_info <- function(x){
   info <- get_info(x)
   cat("There are ", info$n_obs, 
@@ -113,7 +108,6 @@ hist2(airquality$Wind, "Wind")
 
 # Errors, warnings etc.
 # ..........................
-
 # Errors
 ?stop
 get_log_xtox <- function(x) {
@@ -192,8 +186,6 @@ add_a(5)
 
 # dot-dot-dot
 # ...........
-
-
 # Unknown number of arguments
 # using a for loop
 is_character <- function(...){
@@ -209,8 +201,6 @@ is_character(a = "Awesome", b = 5, new = "YES")
 
 
 
-
-
 # passing arguments to other function
 # apply example
 ?apply
@@ -220,7 +210,6 @@ get_quantiles <- function(x, ...){
 }
 get_quantiles(airquality, na.rm = TRUE, 
               probs = c(.2, .8))
-
 
 
 # spelling mistakes!
@@ -239,10 +228,7 @@ get_quantiles(airquality, na.rm = TRUE,
 #    include a second argument na.rm with default TRUE, to make sure that 
 #    the median is computed (without NA values).
 #    test your function using the mtcars data.
-
-
 data("mtcars")
-
 computeDescriptives(mtcars$mpg)
 
 
@@ -251,11 +237,8 @@ computeDescriptives(mtcars$mpg)
 #    how many NA values were dropped. 
 #    Add a "message" argument with default FALSE, so that 
 #    users can also choose whether to get the information.
-
-
 Ozone_noNA <- drop_NA(airquality$Ozone) 
 Ozone_noNA <- drop_NA(airquality$Ozone, message = FALSE) 
-
 
 
 
@@ -288,7 +271,6 @@ get_info(airquality$Ozone, na.rm = FALSE)
 #    boxplot as output. How does R provide default values for the main 
 #    title and axis labels. Would you choose the same?
 #    Give sensible default values to the main title and axis labels.
-
 create_boxplot(mtcars$mpg)
 
 
@@ -296,19 +278,16 @@ create_boxplot(mtcars$mpg)
 # 5. Implement 'input checks' for your boxplot function. The function should throw
 #    an error, if the input is not a single numeric vector.
 #    If the vector contains missing values, the function should throw a warning.
-
 create_boxplot2(mtcars$mpg)
 create_boxplot2(mtcars)
 create_boxplot2(c(mtcars$mpg, NA))
+
 
 
 # 6. Write a function that creates either a histogram or a bar chart for a 
 #    variable, depending on the input:
 #      + character/factor -> bar chart using table()
 #      + numeric -> histogram
-
-
-
 create_graph(1:5)
 create_graph(c("a", "b", "c"))
 create_graph(mtcars$mpg)
