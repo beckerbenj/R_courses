@@ -74,6 +74,29 @@ sum(c("a", "b", "c")) # gives an error
 # Default arguments
 #...........................
 
+# no defaults
+countNA <- function(x, percent) {
+  out <- sum(is.na(x))
+  if(percent) out/length(x)
+  out
+}
+x <- c(1, 5, NA, 3)
+countNA(x = x)           # percent argument is missing
+
+
+
+# with default
+countNA <- function(x, percent = FALSE) {
+  out <- sum(is.na(x))
+  if(percent) out/length(x)
+  out
+}
+x <- c(1, 5, NA, 3)
+countNA(x = x)           # percent argument is missing
+
+
+
+
 # missing argument
 add_ten <- function(x) {
   x + 10
@@ -89,9 +112,10 @@ add_ten_default(1)
 
 
 
-# Single return object
+# Return object
 #...........................
 
+# return stops the computation within the function
 return_early <- function(x, early) {
   x2 <- x*2
   if(early) (return(x2))
@@ -102,7 +126,7 @@ return_early(2, early = TRUE)
 return_early(2, early = FALSE)
 
 
-
+# multiple objects can be combined in a list
 get_info <- function(x){
   mean_x <- mean(x)
   median_x <- median(x)

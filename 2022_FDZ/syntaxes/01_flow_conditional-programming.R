@@ -34,16 +34,21 @@ a == b
 a != b 
 is.na(a)
 
+
+
 # compare & and &&  (similar for | and ||)
 c(TRUE, TRUE) & c(FALSE, TRUE)
 c(TRUE, TRUE) && c(FALSE, FALSE)
+
 
 a == b & a > 1
 a == b && a > 1
 
 
+
 # if
-# ....
+#...........................
+
 # only the first element is evaluated
 age <- c(8, 17, 39, 55)
 if (age >= 18) {
@@ -53,23 +58,6 @@ if (age >= 18) {
 }
 
 
-## if and else 
-age <- 17
-if (age >= 18) {
-  vote <- "can vote"
-} else {
-  vote <- "too young"
-}
-vote
-
-
-# meaningful initialisation
-age <- 17
-vote <- "too young"
-if (age >= 18) {
-  vote <- "can vote"
-}
-vote
 
 
 
@@ -88,24 +76,46 @@ str(iris2)
 
 
 
+
+
+# if and else 
+#...........................
+age <- 17
+if (age >= 18) {
+  vote <- "can vote"
+} else {
+  vote <- "too young"
+}
+vote
+
+
+
+
 # ifelse
 #...........................
 
 age <- c(8, 17, 39, 55)
-ifelse(age >= 18, yes = "can vote",
+ifelse(age >= 18, 
+       yes = "can vote",
        no = "too young")
 
 
 age_estimated <- c(10, 20, 35, 60)
 age_self_rep <- c(NA, 17, 39, NA)
 # Use available information, prioritize self report
-ifelse(!is.na(age_self_rep), yes = age_self_rep,
+ifelse(!is.na(age_self_rep), 
+       yes = age_self_rep,
        no = age_estimated)
+
+
 
 
 table(pisa$classsize)
 pisa$classsize_cat <- ifelse(pisa$classsize > 10, yes = "big", no = "small")
 table(pisa$classsize_cat)
+
+
+
 
 
 table(pisa$repeated)

@@ -17,14 +17,7 @@
 ?`next`      # jumps to the next iteration
 
 ?apply       # applies a function over the margins of an array/matrix
-?lapply      # applies a function over a list/vector
 
-# other functions in the same family
-?tapply
-?mapply
-?Reduce
-?aggregate
-?by
 
 
 ## Example Code
@@ -34,7 +27,7 @@
 for (index in 1:3){
   cat(" computation -")
 }
-
+index
 
 
 
@@ -43,6 +36,17 @@ for (name in c("Alice", "Bob", "Casey")){
   if(name == "Bob") cat(" This was Bob -")
   else cat(" Not Bob -")
 }
+name
+
+
+## while loop
+index <- 0
+while (index <= 7){
+  index <- index + 1
+  cat(index, " ")
+}
+index
+
 
 
 
@@ -86,13 +90,14 @@ for (rowNr in 1:2){
     matrix[rowNr, colNr] <- rowNr * 10 + colNr
   }
 }
-
+matrix 
 
 
 
 
 ## use seq() and not :
 x <- numeric()
+x
 for (index in 1:length(x)){
   print(index)
 }

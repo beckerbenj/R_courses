@@ -10,7 +10,7 @@
 ## Create a new RStudio Project
 
 
-# 1.Save the course content to a directory on your machine
+# 1. Save the course content to a directory on your machine
 
 
 # 2. Open RStudio
@@ -44,26 +44,30 @@ getwd()
 list.dirs()
 
 
-# 8. Create a folder named "R" for your R scripts and a folder named "data" 
+## Create a folder named "R" for your R scripts and a folder named "data" 
 #  for data.
 ## Again check the directories/folders in your working directory
 list.dirs()
 
 
-# 9. After creating the folders, save this script in the "R"-folder
+## After creating the folders, save this script in the "R"-folder
 ## Check which files are in your R-folder:
 list.files(".\\R")
 
 
-# 10. Try out some keyboard shortcuts
+## Try out some keyboard shortcuts
 ### Tools < Keyboard Shortcuts Help
 
 
 
-# 11. Set your preferences via the global options
-### Tools < Global Options
-###   DON'T "Restore .RData into workspace at startup"
-###   NEVER "Save workspace to .Rdata on exit:"
-
+## Set your preferences via the global options
+# 1. Tools < Global Options
+# 2. Under General
+#    - DON'T "Restore .RData into workspace at startup"
+#    - NEVER "Save workspace to .Rdata on exit:"
+#    - Save the code instead
+#    - use saveRDS() and readRDS() for objects that require a long 
+#      time to compute
+# 3. Further personalize RStudio     
 
 

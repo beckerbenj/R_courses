@@ -18,14 +18,6 @@
 ?`next`      # jumps to the next iteration
 
 ?apply       # applies a function over the margins of an array/matrix
-?lapply      # applies a function over a list/vector
-
-# other functions in the same family
-?tapply
-?mapply
-?Reduce
-?aggregate
-?by
 
 
 ## Exercises -----

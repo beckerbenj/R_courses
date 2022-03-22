@@ -151,7 +151,7 @@ econRedD<-"#90353B"
 			\begin{itemize}
 			  \item Save time and nerves
 			  \item Avoid errors and bugs
-			  \item High transfer effect to all projects (with data analyses)
+			  \item High transfer effect to other projects (with data analysis)
 			\end{itemize}
 			\item Successful collaborations (including with your future self!)
 			\item Code as deliverable (i.e., part of research paper)
@@ -240,7 +240,7 @@ econRedD<-"#90353B"
     \item DON'T \texttt{Restore .RData into workspace at startup}
     \item NEVER \texttt{Save workspace to .Rdata on exit:}
     \item Save the code instead!
-    \item Use \texttt{saveRDS()} and \texttt{readRDS()} for objects that require long %computations
+    \item Use \texttt{saveRDS()} and \texttt{readRDS()} for objects that require a long time to computate
   \end{itemize}
   \item Further personalize RStudio
 \end{enumerate}
@@ -752,17 +752,17 @@ Every function needs a (meaningful) name!
 \begin{frame}{Function Names}
 \textbf{Good}
 \begin{itemize}
-  \item computeAIC()
-  \item removeNAs()
-  \item drop\_NA\_rows()
-  \item factor\_to\_dummies()
+  \item \texttt{computeAIC()}
+  \item \texttt{removeNAs()}
+  \item \texttt{drop\_NA\_rows()}
+  \item \texttt{factor\_to\_dummies()}
 \end{itemize}
 \textbf{Bad}
 \begin{itemize}
-  \item myFun()
-  \item foo()
-  \item statistics()
-  \item data\_preparation()
+  \item \texttt{myFun()}
+  \item \texttt{foo()}
+  \item \texttt{statistics()}
+  \item \texttt{data\_preparation()}
 \end{itemize}
 \end{frame}
 
@@ -778,27 +778,30 @@ These are usually:
 \end{frame}
 
 \begin{frame}{Arguments}
-Examples for zero arguments
+Functions with zero arguments
 \begin{itemize}
-  \item getwd()
-  \item Sys.time()
+  \item \texttt{getwd()}
+  \item \texttt{Sys.time()}
+  \item ...
 \end{itemize}
 \end{frame}
 
 \begin{frame}{Arguments}
-Examples for one argument
+Functions with one argument
 \begin{itemize}
-  \item dim()
-  \item names()
+  \item \texttt{dim()}
+  \item \texttt{names()}
+  \item ...
 \end{itemize}
 \end{frame}
 
 \begin{frame}{Arguments}
-Examples for multiple arguments
+Functions with  multiple arguments
 \begin{itemize}
-  \item mean()
-  \item median()
-  \item lm()
+  \item \texttt{mean()}
+  \item \texttt{median()}
+  \item \texttt{lm()}
+  \item ...
 \end{itemize}
 \end{frame}
 
@@ -906,7 +909,7 @@ return_early(2, early = FALSE)
 \begin{frame}[fragile]{Return object}
 Multiple return objects can be combined in a list!
 << eval = FALSE, size = "footnotesize">>=
-                            # Name
+                                            # Name
 do_this <- function(vector, other_vector) { # Arguments
   # many computations                       # Body
   return(list(output1 = this, 
@@ -1449,20 +1452,21 @@ get_quantiles <- function(x, ...){
   apply(x, 2, quantile, ...)
 }
 get_quantiles(airquality, na.rm = TRUE, 
-              probs = c(.25, .5, .27))
+              probs = c(.2, .8))
 @
 \end{frame}
 
 
 \begin{frame}[fragile]{\texttt{...} dot-dot-dot}
-\textbf{WARNING!} Watch out with spelling mistakes, arguments can get lost!
+\textbf{WARNING!} \\
+Watch out with spelling mistakes, arguments can get lost!
 << results='markup'>>=
 get_quantiles <- function(x, ...){
   if(is.null(dim(x))) return(quantile(x, ...))
   apply(x, 2, quantile, ...)
 }
 get_quantiles(airquality, na.rm = TRUE, 
-              prosb = c(.25, .5, .27))
+              prosb = c(.2, .8))
 @
 \end{frame}
 

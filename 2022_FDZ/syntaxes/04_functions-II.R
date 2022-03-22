@@ -52,7 +52,7 @@ round(c("Min." = min(mtcars$mpg),
 
 
 
-# return object is list
+# remember the get_info() function
 get_info <- function(x){
   mean_x <- mean(x)
   median_x <- median(x)
@@ -107,14 +107,6 @@ hist2 <- function(x, title){
 
 hist2(airquality$Wind, "Wind")
 
-
-
-# pipable histogram
-hist_pipe <- function(x) {
-  hist(x)
-  invisible(x)
-}
-hist_pipe(airquality$Wind) |> get_info()
 
 
 
@@ -175,7 +167,7 @@ add_a <- function(x){
   return(x + a)
 }
 add_a(5)
-
+# BAD IDEA!
 
 
 
@@ -187,25 +179,6 @@ add_a <- function(x){
 }
 add_a(5)
 
-
-
-
-# where does R find stuff
-a <- b <- c <- d <- "fourth"
-find_object <- function(a, b = "third", c = "third"){
-  a <- "first"
-  return(c(a = a, b = b, c = c, d = d))
-}
-find_object(b = "second")
-
-
-
-# BAD IDEA!
-a <- 55
-add_a <- function(x){
-  return(x + a)
-}
-add_a(5)
 
 
 # GOOD IDEA!
@@ -246,13 +219,13 @@ get_quantiles <- function(x, ...){
   apply(x, 2, quantile, ...)
 }
 get_quantiles(airquality, na.rm = TRUE, 
-              probs = c(.25, .5, .75))
+              probs = c(.2, .8))
 
 
 
 # spelling mistakes!
 get_quantiles(airquality, na.rm = TRUE, 
-              prosb = c(.25, .5, .75))
+              prosb = c(.2, .8))
 
 
 
