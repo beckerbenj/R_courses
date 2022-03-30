@@ -790,7 +790,7 @@ Less arguments = better!
 \end{frame}
 
 \begin{frame}[fragile]{Arguments}
-Often arguments have to by objects of a specific type.
+Often arguments have to be objects of a specific type.
 <<echo=TRUE, eval = TRUE, error = TRUE >>=
 sum(c("a", "b", "c"))  # gives an error
 @
@@ -896,7 +896,7 @@ do_this <- function(vector, other_vector) { # Arguments
 \end{frame}
 
 \begin{frame}[fragile]{Return Object}
-The return object is a list with multiple objects.
+The return object as a list with multiple objects.
 << eval = TRUE, size = "footnotesize">>=
 get_info <- function(x){
   mean_x <- mean(x)

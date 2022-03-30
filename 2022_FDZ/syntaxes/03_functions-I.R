@@ -166,7 +166,7 @@ get_info(airquality$Wind)
 
 # 5. Write a function that takes a vector and creates a relative frequency table 
 #    (output in percentage!). TIP: the function prop.table() can help. 
-#    Test you function with the iris data
+#    Test your function with the iris data.
 data(iris)
 ?prop.table
 
