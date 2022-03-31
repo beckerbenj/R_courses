@@ -142,6 +142,8 @@ get_info(airquality$Wind)
 #    arguments divided by 10 as the following character string: 
 #    "A tenth of the sum of <first argument> and <second argument> 
 #    equals <value>."
+#    TIP: use the paste() or paste0() function
+?paste()
 
 
 

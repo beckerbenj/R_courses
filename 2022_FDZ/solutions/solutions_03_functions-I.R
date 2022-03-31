@@ -23,6 +23,9 @@ get_3x_plus1(3)
 #    arguments divided by 10 as the following character string: 
 #    "A tenth of the sum of <first argument> and <second argument> 
 #    equals <value>."
+#    TIP: use the paste() or paste0() function
+?paste()
+    
 get_tenth_sum <- function(x, y) {
   value <- (x + y) / 10
   out <- paste0("A tenth of the sum of ", x, " and ", y, " equals ", value, ".")
