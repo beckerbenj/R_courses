@@ -44,10 +44,10 @@ with(pisa, table(Gym_afternoon, schtype))
 # 3. Consider the pisa data-set. The students should be split into four groups 
 #    based on how many books they have at home and the years of parent education. 
 #    Create a new variable "group" based on the following specifications:
-# pared < 12        and  books >= 26 => group 1
-# 12 >= pared       and  books >= 26 => group 2
+# pared < 12       and  books >= 26 => group 1
+# pared >= 12      and  books >= 26 => group 2
 # pared < 12       and  books <  26 => group 3
-# 12 >= pared      and  books <  26 => group 4
+# pared >= 12      and  books <  26 => group 4
 # TIP: use %in% to check if character string appears in another character string
 ?'%in%'
 
