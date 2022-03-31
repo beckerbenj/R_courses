@@ -77,7 +77,7 @@ sum(c("a", "b", "c")) # gives an error
 # no defaults
 countNA <- function(x, percent) {
   out <- sum(is.na(x))
-  if(percent) out/length(x)
+  if(percent) out <- out/length(x)
   out
 }
 x <- c(1, 5, NA, 3)
@@ -88,7 +88,7 @@ countNA(x = x)           # percent argument is missing
 # with default
 countNA <- function(x, percent = FALSE) {
   out <- sum(is.na(x))
-  if(percent) out/length(x)
+  if(percent) out <- out/length(x)
   out
 }
 x <- c(1, 5, NA, 3)
