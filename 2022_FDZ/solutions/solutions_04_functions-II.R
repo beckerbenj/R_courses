@@ -56,7 +56,7 @@ Ozone_noNA
 #       - remove NA values before computing the statistics
 #       - inform the user how many NA values were removed
 #       - make sure users can choose not to get this information
-#    TIP: make use of the function you wrote for exerise 2.
+#    TIP: make use of the function you wrote for exercise 2.
 get_info <- function(x, na.rm = TRUE, message = FALSE){
   if(na.rm) x <- drop_NA(x, message = message)
   mean_x <- mean(x)
