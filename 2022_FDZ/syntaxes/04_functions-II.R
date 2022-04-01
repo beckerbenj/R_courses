@@ -19,7 +19,7 @@ predictions <- rnorm(10)
 get_RMSE <- function(predictions, observations){
   diff <- observations - predictions
   sq_diff <- diff^2
-  m_sq_diff <- mean(diff)
+  m_sq_diff <- mean(sq_diff)
   RMSE <- sqrt(m_sq_diff)
   return(RMSE)
 }
@@ -30,7 +30,7 @@ RMSE <- get_RMSE(predictions, observations)
 # without a function
 diff <- observations - predictions
 sq_diff <- diff^2
-m_sq_diff <- mean(diff)
+m_sq_diff <- mean(sq_diff)
 RMSE <- sqrt(m_sq_diff)
 
 
@@ -228,6 +228,10 @@ get_quantiles(airquality, na.rm = TRUE,
 #    include a second argument na.rm with default TRUE, to make sure that 
 #    the median is computed (without NA values).
 #    test your function using the mtcars data.
+#    TIP: you can use unique() and length().
+?unique
+?length
+
 data("mtcars")
 computeDescriptives(mtcars$mpg)
 

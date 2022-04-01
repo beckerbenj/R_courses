@@ -16,6 +16,10 @@
 #    include a second argument na.rm with default TRUE, to make sure that 
 #    the median is computed (without NA values).
 #    test your function using the mtcars data.
+#    TIP: you can use unique() and length().
+?unique
+?length
+
 data("mtcars")
 
 computeDescriptives <- function(x, na.rm = TRUE) {
