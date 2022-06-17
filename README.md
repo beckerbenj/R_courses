@@ -2,13 +2,16 @@
 
 ## Upcoming courses 
 
+### 2022: FDZ Autumn academy
+Reproducible Research in R  
+29. + 30.09.2022 9am-1pm  
 
 
 ## Past courses 
 
 ### 2022: FDZ Spring academy
 Programming in R  
-18. + 19.03.2021 9am-1pm   
+18. + 19.03.2022 9am-1pm   
 
 ### 2021: FDZ Spring academy
 Programming in R/R for Advanced Users  
