@@ -6,6 +6,10 @@
 Reproducible Research in R  
 29. + 30.09.2022 9am-1pm  
 
+Some literature
+https://nceas.github.io/sasap-training/materials/reproducible_research_in_r_fairbanks/
+https://datacarpentry.org/rr-workshop/
+https://monashdatafluency.github.io/r-rep-res/
 
 ## Past courses 
 
