@@ -213,6 +213,196 @@ econRedD<-"#90353B"
 \section{Version Control via Git and Github}
 
 
+\begin{frame}{Version Controlling}
+\begin{itemize}
+  \item Motivation
+  \item Setup
+  \item Work Flows
+  \item Recommendations
+  \item Resources
+\end{itemize}
+\end{frame}
+
+% ----
+\subsection{Motivation}
+
+\begin{frame}{Motivation}
+\begin{center}
+\includegraphics[height=.75\textheight]{why_version_control.jpg}
+\end{center}
+\end{frame}
+
+\begin{frame}{Motivation 1}
+\textbf{Single Author Projects}
+\begin{itemize}
+  \item Implementation of long term change history
+  \begin{itemize}
+    \item What has been changed?
+    \item When was it changed?
+  \end{itemize}
+  \item No ridiculous file names
+  \item No archive sub folder
+  \item Accessibility for others ('Open Science')
+  \item Additional safety net
+  \item ...
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Motivation 2}
+\textbf{Collaborations}
+\begin{itemize}
+  \item Who has changed what when exactly?
+  \item Clear, current project state
+  \item No annoying mail attachments or file-sharing platforms 
+  \item Parallel work easily possible
+  \item Possibility of hierarchical responsibilities 
+  \item ...
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Aber...}
+\begin{center}
+\includegraphics[height=.75\textheight]{git_no_idea.png}
+\end{center}
+\end{frame}
+
+% ---
+\subsection{Setup}
+
+\begin{frame}{Prerequisits}
+\begin{itemize}
+  \item Git-Installation
+  \item RStudio-Installation \\
+  $\rightarrow$ Alternatives: Shell, Gitkraken, SmartGit, ...
+  \item Github account\\
+  $\rightarrow$ Alternatives: Bitbucket, Gitlab, ...
+  \item Connect everything
+\end{itemize}
+\end{frame}
+
+\begin{frame}{RStudio}
+\begin{center}
+\includegraphics[height=.75\textheight]{rstudio_git.JPG}
+\end{center}
+\end{frame}
+
+\begin{frame}{RStudio}
+\begin{center}
+\includegraphics[width=.8\textwidth]{rstudio_git2.JPG}
+\end{center}
+\end{frame}
+
+% ----
+\subsection{Work Flows}
+
+\begin{frame}{Work flow 1}
+\textbf{Creating a repository}
+\begin{itemize}
+  \item Create an \textbf{online repository} (e.g. on Github)
+  \begin{itemize}
+    \item Use an R specific \texttt{.gitignore}
+    \item Initialize with a short readme (\texttt{.md})
+  \end{itemize}
+  \item Clone the repository to your local machine via RStudio as a new project
+  \item An R-Project is added automatically to the existing repository
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Excursion: gitignore}
+\begin{itemize}
+  \item Plain text file
+  \item Which files should not be tracked by git? \\
+  $\rightarrow$ These then only exist locally in their current version!
+  \item Options
+  \begin{itemize}
+    \item Single files
+    \item Folders
+    \item Specific data types
+    \item Combinations of the above
+  \end{itemize}
+  \item Use cases
+    \begin{itemize}
+    \item Large files (Data, images, ...)
+    \item Auxiliary files (e.g. created during latex compilation)
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Work flow 2}
+\textbf{Working with an existing repository}
+\begin{itemize}
+  \item Before working: Synch your local repo (\textbf{Pull} or \textbf{clone})
+  \item Perform changes in your local repository \\
+  $\rightarrow$ Create/modify/delete files
+  \item \textbf{Stage} your changes
+  \item \textbf{Commit} your changes (aka new version)
+  \item \textbf{Push} your commit(s) (online repository is updated)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Excursion: mergen}
+\textbf{Conflicts between different updated versions}
+\begin{itemize}
+  \item Common when working collaboratively
+  \item Discrepancies between your own different local repos
+  $\rightarrow$ Git communicates these and indicates conflicts
+  \item Select the desired changes
+  \item Stage selection, commit and push
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Excursion: Branches}
+\textbf{Multiple parallel versions of a project within one repository}
+\begin{itemize}
+  \item Common e.g. in areas like software development
+  \item e.g. one stable and one development branch
+  \item Only certain modifications should be made in the stable branch
+  \item \textbf{Note}: RStudio GUI has limited support for this
+\end{itemize}
+\end{frame}
+
+% ---
+\subsection{Recommendations}
+
+\begin{frame}[plain]
+\begin{center}
+\huge Your impressions?
+\end{center}
+\end{frame}
+
+
+\begin{frame}{Recommendations}
+\begin{itemize}
+  \item Keep it simple! 
+  \begin{itemize}
+    \item If not necessary, no branches/forks/pull requests
+  \end{itemize}
+  \item Have meaningful commits
+  \item Keep it lean (no big files)
+  \item Avoid using the Github homepage working within the repository
+\end{itemize}
+\end{frame}
+
+% -----
+\subsection{Resources}
+
+\begin{frame}{Resources}
+\textbf{Git + RStudio Resources}
+\begin{itemize}
+\item Small Intro (\url{https://r-bio.github.io/intro-git-rstudio/})
+\item Happy Git with R (\url{https://happygitwithr.com/})
+\item R Packages and Git (\url{https://r-pkgs.org/git.html})
+\end{itemize}
+
+\textbf{General Git Resources}
+\begin{itemize}
+\item Git Book (\url{http://git-scm.com/book/en/v2})
+\end{itemize}
+
+\end{frame}
+
+
 % ----------------------------------------------------------------------------------------------------------------------
 \section{Good programming practices}
 \label{sec:good}
