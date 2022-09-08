@@ -1,0 +1,578 @@
+\documentclass{beamer}
+
+\usepackage{multicol}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usetikzlibrary{shapes.geometric}
+\usepackage{hyperref}
+\usepackage{url}
+
+\usetheme{metropolis}
+
+
+
+\title{Reproducible Research in R}
+\institute{FDZ Autumn Academy}
+
+
+\author[Dries Debeer \& Benjamin Becker]{Dries Debeer \& Benjamin Becker}
+\date{29. and 30. September 2022}
+
+
+
+<<r setup, echo=FALSE, message=FALSE, results="hide">>=
+suppressPackageStartupMessages({
+  library(knitr)
+})
+
+options(tinytex.verbose = TRUE)
+
+knit_theme$set("acid")
+opts_chunk$set(results="markup")
+opts_chunk$set(echo = TRUE)
+opts_chunk$set(eval = TRUE)
+opts_chunk$set(strip.white = TRUE)
+opts_chunk$set(size = "footnotesize")
+opts_chunk$set(comment = ">")
+opts_chunk$set(fig.width=3.5, fig.height=3) 
+
+
+# Farben
+mLightBrown<-"#EB811B"
+econBlue<-"#008BBC"
+econRed<-"#C10534"
+econBlueD<-"#3E647D"
+econRedD<-"#90353B"
+@
+
+
+\begin{document}
+
+
+
+\begin{frame}
+\titlepage
+\end{frame}
+\addtocounter{framenumber}{-1}
+
+
+\setcounter{tocdepth}{3}
+
+% \begin{frame}{Table of Content}
+% \fontsize{5pt}{4}
+% 
+% \begin{multicols}{3}
+%   \tableofcontents
+% \end{multicols}
+% \end{frame}
+
+
+\section{Introduction}
+
+\begin{frame}{Introduction}
+\begin{columns}[t]
+\begin{column}{.475\textwidth}
+    \textbf{Who are we?} 
+    
+    \vspace{0.3cm}
+    
+    \textcolor{mLightBrown}{Dries Debeer} \\
+    
+    \vspace{0.2cm}
+    
+    Statistical Consultant at Ghent University (FPPW)
+\end{column}
+\begin{column}{.475\textwidth}
+    \textbf{} 
+    
+    \vspace{0.3cm}
+    
+    \textcolor{mLightBrown}{Benjamin Becker} \\
+    
+    \vspace{0.2cm}
+    
+    Researcher at IQB (Verbund Forschungsdaten)
+    
+\end{column}
+\end{columns}
+
+\vspace{0.2cm}
+
+\begin{columns}[t]
+\begin{column}{.475\textwidth}
+\href{https://github.com/ddebeer/scDIFtest}{scDIFtest}, \href{https://github.com/ddebeer/permimp}{permimp}, \href{https://github.com/beckerbenj/eatATA}{eatATA}, \href{https://CRAN.R-project.org/package=mstDIF}{mstDIF}
+  	
+\end{column}
+\begin{column}{.475\textwidth}
+\href{https://github.com/beckerbenj/eatGADS}{eatGADS}, \href{https://github.com/beckerbenj/eatDB}{eatDB}, \href{https://github.com/beckerbenj/eatATA}{eatATA}, \href{https://github.com/beckerbenj/pisaRT}{pisaRT}
+
+  \end{column}
+\end{columns}
+
+\vspace{0.3cm}
+
+\begin{columns}[t]
+\begin{column}{.475\textwidth}
+
+\href{mailto:dries.debeer@ugent.be}{dries.debeer@ugent.be}
+  	
+\end{column}
+  \begin{column}{.475\textwidth}
+
+\href{b.becker@iqb.hu-berlin.de}{b.becker@iqb.hu-berlin.de}
+
+  \end{column}
+\end{columns}
+
+\vspace{1.5em}
+\end{frame}
+
+\begin{frame}{Introduction}
+\textbf{Who are you?}
+\begin{enumerate}%\itemsep0em
+	\item Occupation, employer?
+	\item Previous knowledge and experience
+	\begin{itemize}
+	  \item with reproducible research
+	  \item with R?
+	  \item with other statistical software?
+	  \item with other programming languages?
+	\end{itemize}
+	\item Specific interest/motivation for this workshop?
+\end{enumerate}
+\end{frame}
+
+
+\subsection{Motivation}
+
+\begin{frame}{Motivation}
+\textbf{Why care about reproducible research?}
+
+\end{frame}
+
+
+
+\subsection{Agenda}
+
+\begin{frame}{Agenda}
+\begin{itemize}
+  \item Conceptual things
+  \item Writing Reproducible R Code
+  \item RMarkdown
+  \item Version Control/git
+\end{itemize}
+\end{frame}
+
+
+% ----------------------------------------------------------------------------------------------------------------------
+\section{Reproducible Research}
+
+% ----------------------------------------------------------------------------------------------------------------------
+\section{RStudio setup}
+\label{sec:rstudio}
+
+\begin{frame}{RStudio setup}
+\begin{enumerate}
+  \item Save the course content to a directory on your machine
+  \item Open RStudio
+  \item Choose \texttt{File < New Project ... }
+  \item Choose \texttt{Existing Directory}
+  \item Browse to the directory on your machine where you saved the course content and select the ``{\color{blue}R-programming}'' folder as the \texttt{Project working directory}
+  \item Click \texttt{Open in new session}
+  \item Click \texttt{Create Project}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{RStudio setup - optional}
+\begin{enumerate}
+  \item Choose \texttt{Tools < Global options}
+  \item Under \texttt{General}
+  \begin{itemize}
+    \item DON'T \texttt{Restore .RData into workspace at startup}
+    \item NEVER \texttt{Save workspace to .Rdata on exit:}
+    \item Save the code instead!
+    \item Use \texttt{saveRDS()} and \texttt{readRDS()} for objects that require a long time to computate
+  \end{itemize}
+  \item Further personalize RStudio
+\end{enumerate}
+\end{frame}
+
+
+% ----------------------------------------------------------------------------------------------------------------------
+\section{Writing Reproducible R Scripts}
+
+
+% ----------------------------------------------------------------------------------------------------------------------
+\section{RMarkdown}
+
+
+
+% ----------------------------------------------------------------------------------------------------------------------
+\section{Version Control via Git and Github}
+
+
+% ----------------------------------------------------------------------------------------------------------------------
+\section{Good programming practices}
+\label{sec:good}
+
+\subsection{Code Style}
+
+\begin{frame}[fragile]
+\begin{exampleblock}{}
+  {\large ``Write code for humans, not for machines!''}
+  \vskip5mm
+  \hspace*\fill{\small}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}{Code Style}
+Invest time in writing readable R-code.
+\begin{itemize}
+  \item It will make collaborations easier
+  \item It will make debugging easier
+  \item It will make your analyses more reproducible 
+\end{itemize}
+There is a complete \emph{tidyverse} style-guide \url{https://style.tidyverse.org/}.
+\end{frame}
+
+\subsection{Go easy on your eyes}
+
+\begin{frame}{Go easy on your eyes}
+\begin{itemize}
+  \item with spaces before and after: \texttt{-  +  /  *  =  <-  <  ==  > }
+  \item always use \texttt{<-} for assignments
+  \item only use \texttt{=} in function calls
+  \item use indentation (largely automatic in RStudio)
+  \item \texttt{CamelCaseNames} vs \texttt{snake\_case\_names}
+  \item be consistent!
+  \item wrap long lines at column 70-80 (Rstudio)
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{White space}
+<<White space, eval = FALSE>>=
+new_var=(var1*var2/2)-5/(var3+var4)
+
+# versus
+
+new_var <- (var1 * var2 / 2) - 5 / (var3 + var4)
+@
+\end{frame}
+
+\begin{frame}[fragile]{Indentation}
+<<Indentation, eval = FALSE, size="footnotesize">>=
+for(name in names){formula=as.formula(paste0("y~.-",name))
+fit<-lm(formula,data=my_data)
+coefs[["name"]]=coef(fit)
+print(name)
+print(summary(fit))}
+
+# versus
+
+for(name in names){
+  formula <- as.formula(paste0("y~.-", name))
+  fit <- lm(formula, data = my_data)
+  coefs[["name"]] <- coef(fit)
+  print(name)
+  print(summary(fit))
+}
+@
+\end{frame}
+
+\begin{frame}[fragile]{Wrap long lines}
+<<Wrap long lines, eval = FALSE , size="footnotesize">>=
+final_results <- data.frame(first_variable = 
+sqrt(results$mean_squared_error), second_variable = 
+paste0(results$condition, results$class, sep = ":"), 
+third_variable = results$bias)
+
+# versus
+
+final_results <- data.frame(
+  first_variable = sqrt(results$mean_squared_error), 
+  second_variable = paste0(results$condition, 
+                           results$class, sep = ":"),
+  third_variable = results$bias)
+@
+\end{frame}
+
+\subsection{Go easy on your mind}
+
+\begin{frame}{Go easy on your mind}
+\begin{itemize}
+  \item use meaningful names: ``self-explainable''
+  \item always write the formal arguments in function calls (except the first)
+  \item benefit from autocompletion (\texttt{<tab>}) => embrace longer names
+  \item use \texttt{TRUE} and \texttt{FALSE} not \texttt{T} and \texttt{F}
+  \item comment, comment, comment
+  \begin{itemize}
+    \item NOT what (should be clear from the code)
+    \item but why
+    \item explain the reasoning, not the code 
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Use meaningful names}
+<<Use meaningful names, eval = FALSE >>=
+V <- myFun(m1_B)
+
+# versus
+
+RMSE_age_gender <- get_RMSE(lm_age_gender)
+@
+\metroset{block=fill} %grey blocks
+\begin{block}{Programming advice}
+Use \texttt{verbs} for functions and \texttt{nouns} for other objects.
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Write formal arguments}
+Benefit from auto completion using \texttt{tab}
+<<Write formal arguments, eval = FALSE , size="footnotesize">>=
+m1_B <- lm(outcome ~ age*gender, 
+           exp1, condition_1, freq)
+
+# versus
+
+lm_age_gender <- lm(outcome ~ age * gender, 
+                    data = exp1, 
+                    subset = condition_1, 
+                    weigths = freq)
+@
+\end{frame}
+
+\begin{frame}[fragile]{Comment, comment, comment}
+<<Comment, eval = FALSE , size="footnotesize">>=
+## Start every Rscript with a comment that explains 
+##  what the code in the script does, why it does 
+##  this, and to which project it belongs. 
+##  Your future self will be very thankful!
+##
+## Mention which packages you are using in this Rscript.
+
+## Use sections to separate chunks ----------------------
+
+## Maybe even subsections ===============================
+
+## Recode variables so that missings are coded as "NA"
+dat[dat %in% c(99, 999)] <- NA  # missings coded 99 or 999
+@
+\end{frame}
+
+
+\subsection{R Peculiarities}
+
+
+\begin{frame}[fragile]{Keep your code slim}
+Try to limit your \emph{package-dependencies}.
+
+\vspace{0.3cm}
+
+Only load \texttt{library()} the packages that you absolutely need. If you are only using \texttt{dplyr}, it does not make sense to load the complete \texttt{tidyverse}.
+
+\vspace{0.3cm}
+
+\textbf{Controversial:} when possible, use the \texttt{::} operator (and consider not loading the package). \texttt{<package>::<function>} 
+\begin{itemize}
+  \item explicit dependencies
+  \item less name conflicts
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]{Never Attach}
+Forget about \texttt{attach()}! 
+
+\vspace{0.3cm}
+
+Don't use it, unless you completely understand what happens (see \texttt{?attach}).
+
+\vspace{0.3cm}
+
+Use \texttt{with(data.frame, expression)} instead.
+<<attach, eval = FALSE >>=
+# using with()
+n <- 2e+4
+data <- data.frame(x = runif(n), 
+                   y = runif(n), 
+                   z = seq_len(n))
+result <- with(data, exp(x) / log(z) + 5 * sqrt(y))
+@
+\end{frame}
+
+
+\begin{frame}{Testing R code}
+Writing code is error prone. Incorporate tests and checks in your workflow. 
+\begin{itemize}
+  \item minimal examples
+  \item write tests and checks
+  \item helpful packages: \texttt{testthat}, \texttt{RUnit}, \texttt{testit}, ...
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]{Speed}
+Computing speed can become an issue. Avoid common pitfalls:
+\begin{itemize}
+  \item don't grow, but replace
+  \item vectorize where possible
+  \item check the computing speed
+\end{itemize}
+\texttt{?system.time},  \text{microbenchmark} or profiling tools
+<< >>=
+n <- 2e+4
+data <- data.frame(x = runif(n), 
+                   y = runif(n), 
+                   z = seq_len(n))
+@
+\end{frame}
+
+
+\begin{frame}[fragile]{Speed}
+Don't grow!
+<< >>=
+system.time({
+  new_data <- NULL
+  
+  for(row_nr in seq_len(NROW(data))){
+    new_data <- cbind(
+      data[row_nr,], 
+      result = exp(data$x[row_nr]) /
+        log(data$z[row_nr]) + 
+        5 * sqrt(data$y[row_nr]))
+  }  
+})
+@
+\end{frame}
+
+
+\begin{frame}[fragile]{Speed}
+Replace!
+<< >>=
+system.time({
+  n_rows <- dim(data)[1]
+  data$result <- rep(NA, n_rows)
+  
+  for(row_nr in seq_len(n_rows)){
+    data$result[row_nr] <- exp(data$x[row_nr]) / 
+      log(data$z[row_nr]) + 
+      5 * sqrt(data$y[row_nr])
+  } 
+})
+@
+\end{frame}
+
+
+\begin{frame}[fragile]{Speed}
+Vectorize!
+<< >>=
+system.time({
+  data$result <- exp(data$x) / log(data$z) + 
+    5 * sqrt(data$y)
+})
+@
+\end{frame}
+
+
+
+\begin{frame}[fragile]{Speed}
+Compare the speed of different implementations using: 
+
+\vspace{0.3cm}
+
+\texttt{microbenchmark::microbenchmark}
+<< >>=
+get_mean1 <- function(x){
+  weight <- 1/length(x)
+  out <- 0
+  for(i in seq_along(x)){
+    out <- out + x[i] * weight 
+  }
+  return(out)
+}
+
+get_mean2 <- function(x){
+  sum(x)/length(x)
+}
+@
+\end{frame}
+
+
+\begin{frame}[fragile]{Speed}
+Compare the speed of different implementations using: 
+
+\vspace{0.3cm}
+
+\texttt{microbenchmark::microbenchmark}
+<< >>=
+x <- rnorm(500)
+microbenchmark::microbenchmark(
+  mean(x), get_mean1(x), get_mean2(x))
+@
+\end{frame}
+
+
+\begin{frame}[fragile]{Speed}
+
+\metroset{block=fill} %grey blocks
+\begin{block}{Programming advice}
+Don't worry about speed before it becomes an issue.
+\end{block}
+\end{frame}
+
+
+
+
+
+% ----------------------------------------------------------------------------------------------------------------------
+\section{Wrap Up}
+
+\begin{frame}{General Advice}
+\begin{itemize}
+\item Investing time in learning R pays off
+\item It's a steady learning curve
+\item Learn from masters
+\item Rewrite important code - the first attempt is usually not the best approach
+\end{itemize}
+\end{frame}
+
+\begin{frame}{General R Advice}
+\begin{itemize}
+\item Document well
+\item Use a consistent style
+\item Write functions
+\item Split long functions in smaller ones
+\item Write wrappers
+\item Use Iteration (don't copy paste)
+\item Use matrix operations and vectorized functions instead of loops
+\item Use git
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Literature Recommendations}
+R Resources
+\begin{itemize}
+\item Avanced R Ed. 1 (\url{http://adv-r.had.co.nz/})
+\item Avanced R Ed. 2 (\url{https://adv-r.hadley.nz/})
+\item R Inferno (\url{https://www.burns-stat.com/pages/Tutor/R_inferno.pdf})
+\item R Packages (\url{https://r-pkgs.org/})
+\item Clean Code (\url{https://mooc.aptikom.or.id/pluginfile.php/1174/mod_resource/content/1/Clean\%20Code_\%20A\%20Handbook\%20of\%20Agile\%20Software\%20C\%20-\%20Robert\%20C.\%20Martin.pdf})
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}[plain]
+
+\begin{center}
+\Large Thank you for your attention!
+
+\visible<2>{Questions? Remarks?}
+\end{center}
+
+\end{frame}
+
+\end{document}
