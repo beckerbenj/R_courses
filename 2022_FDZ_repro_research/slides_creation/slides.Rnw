@@ -11,6 +11,8 @@
 
 \usetheme{metropolis}
 
+\newcommand{\MYhref}[3][blue]{\href{#2}{\color{#1}{#3}}}%
+
 
 
 \title{Reproducible Research in R}
@@ -36,7 +38,7 @@ opts_chunk$set(eval = TRUE)
 opts_chunk$set(strip.white = TRUE)
 opts_chunk$set(size = "footnotesize")
 opts_chunk$set(comment = ">")
-opts_chunk$set(fig.width=3.5, fig.height=3) 
+opts_chunk$set(fig.width=3.5, fig.height=3)
 
 
 # Farben
@@ -49,6 +51,7 @@ econRedD<-"#90353B"
 
 
 \begin{document}
+%\SweaveOpts{concordance=TRUE}
 
 
 
@@ -62,7 +65,7 @@ econRedD<-"#90353B"
 
 % \begin{frame}{Table of Content}
 % \fontsize{5pt}{4}
-% 
+%
 % \begin{multicols}{3}
 %   \tableofcontents
 % \end{multicols}
@@ -74,27 +77,27 @@ econRedD<-"#90353B"
 \begin{frame}{Introduction}
 \begin{columns}[t]
 \begin{column}{.475\textwidth}
-    \textbf{Who are we?} 
-    
+    \textbf{Who are we?}
+
     \vspace{0.3cm}
-    
+
     \textcolor{mLightBrown}{Dries Debeer} \\
-    
+
     \vspace{0.2cm}
-    
+
     Statistical Consultant at Ghent University (FPPW)
 \end{column}
 \begin{column}{.475\textwidth}
-    \textbf{} 
-    
+    \textbf{}
+
     \vspace{0.3cm}
-    
+
     \textcolor{mLightBrown}{Benjamin Becker} \\
-    
+
     \vspace{0.2cm}
-    
+
     Researcher at IQB (Verbund Forschungsdaten)
-    
+
 \end{column}
 \end{columns}
 
@@ -102,11 +105,11 @@ econRedD<-"#90353B"
 
 \begin{columns}[t]
 \begin{column}{.475\textwidth}
-\href{https://github.com/ddebeer/scDIFtest}{scDIFtest}, \href{https://github.com/ddebeer/permimp}{permimp}, \href{https://github.com/beckerbenj/eatATA}{eatATA}, \href{https://CRAN.R-project.org/package=mstDIF}{mstDIF}
-  	
+\MYhref{https://github.com/ddebeer/scDIFtest}{scDIFtest}, \MYhref{https://github.com/ddebeer/permimp}{permimp}, \MYhref{https://github.com/beckerbenj/eatATA}{eatATA}, \MYhref{https://CRAN.R-project.org/package=mstDIF}{mstDIF}
+
 \end{column}
 \begin{column}{.475\textwidth}
-\href{https://github.com/beckerbenj/eatGADS}{eatGADS}, \href{https://github.com/beckerbenj/eatDB}{eatDB}, \href{https://github.com/beckerbenj/eatATA}{eatATA}, \href{https://github.com/beckerbenj/pisaRT}{pisaRT}
+\MYhref{https://github.com/beckerbenj/eatGADS}{eatGADS}, \MYhref{https://github.com/beckerbenj/eatDB}{eatDB}, \MYhref{https://github.com/beckerbenj/eatATA}{eatATA}, \MYhref{https://github.com/beckerbenj/pisaRT}{pisaRT}
 
   \end{column}
 \end{columns}
@@ -116,12 +119,12 @@ econRedD<-"#90353B"
 \begin{columns}[t]
 \begin{column}{.475\textwidth}
 
-\href{mailto:dries.debeer@ugent.be}{dries.debeer@ugent.be}
-  	
+\MYhref{mailto:dries.debeer@ugent.be}{dries.debeer@ugent.be}
+
 \end{column}
   \begin{column}{.475\textwidth}
 
-\href{b.becker@iqb.hu-berlin.de}{b.becker@iqb.hu-berlin.de}
+\MYhref{b.becker@iqb.hu-berlin.de}{b.becker@iqb.hu-berlin.de}
 
   \end{column}
 \end{columns}
@@ -169,6 +172,47 @@ econRedD<-"#90353B"
 % ----------------------------------------------------------------------------------------------------------------------
 \section{Reproducible Research}
 
+
+\subsection{Reproducibilty}
+
+\begin{frame}{Reproducibilty \& Replicability}
+\begin{columns}
+\begin{column}{.4\textwidth}
+\textbf{Reproducibility}
+  \begin{itemize}
+    \item Same research question
+    \item Same analysis
+    \item \textbf{Same} data
+    \item[=>] \emph{Same results}
+  \end{itemize}
+\end{column}
+\begin{column}{.4\textwidth}
+\textbf{Replicability}
+  \begin{itemize}
+    \item Same research question
+    \item Same analysis
+    \item \textbf{New} data
+    \item[=>] \emph{Same results}
+  \end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}{Reproducibilty}
+The \textbf{replicability} crisis in psychological* Research is partly caused by \textbf{reproducibility} issues.
+\begin{itemize}
+  \item more than 70 percent of the researchers that tried to reproduce other scientist's experiments failed (Baker, 2016).
+  \item more than 50 percent of the researchers that have tried to reproduce their own experiments failed (Baker, 2016).
+\end{itemize}
+
+\vspace{2.5cm}
+
+*Psychology, educational sciences and social work
+
+Baker, M. (2016). Reproducibility crisis. Nature, 533(26), 353-66.
+\end{frame}
+
 % ----------------------------------------------------------------------------------------------------------------------
 \section{RStudio setup}
 \label{sec:rstudio}
@@ -202,6 +246,347 @@ econRedD<-"#90353B"
 
 % ----------------------------------------------------------------------------------------------------------------------
 \section{Writing Reproducible R Scripts}
+
+
+\begin{frame}{Reproducible Workflow in R \& Rstudio}
+\textbf{Key Principles:}
+\vspace{-\topsep}
+\begin{enumerate}
+	  \item Save your code
+	  \item Work in projects
+	  \begin{itemize}
+	    \item Use multiple scripts
+	    \item Use multiple projects
+	  \end{itemize}
+	  \item Frequently and completely restart
+	\end{enumerate}
+\end{frame}
+
+
+\subsection{1. Save your code}
+
+
+\begin{frame}{1. Save your code}
+\begin{itemize}
+  \item Save the code for preprocessing/data manipulation (don't save intermediate data sets)
+  \item Save the code for visualizations (don't save the plots)
+  \item Save the code for analyses (don't save the results)
+\end{itemize}
+\begin{center}
+\LARGE
+\emph{\color{red}May the source code be with you!}
+\end{center}
+\visible<2>{\begin{itemize}
+  \item Use \texttt{saveRDS()} and \texttt{readRDS()} for objects that require a long time to compute}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{1. Save your code}
+\textbf{Within RStudio}
+\vspace{-\topsep}
+\begin{enumerate}
+  \item Choose \texttt{Tools < Global options}
+  \item Under \texttt{General}
+  \begin{itemize}
+    \item DON'T \texttt{Restore .RData into workspace at startup}
+    \item NEVER \texttt{Save workspace to .Rdata on exit:}
+    \item Save your script instead!
+    \item Use \texttt{saveRDS()} and \texttt{readRDS()} for objects that require a long time to compute
+  \end{itemize}
+  \item You can further personalize RStudio
+  \begin{itemize}
+    \item Visually (\texttt{Tools < Global options < appearance})
+    \item Keyboard shortcuts (\texttt{Tools < Modify Keyboard Shortcuts...})
+    \item ...
+  \end{itemize}
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}{1. Save your code}
+\textbf{A typical workflow:}
+\vspace{-\topsep}
+\begin{itemize}
+  \item Write your code in scripts in text editor.
+  \item Execute lines (or chunks) of code by sending them to the R console.
+  \item Add comments using the hash tag \#
+  \item Add sections to long scripts (or use multiple scripts)
+  \begin{itemize}
+	  \item No lines of code are lost when R is shut down or crashes
+	  \item Assures reproducible code/coding
+	  \item Makes it easy to share your code with colleagues or reviewers
+	  \item ...
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+
+
+
+
+\subsection{2. Work in projects}
+
+\begin{frame}{2. Work in projects}
+\textbf{What is a project?}
+\vspace{-\topsep}
+\begin{itemize}
+  \item One designated folder containing all files related to a single (research) project.
+  \item When necessary, add sub folders for ...
+  \begin{itemize}
+      \item data
+      \item R scripts
+      \item figures and graphs
+      \item manuscripts
+      \item presentations
+      \item ...
+  \end{itemize}
+  \item The folder contains all relevant files, nothing more.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{2. Work in projects}
+The idea of a project is formalized in an RStudio project.
+\vspace{-\topsep}
+\begin{itemize}
+  \item Technically it is a small text file with \texttt(.Rproj) extension,
+  \item which is associated with RStudio.
+  \item RStudio recognizes the ``parent folder'' of this file as the project folder
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{2. Work in projects}
+Within an RStudio project...
+\vspace{-\topsep}
+\begin{itemize}
+  \item the project folder is automatically set as the \emph{working directory}. \\ try \texttt{getwd()} within a project
+  \item \textbf{\color{red}Don't use}
+\end{itemize}
+<<setwd, eval = FALSE>>=
+setwd("path\to\your\local\folder")
+@
+\end{frame}
+
+
+
+\begin{frame}{2. Work in projects}
+Use relative paths for reading and writing data. Avoid ...
+<<avoid, eval = FALSE>>=
+cannot open file 'path\that\only\works\on\my-computer': No such file or directory
+@
+  \begin{itemize}
+  \item With relative paths, code works when ...
+  \begin{itemize}
+    \item the project folder is moved (or renamed)
+    \item you are working on a shared drive
+    \item you send your project in a ZIP-folder
+  \end{itemize}
+  \item useful functions:
+  \begin{itemize}
+      \item \texttt{?list.dirs}
+      \item \texttt{?list.files}
+  \end{itemize}
+  \item (Or use the \MYhref{https://CRAN.R-project.org/package=here}{here}-package)
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{2. Work in projects}
+Keep it clean!
+\vspace{-\topsep}
+\begin{itemize}
+  \item One folder per project
+  \item No outside code
+  \item No outside computing
+  \item Use separate RStudio projects for each project
+  \item Use separate Rstudio instances for each Rstudio project
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{2. Work in projects}
+How to create an Rstudio project?
+\vspace{-\topsep}
+\begin{enumerate}
+  \item Open Rstudio
+  \item Choose \texttt{File < New Project ... }
+  \item Choose \texttt{Existing Directory}
+  \item Browse to the directory on your machine where you saved the course content and select the ``{example-project-2}'' folder as the \texttt{Project working directory}
+  \item Click \texttt{Open in new session}
+  \item Click \texttt{Create Project}
+\end{enumerate}
+\end{frame}
+
+
+
+
+\begin{frame}{2. Work in projects}
+Within a project, use multiple source files (scripts) for:
+\vspace{-\topsep}
+\begin{enumerate}
+  \item Preprocessing data
+  \item Descriptive analysis
+  \item Building models
+  \item Hypothesis testing
+  \item Making graphs
+  \item ...
+\end{enumerate}
+\end{frame}
+
+
+\subsection{3. Restart frequently}
+
+
+\begin{frame}{3. Frequently and Completely Restart}
+
+Regularly completely restart your session. \\
+
+Don't use
+<<rm, eval = FALSE>>=
+rm(list = ls())
+@
+
+
+\begin{itemize}
+  \item start clean, every time
+  \item restart to make sure everything reproduces
+  \item \texttt{.rs.restartR()}
+  \item \texttt{Ctrl + Shift + F10}
+\end{itemize}
+\end{frame}
+
+
+
+
+
+
+
+\section{How To?}
+
+\begin{frame}{How to ... read data}
+To analyse data, you have to \emph{read} the data from some file (or connection) and make it an \emph{object} in R.
+
+Almost any type of file can be read by R, via specific functions and packages (\MYhref{https://CRAN.R-project.org/package=reader}{\texttt{reader}},
+	\MYhref{https://CRAN.R-project.org/package=haven}{\texttt{haven}},
+	\MYhref{https://CRAN.R-project.org/package=readxl}{\texttt{readxl}}, ...).
+\vspace{-\topsep}
+\begin{itemize}%\itemsep0em
+	\item .txt $\rightarrow$ \texttt{read.table()}
+	\item .csv $\rightarrow$ \texttt{read.csv(), read.csv2()}
+	\item .xls $\rightarrow$ \texttt{readxl::read\_xls()}
+	\item .xlsx $\rightarrow$ \texttt{readxl::read\_xlsx()}
+	\item .sav $\rightarrow$ \texttt{haven::read\_sav()}
+	\item .por $\rightarrow$ \texttt{haven::read\_por()}
+	\item .sas $\rightarrow$ \texttt{haven::read\_sas()}
+	\item ...
+\end{itemize}
+\end{frame}
+
+
+
+
+\begin{frame}{How to ... preproces data}
+Useful functions in \textbf{Base R}
+\vspace{-\topsep}
+\begin{itemize}
+  \item \texttt{?'['} and \texttt{?'[['}
+  \item \texttt{?merge}, \texttt{?reshape}
+  \item \texttt{?apply}, \texttt{?tapply}, \texttt{?aggregate},...
+  \item \texttt{?sort}, \texttt{?order}
+  \item ...
+\end{itemize}
+
+Useful functions in \MYhref{https://CRAN.R-project.org/package=dplyr}{\texttt{dplyr}}
+\vspace{-\topsep}
+\begin{itemize}
+  \item \texttt{?filter}, \texttt{?select}, \texttt{?slice}
+  \item \texttt{?mutate}, \texttt{?rename}
+  \item \texttt{?group\_by}, \texttt{?summarize}, \texttt{?ungroup}
+  \item \texttt{?arrange}
+  \item \texttt{?inner\_join}, \texttt{?left\_join}, ...
+\end{itemize}
+\end{frame}
+
+\begin{frame}{How to ... preproces data}
+For fast and efficient data wrangling with VERY big data, the  \MYhref{https://CRAN.R-project.org/package=data.table}{\texttt{data.table}}-package can be helpful.
+\end{frame}
+
+
+
+\begin{frame}{How to ... preproces data}
+\begin{center}
+\LARGE
+\emph{\color{red}Never change raw data!}
+\end{center}
+If you made some mistakes while  preprocessing raw data $\rightarrow$ change your code and re-run it.\\
+\vspace{.5cm}
+\textbf{Note that:}
+\vspace{-\topsep}
+\begin{itemize}
+  \item R ``reads'' the data and loads it in the work space.
+  \item Hence, manipulating data within R(Studio) does not change the data on your machine. Only the loaded data within the work space is changed.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{How to ... write data}
+When the data (a data.frame, a fitted model, ..) you want to save is for use in R only, use \texttt{saveRDS()} \texttt{readRDS()}.
+
+When the data (a data.frame) is for use by software, several options are available:
+\vspace{-\topsep}
+\begin{itemize}%\itemsep0em
+	\item .txt $\rightarrow$ \texttt{write.table()}
+	\item .csv $\rightarrow$ \texttt{write.csv(), write.csv2()}
+	\item .sav $\rightarrow$ \texttt{haven::write\_sav()}
+	\item .por $\rightarrow$ \texttt{haven::write\_por()}
+	\item .sas $\rightarrow$ \texttt{haven::write\_sas()}
+	\item ...
+\end{itemize}
+\textbf{\color{red}WARNING:}\\
+R does not prompt a warning when you are about to overwrite an existing file.
+\end{frame}
+
+
+
+\begin{frame}{How to ... save plots}
+Only use the RStudio ``Plot''-window for interactive plot making. \\ Don't use it for saving plots.
+
+For reproducible figures, use \texttt{pdf()}, \texttt{png()}, \texttt{jpeg()}, \texttt{tiff()}, ... instead. See \texttt{?jpeg}. \\
+
+Adjust size and aspect ratio using the arguments:
+\vspace{-\topsep}
+\begin{itemize}
+  \item \texttt{width = ...}
+  \item \texttt{height = ...}
+  \item \texttt{units = ...} $\rightarrow$ the units for the \texttt{width} and \texttt{height} arguments
+  \item ...
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]{How to ... save plots}
+<<save-plot, eval = FALSE>>=
+z_values <- rnorm(1e+4)
+sig_z_values <- z_values[pnorm(abs(z_values),
+                               lower.tail = FALSE) < 0.025]
+pdf("name_for_this_figure.pdf", width = 10, height = 7)
+{
+  # all the code that creates the figure
+  hist_data <- hist(z_values,
+                    main = "Significant Z-values \n(stupid plot)",
+                    xlab = "Z-values")
+  hist(sig_z_values,
+       breaks = hist_data$breaks,
+       add = TRUE,
+       col = "skyblue")
+}
+dev.off()
+@
+\end{frame}
+
 
 
 % ----------------------------------------------------------------------------------------------------------------------
@@ -253,9 +638,9 @@ econRedD<-"#90353B"
 \begin{itemize}
   \item Who has changed what when exactly?
   \item Clear, current project state
-  \item No annoying mail attachments or file-sharing platforms 
+  \item No annoying mail attachments or file-sharing platforms
   \item Parallel work easily possible
-  \item Possibility of hierarchical responsibilities 
+  \item Possibility of hierarchical responsibilities
   \item ...
 \end{itemize}
 \end{frame}
@@ -374,7 +759,7 @@ econRedD<-"#90353B"
 
 \begin{frame}{Recommendations}
 \begin{itemize}
-  \item Keep it simple! 
+  \item Keep it simple!
   \begin{itemize}
     \item If not necessary, no branches/forks/pull requests
   \end{itemize}
@@ -422,7 +807,7 @@ Invest time in writing readable R-code.
 \begin{itemize}
   \item It will make collaborations easier
   \item It will make debugging easier
-  \item It will make your analyses more reproducible 
+  \item It will make your analyses more reproducible
 \end{itemize}
 There is a complete \emph{tidyverse} style-guide \url{https://style.tidyverse.org/}.
 \end{frame}
@@ -473,16 +858,16 @@ for(name in names){
 
 \begin{frame}[fragile]{Wrap long lines}
 <<Wrap long lines, eval = FALSE , size="footnotesize">>=
-final_results <- data.frame(first_variable = 
-sqrt(results$mean_squared_error), second_variable = 
-paste0(results$condition, results$class, sep = ":"), 
+final_results <- data.frame(first_variable =
+sqrt(results$mean_squared_error), second_variable =
+paste0(results$condition, results$class, sep = ":"),
 third_variable = results$bias)
 
 # versus
 
 final_results <- data.frame(
-  first_variable = sqrt(results$mean_squared_error), 
-  second_variable = paste0(results$condition, 
+  first_variable = sqrt(results$mean_squared_error),
+  second_variable = paste0(results$condition,
                            results$class, sep = ":"),
   third_variable = results$bias)
 @
@@ -500,7 +885,7 @@ final_results <- data.frame(
   \begin{itemize}
     \item NOT what (should be clear from the code)
     \item but why
-    \item explain the reasoning, not the code 
+    \item explain the reasoning, not the code
   \end{itemize}
 \end{itemize}
 \end{frame}
@@ -522,23 +907,23 @@ Use \texttt{verbs} for functions and \texttt{nouns} for other objects.
 \begin{frame}[fragile]{Write formal arguments}
 Benefit from auto completion using \texttt{tab}
 <<Write formal arguments, eval = FALSE , size="footnotesize">>=
-m1_B <- lm(outcome ~ age*gender, 
+m1_B <- lm(outcome ~ age*gender,
            exp1, condition_1, freq)
 
 # versus
 
-lm_age_gender <- lm(outcome ~ age * gender, 
-                    data = exp1, 
-                    subset = condition_1, 
+lm_age_gender <- lm(outcome ~ age * gender,
+                    data = exp1,
+                    subset = condition_1,
                     weigths = freq)
 @
 \end{frame}
 
 \begin{frame}[fragile]{Comment, comment, comment}
 <<Comment, eval = FALSE , size="footnotesize">>=
-## Start every Rscript with a comment that explains 
-##  what the code in the script does, why it does 
-##  this, and to which project it belongs. 
+## Start every Rscript with a comment that explains
+##  what the code in the script does, why it does
+##  this, and to which project it belongs.
 ##  Your future self will be very thankful!
 ##
 ## Mention which packages you are using in this Rscript.
@@ -565,7 +950,7 @@ Only load \texttt{library()} the packages that you absolutely need. If you are o
 
 \vspace{0.3cm}
 
-\textbf{Controversial:} when possible, use the \texttt{::} operator (and consider not loading the package). \texttt{<package>::<function>} 
+\textbf{Controversial:} when possible, use the \texttt{::} operator (and consider not loading the package). \texttt{<package>::<function>}
 \begin{itemize}
   \item explicit dependencies
   \item less name conflicts
@@ -574,7 +959,7 @@ Only load \texttt{library()} the packages that you absolutely need. If you are o
 
 
 \begin{frame}[fragile]{Never Attach}
-Forget about \texttt{attach()}! 
+Forget about \texttt{attach()}!
 
 \vspace{0.3cm}
 
@@ -586,8 +971,8 @@ Use \texttt{with(data.frame, expression)} instead.
 <<attach, eval = FALSE >>=
 # using with()
 n <- 2e+4
-data <- data.frame(x = runif(n), 
-                   y = runif(n), 
+data <- data.frame(x = runif(n),
+                   y = runif(n),
                    z = seq_len(n))
 result <- with(data, exp(x) / log(z) + 5 * sqrt(y))
 @
@@ -595,7 +980,7 @@ result <- with(data, exp(x) / log(z) + 5 * sqrt(y))
 
 
 \begin{frame}{Testing R code}
-Writing code is error prone. Incorporate tests and checks in your workflow. 
+Writing code is error prone. Incorporate tests and checks in your workflow.
 \begin{itemize}
   \item minimal examples
   \item write tests and checks
@@ -614,8 +999,8 @@ Computing speed can become an issue. Avoid common pitfalls:
 \texttt{?system.time},  \text{microbenchmark} or profiling tools
 << >>=
 n <- 2e+4
-data <- data.frame(x = runif(n), 
-                   y = runif(n), 
+data <- data.frame(x = runif(n),
+                   y = runif(n),
                    z = seq_len(n))
 @
 \end{frame}
@@ -626,14 +1011,14 @@ Don't grow!
 << >>=
 system.time({
   new_data <- NULL
-  
+
   for(row_nr in seq_len(NROW(data))){
     new_data <- cbind(
-      data[row_nr,], 
+      data[row_nr,],
       result = exp(data$x[row_nr]) /
-        log(data$z[row_nr]) + 
+        log(data$z[row_nr]) +
         5 * sqrt(data$y[row_nr]))
-  }  
+  }
 })
 @
 \end{frame}
@@ -645,12 +1030,12 @@ Replace!
 system.time({
   n_rows <- dim(data)[1]
   data$result <- rep(NA, n_rows)
-  
+
   for(row_nr in seq_len(n_rows)){
-    data$result[row_nr] <- exp(data$x[row_nr]) / 
-      log(data$z[row_nr]) + 
+    data$result[row_nr] <- exp(data$x[row_nr]) /
+      log(data$z[row_nr]) +
       5 * sqrt(data$y[row_nr])
-  } 
+  }
 })
 @
 \end{frame}
@@ -660,7 +1045,7 @@ system.time({
 Vectorize!
 << >>=
 system.time({
-  data$result <- exp(data$x) / log(data$z) + 
+  data$result <- exp(data$x) / log(data$z) +
     5 * sqrt(data$y)
 })
 @
@@ -669,7 +1054,7 @@ system.time({
 
 
 \begin{frame}[fragile]{Speed}
-Compare the speed of different implementations using: 
+Compare the speed of different implementations using:
 
 \vspace{0.3cm}
 
@@ -679,7 +1064,7 @@ get_mean1 <- function(x){
   weight <- 1/length(x)
   out <- 0
   for(i in seq_along(x)){
-    out <- out + x[i] * weight 
+    out <- out + x[i] * weight
   }
   return(out)
 }
@@ -692,7 +1077,7 @@ get_mean2 <- function(x){
 
 
 \begin{frame}[fragile]{Speed}
-Compare the speed of different implementations using: 
+Compare the speed of different implementations using:
 
 \vspace{0.3cm}
 
