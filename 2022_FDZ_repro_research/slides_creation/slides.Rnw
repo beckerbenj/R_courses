@@ -138,33 +138,24 @@ econRedD<-"#90353B"
 	\item Occupation, employer?
 	\item Previous knowledge and experience
 	\begin{itemize}
-	  \item with reproducible research
+	  \item with reproducible research?
 	  \item with R?
-	  \item with other statistical software?
-	  \item with other programming languages?
 	\end{itemize}
 	\item Specific interest/motivation for this workshop?
 \end{enumerate}
 \end{frame}
 
 
-\subsection{Motivation}
-
-\begin{frame}{Motivation}
-\textbf{Why care about reproducible research?}
-
-\end{frame}
-
-
-
 \subsection{Agenda}
 
 \begin{frame}{Agenda}
 \begin{itemize}
-  \item Conceptual things
+  \item Reproducible Research
+  \item RStudio Setup
   \item Writing Reproducible R Code
   \item RMarkdown
   \item Version Control/git
+  \item ...
 \end{itemize}
 \end{frame}
 
@@ -212,6 +203,39 @@ The \textbf{replicability} crisis in psychological* Research is partly caused by
 
 Baker, M. (2016). Reproducibility crisis. Nature, 533(26), 353-66.
 \end{frame}
+
+\begin{frame}{Reproducibility}
+\textbf{Common threats (see also Peikert et al., 2021)}
+\begin{itemize}
+  \item Not runnable code (e.g., wrong code order)
+  \item Inconsistent versions of code, data, or both
+  \item Copy-and-paste errors
+  \item ...
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Reproducibility}
+\textbf{Proposed solutions (see also Peikert et al., 2021)}
+\begin{itemize}
+  \item Clean code
+  \item Version control
+  \item Dynamic document generation
+  \item (Dependency tracking)
+  \item (Software management)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Reproducibility}
+\textbf{Workshop Goals} \\
+Be able to ...
+\begin{itemize}
+  \item ... to reproduce your own research (i.e., analyses)
+  \item ... publish your code openly with your research
+  \item ... create reproducible research for others
+  \item ... spread the word
+\end{itemize}
+\end{frame}
+
 
 % ----------------------------------------------------------------------------------------------------------------------
 \section{RStudio setup}
@@ -592,6 +616,82 @@ dev.off()
 % ----------------------------------------------------------------------------------------------------------------------
 \section{RMarkdown}
 
+% ----------------------------------------------------------------------------------------------------------------------
+\section{Alternative Reproducible Workflows}
+
+\subsection{LaTeX}
+\begin{frame}{LaTeX}
+		Typesetting System
+	\begin{itemize}
+		\item Engines (pdflatex, xelatex, lualatex, ...)
+		\item Distributions (OS dependent: Miktex, tinytex, ...)
+		\item Text editors (Texlive, Texmaker, RStudio...)
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{LaTeX vs. Markdown}
+	\textbf{Advantages} \\
+	\begin{itemize}
+		\item APA6 und APA7 document classes
+		\item Better support for formulas
+		\item Looks nicer
+		\item Better customization 
+		\item Designated output format: .pdf 
+	\end{itemize}
+	\url{https://yihui.org/en/2013/10/markdown-or-latex/}
+\end{frame}
+
+\begin{frame}{LaTeX vs. Markdown}
+	\textbf{Disadvantages} \\
+	\begin{itemize}
+		\item More complex
+		\item Sometimes complicated setup
+		\item Designated output format: .html 
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}{LaTeX Basics}
+	\begin{itemize}
+		\item Preambel 
+		\begin{itemize}
+		  \item Document class
+		  \item Packages
+		  \item Title page
+		\end{itemize}
+		\item Sections
+		\item Figures
+		\item Tables
+		\item Bibliography
+	\end{itemize}
+\end{frame}
+
+% -------------- 
+\subsection{Word Tables}
+\begin{frame}{Producing reproducible Word Tables via R}
+	Different packages
+	\begin{itemize}
+		\item apaTables
+		\item sjPlot
+		\item stargazer
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{apaTables}
+Descriptive statistics for a data set
+<<apaTables, eval = FALSE>>=
+apaTables::apa.cor.table(iris, 
+                         filename = "iris_apatable_descr.doc", 
+                         landscape = FALSE)
+@
+\end{frame}
+
+
+\begin{frame}{apaTables}
+\begin{center}
+\includegraphics[height=.75\textheight]{apaTables.jpg}
+\end{center}
+\end{frame}
 
 
 % ----------------------------------------------------------------------------------------------------------------------
@@ -645,7 +745,7 @@ dev.off()
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Aber...}
+\begin{frame}{But...}
 \begin{center}
 \includegraphics[height=.75\textheight]{git_no_idea.png}
 \end{center}
@@ -665,15 +765,57 @@ dev.off()
 \end{itemize}
 \end{frame}
 
-\begin{frame}{RStudio}
+\begin{frame}{Register at Github}
+\url{https://github.com/}
 \begin{center}
-\includegraphics[height=.75\textheight]{rstudio_git.JPG}
+\includegraphics[width=.7\textwidth]{github_register.JPG}
+\end{center}
+\end{frame}
+
+\begin{frame}{Download git}
+\url{https://git-scm.com/download/win}
+\begin{center}
+\includegraphics[width=.9\textwidth]{git_download.JPG}
+\end{center}
+\end{frame}
+
+\begin{frame}{Install git}
+Install git into a folder in which you have sufficient rights (user folder if necessary)
+\begin{center}
+\includegraphics[width=.9\textwidth]{git_installation.JPG}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]{Configure git}
+git can be configured for Github via R
+
+<<git setup, eval = FALSE>>=
+# if necessary, install usethis
+# install.packages("usethis")
+
+library(usethis)
+use_git_config(user.name = "Username", 
+               user.email = "user@gmail.com")
+@
+\end{frame}
+
+\begin{frame}[fragile]{Configure git}
+Check if the configuration was successful via the command line (cmd).
+<<git check, eval = FALSE>>=
+git config –global –list
+@
+\end{frame}
+
+\begin{frame}{Connect git and RStudio}
+\begin{center}
+\includegraphics[height=.75\textheight]{gitpfad.png}
 \end{center}
 \end{frame}
 
 \begin{frame}{RStudio}
+The RStudio user interface to Git looks like this
 \begin{center}
-\includegraphics[width=.8\textwidth]{rstudio_git2.JPG}
+\includegraphics[width=.9\textwidth]{rstudio_git2.JPG}
 \end{center}
 \end{frame}
 
@@ -785,6 +927,24 @@ dev.off()
 \item Git Book (\url{http://git-scm.com/book/en/v2})
 \end{itemize}
 
+\end{frame}
+
+
+\begin{frame}[plain]
+\begin{center}
+\Large Exercises \\
+
+\vspace{1.5cm}
+\includegraphics[height=.25\textheight]{exercises.jpg}
+\end{center}
+\end{frame}
+
+\begin{frame}{Exercises}
+\begin{itemize}
+  \item Create an example repository
+  \item Create some descriptive analysis of the \texttt{mtcars} data set
+  \item Version control your work
+\end{itemize}
 \end{frame}
 
 
