@@ -149,14 +149,18 @@ econRedD<-"#90353B"
 \subsection{Agenda}
 
 \begin{frame}{Agenda}
+\textbf{Day 1}
 \begin{itemize}
   \item Reproducible Research
-  \item RStudio Setup
   \item Writing Reproducible R Code
+  \item (Alternative) Reproducible Workflows
+\end{itemize}
+\textbf{Day 2}
+\begin{itemize}
   \item RMarkdown
   \item Version Control/git
-  \item ...
 \end{itemize}
+
 \end{frame}
 
 
@@ -612,10 +616,6 @@ dev.off()
 \end{frame}
 
 
-
-% ----------------------------------------------------------------------------------------------------------------------
-\section{RMarkdown}
-
 % ----------------------------------------------------------------------------------------------------------------------
 \section{Alternative Reproducible Workflows}
 
@@ -692,6 +692,11 @@ apaTables::apa.cor.table(iris,
 \includegraphics[height=.75\textheight]{apaTables.jpg}
 \end{center}
 \end{frame}
+
+
+
+% ----------------------------------------------------------------------------------------------------------------------
+\section{RMarkdown}
 
 
 % ----------------------------------------------------------------------------------------------------------------------
