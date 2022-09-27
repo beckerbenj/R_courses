@@ -151,7 +151,7 @@ econRedD<-"#90353B"
 \begin{frame}{Agenda}
 \textbf{Day 1}
 \begin{itemize}
-  \item Reproducible Research
+  \item Conceptual Introduction
   \item Writing Reproducible R Code
   \item (Alternative) Reproducible Workflows
 \end{itemize}
@@ -195,13 +195,13 @@ econRedD<-"#90353B"
 
 
 \begin{frame}{Reproducibilty}
-The \textbf{replicability} crisis in psychological* Research is partly caused by \textbf{reproducibility} issues.
+The \textbf{replicability} crisis in psychological* research is partly caused by \textbf{reproducibility} issues.
 \begin{itemize}
   \item more than 70 percent of the researchers that tried to reproduce other scientist's experiments failed (Baker, 2016).
   \item more than 50 percent of the researchers that have tried to reproduce their own experiments failed (Baker, 2016).
 \end{itemize}
 
-\vspace{2.5cm}
+\vspace{1.5cm}
 
 *Psychology, educational sciences and social work
 
@@ -209,23 +209,35 @@ Baker, M. (2016). Reproducibility crisis. Nature, 533(26), 353-66.
 \end{frame}
 
 \begin{frame}{Reproducibility}
-\textbf{Common threats (see also Peikert et al., 2021)}
+\textbf{Threats to self-replication} (see also Peikert et al., 2021)
 \begin{itemize}
-  \item Not runnable code (e.g., wrong code order)
+  \item Mistakes in data preparation/analysis (e.g., syntax bugs)
   \item Inconsistent versions of code, data, or both
   \item Copy-and-paste errors
   \item ...
 \end{itemize}
+
+Peikert, A.,van Lissa, J., Brandmaier, A.M. (2021). Reproducible Research in R: A Tutorial on How to Do the Same Thing More Than Once. Psych 2021, 3, 836–867. 
 \end{frame}
 
 \begin{frame}{Reproducibility}
-\textbf{Proposed solutions (see also Peikert et al., 2021)}
+\textbf{Threats to replication of others} 
+\begin{itemize}
+  \item ...
+  \item Data not available
+  \item Incomplete documentation/reporting
+  \item ...
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Reproducibility}
+\textbf{Proposed solutions} (see also Peikert et al., 2021)
 \begin{itemize}
   \item Clean code
   \item Version control
   \item Dynamic document generation
-  \item (Dependency tracking)
-  \item (Software management)
+  \item (Independent reproduction)
 \end{itemize}
 \end{frame}
 
@@ -233,9 +245,9 @@ Baker, M. (2016). Reproducibility crisis. Nature, 533(26), 353-66.
 \textbf{Workshop Goals} \\
 Be able to ...
 \begin{itemize}
-  \item ... to reproduce your own research (i.e., analyses)
+  \item ... reproduce your own research (i.e., analyses)
   \item ... publish your code openly with your research
-  \item ... create reproducible research for others
+  \item ... create research which is reproducible for others
   \item ... spread the word
 \end{itemize}
 \end{frame}
@@ -632,7 +644,7 @@ dev.off()
 \begin{frame}{LaTeX vs. Markdown}
 	\textbf{Advantages} \\
 	\begin{itemize}
-		\item APA6 und APA7 document classes
+		\item APA6 and APA7 document classes
 		\item Better support for formulas
 		\item Looks nicer
 		\item Better customization 
@@ -651,19 +663,13 @@ dev.off()
 \end{frame}
 
 
-\begin{frame}{LaTeX Basics}
+\begin{frame}{LaTeX and R}
+\textbf{knitr}
 	\begin{itemize}
-		\item Preambel 
-		\begin{itemize}
-		  \item Document class
-		  \item Packages
-		  \item Title page
+		\item substitutes \texttt{sweave} 
+		\item allows embedding R chunks in .tex code (.Rnw)
+		\item powerful tool for automated document generation
 		\end{itemize}
-		\item Sections
-		\item Figures
-		\item Tables
-		\item Bibliography
-	\end{itemize}
 \end{frame}
 
 % -------------- 
