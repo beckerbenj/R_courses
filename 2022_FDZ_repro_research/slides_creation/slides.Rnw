@@ -713,6 +713,23 @@ Execute R code during document generation.
 See tomorrow!
 \end{frame}
 
+\begin{frame}{Resources}
+\textbf{LaTeX resources}
+\begin{itemize}
+\item Online Tutorials (e.g. \url{https://www.latex-tutorial.com/})
+\item Overleaf (\url{https://www.overleaf.com/learn/latex/Tutorials})
+\end{itemize}
+
+\textbf{knitr Ressources}
+\begin{itemize}
+\item knitr Homepage (\url{https://yihui.org/knitr/})
+\item knitr Book (\url{https://github.com/yihui/knitr-book}) \\
+\end{itemize}
+
+\end{frame}
+
+
+
 % -------------- 
 \subsection{Semi-Dynamic Document Generation}
 \begin{frame}{Semi-Dynamic Document Generation}
@@ -878,9 +895,9 @@ rempsyc::save_as_docx(word_table, path = "iris_rempsyc_data.docx")
 \begin{frame}{Prerequisits}
 \begin{itemize}
   \item Git-Installation
-  \item RStudio-Installation \\
+  \item RStudio-Installation (git user interface) \\
   $\rightarrow$ Alternatives: Shell, Gitkraken, SmartGit, ...
-  \item Github account\\
+  \item Github account (online repository)\\
   $\rightarrow$ Alternatives: Bitbucket, Gitlab, ...
   \item Connect everything
 \end{itemize}
@@ -923,7 +940,7 @@ use_git_config(user.name = "Username",
 \begin{frame}[fragile]{Configure git}
 Check if the configuration was successful via the command line (cmd).
 <<git check, eval = FALSE>>=
-git config –global –list
+git config --global --list
 @
 \end{frame}
 
@@ -931,6 +948,18 @@ git config –global –list
 \begin{center}
 \includegraphics[height=.75\textheight]{gitpfad.png}
 \end{center}
+\end{frame}
+
+\begin{frame}{PAT for HTTPS}
+How does Github now we should have access to our repositories? \\
+via a Personal access token for HTTPS
+\being{itemize}
+\item Go to \url{https://github.com/settings/tokens}
+\item add the scopes “repo”, “user”, and “workflow”
+\item Generate the token
+\item Use this token as a password if RStudio asks you
+\item Use %gitcreds::gitcreds_set()
+\end{itemize}
 \end{frame}
 
 \begin{frame}{RStudio}
@@ -952,6 +981,11 @@ The RStudio user interface to Git looks like this
     \item Initialize with a short readme (\texttt{.md})
   \end{itemize}
   \item Clone the repository to your local machine via RStudio as a new project
+    \begin{itemize}
+    \item $\rightarrow$ New project
+    \item $\rightarrow$ Version Control
+    \item $\rightarrow$ git
+  \end{itemize}
   \item An R-Project is added automatically to the existing repository
 \end{itemize}
 \end{frame}
@@ -1028,7 +1062,7 @@ The RStudio user interface to Git looks like this
   \end{itemize}
   \item Have meaningful commits
   \item Keep it lean (no big files)
-  \item Avoid using the Github homepage working within the repository
+  \item Avoid using the Github homepage for working within the repository
 \end{itemize}
 \end{frame}
 
@@ -1416,6 +1450,11 @@ R Resources
 \item R Inferno (\url{https://www.burns-stat.com/pages/Tutor/R_inferno.pdf})
 \item R Packages (\url{https://r-pkgs.org/})
 \item Clean Code (\url{https://mooc.aptikom.or.id/pluginfile.php/1174/mod_resource/content/1/Clean\%20Code_\%20A\%20Handbook\%20of\%20Agile\%20Software\%20C\%20-\%20Robert\%20C.\%20Martin.pdf})
+\end{itemize}
+
+Reproducible Research
+\begin{itemize}
+\item CRAN Tastk View (\url{https://cran.r-project.org/web/views/ReproducibleResearch.html})
 \end{itemize}
 
 \end{frame}
