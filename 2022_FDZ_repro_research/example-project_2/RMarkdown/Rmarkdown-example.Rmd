@@ -1,0 +1,172 @@
+---
+title: "Eample RMarkdown"
+author: "Dries Debeer"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(psych)
+library(knitr)
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## The Project
+
+This could be some basic information about the project and the research questions. For instance, in this case, we wonder whether we can predict construct A by construct B and C, and whether and interaction between B and C has an added value in the prediction of A.
+
+All A, B, and C are measured using multiple likert items. Before doing the analysis, the following step should be taken first.
+
+1. Describe the data.
+3. Remove items with more than 20 percent missing responses.
+4. Per scale, remove items whit an item-rest correlation below .4 (based on the polychoric correlations)
+5. Compute scale scores for A, B, and C
+
+
+## Describe Data
+
+```{r raw-data}
+# Read raw data
+dat_raw <- haven::read_sav("..\\Data\\example-SPSS-data.sav")
+
+# check missing responses per item
+prop_missing <- sapply(dat_raw, function(col) sum(is.na(col)) / length(col))
+
+# check which items have more than 20% missing
+it_high_miss <- prop_missing[which(prop_missing > .2)]
+```
+
+Here the data is described. The sample size is N = `r nrow(dat_raw)`, and `r ncol(dat_raw) ` variables were measured related to three constructs. `r length(it_high_miss)` variable(s) had more than 20 percent missing data (`r paste0(names(it_high_miss))`), and were removed form the data.
+
+
+```{r raw-data_2}
+# Only include variables with less than 20% missing
+dat <- dat_raw[, which(prop_missing < .2)]
+```
+
+
+## Item analysis and preprocessing
+
+```{r item-analysis, echo = FALSE}
+# create scale names
+scale_names <- paste0("Q_", c("A", "B", "C"))
+
+
+## Item analysis
+# index of column numbers for each scale
+scale_index <- structure(lapply(scale_names, function(scale_name) {
+  which(startsWith(names(dat), scale_name))}), 
+  names = scale_names)
+
+
+# data split per scale
+dat_split <- lapply(scale_index, function(col_nrs) {
+  dat[, col_nrs]})
+
+
+# compute polychoric correlations pre scale
+polychor_split <- lapply(dat_split, function(data) psych::polychoric(data)$rho)
+
+
+# compute ordinal alpha based on polychoric correlations
+ord_alpha_split <- lapply(polychor_split, psych::alpha)
+
+```
+
+
+The table below presents some scale statistics for each of the three scales. 
+
+```{r item-analysis_2, echo = FALSE}
+# print table
+kable(do.call(rbind, lapply(ord_alpha_split, function(ord_alpha) ord_alpha$total)), 
+      digits = 3, 
+      caption = "Scale Statistics")
+```
+
+
+
+
+
+```{r item-analysis_3, echo = FALSE}
+## remove items with item-rest correlation lower than .4
+to_drop <- unlist(lapply(scale_names, function(name) {
+  names(dat_split[[name]])[ord_alpha_split[[name]]$item.stats$r.drop < .4]
+}))
+
+dat <- dat[, names(dat) != to_drop]
+```
+
+Per scale, items for which the item-rest correlation was less than .4 are removed. In total, `r length(to_drop)` items were removed, namely `r names(to_drop)`. Then, scale scores were computed per scale, and all scales were z-transformed.
+
+
+```{r scale-scores, echo = FALSE}
+## compute scale scores
+# index of column numbers for each scale
+scale_index <- structure(lapply(scale_names, function(scale_name) {
+  which(startsWith(names(dat), scale_name))}), 
+  names = scale_names)
+
+
+# data split per scale
+dat_split <- lapply(scale_index, function(col_nrs) {
+  dat[, col_nrs]})
+
+
+# compute scale scores
+dat_analysis <- cbind(dat$ppID, as.data.frame(lapply(dat_split, rowMeans, na.rm = TRUE)))
+
+
+# z-transform scale-scores
+dat_analysis[, -1] <- scale(dat_analysis[, -1] )
+```
+
+## Analysis
+
+A regression analysis indicated that both construct B and C have a linear effect on A.
+
+```{r analysis-1}
+# no interaction
+lm_1 <- lm(Q_A ~ Q_B + Q_C, data = dat_analysis)
+summary_1 <- summary(lm_1)
+coef_1 <- coef(summary_1)
+colnames(coef_1) <- c("Beta", "SE", "*t*", "*p*")
+kable(coef_1, 
+      digits = c(rep(3, 3), 9), 
+      caption = "Estimated Parameters")
+```
+
+The explained variance of the regresion model was $R = `r round(summary_1$adj.r.squared, 3)`$.
+
+However, no evidence was found for an interaction between B and C in the prediction of A.
+
+```{r analysis-2}
+# with interaction
+lm_2 <- lm(Q_A ~ Q_B * Q_C, data = dat_analysis)
+# summary(lm_2)
+anova(lm_1, lm_2)
+```
+
+
+## plot model
+
+```{r plot_model, echo = FALSE}
+library(ggplot2, warn.conflicts = FALSE, quietly = TRUE)
+new_dat <- expand.grid(Q_C = quantile(dat_analysis$Q_C, c(.20, .80)),
+                       Q_B = seq(min(dat_analysis$Q_B), 
+                                 max(dat_analysis$Q_B), length.out = 40))
+
+dat_plot <- cbind(new_dat, predict(lm_1, newdata = new_dat,  interval = "confidence"))
+dat_plot$Q_C_f <- round(dat_plot$Q_C, 2)
+
+fig_3 <- ggplot(dat_analysis, aes(x = Q_B, y = Q_A)) +
+  geom_point(aes(color = Q_C)) +
+  scale_color_gradient(low = "yellow", high = "darkblue") + 
+  geom_line(data = dat_plot, aes(x = Q_B, y = fit, color = Q_C_f, group = Q_C_f), size = 1.25) + 
+  theme_bw() +
+  labs(title = "Prediction of Q_A by Q_B and Q_C",
+       x = "Q_B (z-transformed)",
+       y = "Q_A (z-transformed)",
+       color = "Q_C \n(z-transformed)")
+print(fig_3)
+```
+
