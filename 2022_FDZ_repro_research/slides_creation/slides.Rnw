@@ -1,18 +1,71 @@
-\documentclass{beamer}
+\documentclass[aspectratio=169]{beamer}
+
+
+\usepackage{textcomp}
+\usepackage{hyperref}
+
 
 \usepackage{multicol}
+\usepackage[normalem]{ulem}  % strike out
+\usepackage{multirow}
+\usepackage{xcolor}
+\usepackage{hyperref} % links
+\usepackage{amsmath}  % sub- and superscript
+\usepackage{soul}     % highlighting
+\usepackage{listings} % code block
+\usepackage{fancyvrb} % inline code
+%\usepackage{url}
+\setlength{\parskip}{\baselineskip}
+\sethlcolor{yellow}
 \usepackage[T1]{fontenc}
-\usepackage{textcomp}
-\usepackage{tikz}
-\usetikzlibrary{arrows}
-\usetikzlibrary{shapes.geometric}
-\usepackage{hyperref}
-\usepackage{url}
+%\setlist[itemize]{noitemsep, topsep=0pt}
 
-\usetheme{metropolis}
+% drawing
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows,chains}
+\usetikzlibrary[calc]
+
+% code block
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2
+}
+
+\lstset{style=mystyle}
 
 \newcommand{\MYhref}[3][blue]{\href{#2}{\color{#1}{#3}}}%
+\newcommand{\textunderscript}[1]{$_{\text{#1}}$}
+\newcommand{\textupperscript}[1]{$^{\text{#1}}$}
 
+\setbeamertemplate{caption}{\insertcaption}  % for table caption
+
+% Have this if you'd like section slides
+\AtBeginSection[]{
+    \sectionframe
+}
+
+
+
+\usetheme{metropolis}
 
 
 \title{Reproducible Research in R}
@@ -51,6 +104,8 @@ econRedD<-"#90353B"
 
 
 \begin{document}
+\tikzstyle{block} = [rectangle, draw, text width=6em, text centered, rounded corners, minimum height=4em]
+\tikzstyle{edge} = [draw, -latex']
 %\SweaveOpts{concordance=TRUE}
 
 
@@ -201,11 +256,11 @@ The \textbf{replicability} crisis in psychological* research is partly caused by
   \item more than 50 percent of the researchers that have tried to reproduce their own experiments failed (Baker, 2016).
 \end{itemize}
 
-\vspace{1.5cm}
+\vspace{2.5cm}
 
 *Psychology, educational sciences and social work
 
-Baker, M. (2016). Reproducibility crisis. Nature, 533(26), 353-66.
+Baker, M. (2016). Reproducibility crisis. \emph{Nature, 533(26)}, 353-66.
 \end{frame}
 
 \begin{frame}{Reproducibility}
@@ -217,11 +272,11 @@ Baker, M. (2016). Reproducibility crisis. Nature, 533(26), 353-66.
   \item ...
 \end{itemize}
 
-Peikert, A.,van Lissa, J., Brandmaier, A.M. (2021). Reproducible Research in R: A Tutorial on How to Do the Same Thing More Than Once. Psych 2021, 3, 836–867. 
+Peikert, A.,van Lissa, J., Brandmaier, A.M. (2021). Reproducible Research in R: A Tutorial on How to Do the Same Thing More Than Once. \emph{Psych 2021, }3, 836–867.
 \end{frame}
 
 \begin{frame}{Reproducibility}
-\textbf{Threats to replication of others} 
+\textbf{Threats to replication of others}
 \begin{itemize}
   \item ...
   \item Data not available
@@ -254,38 +309,18 @@ Be able to ...
 
 
 % ----------------------------------------------------------------------------------------------------------------------
-\section{RStudio setup}
-\label{sec:rstudio}
-
-\begin{frame}{RStudio setup}
-\begin{enumerate}
-  \item Save the course content to a directory on your machine
-  \item Open RStudio
-  \item Choose \texttt{File < New Project ... }
-  \item Choose \texttt{Existing Directory}
-  \item Browse to the directory on your machine where you saved the course content and select the ``{\color{blue}R-programming}'' folder as the \texttt{Project working directory}
-  \item Click \texttt{Open in new session}
-  \item Click \texttt{Create Project}
-\end{enumerate}
-\end{frame}
-
-\begin{frame}{RStudio setup - optional}
-\begin{enumerate}
-  \item Choose \texttt{Tools < Global options}
-  \item Under \texttt{General}
-  \begin{itemize}
-    \item DON'T \texttt{Restore .RData into workspace at startup}
-    \item NEVER \texttt{Save workspace to .Rdata on exit:}
-    \item Save the code instead!
-    \item Use \texttt{saveRDS()} and \texttt{readRDS()} for objects that require a long time to computate
-  \end{itemize}
-  \item Further personalize RStudio
-\end{enumerate}
-\end{frame}
-
-
-% ----------------------------------------------------------------------------------------------------------------------
 \section{Writing Reproducible R Scripts}
+
+\begin{frame}{Before we start}
+\begin{enumerate}
+  \item Unzip the workshop-folder
+  \item Save the folder on your machine
+  \item Browse to the unzipped folder
+  \item Open the folder
+  \item Open the \textbf{``example-project''} folder
+  \item Double click on \textbf{``example-project''} or \textbf{``example-project.Rproj''}
+\end{enumerate}
+\end{frame}
 
 
 \begin{frame}{Reproducible Workflow in R \& Rstudio}
@@ -362,10 +397,39 @@ Be able to ...
 \end{frame}
 
 
+\begin{frame}{1. Save your code}
+
+\textbf{Explicitly state the packages that you use.}
+\begin{itemize}
+  \item Load packages on the top of your script.
+  \item Use direct access via \texttt{<package-name>::<function-name>}.
+  \item Save your session information \texttt{sessionInfo()}.
+\end{itemize}
+
+\textbf{Packages...}
+\begin{itemize}
+  \item have versions (and change)
+  \item use the \MYhref{https://CRAN.R-project.org/package=renv}{renv}-package to managa pakage dependencies.
+\end{itemize}
+\end{frame}
 
 
 
 \subsection{2. Work in projects}
+
+\begin{frame}{Reproducible Workflow in R \& Rstudio}
+\textbf{Key Principles:}
+\vspace{-\topsep}
+\begin{enumerate}
+	  \item Save your code
+	  \item Work in projects
+	  \begin{itemize}
+	    \item Use multiple scripts
+	    \item Use multiple projects
+	  \end{itemize}
+	  \item Frequently and completely restart
+	\end{enumerate}
+\end{frame}
 
 \begin{frame}{2. Work in projects}
 \textbf{What is a project?}
@@ -477,7 +541,125 @@ Within a project, use multiple source files (scripts) for:
 \end{frame}
 
 
+\begin{frame}{2. Work in projects}
+\textbf{Naming files...}
+
+\textbf{\color{red} NO!}
+\vspace{-\topsep}
+\begin{itemize}
+  \item ``My Abstract.docx''
+  \item ``Ana's file for Boris and Casey.csv''
+  \item ``new.data from 2-11-2018.txt''
+  \item ``fig 2.png''
+  \item ``Figure 2 NEW VERSION.png''
+\end{itemize}
+\textbf{\color{green} YES!}
+\vspace{-\topsep}
+\begin{itemize}
+  \item``2021-11-01\_abstract\_psycon.docx''
+  \item ``data\_longitudinal-sleep-study\_version-anna.csv''
+  \item ``2020-11-02\_data\_depression-study.txt''
+  \item ``fig02\_histogram-residuals.png''
+  \item ``fig02\_histogram-residuals\_V2.png''
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{2. Work in projects}
+\textbf{Naming files...}
+
+\textbf{\color{red} NO!}
+\vspace{-\topsep}
+\begin{itemize}
+  \item ``analysis\_november\_new.R''
+  \item ``someCool\_functions.R''
+  \item ``dontUseThis.R''
+  \item ``preprocesing\_data\_final.R''
+\end{itemize}
+\textbf{\color{green} YES!}
+\vspace{-\topsep}
+\begin{itemize}
+  \item ``01\_preprocess-data.R''
+  \item ``02\_fit-models.R''
+  \item ``03\_make-figures.R''
+  \item ``05\_export-table-1.R''
+  \item ``99\_utility-functions.R''
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Naming Files}
+Files names should be machine readable and human readable:
+\vspace{-\topsep}
+\begin{enumerate}
+  \item Machine readable
+  \begin{itemize}
+    \item no spaces
+    \item no punctuation
+    \item no special characters
+    \item logical dates: yyyy-mm-dd
+  \end{itemize}
+  \item Human readable
+  \begin{itemize}
+    \item easy to read
+    \item content should be clear
+  \end{itemize}
+  \item Helpful ordering
+  \begin{itemize}
+    \item chronological
+    \item logical
+  \end{itemize}
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}{Naming Files}
+Some ideas:
+\vspace{-\topsep}
+\begin{itemize}
+  \item use ``\_'' for separating \emph{meta-data}
+  \item use ``-'' for separating words
+  \item start with date for chronological ordering: yyyy-mm-dd
+  \item start with numbers for logical ordering
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{2. Work in projects}
+\textbf{Naming files...}
+
+\begin{itemize}
+  \item``2021-11-01\_abstract\_psycon.docx''
+  \item ``data\_longitudinal-sleep-study\_version-anna.csv''
+  \item ``2020-11-02\_data\_depression-study.txt''
+  \item ``fig02\_histogram-residuals.png''
+  \item ``fig02\_histogram-residuals\_V2.png''
+\end{itemize}
+
+\begin{itemize}
+  \item ``01\_preprocess-data.R''
+  \item ``02\_fit-models.R''
+  \item ``03\_make-figures.R''
+  \item ``05\_export-table-1.R''
+  \item ``99\_utility-functions.R''
+\end{itemize}
+\end{frame}
+
+
 \subsection{3. Restart frequently}
+
+\begin{frame}{Reproducible Workflow in R \& Rstudio}
+\textbf{Key Principles:}
+\vspace{-\topsep}
+\begin{enumerate}
+	  \item Save your code
+	  \item Work in projects
+	  \begin{itemize}
+	    \item Use multiple scripts
+	    \item Use multiple projects
+	  \end{itemize}
+	  \item Frequently and completely restart
+	\end{enumerate}
+\end{frame}
 
 
 \begin{frame}{3. Frequently and Completely Restart}
@@ -504,7 +686,7 @@ rm(list = ls())
 
 
 
-\section{How To?}
+\subsection{How To?}
 
 \begin{frame}{How to ... read data}
 To analyse data, you have to \emph{read} the data from some file (or connection) and make it an \emph{object} in R.
@@ -587,6 +769,8 @@ When the data (a data.frame) is for use by software, several options are availab
 \end{itemize}
 \textbf{\color{red}WARNING:}\\
 R does not prompt a warning when you are about to overwrite an existing file.
+
+$\rightarrow$ Make sure you do not have writing permissions for important raw data. Create Backups.
 \end{frame}
 
 
@@ -634,8 +818,8 @@ dev.off()
 \begin{frame}{Common Workflows}
 	Not very reproducible...
 	\begin{itemize}
-		\item Perform data preparation via hand/graphical user interfaces (SPSS, Excel) 
-		\item Perform data analyses via hand/graphical user interfaces (SPSS, Excel) 
+		\item Perform data preparation via hand/graphical user interfaces (SPSS, Excel)
+		\item Perform data analyses via hand/graphical user interfaces (SPSS, Excel)
 		\item Write a research report/manuscript (Word)
 		\item Insert your results via copy \& paste in text or as figures/tables
 	\end{itemize}
@@ -645,8 +829,8 @@ dev.off()
 \begin{frame}{Reproducible Workflows}
 Better...
 	\begin{itemize}
-		\item Perform data preparation via syntax (R, Stata, SPSS) 
-		\item Perform data analyses via via syntax (R, Stata, SPSS) 
+		\item Perform data preparation via syntax (R, Stata, SPSS)
+		\item Perform data analyses via via syntax (R, Stata, SPSS)
 		\item Write a research report/manuscript via a typesetting system or markup language (Markdown/LaTeX)
 		\item Insert your results via \textit{dynamic document generation} (RMarkdown/knitr)
 	\end{itemize}
@@ -671,13 +855,13 @@ Better...
 \begin{frame}{LaTeX vs. Markdown}
 	\textbf{Advantages LaTeX} \\
 	\begin{itemize}
-		\item \href{APA7}{https://ctan.org/pkg/apa7?lang=en} document class
+		\item \MYhref{https://ctan.org/pkg/apa7?lang=en}{APA7} document class
 		\item Better support for formulas
 		\item Looks nicer
-		\item Better customization 
-		\item Designated output format: .pdf 
+		\item Better customization
+		\item Designated output format: .pdf
 	\end{itemize}
-	\url{https://yihui.org/en/2013/10/markdown-or-latex/}
+	\MYhref{https://yihui.org/en/2013/10/markdown-or-latex/}{markdown-or-latex}
 \end{frame}
 
 \begin{frame}{LaTeX vs. Markdown}
@@ -685,9 +869,9 @@ Better...
 	\begin{itemize}
 		\item Extremely easy to use
 		\item No complicated setup
-		\item Designated output format: .html 
+		\item Designated output format: .html
 	\end{itemize}
-	\url{https://yihui.org/en/2013/10/markdown-or-latex/}
+	\MYhref{https://yihui.org/en/2013/10/markdown-or-latex/}{markdown-or-latex}
 \end{frame}
 
 \subsection{Dynamic Document Generation}
@@ -703,7 +887,7 @@ Execute R code during document generation.
 \begin{frame}{LaTeX and knitr}
 \textbf{knitr}
 	\begin{itemize}
-		\item substitutes \texttt{sweave} 
+		\item substitutes \texttt{sweave}
 		\item allows embedding R chunks in .tex code (.Rnw)
 		\item powerful tool for automated document generation
 		\end{itemize}
@@ -716,26 +900,26 @@ See tomorrow!
 \begin{frame}{Resources}
 \textbf{LaTeX resources}
 \begin{itemize}
-\item Online Tutorials (e.g. \url{https://www.latex-tutorial.com/})
-\item Overleaf (\url{https://www.overleaf.com/learn/latex/Tutorials})
+\item Online Tutorials (e.g. \MYhref{https://www.latex-tutorial.com/}{Tutorial})
+\item \MYhref{https://www.overleaf.com/learn/latex/Tutorials}{Overleaf}
 \end{itemize}
 
 \textbf{knitr Ressources}
 \begin{itemize}
-\item knitr Homepage (\url{https://yihui.org/knitr/})
-\item knitr Book (\url{https://github.com/yihui/knitr-book}) \\
+\item \MYhref{https://yihui.org/knitr/}{knitr Homepage}
+\item \MYhref{https://github.com/yihui/knitr-book}{knitr Book} \\
 \end{itemize}
 
 \end{frame}
 
 
 
-% -------------- 
+% --------------
 \subsection{Semi-Dynamic Document Generation}
 \begin{frame}{Semi-Dynamic Document Generation}
 Unfortunately life is not always easy...
 	\begin{itemize}
-		\item Limited resources to learn even more tools 
+		\item Limited resources to learn even more tools
 		\item Collaborators insist on using Word
 		\item Journals only accept Word documents for submissions
 		\item ...
@@ -766,8 +950,8 @@ However, we can always try to make small improvements!
 \begin{frame}[fragile]{apaTables}
 Descriptive statistics for a data set
 <<apaTables, eval = FALSE>>=
-apaTables::apa.cor.table(iris, 
-                         filename = "iris_apatable_descr.doc", 
+apaTables::apa.cor.table(iris,
+                         filename = "iris_apatable_descr.doc",
                          landscape = FALSE)
 @
 \end{frame}
@@ -782,7 +966,7 @@ apaTables::apa.cor.table(iris,
 Regression tables
 <<apaTables2, eval = FALSE>>=
 reg1 <- lm(mpg ~ cyl * gear, data = mtcars)
-apaTables::apa.reg.table(reg1, 
+apaTables::apa.reg.table(reg1,
                          filename = "mtcars_apatable_reg.doc")
 @
 \end{frame}
@@ -803,7 +987,7 @@ apaTables::apa.reg.table(reg1,
 \begin{frame}[fragile]{rempsyc}
 Manual table containing example data
 <<rempsyc, eval = FALSE>>=
-word_table <- rempsyc::nice_table(iris[1:5, ], 
+word_table <- rempsyc::nice_table(iris[1:5, ],
   title = c("Table 1", "Example Iris Data Set"),
   footnote = c("The table contains five rows of the iris data."))
 
@@ -831,6 +1015,996 @@ rempsyc::save_as_docx(word_table, path = "iris_rempsyc_data.docx")
 % ----------------------------------------------------------------------------------------------------------------------
 \section{RMarkdown}
 
+\begin{frame}{Motivation}
+Scientific results should be reproducible! (And hopefully repeatable.)
+Open science implies transparency in methodology, manipulation and analysis of data.
+
+RMarkdown is a tool that can facilitate:
+\begin{itemize}
+    \item \textbf{Reproducible results} by avoiding copy-paste errors
+    \item \textbf{Open science} by including the actual code that was used to analyse the data
+    \item Revising your work, as changes in data-analytic choices are automatically incorporated in the final output. \textbf{It saves time!}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{RMarkdown}
+Scientific results should be reproducible! (And hopefully repeatable.)
+Open science implies transparency in methodology, manipulation and analysis of data.
+
+RMarkdown is a tool that can facilitate:
+\begin{itemize}
+    \item \textbf{Reproducible results} by avoiding copy-paste errors
+    \item \textbf{Open science} by including the actual code that was used to analyse the data
+    \item Revising your work, as changes in data-analytic choices are automatically incorporated in the final output. \textbf{It saves time!}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{RMarkdown}
+RMarkdown is a \textbf{document format} (.Rmd) that combines
+\vspace{-\topsep}
+\begin{itemize}
+  \item Markdown formatted text
+  \item chunks of (R-)code
+\end{itemize}
+
+$\rightarrow$ We know R. But what is \emph{Markdown}?
+\end{frame}
+
+
+\subsection{Markdown?}
+
+
+\begin{frame}{Markdown}
+Markdown is a simple formatting language.
+
+It is a \textbf{markup language}:
+\vspace{-\topsep}
+\begin{itemize}
+  \item like html, or \LaTeX
+  \item inline formatting "code" is added to text
+\end{itemize}
+
+It is \textbf{simple}:
+\vspace{-\topsep}
+\begin{itemize}
+  \item only limited and simple formatting code
+  \item the code does not hinder reading raw file
+\end{itemize}
+
+$\rightarrow$ easily transformed to other formatting languages
+\end{frame}
+
+\subsection{Markdown Formatting Rules}
+
+\begin{frame}[fragile]{Markdown Headings}
+\begin{columns}
+\begin{column}{.5\textwidth}
+\textbf{Markdown Code}
+\end{column}
+\begin{column}{.5\textwidth}
+\textbf{Rendered Text}
+\end{column}
+\end{columns}
+\begin{columns}
+\begin{column}{.5\textwidth}
+<<eval = FALSE>>=
+# Heading level 1
+
+
+## Heading level 2
+
+
+### Heading level 3
+
+
+###### Heading level 6
+@
+\end{column}
+\begin{column}{.5\textwidth}
+
+\vspace{4mm}
+
+{\Huge Heading level 1}
+
+\vspace{7mm}
+
+{\huge Heading level 2}
+
+\vspace{7mm}
+
+{\LARGE Heading level 3}
+
+\vspace{7mm}
+
+{\large Heading level 6}
+
+\end{column}
+\end{columns}
+\end{frame}
+
+
+
+\begin{frame}[fragile]{Markdown Paragraphs}
+\begin{columns}
+\begin{column}{.5\textwidth}
+\textbf{Markdown Code}
+\end{column}
+\begin{column}{.5\textwidth}
+\textbf{Rendered Text}
+\end{column}
+\end{columns}
+\begin{columns}
+\begin{column}{.5\textwidth}
+<<eval = FALSE, size = "footnotesize">>=
+A new line without a blank line
+is not considered as a new paragraph.
+
+Only after a complete empty line
+a
+new
+paragraph
+is created.
+@
+\end{column}
+\begin{column}{.5\textwidth}
+
+A new line without a blank line
+is not considered as a
+new paragraph.
+
+\vspace{5mm}
+
+Only after a complete empty line
+a
+new
+paragraph
+is created.
+
+\end{column}
+\end{columns}
+\end{frame}
+
+
+
+
+\begin{frame}[fragile]{Markdown Lists}
+\begin{columns}
+\begin{column}{.5\textwidth}
+\textbf{Markdown Code}
+\end{column}
+\begin{column}{.5\textwidth}
+\textbf{Rendered Text}
+\end{column}
+\end{columns}
+\begin{columns}
+\begin{column}{.5\textwidth}
+<<eval = FALSE, size = "normalsize">>=
+- chocolate
+- fruit
+  * apples
+  * bananas
+  * annanas
+- vegetables
+  + carrots
+  + leak
+@
+\end{column}
+\begin{column}{.5\textwidth}
+\begin{itemize}
+  \item chocolate
+  \item fruit
+  \begin{itemize}
+    \item apples
+    \item bananas
+    \item annanas
+  \end{itemize}
+  \item vegetables
+  \begin{itemize}
+    \item carrots
+    \item leak
+  \end{itemize}
+\end{itemize}
+
+\end{column}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}[fragile]{Markdown Numbered Lists}
+\begin{columns}
+\begin{column}{.5\textwidth}
+\textbf{Markdown Code}
+\end{column}
+\begin{column}{.5\textwidth}
+\textbf{Rendered Text}
+\end{column}
+\end{columns}
+\begin{columns}
+\begin{column}{.5\textwidth}
+<<eval = FALSE, size = "normalsize">>=
+a) chocolate
+b) fruit
+  1. apples
+  1. bananas
+  1. annanas
+c) vegetables
+   A. carrots
+   D. leak
+@
+\end{column}
+\begin{column}{.5\textwidth}
+\begin{enumerate}
+  \item[a)] chocolate
+  \item[b)] fruit
+  \begin{enumerate}
+    \item apples
+    \item bananas
+    \item annanas
+  \end{enumerate}
+  \item[c)] vegetables
+  \begin{enumerate}
+    \item[A.] carrots
+    \item[B.] leak
+  \end{enumerate}
+\end{enumerate}
+
+\end{column}
+\end{columns}
+\end{frame}
+
+
+
+\begin{frame}[fragile]{Markdown Inline Formatting}
+\begin{columns}
+\begin{column}{.5\textwidth}
+\textbf{Markdown Code}
+\end{column}
+\begin{column}{.5\textwidth}
+\textbf{Rendered Text}
+\end{column}
+\end{columns}
+\begin{columns}
+\begin{column}{.5\textwidth}
+<<eval = FALSE, size = "normalsize">>=
+*text in italics*
+**bold text**
+`typewriter / code`
+~~strike out~~
+text in ^superscript^
+text in ~subscript~
+[underlined text]{.underline}
+@
+\end{column}
+\begin{column}{.5\textwidth}
+
+\vspace{4mm}
+
+\emph{text in italics}
+
+\textbf{bold text}
+
+\texttt{typewriter / code}
+
+\sout{strike out}
+
+text in \textupperscript{superscript}
+
+text in \textunderscript{subscript}
+
+\underline{underlined text}
+
+\end{column}
+\end{columns}
+\end{frame}
+
+
+
+\begin{frame}[fragile]{Markdown Block Quote}
+\begin{columns}
+\begin{column}{.5\textwidth}
+\textbf{Markdown Code}
+\end{column}
+\begin{column}{.5\textwidth}
+\textbf{Rendered Text}
+\end{column}
+\end{columns}
+\begin{columns}
+\begin{column}{.5\textwidth}
+<<eval = FALSE>>=
+> Block quotes are
+easy to make.
+>
+> They can contain lists
+>
+>   1. like
+>   1. this
+@
+\end{column}
+\begin{column}{.5\textwidth}
+\begin{quote}
+Block quotes are easy to make.
+
+They can contain lists
+\begin{enumerate}
+  \item like
+  \item this
+\end{enumerate}
+\end{quote}
+\end{column}
+\end{columns}
+\end{frame}
+
+
+
+
+\begin{frame}[fragile]{Markdown Code Block}
+\begin{columns}
+\begin{column}{.5\textwidth}
+\textbf{Markdown Code}
+\end{column}
+\begin{column}{.5\textwidth}
+\textbf{Rendered Text}
+\end{column}
+\end{columns}
+\begin{columns}
+\begin{column}{.5\textwidth}
+<<eval = FALSE, size = "footnotesize">>=
+```
+# an R code block
+ab <- a + b
+if(ab > 1){
+  print("Too Big!")
+} else if(ab < -1){
+  print("Too Small!")
+}
+x <- 1:1000
+y <- x^ab
+```
+@
+\end{column}
+\begin{column}{.5\textwidth}
+\lstset{language=R}
+\begin{lstlisting}
+# an R code block
+ab <- a + b
+if(ab > 1){
+  print("Too Big!")
+} else if(ab < -1){
+  print("Too Small!")
+}
+x <- 1:1000
+y <- x^ab
+\end{lstlisting}
+\end{column}
+\end{columns}
+\end{frame}
+
+
+
+\begin{frame}[fragile]{Markdown Links}
+\begin{columns}
+\begin{column}{.70\textwidth}
+\textbf{Markdown Code}
+\end{column}
+\begin{column}{.30\textwidth}
+\textbf{Rendered Text}
+\end{column}
+\end{columns}
+\begin{columns}
+\begin{column}{.70\textwidth}
+<<eval = FALSE>>=
+<https://google.com>
+[inline link](https://bookdown.org/yihui/rmarkdown/)
+[e-mail](mailto:dries.debeer@ugent.be)
+@
+\end{column}
+\begin{column}{.30\textwidth}
+
+\vspace{4mm}
+
+\MYhref{https://google.com}{https://google.com}
+
+\MYhref{https://bookdown.org/yihui/rmarkdown/}{inline link}
+
+\MYhref{mailto:dries.debeer@ugent.be}{e-mail}
+\end{column}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}[fragile]{Markdown Figures}
+\begin{columns}
+\begin{column}{.6\textwidth}
+\textbf{Markdown Code}
+\end{column}
+\begin{column}{.4\textwidth}
+\textbf{Rendered Text}
+\end{column}
+\end{columns}
+\begin{columns}
+\begin{column}{.6\textwidth}
+<<eval = FALSE>>=
+![Monkey](https://st2.depositphotos.com
+          /2927537/7025/i/600/deposit
+          photos_70253417-stock-photo-
+          funny-monkey-with-a-red.jpg)
+@
+\end{column}
+\begin{column}{.40\textwidth}.
+
+\vspace{5mm}
+\begin{figure}
+\includegraphics[height=.40\textheight]{monkey.jpg}
+\caption{Monkey}
+\end{figure}
+\end{column}
+\end{columns}
+\end{frame}
+
+
+
+
+\begin{frame}[fragile]{Markdown Tables}
+\begin{columns}
+\begin{column}{.5\textwidth}
+\textbf{Markdown Code}
+\end{column}
+\begin{column}{.5\textwidth}
+\textbf{Rendered Text}
+\end{column}
+\end{columns}
+\begin{columns}
+\begin{column}{.5\textwidth}
+<<eval = FALSE>>=
+Left     Right  Center  Default
+------ ------- -------- -------
+  some    other     47    .55
+values   value  55       .14
+here      here    3        .07
+------ ------- -------- -------
+
+Table:  Simple table syntax.
+The column headers may be omitted.
+@
+\end{column}
+\begin{column}{.5\textwidth}
+
+\begin{table}
+\begin{tabular}{ lrcl }
+\hline
+Left  &   Right &   Center    & Default        \\
+\hline
+some   & other   &      47     &   .55         \\
+values &   value &     55      &      .14      \\
+here   &    here &        3    &       .07     \\
+\hline
+\end{tabular}
+\caption{Simple table syntax. The column headers may be omitted.}
+\end{table}
+\end{column}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}{Markdown Dialects}
+
+There are multiple Markdown \emph{dialects}. Although the formatting rules are generally the same, there are small differences.
+\begin{itemize}
+  \item We presented Pandoc's Markdown.
+  \item A comprehensive overview of formatting rules is found \MYhref{https://pandoc.org/MANUAL.html\#pandocs-markdown}{here}
+  \item As an example, \MYhref{https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax}{Github} uses its own Markdown \emph{dialect}
+\end{itemize}
+\end{frame}
+
+
+\subsection{Pandoc}
+
+
+\begin{frame}{Pandoc - a Markdown Converter}
+Because Markdown has simple formatting rules, it is easy to convert it
+to other formatting languages like html, \LaTeX, or .docx.
+
+\MYhref{https://pandoc.org/}{\emph{Pandoc}} is software that does exactly this.
+
+When the \MYhref{https://CRAN.R-project.org/package=rmarkdown}{rmarkdown}-package is installed, you can convert Markdown code into html using one button. Under the hood, Pandoc is used.
+\end{frame}
+
+
+\begin{frame}{Pandoc - a Markdown Converter}
+\begin{figure}
+\begin{center}
+\begin{tikzpicture}[node distance=1cm, auto]
+    \node (init) {};
+    \node [block] (Markdown) {Markdown File};
+    \node [block, right=3cm of Markdown] (Output) {Output Format: html, latex, word, };
+    \path [edge] (Markdown) -> node [text width=2.5cm,midway,above,align=center ] {Pandoc} (Output);
+\end{tikzpicture}
+\end{center}
+\caption{Pandoc converts Markdown Files}
+\label{fig1}
+\end{figure}
+\end{frame}
+
+
+\subsection{Exercises}
+
+\begin{frame}[plain]
+\begin{center}
+\Large Exercises \\
+
+\vspace{1.5cm}
+\includegraphics[height=.25\textheight]{exercises.jpg}
+\end{center}
+\end{frame}
+
+
+\begin{frame}{Exercise}
+\textbf{Edit a Markdown document}
+\begin{enumerate}
+  \item Open the RStudio project named ``Rmarkdown''.
+  \item Open ``Exercise-1.md''.
+  \item Edit the markdown file so that it includes:
+  \begin{itemize}
+    \item multiple headings
+    \item a link to an existing webpage
+    \item a figure or a table
+    \item a footnote
+  \end{itemize}
+  \item click the ``Preview'' button, and create an html version.
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}{Alternative Exercise}
+\textbf{Create a new Markdown document in RStudio}
+\begin{enumerate}
+  \item In RStudio: \texttt{File} $>$ \texttt{New File} $>$ \texttt{Markdown File} .
+  \item Edit the markdown file so that it includes:
+  \begin{itemize}
+    \item multiple headings
+    \item a link to an existing webpage
+    \item a figure or a table
+    \item a footnote
+  \end{itemize}
+  \item click the ``Preview'' button, and create an html version.
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}{Markdown}
+Where and when should I use Markdown?
+
+\begin{itemize}
+  \item In README files (not only on Github)
+  \item In RMarkdown documents!
+  \item ...
+\end{itemize}
+
+\end{frame}
+
+
+
+\section{RMarkdown  II}
+
+
+\begin{frame}[fragile]{RMarkdown}
+RMarkdown is a \textbf{document format} (.Rmd) that combines
+\vspace{-\topsep}
+\begin{itemize}
+  \item Markdown formatted text
+  \item chunks of (R-)code
+\end{itemize}
+
+$\rightarrow$ Idea of \MYhref{https://en.wikipedia.org/wiki/Literate\_programming}{\emph{Literate Programming}}.
+
+Because code (for data-analysis) is embedded in the text, changes in the code (for data-analysis) are automatically included in the text when rendered.
+
+$\rightarrow$ \textbf{Reproducibility!}
+\end{frame}
+
+
+\begin{frame}[fragile]{RMarkdown}
+\MYhref{https://CRAN.R-project.org/package=rmarkdown}{rmarkdown} is also an R-package made to work with RMarkdown (.Rmd) files.
+\vspace{-\topsep}
+\begin{itemize}
+  \item Has an RStudio integration
+  \item The engine for rendering/exporting RMardown documents is \MYhref{https://CRAN.R-project.org/package=knitr}{knitr}
+\end{itemize}
+\end{frame}
+
+
+\subsection{RMarkdown Document}
+
+\begin{frame}[fragile]{An RMarkdown Document}
+An RMarkdown document has three basic components
+\begin{enumerate}
+  \item Meta-data (YAML-section)
+  \item Text (in Markdown format)
+  \item Code (for instance R-code, in chunks)
+\end{enumerate}
+\end{frame}
+
+\subsection{1. Meta-data}
+
+\begin{frame}[fragile]{1. Meta-data - YAML}
+You can find the meta data
+\begin{itemize}
+  \item on top of the document
+  \item between \verb+---+
+  \item in YAML (= YAML ain't markup language)
+\end{itemize}
+<<eval = FALSE>>=
+---
+title: "Markdowm is Fun"
+author: "Dries Debeer"
+output: html_document
+---
+@
+\end{frame}
+
+
+\begin{frame}[fragile]{Output Format}
+The YAML header specifies the output-format
+\begin{itemize}
+  \item Document
+  \begin{itemize}
+    \item .html
+    \item .pdf (via latex)
+    \item .docx
+  \end{itemize}
+  \item Presentation
+  \begin{itemize}
+    \item .html (ioslides or slidy)
+    \item .pdf (via latex beamer)
+    \item .pptx
+  \end{itemize}
+  \item Shiny-app
+  \item Blog
+  \item Book
+  \item Website
+  \item ...
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]{Output Format}
+Supported output formats in the YAML header are:
+<<eval = FALSE>>=
+context_document         beamer_presentation
+github_document          ioslides_presentation
+html_document            powerpoint_presentation
+latex_document           slidy_presentation
+md_document
+odt_document
+pdf_document
+rtf_document
+word_document
+@
+More output formats via extension packages (\MYhref{https://CRAN.R-project.org/package=blogdown}{blogdown}, \MYhref{https://CRAN.R-project.org/package=bookdown}{bookdown}, ...)
+\end{frame}
+
+
+
+\begin{frame}[fragile]{1. Meta-data - YAML}
+The YAML header
+\begin{itemize}
+  \item can contain many options
+  \item can be edited by hand
+  \item BUT, a YAML header is automatically created in RStudio
+\end{itemize}
+
+In RStudio: \texttt{File} $>$ \texttt{New File} $>$ \texttt{R Markdown File}
+\end{frame}
+
+
+\subsection{2. Markdown Text}
+
+
+\begin{frame}[fragile]{2. Text - Markdown}
+Below the YAML header, you can add text in the Markdown format.
+
+All the formatting rules above apply!
+\end{frame}
+
+
+\subsection{3. Code Chunks}
+
+
+\begin{frame}[fragile]{3. Code Chunks - R}
+
+Code Chunks
+\begin{itemize}
+  \item Contain executable code (R code)
+  \item Between \verb+```+
+\end{itemize}
+<<eval = FALSE>>=
+```{r}
+library(car)
+y <- rnorm(20)
+```
+@
+
+\end{frame}
+
+
+\begin{frame}[fragile]{3. Code Chunks - R}
+\textbf{In RStudio} you can add a new chunk using
+\begin{itemize}
+  \item \texttt{Ctrl + Alt + I}
+  \item click the green ``insert'' bottom at the top of the editor pane
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]{3. Code Chunks - R}
+\textbf{Chunk name}
+
+Although knitr automatically generates a chunk name. Often it helps to name each chunk.
+
+<<eval = FALSE>>=
+```{r create-y}
+y <- rnorm(20)
+```
+@
+
+\begin{itemize}
+  \item Helps for finding errors.
+  \item Each chunk requires a unique name.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]{3. Code Chunks - R}
+\textbf{Chunk options}
+
+<<eval = FALSE>>=
+```{r create-y, eval = TRUE, echo = FALSE}
+y <- rnorm(20)
+```
+@
+
+For a complete overview of chunk options look \MYhref{https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf}{here} and \MYhref{https://yihui.org/knitr/options/}{here}.
+
+
+\end{frame}
+
+
+\begin{frame}[fragile]{Chunk Options}
+\begin{center}
+\footnotesize
+  \begin{tabular}{| l | l | l | p{5cm} |}
+    \hline
+Name		& Value 		& Related to 				& Description \\
+\hline
+\texttt{eval} 		& \texttt{TRUE} 		& code evaluation 	& If FALSE, knitr will NOT run the code in the chunk. \\
+\hline
+\texttt{include} 	& \texttt{TRUE} 		& code evaluation 	& If FALSE, knitr will run the chunk but not include the chunk in the final document. \\
+    \hline
+\texttt{fig.align} 	& \texttt{``default''} 	& plots 				& How to align graphics in the final document. One of ``left'', ``right'', or ``center''. \\
+    \hline
+\texttt{fig.cap} 	& \texttt{NULL} 		& plots 				& A character string to be used as a figure caption. \\
+    \hline
+\texttt{fig.height} 	& 7 			& plots 				& The height for plots created by the chunk (in inches). \\
+    \hline
+\texttt{fig.width} 	& 7 			& plots 				& The width for plots created by the chunk (in inches). \\
+    \hline
+  \end{tabular}
+\end{center}
+\end{frame}
+
+
+
+
+\begin{frame}[fragile]{Chunk Options}
+\begin{center}
+\footnotesize
+  \begin{tabular}{| l | l | l | p{6cm} |}
+    \hline
+Name		& Value 		& Related to 				& Description \\
+\hline
+\texttt{echo} 		& \texttt{TRUE} 		& results 			& If FALSE, knitr will not ``echo'' the code in the chunk above it’s results in the final document. \\
+\hline
+\texttt{results} 	& \texttt{``markup''} 	& results 			& If ``hide'', knitr will not display the code's results in the final document. If ``hold'' ,knitr will delay displaying all output pieces until the end of the chunk. If ``asis'', knitr will pass through results without reformatting them (useful if results return raw HTML,etc.) \\
+\hline
+\texttt{message} 	& \texttt{TRUE} 		& results 			& If FALSE, knitr will not display any messages generated by the code. \\
+\hline
+\texttt{warning}     & \texttt{TRUE} 		& results 			& If FALSE, knitr will not display any warning messages generated by the code. \\
+    \hline
+  \end{tabular}
+\end{center}
+\end{frame}
+
+
+\subsection{3.5 Inline Code}
+
+
+\begin{frame}[fragile]{3.5 Inline Code}
+
+It is also possible to add R-output inline.
+\begin{itemize}
+  \item In the middle of the Markdown text
+  \item via \verb+`r <R-expression>`+
+\end{itemize}
+
+<<eval = FALSE>>=
+### Data Description
+There is one variable with `r length(y)` observations. The mean
+is `r round(mean(y), 2)` (SD = `r round(sd(y), 2)`).
+@
+\end{frame}
+
+\subsection{Rendering RMarkdown}
+
+
+\begin{frame}[fragile]{Rendering RMarkdown}
+An RMarkdown document contains chunks of R-coded embedded in markdown text.
+
+\textbf{knitr} executes the code chunks \textbf{In a new R-session}, transforms the results into markdown formatted text that replace the code chunks.
+
+\textbf{pandoc} converts the Markdown text (include the results of the code) into the chosen output format (like html).
+
+\end{frame}
+
+
+\begin{frame}[fragile]{Rendering RMarkdown}
+\begin{figure}
+\begin{center}
+\begin{tikzpicture}[node distance=1cm, auto]
+    \node (init) {};
+    \node [block] (Markdown) {Markdown File};
+    \node [block, left=3cm of Markdown] (RMarkdown) {RMarkdown File};
+    \node [block, right=3cm of Markdown] (Output) {Output Format: html, latex, word, };
+    \path [edge] (Markdown) -> node [text width=2.5cm,midway,above,align=center ] {Pandoc} (Output);
+    \path [edge] (RMarkdown) -> node [text width=2.5cm,midway,above,align=center ] {knitr} (Markdown);
+\end{tikzpicture}
+\end{center}
+\caption{Rendering RMarkdown}
+\label{fig2}
+\end{figure}
+
+\end{frame}
+
+
+\begin{frame}[fragile]{Rendering RMarkdown}
+To create the output file you can:
+
+\begin{itemize}
+  \item Use the \emph{knit} button on top of the editor pane
+  \item Hit \texttt{Ctrl + Shift + K}
+  \item Enter \texttt{rmarkdown::render(``path/to/file.Rmd'')} in the console
+\end{itemize}
+
+To get an idea what is happening behind the scene, try out \texttt{knitr::knit(``path/to/file.Rmd'')}.
+
+$\rightarrow$ The result is a \textbf{Markdown} document based on the \textbf{RMarkdown} document.
+\end{frame}
+
+
+
+\begin{frame}[fragile]{Rendering RMarkdown}
+
+\textbf{Advice:} Use the shortcut \texttt{Ctrl + Shift + K} or the \emph{knit} button.
+
+They make sure that the \emph{knitting} is done in a new R session.
+\begin{itemize}
+  \item Objects in the work space of the current R-session are invisible.
+  \item Similar to ``Frequently and completely restart!''
+\end{itemize}
+\end{frame}
+
+
+\subsection{Exercises}
+
+\begin{frame}[plain]
+\begin{center}
+\Large Exercises \\
+
+\vspace{1.5cm}
+\includegraphics[height=.25\textheight]{exercises.jpg}
+\end{center}
+\end{frame}
+
+
+
+\begin{frame}[fragile]{Exercise}
+\textbf{Create an R Markdown document} in RStudio
+\begin{enumerate}
+  \item Try out different output formats
+  \item Add or change a code chunk
+  \item Add or change a code chunk that results in a plot
+  \item Try out different chunk options
+  \item Add an R result inline
+\end{enumerate}
+\emph{knit} after you made changes to see how the output file is changed.
+\end{frame}
+
+
+\begin{frame}[fragile]{Alternative Exercise}
+\textbf{Open ``Rmarkdown-example.Rmd''} in ``example-project\_2''
+\begin{enumerate}
+  \item Try out different output formats
+  \item Add or change a code chunk
+  \item Add or change a code chunk that results in a plot
+  \item Try out different chunk options
+  \item Add an R result inline
+\end{enumerate}
+\emph{knit} after you made changes to see how the output file is changed.
+\end{frame}
+
+\subsection{Tables}
+
+\begin{frame}[fragile]{What About Tables?}
+With the \texttt{knit::kable()} function in a code chunk, you can add a table to the rendered document.
+
+
+<<eval = FALSE>>=
+```{r create-y, eval = TRUE, echo = FALSE}
+y <- rnorm(20)
+knitr::kable(t(summary(y)),
+            digits = 2,
+            caption = "Summary of Y")
+```
+@
+
+
+\end{frame}
+
+\begin{frame}[fragile]{What About Tables?}
+The result of using \texttt{knit::kable()}, is a Markdown formatted table, which can than be converted to the chosen output format
+
+
+<<eval = FALSE>>=
+Table: Summary of Y
+
+|  Min.| 1st Qu.| Median|  Mean| 3rd Qu.| Max.|
+|-----:|-------:|------:|-----:|-------:|----:|
+| -2.12|   -0.64|  -0.21| -0.02|    0.75| 1.51|
+@
+
+\end{frame}
+
+\begin{frame}[fragile]{What About Tables?}
+
+For more formatting options for tables, the \MYhref{https://CRAN.R-project.org/package=kableExtra}{kableExtra}-package is available.
+
+\end{frame}
+
+\subsection{Conclusion}
+
+\begin{frame}{RMarkdown}
+Where and when should I use RMarkdown?
+
+\begin{itemize}
+  \item For sharing work with collaborators.
+  \item For presenting results
+  \item For writing a submission ready publication (\MYhref{http://frederikaust.com/papaja_man/}{papaja})?
+  \item ...
+\end{itemize}
+
+My take:
+\begin{itemize}
+  \item I use RMarkdown when I collaborate.
+  \item For anything between (first) data processing and writing the final submission.
+  \item Not for (first) data processing $\rightarrow$ R-scripts
+  \item Writing the final submission $\rightarrow$ \LaTeX
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{RMarkdown}
+There are many more features and possibilities
+
+\begin{itemize}
+  \item Creating multiple similar reports via a loop.
+  \item Including citations using a BibTex database
+  \item Interactive documents
+  \item ...
+\end{itemize}
+
+Learn all about it in \MYhref{https://bookdown.org/yihui/rmarkdown/}{The Defenitive Guide}.
+
+\end{frame}
 
 % ----------------------------------------------------------------------------------------------------------------------
 \section{Version Control via Git and Github}
@@ -904,14 +2078,14 @@ rempsyc::save_as_docx(word_table, path = "iris_rempsyc_data.docx")
 \end{frame}
 
 \begin{frame}{Register at Github}
-\url{https://github.com/}
+\MYhref{https://github.com/}{Github}
 \begin{center}
 \includegraphics[width=.7\textwidth]{github_register.JPG}
 \end{center}
 \end{frame}
 
 \begin{frame}{Download git}
-\url{https://git-scm.com/download/win}
+\MYhref{https://git-scm.com/download/win}{Download Git}
 \begin{center}
 \includegraphics[width=.9\textwidth]{git_download.JPG}
 \end{center}
@@ -932,7 +2106,7 @@ git can be configured for Github via R
 # install.packages("usethis")
 
 library(usethis)
-use_git_config(user.name = "Username", 
+use_git_config(user.name = "Username",
                user.email = "user@gmail.com")
 @
 \end{frame}
@@ -953,9 +2127,9 @@ git config --global --list
 \begin{frame}{PAT for HTTPS}
 How does Github now we should have access to our repositories? \\
 via a Personal access token for HTTPS
-\being{itemize}
-\item Go to \url{https://github.com/settings/tokens}
-\item add the scopes “repo”, “user”, and “workflow”
+\begin{itemize}
+\item Go to \MYhref{https://github.com/settings/tokens}{https://github.com/settings/tokens}
+\item add the scopes ``repo'', ``user'', and ``workflow''
 \item Generate the token
 \item Use this token as a password if RStudio asks you
 \item Use %gitcreds::gitcreds_set()
@@ -1022,7 +2196,7 @@ The RStudio user interface to Git looks like this
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Excursion: mergen}
+\begin{frame}{Excursion: merge}
 \textbf{Conflicts between different updated versions}
 \begin{itemize}
   \item Common when working collaboratively
@@ -1072,14 +2246,14 @@ The RStudio user interface to Git looks like this
 \begin{frame}{Resources}
 \textbf{Git + RStudio Resources}
 \begin{itemize}
-\item Small Intro (\url{https://r-bio.github.io/intro-git-rstudio/})
-\item Happy Git with R (\url{https://happygitwithr.com/})
-\item R Packages and Git (\url{https://r-pkgs.org/git.html})
+\item \MYhref{https://r-bio.github.io/intro-git-rstudio/}{Small Intro}
+\item \MYhref{https://happygitwithr.com/}{Happy Git with R}
+\item \MYhref{https://r-pkgs.org/git.html}{R Packages and Git }
 \end{itemize}
 
 \textbf{General Git Resources}
 \begin{itemize}
-\item Git Book (\url{http://git-scm.com/book/en/v2})
+\item \MYhref{http://git-scm.com/book/en/v2}{Git Book}
 \end{itemize}
 
 \end{frame}
@@ -1124,7 +2298,7 @@ Invest time in writing readable R-code.
   \item It will make debugging easier
   \item It will make your analyses more reproducible
 \end{itemize}
-There is a complete \emph{tidyverse} style-guide \url{https://style.tidyverse.org/}.
+There is a complete \emph{tidyverse} style-guide \MYhref{https://style.tidyverse.org/}.
 \end{frame}
 
 \subsection{Go easy on your eyes}
@@ -1253,9 +2427,6 @@ dat[dat %in% c(99, 999)] <- NA  # missings coded 99 or 999
 \end{frame}
 
 
-\subsection{R Peculiarities}
-
-
 \begin{frame}[fragile]{Keep your code slim}
 Try to limit your \emph{package-dependencies}.
 
@@ -1271,150 +2442,6 @@ Only load \texttt{library()} the packages that you absolutely need. If you are o
   \item less name conflicts
 \end{itemize}
 \end{frame}
-
-
-\begin{frame}[fragile]{Never Attach}
-Forget about \texttt{attach()}!
-
-\vspace{0.3cm}
-
-Don't use it, unless you completely understand what happens (see \texttt{?attach}).
-
-\vspace{0.3cm}
-
-Use \texttt{with(data.frame, expression)} instead.
-<<attach, eval = FALSE >>=
-# using with()
-n <- 2e+4
-data <- data.frame(x = runif(n),
-                   y = runif(n),
-                   z = seq_len(n))
-result <- with(data, exp(x) / log(z) + 5 * sqrt(y))
-@
-\end{frame}
-
-
-\begin{frame}{Testing R code}
-Writing code is error prone. Incorporate tests and checks in your workflow.
-\begin{itemize}
-  \item minimal examples
-  \item write tests and checks
-  \item helpful packages: \texttt{testthat}, \texttt{RUnit}, \texttt{testit}, ...
-\end{itemize}
-\end{frame}
-
-
-\begin{frame}[fragile]{Speed}
-Computing speed can become an issue. Avoid common pitfalls:
-\begin{itemize}
-  \item don't grow, but replace
-  \item vectorize where possible
-  \item check the computing speed
-\end{itemize}
-\texttt{?system.time},  \text{microbenchmark} or profiling tools
-<< >>=
-n <- 2e+4
-data <- data.frame(x = runif(n),
-                   y = runif(n),
-                   z = seq_len(n))
-@
-\end{frame}
-
-
-\begin{frame}[fragile]{Speed}
-Don't grow!
-<< >>=
-system.time({
-  new_data <- NULL
-
-  for(row_nr in seq_len(NROW(data))){
-    new_data <- cbind(
-      data[row_nr,],
-      result = exp(data$x[row_nr]) /
-        log(data$z[row_nr]) +
-        5 * sqrt(data$y[row_nr]))
-  }
-})
-@
-\end{frame}
-
-
-\begin{frame}[fragile]{Speed}
-Replace!
-<< >>=
-system.time({
-  n_rows <- dim(data)[1]
-  data$result <- rep(NA, n_rows)
-
-  for(row_nr in seq_len(n_rows)){
-    data$result[row_nr] <- exp(data$x[row_nr]) /
-      log(data$z[row_nr]) +
-      5 * sqrt(data$y[row_nr])
-  }
-})
-@
-\end{frame}
-
-
-\begin{frame}[fragile]{Speed}
-Vectorize!
-<< >>=
-system.time({
-  data$result <- exp(data$x) / log(data$z) +
-    5 * sqrt(data$y)
-})
-@
-\end{frame}
-
-
-
-\begin{frame}[fragile]{Speed}
-Compare the speed of different implementations using:
-
-\vspace{0.3cm}
-
-\texttt{microbenchmark::microbenchmark}
-<< >>=
-get_mean1 <- function(x){
-  weight <- 1/length(x)
-  out <- 0
-  for(i in seq_along(x)){
-    out <- out + x[i] * weight
-  }
-  return(out)
-}
-
-get_mean2 <- function(x){
-  sum(x)/length(x)
-}
-@
-\end{frame}
-
-
-\begin{frame}[fragile]{Speed}
-Compare the speed of different implementations using:
-
-\vspace{0.3cm}
-
-\texttt{microbenchmark::microbenchmark}
-<< >>=
-x <- rnorm(500)
-microbenchmark::microbenchmark(
-  mean(x), get_mean1(x), get_mean2(x))
-@
-\end{frame}
-
-
-\begin{frame}[fragile]{Speed}
-
-\metroset{block=fill} %grey blocks
-\begin{block}{Programming advice}
-Don't worry about speed before it becomes an issue.
-\end{block}
-\end{frame}
-
-
-
 
 
 % ----------------------------------------------------------------------------------------------------------------------
@@ -1445,16 +2472,16 @@ Don't worry about speed before it becomes an issue.
 \begin{frame}{Literature Recommendations}
 R Resources
 \begin{itemize}
-\item Avanced R Ed. 1 (\url{http://adv-r.had.co.nz/})
-\item Avanced R Ed. 2 (\url{https://adv-r.hadley.nz/})
-\item R Inferno (\url{https://www.burns-stat.com/pages/Tutor/R_inferno.pdf})
-\item R Packages (\url{https://r-pkgs.org/})
-\item Clean Code (\url{https://mooc.aptikom.or.id/pluginfile.php/1174/mod_resource/content/1/Clean\%20Code_\%20A\%20Handbook\%20of\%20Agile\%20Software\%20C\%20-\%20Robert\%20C.\%20Martin.pdf})
+\item Avanced R Ed. 1 (\MYhref{http://adv-r.had.co.nz/})
+\item Avanced R Ed. 2 (\MYhref{https://adv-r.hadley.nz/})
+\item R Inferno (\MYhref{https://www.burns-stat.com/pages/Tutor/R_inferno.pdf})
+\item R Packages (\MYhref{https://r-pkgs.org/})
+\item Clean Code (\MYhref{https://mooc.aptikom.or.id/pluginfile.php/1174/mod_resource/content/1/Clean\%20Code_\%20A\%20Handbook\%20of\%20Agile\%20Software\%20C\%20-\%20Robert\%20C.\%20Martin.pdf})
 \end{itemize}
 
 Reproducible Research
 \begin{itemize}
-\item CRAN Tastk View (\url{https://cran.r-project.org/web/views/ReproducibleResearch.html})
+\item CRAN Tastk View (\MYhref{https://cran.r-project.org/web/views/ReproducibleResearch.html})
 \end{itemize}
 
 \end{frame}
