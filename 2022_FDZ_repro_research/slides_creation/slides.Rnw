@@ -2126,13 +2126,13 @@ git config --global --list
 
 \begin{frame}{PAT for HTTPS}
 How does Github now we should have access to our repositories? \\
-via a Personal access token for HTTPS
+$\rightarrow$ via a \textbf{P}ersonal \textbf{A}ccess \textbf{T}oken for HTTPS
 \begin{itemize}
 \item Go to \MYhref{https://github.com/settings/tokens}{https://github.com/settings/tokens}
 \item add the scopes ``repo'', ``user'', and ``workflow''
 \item Generate the token
 \item Use this token as a password if RStudio asks you
-\item Use %gitcreds::gitcreds_set()
+\item Use \texttt{gitcreds::gitcreds\_set()}
 \end{itemize}
 \end{frame}
 
@@ -2472,16 +2472,18 @@ Only load \texttt{library()} the packages that you absolutely need. If you are o
 \begin{frame}{Literature Recommendations}
 R Resources
 \begin{itemize}
-\item Avanced R Ed. 1 (\MYhref{http://adv-r.had.co.nz/})
-\item Avanced R Ed. 2 (\MYhref{https://adv-r.hadley.nz/})
-\item R Inferno (\MYhref{https://www.burns-stat.com/pages/Tutor/R_inferno.pdf})
-\item R Packages (\MYhref{https://r-pkgs.org/})
-\item Clean Code (\MYhref{https://mooc.aptikom.or.id/pluginfile.php/1174/mod_resource/content/1/Clean\%20Code_\%20A\%20Handbook\%20of\%20Agile\%20Software\%20C\%20-\%20Robert\%20C.\%20Martin.pdf})
+\item \MYhref{http://adv-r.had.co.nz/}{Avanced R Ed. 1}
+\item \MYhref{https://adv-r.hadley.nz/}{Avanced R Ed. 2}
+\item \MYhref{https://www.burns-stat.com/pages/Tutor/R_inferno.pdf}{R Inferno}
+\item \MYhref{https://r-pkgs.org/}{R Packages}
+\item \MYhref{https://mooc.aptikom.or.id/pluginfile.php/1174/mod_resource/content/1/Clean\%20Code_\%20A\%20Handbook\%20of\%20Agile\%20Software\%20C\%20-\%20Robert\%20C.\%20Martin.pdf}{Clean Code}
 \end{itemize}
 
 Reproducible Research
 \begin{itemize}
-\item CRAN Tastk View (\MYhref{https://cran.r-project.org/web/views/ReproducibleResearch.html})
+\item \MYhref{https://cran.r-project.org/web/views/ReproducibleResearch.html}{CRAN Task View}
+\item \MYhref{https://datacarpentry.org/rr-workshop/}{Data Carpentry}
+\item \MYhref{https://nceas.github.io/sasap-training/materials/reproducible_research_in_r_fairbanks/}{State of Alaska's Salmon and People}
 \end{itemize}
 
 \end{frame}
