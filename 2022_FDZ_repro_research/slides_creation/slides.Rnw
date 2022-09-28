@@ -153,7 +153,7 @@ econRedD<-"#90353B"
 \begin{itemize}
   \item Conceptual Introduction
   \item Writing Reproducible R Code
-  \item (Alternative) Reproducible Workflows
+  \item Reproducible Reporting
 \end{itemize}
 \textbf{Day 2}
 \begin{itemize}
@@ -211,7 +211,7 @@ Baker, M. (2016). Reproducibility crisis. Nature, 533(26), 353-66.
 \begin{frame}{Reproducibility}
 \textbf{Threats to self-replication} (see also Peikert et al., 2021)
 \begin{itemize}
-  \item Mistakes in data preparation/analysis (e.g., syntax bugs)
+  \item (Silent) Mistakes in data preparation/analysis (e.g., syntax bugs)
   \item Inconsistent versions of code, data, or both
   \item Copy-and-paste errors
   \item ...
@@ -629,9 +629,36 @@ dev.off()
 
 
 % ----------------------------------------------------------------------------------------------------------------------
-\section{Alternative Reproducible Workflows}
+\section{Reproducible Reporting}
 
-\subsection{LaTeX}
+\begin{frame}{Common Workflows}
+	Not very reproducible...
+	\begin{itemize}
+		\item Perform data preparation via hand/graphical user interfaces (SPSS, Excel) 
+		\item Perform data analyses via hand/graphical user interfaces (SPSS, Excel) 
+		\item Write a research report/manuscript (Word)
+		\item Insert your results via copy \& paste in text or as figures/tables
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Reproducible Workflows}
+Better...
+	\begin{itemize}
+		\item Perform data preparation via syntax (R, Stata, SPSS) 
+		\item Perform data analyses via via syntax (R, Stata, SPSS) 
+		\item Write a research report/manuscript via a typesetting system or markup language (Markdown/LaTeX)
+		\item Insert your results via \textit{dynamic document generation} (RMarkdown/knitr)
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Markdown}
+		Lightweight Markup Language
+	\begin{itemize}
+		\item Pandoc distributed via RStudio
+		\end{itemize}
+\end{frame}
+
 \begin{frame}{LaTeX}
 		Typesetting System
 	\begin{itemize}
@@ -642,9 +669,9 @@ dev.off()
 \end{frame}
 
 \begin{frame}{LaTeX vs. Markdown}
-	\textbf{Advantages} \\
+	\textbf{Advantages LaTeX} \\
 	\begin{itemize}
-		\item APA6 and APA7 document classes
+		\item \href{APA7}{https://ctan.org/pkg/apa7?lang=en} document class
 		\item Better support for formulas
 		\item Looks nicer
 		\item Better customization 
@@ -654,16 +681,26 @@ dev.off()
 \end{frame}
 
 \begin{frame}{LaTeX vs. Markdown}
-	\textbf{Disadvantages} \\
+	\textbf{Advantages Markdown} \\
 	\begin{itemize}
-		\item More complex
-		\item Sometimes complicated setup
+		\item Extremely easy to use
+		\item No complicated setup
 		\item Designated output format: .html 
 	\end{itemize}
+	\url{https://yihui.org/en/2013/10/markdown-or-latex/}
 \end{frame}
 
+\subsection{Dynamic Document Generation}
+\begin{frame}{Dynamic Document Generation}
+Intertwine reporting and data preparation/analyses
+	\begin{itemize}
+		\item LaTeX $\rightarrow$ knitr (.Rnw)
+		\item Markdown $\rightarrow$ RMarkdown (.Rmd)
+	\end{itemize}
+Execute R code during document generation.
+\end{frame}
 
-\begin{frame}{LaTeX and R}
+\begin{frame}{LaTeX and knitr}
 \textbf{knitr}
 	\begin{itemize}
 		\item substitutes \texttt{sweave} 
@@ -672,16 +709,42 @@ dev.off()
 		\end{itemize}
 \end{frame}
 
+\begin{frame}{RMarkdown}
+See tomorrow!
+\end{frame}
+
 % -------------- 
-\subsection{Word Tables}
-\begin{frame}{Producing reproducible Word Tables via R}
-	Different packages
+\subsection{Semi-Dynamic Document Generation}
+\begin{frame}{Semi-Dynamic Document Generation}
+Unfortunately life is not always easy...
+	\begin{itemize}
+		\item Limited resources to learn even more tools 
+		\item Collaborators insist on using Word
+		\item Journals only accept Word documents for submissions
+		\item ...
+	\end{itemize}
+However, we can always try to make small improvements!
+\end{frame}
+
+\begin{frame}{Semi-Dynamic Document Generation}
+	For Example: \textbf{Automated APA tables in Word} \\
+	$\rightarrow$ Useful R packages
 	\begin{itemize}
 		\item apaTables
+		\item rempsyc
+		\item flextable
 		\item sjPlot
 		\item stargazer
+		\item ...
 	\end{itemize}
 \end{frame}
+
+\begin{frame}{apaTables}
+\begin{center}
+\includegraphics[width=.95\textwidth]{apaTables_cran.jpg}
+\end{center}
+\end{frame}
+
 
 \begin{frame}[fragile]{apaTables}
 Descriptive statistics for a data set
@@ -692,13 +755,60 @@ apaTables::apa.cor.table(iris,
 @
 \end{frame}
 
-
 \begin{frame}{apaTables}
 \begin{center}
 \includegraphics[height=.75\textheight]{apaTables.jpg}
 \end{center}
 \end{frame}
 
+\begin{frame}[fragile]{apaTables}
+Regression tables
+<<apaTables2, eval = FALSE>>=
+reg1 <- lm(mpg ~ cyl * gear, data = mtcars)
+apaTables::apa.reg.table(reg1, 
+                         filename = "mtcars_apatable_reg.doc")
+@
+\end{frame}
+
+\begin{frame}{apaTables}
+\begin{center}
+\includegraphics[height=.75\textheight]{apaTables_reg.jpg}
+\end{center}
+\end{frame}
+
+\begin{frame}{rempsyc}
+\begin{center}
+\includegraphics[width=.95\textwidth]{rempsyc_cran.jpg}
+\end{center}
+\end{frame}
+
+
+\begin{frame}[fragile]{rempsyc}
+Manual table containing example data
+<<rempsyc, eval = FALSE>>=
+word_table <- rempsyc::nice_table(iris[1:5, ], 
+  title = c("Table 1", "Example Iris Data Set"),
+  footnote = c("The table contains five rows of the iris data."))
+
+# save as .docx
+rempsyc::save_as_docx(word_table, path = "iris_rempsyc_data.docx")
+@
+\end{frame}
+
+\begin{frame}{rempsyc}
+\begin{center}
+\includegraphics[height=.75\textheight]{rempsyc_iris.jpg}
+\end{center}
+\end{frame}
+
+\begin{frame}[plain]
+\begin{center}
+\Large Exercises \\
+
+\vspace{1.5cm}
+\includegraphics[height=.25\textheight]{exercises.jpg}
+\end{center}
+\end{frame}
 
 
 % ----------------------------------------------------------------------------------------------------------------------
