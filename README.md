@@ -33,6 +33,7 @@ Advanced programming in R
 ## Take Aways from FDZ Autumn 2022
 more time for git, maybe split it between two days
 (installation/setup alone 45 minutes!)
+show earlier, what the benefits of git are (and how it looks)
 
 RMarkdown was a lot faster than anticipated (but participants were already familiar)
 RMarkdown & Scripts maybe more concrete exercises
