@@ -1028,18 +1028,6 @@ RMarkdown is a tool that can facilitate:
 \end{frame}
 
 
-\begin{frame}{RMarkdown}
-Scientific results should be reproducible! (And hopefully repeatable.)
-Open science implies transparency in methodology, manipulation and analysis of data.
-
-RMarkdown is a tool that can facilitate:
-\begin{itemize}
-    \item \textbf{Reproducible results} by avoiding copy-paste errors
-    \item \textbf{Open science} by including the actual code that was used to analyse the data
-    \item Revising your work, as changes in data-analytic choices are automatically incorporated in the final output. \textbf{It saves time!}
-\end{itemize}
-\end{frame}
-
 \begin{frame}[fragile]{RMarkdown}
 RMarkdown is a \textbf{document format} (.Rmd) that combines
 \vspace{-\topsep}
@@ -1829,6 +1817,7 @@ It is also possible to add R-output inline.
 
 <<eval = FALSE>>=
 ### Data Description
+
 There is one variable with `r length(y)` observations. The mean
 is `r round(mean(y), 2)` (SD = `r round(sd(y), 2)`).
 @
@@ -1840,9 +1829,9 @@ is `r round(mean(y), 2)` (SD = `r round(sd(y), 2)`).
 \begin{frame}[fragile]{Rendering RMarkdown}
 An RMarkdown document contains chunks of R-coded embedded in markdown text.
 
-\textbf{knitr} executes the code chunks \textbf{In a new R-session}, transforms the results into markdown formatted text that replace the code chunks.
+\textbf{knitr} executes each code chunk sequentially \textbf{in a new R-session}, transforms the results into markdown formatted text that replace the code chunks.
 
-\textbf{pandoc} converts the Markdown text (include the results of the code) into the chosen output format (like html).
+\textbf{pandoc} converts the Markdown text (including the results of the code) into the chosen output format (like html).
 
 \end{frame}
 
