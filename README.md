@@ -30,6 +30,17 @@ Advanced programming in R
 15.10.2021
 
 
+## Take Aways from FDZ Autumn 2022
+more time for git, maybe split it between two days
+(installation/setup alone 45 minutes!)
+
+RMarkdown was a lot faster than anticipated (but participants were already familiar)
+RMarkdown & Scripts maybe more concrete exercises
+
+Quarto next time?
+
+papaja? seems to be a mess still
+
 ## Take Aways from FDZ 2022
 Topics and time management were excellent!  
 audience was very fitting as a target group  

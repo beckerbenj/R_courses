@@ -13,9 +13,10 @@
 # load the pisa-dataset from the data-folder
 pisa <- readRDS("data//pisaPlus_CF.RDS")
 
-# 1. Create a descriptives table for the variables "hisei", "pared" and "computer_age".
+# 1. Create a descriptives table for the variables "hisei", "pared" and "classsize".
 # Save the table as a APA-formatted Word-table.
-apaTables::apa.cor.table(pisa[, c("hisei", "pared", "classsize")], 
+sub_dat_pisa <- pisa[, c("hisei", "pared", "classsize")]
+apaTables::apa.cor.table(sub_dat_pisa, 
                          filename = "pisa_apatable_descr.doc", 
                          landscape = FALSE)
 
@@ -27,7 +28,7 @@ apaTables::apa.reg.table(reg1,
                          filename = "pisa_apatable_reg.doc")
 
 
-# 3. Create a cross frequency table for the variable "language" and "gender".
+# 3. Create a cross frequency table for the variable "computer_age" and "gender".
 # Save the results in an APA-formatted Word-table.
 freq_tab <- table(pisa$gender, pisa$computer_age)
 freq_df <- as.data.frame(freq_tab)
