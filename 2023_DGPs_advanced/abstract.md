@@ -21,6 +21,7 @@ After setting up an RStudio environment that supports writing efficient and eleg
 - Good programming practices
 - Loops, iteration, and the Split-Apply-Combine paradigm
 - Writing efficient functions
+- debugging
 - object-oriented programming - S3
 - concepts like scoping, environments, and functionals. 
 - create and publish and maintain their own packages
