@@ -195,7 +195,7 @@ econRedD<-"#90353B"
 
 \begin{frame}{Goal of this workshop}
 
-\textbf{An introduction to R as a Programming language}
+\textbf{A deeper dive into R as a Programming language}
 \begin{itemize}
   \item Better practical R skills
   \item Better understanding of R (and programming)
@@ -207,8 +207,6 @@ econRedD<-"#90353B"
 
 \begin{frame}{Agenda}
 \begin{itemize}
-  \item RStudio setup
-  \item Flow \& conditional programming
   \item Loops \& iteration
   \item Functions (part I)
   \item Functions (part II)
@@ -216,40 +214,6 @@ econRedD<-"#90353B"
   \item Good programming practices
 \end{itemize}
 \end{frame}
-
-
-% ----------------------------------------------------------------------------------------------------------------------
-\section{RStudio setup}
-\label{sec:rstudio}
-
-\begin{frame}{RStudio setup}
-\begin{enumerate}
-  \item Save the course content to a directory on your machine
-  \item Open RStudio
-  \item Choose \texttt{File < New Project ... }
-  \item Choose \texttt{Existing Directory}
-  \item Browse to the directory on your machine where you saved the course content and select the ``{\color{blue}R-programming}'' folder as the \texttt{Project working directory}
-  \item Click \texttt{Open in new session}
-  \item Click \texttt{Create Project}
-\end{enumerate}
-\end{frame}
-
-\begin{frame}{RStudio setup - optional}
-\begin{enumerate}
-  \item Choose \texttt{Tools < Global options}
-  \item Under \texttt{General}
-  \begin{itemize}
-    \item DON'T \texttt{Restore .RData into workspace at startup}
-    \item NEVER \texttt{Save workspace to .Rdata on exit:}
-    \item Save the code instead!
-    \item Use \texttt{saveRDS()} and \texttt{readRDS()} for objects that require a long time to computate
-  \end{itemize}
-  \item Further personalize RStudio
-\end{enumerate}
-\end{frame}
-
-
-
 
 
 % ----------------------------------------------------------------------------------------------------------------------
@@ -462,7 +426,7 @@ apply(my_array, 3, sum)        # per "third dimension"
 ``To understand computations in R, two slogans are helpful: Everything that exists is an object. {Everything} that happens is a function call.''
 \end{quote}}
   \vskip5mm
-  \hspace*\fill{\small--- John Chambers}
+  \hspace*\fill{\small--- John Chambers, Extending R (2016)}
 \end{exampleblock}
 \end{frame}
 
@@ -732,6 +696,74 @@ str(get_info(airquality$Wind))
 \end{frame}
 
 
+\subsection{Debugging}
+
+\begin{frame}{Debugging}
+\begin{itemize}
+  \item browser()
+  \item traceback()
+  \item options(error = recover)
+  \item options(warn = 2)
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{browser()}
+Inspecting a function interactively
+<< eval=FALSE>>=
+some_function <- function(x, y) {
+  z <- x + y
+  browser()
+  z
+}
+some_function(x = 1, y = 5)
+@
+\end{frame}
+
+\begin{frame}{browser()}
+\begin{center}
+\includegraphics[width=.75\textwidth]{browser.JPG}
+\end{center}
+\end{frame}
+
+\begin{frame}{browser()}
+Navigating within a browser:
+\begin{itemize}
+  \item [ls()] Show existing objects in the current environment
+  \item [c] Exit the browser and continue execution
+  \item [Q] Exit the browser, return to top level
+  \item [where] Show call stack
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]{Recover}
+Being able to chose an environment from the call stack:
+<< eval=FALSE>>=
+# on
+options(error = recover)
+
+# off
+options(error = NULL)
+@
+\end{frame}
+
+\begin{frame}{Recover}
+Being able to chosse an enrivonment from a call stack:
+\begin{center}
+\includegraphics[width=.75\textwidth]{recover.JPG}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]{Warnings}
+Turning warnings into errors
+<< eval=FALSE>>=
+# on
+options(warn = 2)
+
+# off
+options(warn = 1)
+@
+\end{frame}
 
 \begin{frame}[plain]
 \begin{center}
@@ -741,6 +773,7 @@ str(get_info(airquality$Wind))
 \includegraphics[height=.25\textheight]{exercises.jpg}
 \end{center}
 \end{frame}
+
 
 % ----------------------------------------------------------------------------------------------------------------------
 
