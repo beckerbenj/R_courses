@@ -132,7 +132,7 @@ econRedD<-"#90353B"
 \begin{frame}{Introduction}
 \textbf{Who are you?}
 \begin{enumerate}%\itemsep0em
-	\item Occupation, employer?
+	\item Position and research topics?
 	\item Previous knowledge and experience
 	\begin{itemize}
 	  \item with R?
@@ -217,6 +217,45 @@ econRedD<-"#90353B"
 
 
 % ----------------------------------------------------------------------------------------------------------------------
+\section{Quick Recap}
+\label(sec:recap)
+
+\begin{frame}{Basic \emph{Objects} in R}
+\begin{center}
+  \begin{tabular}{| l | l |}
+    \hline
+    \multicolumn{2}{|c|}{Vectors} \\ \hline
+    logical   & \texttt{TRUE}, \texttt{FALSE}, \texttt{NA} \\ 
+    integer   & \texttt{1L}, \texttt{142}, \texttt{-5}, ..., \texttt{NA} \\
+    double    & \texttt{1.0}, \texttt{1.25784}, \texttt{pi}, ..., \texttt{NA} \\
+              & \texttt{NaN}, \texttt{-Inf}, \texttt{Inf} \\
+    character & \texttt{"1"}, \texttt{"Some other string"}, ..., \texttt{NA} \\
+    \hline
+  \end{tabular}
+\end{center}
+Vectors can have multiple elements \textbf{of the same type} $\rightarrow$ \texttt{length()} starting from \texttt{0}
+\end{frame}
+
+
+\begin{frame}[fragile]{Basic \emph{Objects} in R}
+\begin{center}
+  \begin{tabular}{| l | l |}
+    \hline
+    \multicolumn{2}{|c|}{More basic object types} \\ \hline
+    list        & a list of vectors \texttt{list()}, \texttt{as.list()}, ...  \\    \hline
+    matrix      & a \textbf{vector} with \texttt{"dim"} argument: two dimensions \\
+                & \texttt{matrix()}, \texttt{as.matrix()} \\ 
+                & matrix algebra \\ 
+    array       & a \textbf{vector} with with \texttt{"dim"} argument \\            \hline
+    data.frame  & a \textbf{list} with vectors of equal length  \\
+                & \texttt{data.frame()}, \texttt{as.data.frame()}  \\
+    \hline
+  \end{tabular}
+\end{center}
+\end{frame}
+
+
+
 \section{Loops \& Iteration}
 \label{sec:loops}
 
