@@ -1,7 +1,8 @@
 \documentclass{beamer}
 
 \usepackage{multicol}
-\usepackage[T1]{fontenc}
+\usepackage{FiraSans}
+\usepackage{fontenc}
 \usepackage{textcomp}
 \usepackage{tikz}
 \usetikzlibrary{arrows}
@@ -10,6 +11,9 @@
 \usepackage{url}
 
 \usetheme{metropolis}
+
+% blue links
+\newcommand{\MYhref}[3][blue]{\href{#2}{\color{#1}{#3}}}
 
 
 
@@ -101,11 +105,11 @@ econRedD<-"#90353B"
 
 \begin{columns}[t]
 \begin{column}{.475\textwidth}
-\href{https://github.com/ddebeer/scDIFtest}{scDIFtest}, \href{https://github.com/ddebeer/permimp}{permimp}, \href{https://github.com/beckerbenj/eatATA}{eatATA}, \href{https://CRAN.R-project.org/package=mstDIF}{mstDIF}
+\MYhref{https://github.com/ddebeer/scDIFtest}{scDIFtest}, \MYhref{https://github.com/ddebeer/permimp}{permimp}, \MYhref{https://github.com/beckerbenj/eatATA}{eatATA}, \MYhref{https://CRAN.R-project.org/package=mstDIF}{mstDIF}
   	
 \end{column}
 \begin{column}{.475\textwidth}
-\href{https://github.com/beckerbenj/eatGADS}{eatGADS}, \href{https://github.com/beckerbenj/eatDB}{eatDB}, \href{https://github.com/beckerbenj/eatATA}{eatATA}, \href{https://github.com/beckerbenj/pisaRT}{pisaRT}
+\MYhref{https://github.com/beckerbenj/eatGADS}{eatGADS}, \MYhref{https://github.com/beckerbenj/eatDB}{eatDB}, \MYhref{https://github.com/beckerbenj/eatATA}{eatATA}, \MYhref{https://github.com/beckerbenj/pisaRT}{pisaRT}
 
   \end{column}
 \end{columns}
@@ -115,12 +119,12 @@ econRedD<-"#90353B"
 \begin{columns}[t]
 \begin{column}{.475\textwidth}
 
-\href{mailto:dries.debeer@ugent.be}{dries.debeer@ugent.be}
+\MYhref{mailto:dries.debeer@ugent.be}{dries.debeer@ugent.be}
   	
 \end{column}
   \begin{column}{.475\textwidth}
 
-\href{b.becker@iqb.hu-berlin.de}{b.becker@iqb.hu-berlin.de}
+\MYhref{b.becker@iqb.hu-berlin.de}{b.becker@iqb.hu-berlin.de}
 
   \end{column}
 \end{columns}
@@ -1267,7 +1271,7 @@ The members of the \texttt{apply}-family in Base R are:
 \end{frame}
 
 \begin{frame}{\texttt{apply}-family}
-A popular alternative from the tidyverse: \href{https://purrr.tidyverse.org/}{\texttt{purrr-package}} 
+A popular alternative from the tidyverse: \MYhref{https://purrr.tidyverse.org/}{\texttt{purrr-package}} 
 \begin{itemize}
   \item \texttt{map} vector / list $\rightarrow$ list
   \item \texttt{map2} multiple vectors / lists $\rightarrow$ list
@@ -1455,7 +1459,7 @@ Invest time in writing readable R-code.
   \item It will make debugging easier
   \item It will make your analyses more reproducible 
 \end{itemize}
-There is a complete \emph{tidyverse} style-guide \url{https://style.tidyverse.org/}.
+There is a complete \emph{tidyverse} \MYhref{https://style.tidyverse.org/}{style-guide}.
 \end{frame}
 
 \subsection{Go easy on your eyes}
@@ -1776,11 +1780,11 @@ Don't worry about speed before it becomes an issue.
 \begin{frame}{Literature Recommendations}
 R Resources
 \begin{itemize}
-\item Avanced R Ed. 1 (\url{http://adv-r.had.co.nz/})
-\item Avanced R Ed. 2 (\url{https://adv-r.hadley.nz/})
-\item R Inferno (\url{https://www.burns-stat.com/pages/Tutor/R_inferno.pdf})
-\item R Packages (\url{https://r-pkgs.org/})
-\item Clean Code (\url{https://thixalongmy.haugiang.gov.vn/media/1175/clean_code.pdf})
+\item \MYhref{http://adv-r.had.co.nz/}{Avanced R Ed. 1}
+\item \MYhref{https://adv-r.hadley.nz/}{Avanced R Ed. 21}
+\item \MYhref{https://www.burns-stat.com/pages/Tutor/R_inferno.pdf}{R Inferno}
+\item \MYhref{https://r-pkgs.org/}{R Packages}
+\item \MYhref{https://thixalongmy.haugiang.gov.vn/media/1175/clean_code.pdf}{Clean Code}
 \item The Pragmatic Programmer
 \end{itemize}
 
