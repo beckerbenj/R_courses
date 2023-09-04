@@ -34,11 +34,11 @@ computeDescriptives(mtcars$mpg)
 # 2. Consider the drop_NA()-function from the previous exercises.
 #    Add a side-effect to the function: inform the user of
 #    how many NA values were dropped. 
-#    Add a "message" argument with default FALSE, so that 
+#    Add a "verbose" argument with default FALSE, so that 
 #    users can also choose whether to get the information.
-drop_NA <- function(x, message = TRUE){
+drop_NA <- function(x, verbose = TRUE){
   is_NA <- is.na(x)
-  if(message) message(sum(is_NA), " NA-values were dropped.")
+  if(verbose) message(sum(is_NA), " NA-values were dropped.")
   out <- structure(x[!is_NA], 
                    original_length = length(x),
                    which_NA = which(is_NA))
@@ -46,7 +46,7 @@ drop_NA <- function(x, message = TRUE){
 
 Ozone_noNA <- drop_NA(airquality$Ozone) 
 Ozone_noNA
-Ozone_noNA <- drop_NA(airquality$Ozone, message = FALSE) 
+Ozone_noNA <- drop_NA(airquality$Ozone, verbose = FALSE) 
 Ozone_noNA
 
 
@@ -57,8 +57,8 @@ Ozone_noNA
 #       - inform the user how many NA values were removed
 #       - make sure users can choose not to get this information
 #    TIP: make use of the function you wrote for exercise 2.
-get_info <- function(x, na.rm = TRUE, message = FALSE){
-  if(na.rm) x <- drop_NA(x, message = message)
+get_info <- function(x, na.rm = TRUE, verbose = FALSE){
+  if(na.rm) x <- drop_NA(x, verbose = verbose)
   mean_x <- mean(x)
   median_x <- median(x)
   n_obs_x <- length(x)
@@ -68,7 +68,7 @@ get_info <- function(x, na.rm = TRUE, message = FALSE){
 }
 
 get_info(airquality$Ozone)
-get_info(airquality$Ozone, message = TRUE)
+get_info(airquality$Ozone, verbose = TRUE)
 get_info(airquality$Ozone, na.rm = FALSE)
 
 
@@ -83,6 +83,7 @@ create_boxplot <- function(x, main = "Boxplot", xlab = NULL, ylab = "Values") {
 }
 create_boxplot(mtcars$mpg)
 boxplot(mtcars$mpg)
+
 
 
 # 5. Implement 'input checks' for your boxplot function. The function should throw

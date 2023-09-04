@@ -150,8 +150,8 @@ rater_list <- list(rater1 = rater1,
 out_list <- Map(function(dat, name_rater) {
   dat[, "rater_name"] <- name_rater
   dat
-}, 
-dat = rater_list, name_rater = names(rater_list))
+	}, dat = rater_list, name_rater = names(rater_list))
+
 do.call(rbind, out_list)
 
 

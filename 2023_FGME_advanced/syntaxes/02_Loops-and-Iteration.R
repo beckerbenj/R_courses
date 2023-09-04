@@ -62,20 +62,10 @@ round(values, 3)
 
 
 
-## repeat loop
-index <- 0
-repeat {
-  index <- index + 1
-  if (index %in% c(3, 5)) next
-  if (index > 6) break
-  print(index)
-}
-
-
-
 ## for loop - same result
-for(index in 1:6) {
+for(index in 1:8) {
   if (index %in% c(3, 5)) next
+	if (index > 6) break
   print(index)
 }
 
@@ -147,7 +137,8 @@ apply(my_array, 3, sum) # per "third dimension"
 ## Exercises -----
 ##===========================================================
 
-# 1. Consider the repeat-loop below. Write a while-loop that gives the same results.
+# 1. Consider the repeat-loop and for-loop below. Write a while-loop 
+#    that gives the same results.
 
 ## repeat-loop
 index <- 0
@@ -155,6 +146,12 @@ repeat {
   index <- index + 1
   if (index %in% c(3, 5)) next
   if (index > 6) break
+  print(index)
+}
+
+## for-loop## repeat loop
+for(index in 1:6) {
+  if (index %in% c(3, 5)) next
   print(index)
 }
 
