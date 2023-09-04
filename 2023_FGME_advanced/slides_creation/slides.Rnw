@@ -218,7 +218,7 @@ econRedD<-"#90353B"
 
 % ----------------------------------------------------------------------------------------------------------------------
 \section{Quick Recap}
-\label(sec:recap)
+\label{sec:recap}
 
 \begin{frame}{Basic \emph{Objects} in R}
 \begin{center}
@@ -242,11 +242,12 @@ Vectors can have multiple elements \textbf{of the same type} $\rightarrow$ \text
   \begin{tabular}{| l | l |}
     \hline
     \multicolumn{2}{|c|}{More basic object types} \\ \hline
-    list        & a list of vectors \texttt{list()}, \texttt{as.list()}, ...  \\    \hline
-    matrix      & a \textbf{vector} with \texttt{"dim"} argument: two dimensions \\
+    list        & a list of vectors \\
+                & \texttt{list()}, \texttt{as.list()} \\    \hline
+    matrix      & a \textbf{vector} with a \texttt{"dim"} argument: two dimensions \\
                 & \texttt{matrix()}, \texttt{as.matrix()} \\ 
                 & matrix algebra \\ 
-    array       & a \textbf{vector} with with \texttt{"dim"} argument \\            \hline
+    array       & a \textbf{vector} with with a \texttt{"dim"} argument \\            \hline
     data.frame  & a \textbf{list} with vectors of equal length  \\
                 & \texttt{data.frame()}, \texttt{as.data.frame()}  \\
     \hline
@@ -258,7 +259,9 @@ Vectors can have multiple elements \textbf{of the same type} $\rightarrow$ \text
 \begin{frame}[fragile]{\texttt{data.frame} vs \texttt{matrix}}
 A \texttt{data.frame} is a list of vectors $\rightarrow$ columns can be of different types.
 
-<<data.frame, echo=TRUE, eval = TRUE, results = "markup">>=
+Try it!
+
+<<data.frame, echo=TRUE, eval = FALSE, results = "markup">>=
 iris_dat <- head(iris)
 is.list(iris_dat)
 dim(iris_dat)
@@ -271,7 +274,9 @@ iris_dat[1:2,]
 
 \begin{frame}[fragile]{\texttt{data.frame} vs \texttt{matrix}}
 A \texttt{matrix}/\texttt{array} is a vector with dimensions $\rightarrow$ all elements/columns are of the same type.
-<<matrix, echo=TRUE, eval = TRUE, results = "markup">>=
+
+Try it!
+<<matrix, echo=TRUE, eval = FALSE, results = "markup">>=
 iris_mat <- as.matrix(iris_dat)
 dim(iris_mat)
 length(iris_mat)
@@ -442,9 +447,9 @@ for (index in seq_along(x)){
 \texttt{apply} lets you iterate over rows or columns of a matrix or data.frame. You can \emph{apply} a function to all rows/columns
 <<applyDef, echo=TRUE, results="markup", size="footnotesize", eval = FALSE>>=
 apply(matrix,
-     MARGIN = 1,       # 1 = iterate over rows
-                       # 2 = iterate over columns
-     FUN = function)   # function to apply to rows/columns
+      MARGIN = 1,       # 1 = iterate over rows
+                        # 2 = iterate over columns
+      FUN = function)   # function to apply to rows/columns
 @
 \end{frame}
 
