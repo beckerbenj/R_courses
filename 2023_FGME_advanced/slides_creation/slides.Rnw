@@ -51,7 +51,6 @@ econRedD<-"#90353B"
 \begin{document}
 
 
-
 \begin{frame}
 \titlepage
 \end{frame}
@@ -364,15 +363,6 @@ Without a \texttt{break} the computation is repeated infinite times
   \item \texttt{next} starts next iteration
   \item \texttt{break} ends iteration (of the innermost loop)
 \end{itemize}
-%<<next, echo=TRUE, eval = TRUE, results="markup">>=
-%index <- 0
-%repeat {
-%  index <- index + 1
-%  if (index %in% c(3, 5)) next
-%  if (index > 6) break
-%  print(index)
-%}
-@
 \end{frame}
 
 
@@ -1790,7 +1780,8 @@ R Resources
 \item Avanced R Ed. 2 (\url{https://adv-r.hadley.nz/})
 \item R Inferno (\url{https://www.burns-stat.com/pages/Tutor/R_inferno.pdf})
 \item R Packages (\url{https://r-pkgs.org/})
-\item Clean Code (\url{https://mooc.aptikom.or.id/pluginfile.php/1174/mod_resource/content/1/Clean\%20Code_\%20A\%20Handbook\%20of\%20Agile\%20Software\%20C\%20-\%20Robert\%20C.\%20Martin.pdf})
+\item Clean Code (\url{https://thixalongmy.haugiang.gov.vn/media/1175/clean_code.pdf})
+\item The Pragmatic Programmer
 \end{itemize}
 
 \end{frame}
