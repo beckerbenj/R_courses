@@ -22,7 +22,29 @@
 
 ## Exercises -----
 ##===========================================================
-# 1. Consider the vector of values. 
+
+# 1. Consider the repeat-loop below. Write a while-loop that gives the same results.
+
+## repeat-loop
+index <- 0
+repeat {
+  index <- index + 1
+  if (index %in% c(3, 5)) next
+  if (index > 6) break
+  print(index)
+}
+
+## while-loop
+index <- 0
+while(index <= 6){
+  index <- index + 1
+  if (index %in% c(3, 5)) next
+  print(index)
+}
+
+
+
+# 2. Consider the vector of values. 
 #    (a) Write a for loop in which you compute the square of each value and 
 #        compare it with the raw value. When the raw values are smaller, 
 #        keep the raw values, else, keep the squared values. The result should
@@ -48,43 +70,34 @@ results <- ifelse(values < values^2, values, values^2)
 
 
 
-# 2. Consider the following list ("attendance_list"). Write a for loop in which 
-#      (a) the name "Benny" is replaced by "Bob"
-#      (b) the Attendees are put in alphabetical order
-#    Tip: You can use the index of the elements, or the names of the elements
-#         to iterate over.
-
-attendance_list <- list(
-  may_02 = c("Benny", "Anna", "Freddy", "Casey"), 
-  may_09 = c("Freddy", "Casey", "Donny", "Anna"), 
-  may_16 = c("Eddy", "Anna", "Freddy", "Casey", "Benny"), 
-  may_23 = c("Donny", "Freddy", "Anna"),
-  may_30 = c("Casey", "Freddy", "Donny", "Anna", "Benny", "Eddy")
-)
-
-
-# Possible Solutions
-
-for(index in seq_along(attendance_list)){
-  attendees <- attendance_list[[index]]
-  which_benny <- which(attendees == "Benny")
-  attendees[which_benny] <- "Bob"
-  attendance_list[[index]]  <- sort(attendees)
-}
-attendance_list 
-
-
-for(date in names(attendance_list)){
-  attendees <- attendance_list[[date]]
-  which_benny <- which(attendees == "Benny")
-  attendees[which_benny] <- "Bob"
-  attendance_list[[date]]  <- sort(attendees)
-}
-attendance_list
 
 
 
-# 3. Consider the airquality data. 
+
+# 3. Consider the iris data. Using a loop, compute the maximum value 
+#    for each column in the iris data and print the results.
+#    TIP: computing the maximum for a factor is impossible, make sure
+#         to only include the first four columns.
+?iris
+iris
+
+# Possible Solution
+for(col in iris[-5]) {
+  print(max(col))}
+	
+	
+# Possible Solution
+for(col_nr in seq_along(iris)) {
+  if(is.numeric(iris[[col_nr]])) cat("The maximum of column '", 
+	                                   names(iris)[col_nr], "' is ", 
+																		 max(iris[[col_nr]]), ". \n", sep = "")
+	else cat("Column '", names(iris)[col_nr], 
+	         "' is not numeric, the maximum cannot meaningfully be computed. \n", 
+					 sep = "")
+	}
+  
+
+# 4. Consider the airquality data. 
 #    (a) Using a for loop, check whether there are NA values for each column. 
 #        For instance using the anyNA() function. The result should be a logical
 #        vector with a length that equals the number of columns.
@@ -120,7 +133,7 @@ apply(airquality, 1, anyNA)
 
 
 
-# 4. Consider the zero matrix "A". 
+# 5. Consider the zero matrix "A". 
 #    (a) Using a for loop, turn the matrix into a diagonal matrix with these 
 #        values on the diagonal c(1, 2, 3, 5, 7, 11, 13). 
 #    Tip 1: iterate over rows and columns together

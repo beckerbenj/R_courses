@@ -255,6 +255,32 @@ Vectors can have multiple elements \textbf{of the same type} $\rightarrow$ \text
 \end{frame}
 
 
+\begin{frame}[fragile]{\texttt{data.frame} vs \texttt{matrix}}
+A \texttt{data.frame} is a list of vectors $\rightarrow$ columns can be of different types.
+
+<<data.frame, echo=TRUE, eval = TRUE, results = "markup">>=
+iris_dat <- head(iris)
+is.list(iris_dat)
+dim(iris_dat)
+length(iris_dat)
+iris_dat[1:2,]
+@
+
+\end{frame}
+
+
+\begin{frame}[fragile]{\texttt{data.frame} vs \texttt{matrix}}
+A \texttt{matrix}/\texttt{array} is a vector with dimensions $\rightarrow$ all elements/columns are of the same type.
+<<matrix, echo=TRUE, eval = TRUE, results = "markup">>=
+iris_mat <- as.matrix(iris_dat)
+dim(iris_mat)
+length(iris_mat)
+iris_mat[1:2,]
+@
+
+\end{frame}
+
+
 
 \section{Loops \& Iteration}
 \label{sec:loops}
@@ -661,7 +687,7 @@ Try \texttt{?lm}
 \metroset{block=fill} %grey blocks
 \begin{block}{Programming advice}
 \begin{itemize}
-  \item Think which arguments to include, and which should (not) have defaults
+  \item Think about which arguments to include, and which should (not) have defaults
   \item Choose sensible defaults
 \end{itemize}
 \end{block}
