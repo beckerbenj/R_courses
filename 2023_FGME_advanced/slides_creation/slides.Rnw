@@ -223,6 +223,18 @@ econRedD<-"#90353B"
 \section{Quick Recap}
 \label{sec:recap}
 
+
+\begin{frame}[fragile]
+\begin{exampleblock}{}
+  {\large \begin{quote}
+``To understand computations in R, two slogans are helpful: Everything that exists is an object. {Everything} that happens is a function call.''
+\end{quote}}
+  \vskip5mm
+  \hspace*\fill{\small--- John Chambers}
+\end{exampleblock}
+\end{frame}
+
+
 \begin{frame}{Basic \emph{Objects} in R}
 \begin{center}
   \begin{tabular}{| l | l |}
@@ -262,7 +274,7 @@ Vectors can have multiple elements \textbf{of the same type} $\rightarrow$ \text
 \begin{frame}[fragile]{\texttt{data.frame} vs \texttt{matrix}}
 A \texttt{data.frame} is a list of vectors $\rightarrow$ columns can be of different types.
 
-Try it!
+Try!
 
 <<data.frame, echo=TRUE, eval = FALSE, results = "markup">>=
 iris_dat <- head(iris)
@@ -278,9 +290,9 @@ iris_dat[1:2,]
 \begin{frame}[fragile]{\texttt{data.frame} vs \texttt{matrix}}
 A \texttt{matrix}/\texttt{array} is a vector with dimensions $\rightarrow$ all elements/columns are of the same type.
 
-Try it!
+Try!
 <<matrix, echo=TRUE, eval = FALSE, results = "markup">>=
-iris_mat <- as.matrix(iris_dat)
+iris_mat <- as.matrix(head(iris))
 dim(iris_mat)
 length(iris_mat)
 iris_mat[1:2,]
@@ -362,12 +374,20 @@ Without a \texttt{break} the computation is repeated infinite times
 
 \subsection{next \& break}
 
-\begin{frame}[fragile]{Loops \& Iteration - next break}
-\begin{itemize}
-  \item \texttt{next} starts next iteration
-  \item \texttt{break} ends iteration (of the innermost loop)
-\end{itemize}
-\end{frame}
+%\begin{frame}[fragile]{Loops \& Iteration - next break}
+%\begin{itemize}
+%  \item \texttt{next} starts next iteration
+%  \item \texttt{break} ends iteration (of the innermost loop)
+%\end{itemize}
+%
+%<<repeat, echo=TRUE, eval = FALSE>>=
+%repeat {
+%  computation
+%  if(condition_1) next
+%  if(condition_2) break
+%}
+%@
+%\end{frame}
 
 
 \begin{frame}[fragile]{Loops \& Iteration - next break}
@@ -381,6 +401,20 @@ for(index in 1:8) {
   if (index %in% c(3, 5)) next
   if (index > 6) break
   print(index)
+}
+@
+\end{frame}
+
+
+\begin{frame}[fragile]{Loops \& Iteration - nested loops}
+Nested loops:
+<<for3, echo=TRUE, eval = TRUE, results = "markup">>=
+for (element in vector_1) {
+  computation
+  for (element in vector_2) {
+    computation
+  }
+  computation
 }
 @
 \end{frame}
