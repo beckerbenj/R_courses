@@ -35,18 +35,22 @@ RMSE <- sqrt(m_sq_diff)
 
 
 
-# with a function
-summary(mtcars$mpg)
 
-# without a function
-round(c("Min." = min(mtcars$mpg),
-        "1st Qu." = as.numeric(quantile(mtcars$mpg)[2]),
-        "Median" = median(mtcars$mpg),
-        "Mean" = mean(mtcars$mpg),
-        "3rd Qu." = as.numeric(quantile(mtcars$mpg)[4]),
-        "Max." = max(mtcars$mpg)), 2)
+## For a second model
+set.seed(925)
+obs <- rnorm(10)
+preds <- rnorm(10)
 
 
+# without function
+diff2 <- obs - preds
+sq_diff2 <- diff2^2
+m_sq_diff2 <- mean(sq_diff)
+RMSE2 <- sqrt(m_sq_diff2)
+
+
+# with function
+RMSE2 <- get_RMSE(preds, obs)
 
 
 # remember the get_info() function
@@ -182,6 +186,13 @@ add_a <- function(x, a = 55){
 add_a(5)
 
 
+a <- b <- c <- d <- "fourth"
+find_object <- function(a, b = "third", c = "third"){
+  a <- "first"
+  return(c(a = a, b = b, c = c, d = d))
+}
+find_object(b = "second")
+
 
 
 # dot-dot-dot
@@ -265,7 +276,7 @@ get_info <- function(x){
 }
 
 get_info(airquality$Ozone)
-get_info(airquality$Ozone, message = TRUE)
+get_info(airquality$Ozone, verbose = TRUE)
 get_info(airquality$Ozone, na.rm = FALSE)
 
 

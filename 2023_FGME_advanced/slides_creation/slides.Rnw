@@ -1150,6 +1150,36 @@ add_a(5)
 
 
 
+\begin{frame}[fragile]{Where does a function find objects?}
+R uses specific rules to find objects.
+
+\begin{enumerate}
+  \item in the function body
+  \item in the function call
+  \item in the function definition
+  \item outside the function
+\end{enumerate}
+
+Watch out with number 4! Frequently restart R: \texttt{Ctrl + shift + F10}
+\end{frame}
+
+
+
+
+\begin{frame}[fragile]{Where does a function find objects?}
+R uses specific rules to find objects.
+<< results='markup'>>=
+a <- b <- c <- d <- "fourth"
+find_object <- function(a, b = "third", c = "third"){
+  a <- "first"
+  return(c(a = a, b = b, c = c, d = d))
+}
+find_object(b = "second")
+@
+\end{frame}
+
+
+
 
 \subsection{dot dot dot}
 
