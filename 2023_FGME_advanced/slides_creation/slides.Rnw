@@ -408,7 +408,7 @@ for(index in 1:8) {
 
 \begin{frame}[fragile]{Loops \& Iteration - nested loops}
 Nested loops:
-<<for3, echo=TRUE, eval = TRUE, results = "markup">>=
+<<nested1, echo=TRUE, eval = FALSE, results = "markup">>=
 for (element in vector_1) {
   computation
   for (element in vector_2) {
@@ -422,7 +422,7 @@ for (element in vector_1) {
 
 \begin{frame}[fragile]{Loops \& Iteration - nested loops}
 Nested loops (over the rows and columns of a matrix)
-<<for3, echo=TRUE, eval = TRUE, results = "markup">>=
+<<nested2, echo=TRUE, eval = TRUE, results = "markup">>=
 matrix <- matrix(NA, nrow = 2, ncol = 3)
 for (rowNr in 1:2){
   for (colNr in 1:3){
