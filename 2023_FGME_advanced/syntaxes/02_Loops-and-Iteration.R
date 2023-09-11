@@ -159,7 +159,7 @@ for(index in 1:6) {
 
 
 
-# 2. Consider the vector of values. 
+# 2. Consider the vector of values below. 
 #    (a) Write a for loop in which you compute the square of each value and 
 #        compare it with the raw value. When the raw values are smaller, 
 #        keep the raw values, else, keep the squared values. The result should
@@ -222,15 +222,16 @@ data("airquality")
 #        values on the diagonal unchanged
 #    Tip 1: use a double iteration, and let the inner loop depend on the outer 
 #           loop
-#    Tip 2: use a if() and next, to skip cells that should not be changed
+#    Tip 2: use if() and next, to skip cells that should not be changed
 A <- matrix(0, ncol = 7, nrow = 7)
 
 
 
 
 
-# BONUS. Using the formula (1 + 1 / x)^x, you can approximate Euler's number.
-#    Write a loop in which x increases with 1 each iteration and find the
+# BONUS. Using the formula (1 + 1 / x)^x with x increasing, you can approximate 
+#    Euler's number.
+#    Write a loop in which x increases one (+1) with each iteration and find the
 #    first x for which the difference between the formula and exp(1) is 
 #    less than 0.00001
 
