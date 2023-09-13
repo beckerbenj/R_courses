@@ -1,4 +1,4 @@
-\documentclass{beamer}
+\documentclass[aspectratio=169]{beamer}
 
 \usepackage{multicol}
 \usepackage{FiraSans}
@@ -1848,8 +1848,8 @@ R Resources
 \item \MYhref{https://adv-r.hadley.nz/}{Avanced R Ed. 21}
 \item \MYhref{https://www.burns-stat.com/pages/Tutor/R_inferno.pdf}{R Inferno}
 \item \MYhref{https://r-pkgs.org/}{R Packages}
-\item \MYhref{https://thixalongmy.haugiang.gov.vn/media/1175/clean_code.pdf}{Clean Code}
-\item The Pragmatic Programmer
+\item \MYhref{https://thixalongmy.haugiang.gov.vn/media/1175/clean\_code.pdf}{Clean Code}
+\item \MYhref{https://www.cin.ufpe.br/~cavmj/104The\%20Pragmatic\%20Programmer,\%20From\%20Journeyman\%20To\%20Master\%20-\%20Andrew\%20Hunt,\%20David\%20Thomas\%20-\%20Addison\%20Wesley\%20-\%201999.pdf}{The Pragmatic Programmer}
 \end{itemize}
 
 \end{frame}
