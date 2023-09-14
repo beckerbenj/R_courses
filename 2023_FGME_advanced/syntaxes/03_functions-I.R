@@ -125,6 +125,35 @@ get_info(airquality$Wind)
 get_info(airquality$Wind)
 
 
+# browser()
+#...........................
+pretty_table_dev <- function(x, x_label, useNA = "ifany"){
+  browser()
+  stopifnot(length(x) > 1)
+  tab <- table(x, useNA = useNA)
+  out <- as.data.frame(tab)
+  names(out) <- c(x_label, "Frequency")
+  out
+}
+pretty_table_dev(mtcars$cyl, x_label = "Cyl")
+
+ls()
+
+
+pretty_table <- function(x, x_label, useNA = "ifany"){
+  stopifnot(length(x) > 1)
+  tab <- table(x, useNA = useNA)
+  out <- as.data.frame(tab)
+  names(out) <- c(x_label, "Frequency")
+  out
+}
+pretty_table(mtcars$cyl, x_label = "Cyl")
+
+
+# recover
+#...........................
+# options(error = recover) and options(error = NULL)
+# options(warn = 2) 
 
 
 
