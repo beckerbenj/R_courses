@@ -1,0 +1,25 @@
+Contents:
+
+Introduction (DD)
+- Discuss what R and RStudio are?
+- Available LLMs
+- Github-Copilot and RStudio integration
+
+Discussion (BB)
+- Critical discussion of LLMs and their scope (BB)
+* real-life examples of hallucinations etc. (DD)
+* rank the trustfulness of the following sources (R-documentation, package documentation, wikipedia, blog article, co-worker, chat-gpt)
+* promotes the most popular status quo disproportionally
+* process vs. outcome orientation (e.g., styling graphs vs. conducting data analysis)
+
+Best Practices (DD)
+- Best practices for learning R with the help of LLMs
+* Using LLMs like a motivated, really nice but rather untrustworthy co-worker/assistant/intern with ulterior motives
+- Other sources and ways for learning R
+
+Bigger Picture (BB)
+- LLMs are killing Stackoverflow?
+- Can LLMs learn new languages/packages/frameworks?
+- Ecological implications
+- Current economic state
+- Reporting LLM usage in your research (research ethics, ...)
