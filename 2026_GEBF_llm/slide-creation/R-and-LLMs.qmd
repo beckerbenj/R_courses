@@ -4,6 +4,287 @@ author: "Benjamin Becker & Dries Debeer"
 format: beamer
 ---
 
+# R and RStudio
 
+## What is R?
+
+* statistical software package
+
+  - statistical modeling and inference
+  - read and write data
+  - select, filter, and transform data
+  - visualize data and models
+  
+  
+* programming language
+
+  - code for data-analysis, data manipulation, visualization, ...
+  - code for text processing, file creation, ....
+  
+
+  
+## R as a Programming Language?
+
+* a programming language 
+* clear and logical syntax[^1]
+* lot's of R-code available online 
+   - CRAN: packages with vignettes and examples, 
+   - github, and other repositories, 
+   - stack overflow, etc.
+
+$\Rightarrow$ Ideal for LLMs for generating R-code!
+
+[^1]: R is not always consistent nor logical
+
+
+
+## What is RStudio?
+
+Rstudio is an Integrated Development Environment (IDE) that focuses on R
+
+It combines: 
+
+  - graphical interface
+  - file browser
+  - environment overview
+  - syntax highlighting
+  - keyboard shortcuts
+  - ...
+
+And allows integration of:
+
+  - Rmarkdown and quarto
+  - git and github
+  - large language models
+  - ...
+
+
+
+## What is RStudio?
+
+R studio can also supports other programming languages (like python).
+
+And there are also other IDE's that are excellent for working with R, and 
+also allow an integretion of large language models:
+
+* VSCode
+* Positron
+* ...
+
+
+
+# Large Language Models
+
+- OpenAI: GPT-4.1 (also Microsoft/github Copilot)
+
+- Anthorpic: Claude 3.5 Sonnet 
+
+- Alphabet/Google: Google Gemini 2.5 
+
+- Meta: LLaMa 3.1/3.2 $\rigtharrow$ open source
+
+- DeepSeek-V3/R1 
+
+- Mistral: Large 2.1 ()
+
+- ...
+
+
+## Interactive chat use vs API use
+
+Interactive chat: 
+
+* a chatbot (like chatGPT, Microsoft Copilot, Claude, ...)
+* via a website (with log in)
+* with a memory (of the current conversation = *stateful*)
+* with a memory of previous conversations
+* $\Rightarrow$ with server space for conversations, files, ...
+* payment via monthly subscriptions (and free versions)
+
+API use: 
+
+* uses an Application Programming Interface (API) to directly access the LMM
+* API differs between providers
+* payment per million tokens (some free versions) [pricing](https://pricepertoken.com/leaderboards/coding) 
+* without built-in memory (*stateless*)
+
+
+## LLM via chatbots
+
+* [Claude](https://claude.ai/login)
+* [ChatGPT](https://chatgpt.com/)
+* [Microsoft Copilot](https://copilot.microsoft.com/)
+
+
+## Comparing the results
+
+Disdvantages: 
+
+* R code cannot be run/checked by the chatbots (but python code can.)
+
+
+
+
+## LLM via API
+
+* Through [ellmer](https://ellmer.tidyverse.org/) and RStudio (google gemini account required)
+* via the positron integration of github-copilot (github account required)
+
+
+### `ellmer`
+
+`ellmer` is an R-package (developed by the Posit team). It allows you to use LLMs 
+directly for R (and RStudio) via the API option.
+
+Some features:
+* supports different LLMs (accounts and API-key are required)
+* supports local LLMs
+* keeps track of the conversation (makes it *stateful*)
+* multiple conversations at the same time.
+
+
+### `ellmer` illustration 
+
+
+### Other R-packages
+
+The `kick()` function of the `side` package creates a *sidekick* that sees the objects in your working environment and can use tools to read and write files, read R documentation, ...
+
+An attempt to build Claude Code or Copilot in R, but [experimental](https://www.simonpcouch.com/blog/2025-11-11-sidekick/).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Best practices?
+
+
+## For Learning the R-language
+
+Ask to explain code with prompts like: 
+
+
+> You are an expert R coder and experienced data analyst and excellent at explaining code. 
+> Explain the following code chunk step by step. Explain what and why.
+> 
+> <R code>
+
+
+## For Learning the R-language
+
+Ask feedback and improvements on your code 
+
+> You are an expert R coder and experienced data analyst and excellent at explaining code. 
+> Improve the following code chunk and explain your improvements step by step. 
+> 
+> <R code>
+
+
+## For writing R-code
+
+Ask for examples
+
+
+
+## For data-analysis
+
+
+
+
+
+
+
+
+
+
+## But
+
+Look at the available documentation
+
+- Many R-packages have great documentation (including vignettes)
+
+And maybe ask Google first.
+
+- There have likely been persons with similar questions/problems (check stack overflow, reddit, ...)
+- There are many great tutorials that can be found by web searching
+
+
+## Fo
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Not covered in this workshop
+
+* MCPs (connect tools to an LLM)
+* ...
 
 
