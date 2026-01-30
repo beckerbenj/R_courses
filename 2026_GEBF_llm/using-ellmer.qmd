@@ -1,0 +1,171 @@
+---
+title: "Using ellmer"
+author: "Benjamin Becker & Dries Debeer"
+format: html
+---
+
+This quick tutorial shows you how to use the `ellmer` package.
+
+## Installation
+
+You can install the `ellmer` package from cran. In addition, we also install the `shinychat` package.
+```{r}
+install.packages("ellmer")
+install.packages("shinychat")
+```
+
+## LLM access
+
+To use `ellmer`, you need to have access to a large language model (LLM) trough an API. Hence, you have to set up an account with a provider (e.g., OpenAI, Anthropic, etc.) and get an API key. Once you have the API key, you can set it as an environment variable in your R session.
+
+In this tutorial I will use the free Google Gemini version. You need a 
+
+* A Google account.
+* a google api key with access to Gemini models. 
+
+
+### Setting up Google Gemini API Key
+
+Check the [documentation](https://ai.google.dev/gemini-api/docs/api-key) on google API keys. 
+
+In short you need to:
+
+1. Go to the (https://aistudio.google.com/app/api-keys).
+2. create an API-key
+3. copy the API-key
+4. add the API-key to the environment variables using the following code:
+
+```{r}
+Sys.setenv(GOOGLE_API_KEY = "<your_google-api_key>")
+```
+
+
+## Typical usage
+
+Load the `ellmer` package.
+```{r}
+library(ellmer)
+```
+
+Create an *assistant* or *chat* via `chat_google_gemini()`.
+```{r}
+helper <- chat_google_gemini(
+  system_prompt = "you are an expert R-coder and data-scientist. You are honest and terse"
+)
+```
+
+The `system_prompt` argument allows you to set the behavior of the assistant. This is optional, but highly recommended. YOu can customize the prompt to your needs.
+
+Now we can start chatting with the assistant using the `chat()` function.
+```{r}
+#| eval: false
+response <- helper$chat(
+  "Write a function in R that calculates the factorial of a number using recursion."
+)
+cat(response)
+```
+
+You can continue the conversation by calling the `chat()` function again with the same `helper` object.
+
+## Chatting exeprience via ellmer 
+
+You can also chat via a live browser in the RStudio viewer (requires the `shinychat` package):
+
+```{r}
+#| eval: false
+live_browser(helper)
+```
+
+To quit the viewer, simply close the browser window, or press `Ctrl + C` in the R console.
+
+
+Alternatively, if your IDE does not support the viewer, you can create a chat using a console:
+
+```{r}
+#| eval: false
+live_console(helper)
+# respond with OK
+```
+
+To quit the console type `Q` and hit enter.
+
+
+
+## Stateful chats
+
+By default, the `chat()` function maintains the state of the conversation. This means that the assistant remembers previous messages in the chat. You can check the current state using:
+
+```{r}
+#| eval: false
+helper$get_turns()
+```
+
+If you want to start a new conversation, you can use the `reset_chat()` function. Because longer chats can be costly, you might want to reset the chat after a certain number of turns. 
+
+
+## checking costs and tokens
+
+Although the Google Gemini version that is used here is free, this is generally not the case for other LLMs. Therefore, it is important to keep track of the costs and tokens used in the chat. You can do this using the `get_costs()` and `get_tokens()` functions.
+
+```{r}
+#| eval: false
+helper$get_cost()
+helper$get_tokens()
+```
+
+
+## Coding with the repsonse
+
+`ellmer` captures the responses as character strings. This means that you can do computations with the resposes. For instance, evaluate generated code:
+
+```{r}
+#| eval: false
+response <- helper$get_turns()[[2]]@text
+cat(response)
+response <- gsub("```R", "", response)
+response <- gsub("```", "", response, fixed = TRUE)
+eval(parse(text = response))
+```
+
+Let's check if the function works:
+```{r}
+#| eval: false
+factorial(5) # should return 120
+```
+
+This is less usefull for writing functions, but can be handy if you exctract other types of data via LMMs. 
+
+Consider this example:
+
+```{r}
+llm_data <- chat_google_gemini(
+  system_prompt = "you are an reliable scientist. You are honest and terse."
+)
+```
+
+
+```{r}
+#| eval: false
+country_type <- type_object(
+  country = type_string(),
+  capital = type_string(),
+  population = type_number(),
+  area_km2 = type_number(),
+  continent = type_string()
+)
+
+data <- llm_data$chat(
+  paste(collapse = "\n", readLines("2026_GEBF_llm/my_promt.md"))
+)
+
+# remove code block markers
+data <- gsub("```", "", data, fixed = TRUE)
+data <- gsub("json", "", data)
+
+# read as json
+data <- jsonlite::fromJSON(data, flatten = TRUE)
+head(data)
+```
+
+
+Whether or not this is a good idea depends on your use case. Be aware that LLMs can make mistakes and confabulate... 
