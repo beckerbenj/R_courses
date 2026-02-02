@@ -17,3 +17,8 @@
 ## How to use LMMs for learning to code in R
 
 * (https://quantuxblog.com/thoughts-on-llm-ai-to-learn-r-programming)
+
+
+## We should at least mention this position paper
+
+* (https://osf.io/preprints/psyarxiv/dqxsu_v1)
