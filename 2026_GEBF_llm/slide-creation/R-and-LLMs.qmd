@@ -8,7 +8,7 @@ format: beamer
 
 ## What is R?
 
-* statistical software package
+* a statistical software package
 
   - statistical modeling and inference
   - read and write data
@@ -16,7 +16,7 @@ format: beamer
   - visualize data and models
   
   
-* programming language
+* a programming language
 
   - code for data-analysis, data manipulation, visualization, ...
   - code for text processing, file creation, ....
@@ -32,7 +32,7 @@ format: beamer
    - github, and other repositories, 
    - stack overflow, etc.
 
-$\Rightarrow$ Ideal for LLMs for generating R-code!
+$\Rightarrow$ Ideal for training LLMs!
 
 [^1]: R is not always consistent nor logical
 
@@ -62,7 +62,7 @@ And allows integration of:
 
 ## What is RStudio?
 
-R studio also supports other programming languages (like python).
+RStudio can also supports other programming languages (like python).
 
 And there are also other IDE's that are excellent for working with R, and 
 also allow an integretion of large language models:
@@ -118,9 +118,13 @@ API use:
 
 ## Comparing the results
 
-Disdvantages: 
+Disadvantages: 
 
-* R code cannot be run/checked by the chatbots (but python code can.)
+* R code cannot be run/checked by the chat bots (though python code can)
+
+Advantages:
+
+* history of chat is preserved (within and across chats)
 
 
 
@@ -129,6 +133,11 @@ Disdvantages:
 
 * Through [ellmer](https://ellmer.tidyverse.org/) and RStudio (google gemini account required)
 * via the positron integration of github-copilot (github account required)
+* Other packages: 
+
+    * [tidyprompt](https://CRAN.R-project.org/package=tidyprompt) Building blocks to construct prompts and handle LLM output.
+    * [tidyllm](https://edubruell.github.io/tidyllm/index.html) Alternative for ellmer
+    * [rollama](https://jbgruber.github.io/rollama/) Focus on Ollama (which provides local models)
 
 
 ### `ellmer`
@@ -150,8 +159,32 @@ Some features:
 
 The `kick()` function of the `side` package creates a *sidekick* that sees the objects in your working environment and can use tools to read and write files, read R documentation, ...
 
-An attempt to build Claude Code or Copilot in R, but [experimental](https://www.simonpcouch.com/blog/2025-11-11-sidekick/).
+An attempt to build Claude Code or Copilot in R, but still [experimental](https://www.simonpcouch.com/blog/2025-11-11-sidekick/).
 
+
+
+
+## LLM via API
+
+Other packages that may be useful: 
+
+* [ragnar](https://ragnar.tidyverse.org/): for implementing Retrieval-Augmented Generation (RAG[^2]) workflows
+* [mcptools](https://posit-dev.github.io/mcptools/): for allowing LMM to access your files and data and execute 
+
+
+
+[^2]: rather than pre-training a new LLM on a specific corpus. An existing LLM is augmented by adding the relevant corpus (as chunks with an associated vector embedding via the LLM). When queried, a vector embedding for the query is created, which is used to find the most relevant chunks in the corpus. Then, the query and the selected chuncks are combined in a new prompt. The result is an answer based on the corpus, often with citations.
+
+
+
+## Positron Assistant
+
+* Different models can be used, but a subscription (and `API_KEY`) is required
+* Github provides auto-complete in addition to chat
+
+
+
+### Positron Assistant illustration
 
 
 
@@ -225,7 +258,7 @@ Ask to explain code with prompts like:
 
 ## For Learning the R-language
 
-Ask feedback and improvements on your code 
+Ask feedback and improvements on your code.
 
 > You are an expert R coder and experienced data analyst and excellent at explaining code. 
 > Improve the following code chunk and explain your improvements step by step. 
@@ -233,42 +266,80 @@ Ask feedback and improvements on your code
 > <R code>
 
 
+
+## For understanding errors
+
+Ask what could cause a specific error to pop up.
+
+> You are an expert R coder and experienced data analyst and excellent at explaining code. 
+> explain why the following error-message was returned using the code below.
+>
+> error message:
+>
+> <R code>
+
+
+
 ## For writing R-code
 
-Ask for examples
+For visualizations.
+For preprocessing.
 
+
+
+## For rewriting R-code
+
+For instance you have used both tidyverse code and base code, and would like to limit the 
+dependencies.
+
+> Rewrite the following R-code. Only use base-R functionalities. Replace all functions from 
+> packages like dplyr and purrr to base-R functions
+>
+> <R code>
+
+Or when you want to translate python code to R code (or vice versa).
 
 
 ## For data-analysis
 
 
 
+## Be aware of confabulation!
+
+LLMs confabulate. You practically always get a response, even though it may not be correct. 
+Without knowledge it is hard to know whether or not confabulation is present.
+
+Therefore, **always make sure you can assess the correctness of the response**.
+
+YES: 
+
+* rewrite my text
+* write code for a figure
+* interpret the estimates of a fitted model (if you would be able to do it)
 
 
 
+## Be aware of confabulation!
+
+LLMs confabulate. You practically always get a response, even though it may not be correct. 
+Without knowledge it is hard to know whether or not confabulation is present.
+
+Therefore, **always be critical about the response**.
+
+Approach an LLM as a very motivated, really nice, but rather untrustworthy co-worker/assistant/intern with ulterior motives.
 
 
 
+## And maybe ...
 
-## But
-
-Look at the available documentation
+Look at the available documentation first
 
 - Many R-packages have great documentation (including vignettes)
 
-And maybe ask Google first.
+Ask Google first (with AI-mode turned off?).
 
 - There have likely been persons with similar questions/problems (check stack overflow, reddit, ...)
 - There are many great tutorials that can be found by web searching
-
-
-## Fo
-
-
-
-
-
-
 
 
 
@@ -331,9 +402,7 @@ And maybe ask Google first.
 
 
 
-## Not covered in this workshop
 
-* MCPs (connect tools to an LLM)
-* ...
+
 
 
