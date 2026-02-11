@@ -22,3 +22,15 @@
 ## We should at least mention this position paper
 
 * (https://osf.io/preprints/psyarxiv/dqxsu_v1)
+
+
+## Copy paste of chatGPT output in scientific papers
+
+* https://onlinelibrary.wiley.com/doi/10.1002/leap.1650
+
+
+## Harms of GenAI for learning to code / best practices for incorporation
+
+* https://dl.acm.org/doi/10.1145/3632620.3671116
+
+* https://www.sciencedirect.com/science/article/pii/S2666920X25001006

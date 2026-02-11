@@ -62,7 +62,7 @@ And allows integration of:
 
 ## What is RStudio?
 
-R studio can also supports other programming languages (like python).
+R studio also supports other programming languages (like python).
 
 And there are also other IDE's that are excellent for working with R, and 
 also allow an integretion of large language models:
@@ -155,19 +155,47 @@ An attempt to build Claude Code or Copilot in R, but [experimental](https://www.
 
 
 
+# Dicussion
+
+## How do LLMs work?
+
+## What makes LLMs great learning partners?
+
+LLMs are...
+
+* impressively good at programming tasks
+* always available, never tired/annoyed
+* can tailor towards all skills levels
 
 
+## How can you use LLMs in your R work?
+
+Let LLMs...
+
+- generate code
+- explain concepts/ideas
+- point to documentation/learning materials
+- review code
+- explain existing code
 
 
+## Dangers
+
+- Confabulations/hallucinations (providing incorrect answers confidently)
+- dependence on training data (bad with new packages/frameworks)
+- LLM rabbit holes ("continuous solution refinement")
+- Process vs outcome oriented solutions (programming vs. research)
 
 
+## Rank the trustworthyness of the following sources
 
-
-
-
-
-
-
+- official R-documentation
+- package documentation
+- wikipedia
+- blog article
+- co-worker
+- student assistant
+- chatGPT
 
 
 
@@ -237,6 +265,27 @@ And maybe ask Google first.
 ## Fo
 
 
+
+
+
+
+
+
+
+# Bigger Picture 
+
+
+## Current issues
+
+- Ecological consequences of LLM usage
+- Ethical issues: Reporting LLM usage in your research (research ethics, ...)
+
+
+## Future issues?
+
+- LLMs are killing Stackoverflow?
+- Can LLMs learn new languages/packages/frameworks?
+- Technological dependence and monetization issues 
 
 
 
