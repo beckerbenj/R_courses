@@ -34,3 +34,5 @@
 * https://dl.acm.org/doi/10.1145/3632620.3671116
 
 * https://www.sciencedirect.com/science/article/pii/S2666920X25001006
+
+* https://blog.jetbrains.com/education/2025/07/31/should-you-use-ai-to-learn/
