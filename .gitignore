@@ -54,6 +54,9 @@ vignettes/*.pdf
 *concordance.tex
 *.tex
 
+* files for reveal js
+*_files/
+
 
 # spezifische figure folders (chunks etc.)
 2022_FDZ/slides_creation/figure
