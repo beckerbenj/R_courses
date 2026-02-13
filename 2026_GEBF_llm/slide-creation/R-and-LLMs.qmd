@@ -1,7 +1,11 @@
 ---
 title: "How to get better at R?"
 author: "Benjamin Becker & Dries Debeer"
-format: beamer
+format: 
+  revealjs:
+    theme: night
+    smaller: true
+    toc: true
 ---
 
 # R and RStudio
@@ -21,7 +25,7 @@ format: beamer
   - code for data-analysis, data manipulation, visualization, ...
   - code for text processing, file creation, ....
   
-
+ 
   
 ## R as a Programming Language?
 
@@ -36,7 +40,7 @@ $\Rightarrow$ Ideal for training LLMs!
 
 [^1]: R is not always consistent nor logical
 
-
+ 
 
 ## What is RStudio?
 
@@ -50,8 +54,13 @@ It combines:
   - syntax highlighting
   - keyboard shortcuts
   - ...
+  
 
-And allows integration of:
+ 
+  
+## What is RStudio?
+
+RStudio allows integration of:
 
   - Rmarkdown and quarto
   - git and github
@@ -59,21 +68,24 @@ And allows integration of:
   - ...
 
 
+ 
 
 ## What is RStudio?
 
 RStudio can also supports other programming languages (like python).
 
 And there are also other IDE's that are excellent for working with R, and 
-also allow an integretion of large language models:
+also allow an integration of large language models:
 
 * VSCode
 * Positron
 * ...
 
-
+ 
 
 # Large Language Models
+
+## Which models are available
 
 - OpenAI: GPT-4.1 (also Microsoft/github Copilot)
 
@@ -81,13 +93,15 @@ also allow an integretion of large language models:
 
 - Alphabet/Google: Google Gemini 2.5 
 
-- Meta: LLaMa 3.1/3.2 $\rigtharrow$ open source
+- Meta: LLaMa 3.1/3.2 $\rightarrow$ open source
 
 - DeepSeek-V3/R1 
 
 - Mistral: Large 2.1 ()
 
 - ...
+
+ 
 
 
 ## Interactive chat use vs API use
@@ -108,12 +122,16 @@ API use:
 * payment per million tokens (some free versions) [pricing](https://pricepertoken.com/leaderboards/coding) 
 * without built-in memory (*stateless*)
 
+ 
+
 
 ## LLM via chatbots
 
 * [Claude](https://claude.ai/login)
 * [ChatGPT](https://chatgpt.com/)
 * [Microsoft Copilot](https://copilot.microsoft.com/)
+
+ 
 
 
 ## Comparing the results
@@ -126,7 +144,7 @@ Advantages:
 
 * history of chat is preserved (within and across chats)
 
-
+ 
 
 
 ## LLM via API
@@ -138,9 +156,11 @@ Advantages:
     * [tidyprompt](https://CRAN.R-project.org/package=tidyprompt) Building blocks to construct prompts and handle LLM output.
     * [tidyllm](https://edubruell.github.io/tidyllm/index.html) Alternative for ellmer
     * [rollama](https://jbgruber.github.io/rollama/) Focus on Ollama (which provides local models)
+    
+ 
 
 
-### `ellmer`
+## `ellmer`
 
 `ellmer` is an R-package (developed by the Posit team). It allows you to use LLMs 
 directly for R (and RStudio) via the API option.
@@ -151,17 +171,25 @@ Some features:
 * keeps track of the conversation (makes it *stateful*)
 * multiple conversations at the same time.
 
+ 
 
-### `ellmer` illustration 
+
+## `ellmer` illustration 
 
 
-### Other R-packages
+ 
+
+
+## Other R-packages
 
 The `kick()` function of the `side` package creates a *sidekick* that sees the objects in your working environment and can use tools to read and write files, read R documentation, ...
 
 An attempt to build Claude Code or Copilot in R, but still [experimental](https://www.simonpcouch.com/blog/2025-11-11-sidekick/).
 
 
+
+
+ 
 
 
 ## LLM via API
@@ -173,8 +201,10 @@ Other packages that may be useful:
 
 
 
-[^2]: rather than pre-training a new LLM on a specific corpus. An existing LLM is augmented by adding the relevant corpus (as chunks with an associated vector embedding via the LLM). When queried, a vector embedding for the query is created, which is used to find the most relevant chunks in the corpus. Then, the query and the selected chuncks are combined in a new prompt. The result is an answer based on the corpus, often with citations.
+[^2]: rather than pre-training a new LLM on a specific corpus. An existing LLM is augmented by adding the relevant corpus (as chunks with an associated vector embedding via the LLM). When queried, a vector embedding for the query is created, which is used to find the most relevant chunks in the corpus. Then, the query and the selected chunks are combined in a new prompt. The result is an answer based on the corpus, often with citations.
 
+
+ 
 
 
 ## Positron Assistant
@@ -183,12 +213,14 @@ Other packages that may be useful:
 * Github provides auto-complete in addition to chat
 
 
-
-### Positron Assistant illustration
-
+ 
 
 
-# Dicussion
+## Positron Assistant illustration
+
+
+
+# Discussion
 
 ## How do LLMs work?
 
@@ -199,6 +231,8 @@ LLMs are...
 * impressively good at programming tasks
 * always available, never tired/annoyed
 * can tailor towards all skills levels
+
+ 
 
 
 ## How can you use LLMs in your R work?
@@ -212,6 +246,9 @@ Let LLMs...
 - explain existing code
 
 
+ 
+
+
 ## Dangers
 
 - Confabulations/hallucinations (providing incorrect answers confidently)
@@ -220,7 +257,10 @@ Let LLMs...
 - Process vs outcome oriented solutions (programming vs. research)
 
 
-## Rank the trustworthyness of the following sources
+ 
+
+
+## Rank the trustworthiness of the following sources
 
 - official R-documentation
 - package documentation
@@ -255,6 +295,8 @@ Ask to explain code with prompts like:
 > 
 > <R code>
 
+ 
+
 
 ## For Learning the R-language
 
@@ -265,6 +307,8 @@ Ask feedback and improvements on your code.
 > 
 > <R code>
 
+
+ 
 
 
 ## For understanding errors
@@ -279,12 +323,16 @@ Ask what could cause a specific error to pop up.
 > <R code>
 
 
+ 
+
 
 ## For writing R-code
 
 For visualizations.
 For preprocessing.
 
+
+ 
 
 
 ## For rewriting R-code
@@ -299,9 +347,14 @@ dependencies.
 
 Or when you want to translate python code to R code (or vice versa).
 
+ 
+
 
 ## For data-analysis
 
+
+
+ 
 
 
 ## Be aware of confabulation!
@@ -319,6 +372,9 @@ YES:
 
 
 
+ 
+
+
 ## Be aware of confabulation!
 
 LLMs confabulate. You practically always get a response, even though it may not be correct. 
@@ -328,6 +384,9 @@ Therefore, **always be critical about the response**.
 
 Approach an LLM as a very motivated, really nice, but rather untrustworthy co-worker/assistant/intern with ulterior motives.
 
+
+
+ 
 
 
 ## And maybe ...
@@ -346,10 +405,16 @@ Ask Google first (with AI-mode turned off?).
 # Bigger Picture 
 
 
+ 
+
+
 ## Current issues
 
 - Ecological consequences of LLM usage
 - Ethical issues: Reporting LLM usage in your research (research ethics, ...)
+
+
+ 
 
 
 ## Future issues?
@@ -357,31 +422,6 @@ Ask Google first (with AI-mode turned off?).
 - LLMs are killing Stackoverflow?
 - Can LLMs learn new languages/packages/frameworks?
 - Technological dependence and monetization issues 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
