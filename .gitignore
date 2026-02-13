@@ -54,7 +54,7 @@ vignettes/*.pdf
 *concordance.tex
 *.tex
 
-* files for reveal js
+# files for revealjs slides
 *_files/
 
 
