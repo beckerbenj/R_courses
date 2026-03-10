@@ -134,7 +134,7 @@ API use:
  
 
 
-## Comparing the results
+## LLM via chatbots
 
 Disadvantages: 
 
@@ -149,7 +149,7 @@ Advantages:
 
 ## LLM via API
 
-* Through [ellmer](https://ellmer.tidyverse.org/) and RStudio (google gemini account required)
+* Through [ellmer](https://ellmer.tidyverse.org/) and RStudio (Google gemini account required)
 * via the positron integration of github-copilot (github account required)
 * Other packages: 
 
