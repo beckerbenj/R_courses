@@ -36,3 +36,5 @@
 * https://www.sciencedirect.com/science/article/pii/S2666920X25001006
 
 * https://blog.jetbrains.com/education/2025/07/31/should-you-use-ai-to-learn/
+
+* https://antman-does-software.com/i-will-never-use-ai-to-code-or-write

@@ -8,6 +8,28 @@ format:
     toc: true
 ---
 
+## Our key messages
+
+- AI will not replace (data) scientists and programmers in the near future
+- R skills may become even more important in the future
+- LLMs can be a helpful R learning tools
+- LLMs can be harmful to R learners
+
+## Who are we?
+
+- Dries Debeer
+  - Ghent University - Departement of Experimental Psychology
+  - Psychological Researcher (former statistical consultant)
+  - R programmer
+  - javascript beginner
+
+- Benjamin Becker
+  - Institute for Educational Quality Improvement (IQB)
+  - Psychometrician
+  - R programmer
+  - Recent Python/Django beginner
+
+
 # R and RStudio
 
 ## What is R?
@@ -251,13 +273,17 @@ Let LLMs...
 
 ## Dangers
 
-- Confabulations/hallucinations (providing incorrect answers confidently)
+- Confabulations/hallucinations (providing incorrect answers confidently, see https://github.com/lechmazur/confabulations)
+- (Confabulations: LLM does not know, tries to produce an answer anyway https://www.tandfonline.com/doi/abs/10.1076/jhin.7.3.225.1855)
+- (Hallucination: LLM produce wrong answers based on training data)
 - dependence on training data (bad with new packages/frameworks)
 - LLM rabbit holes ("continuous solution refinement")
 - Process vs outcome oriented solutions (programming vs. research)
 
 
- 
+## Hallucinations
+
+![](figures/confab_car_wash.png)
 
 
 ## Rank the trustworthiness of the following sources
@@ -422,25 +448,6 @@ Ask Google first (with AI-mode turned off?).
 - LLMs are killing Stackoverflow?
 - Can LLMs learn new languages/packages/frameworks?
 - Technological dependence and monetization issues 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
