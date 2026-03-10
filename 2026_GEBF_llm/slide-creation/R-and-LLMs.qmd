@@ -436,7 +436,7 @@ Ask Google first (with AI-mode turned off?).
 
 ## Current issues
 
-- Ecological consequences of LLM usage
+- Ecological consequences of LLM usage: [eco impact calculator](https://huggingface.co/spaces/genai-impact/ecologits-calculator)
 - Ethical issues: Reporting LLM usage in your research (research ethics, ...)
 
 

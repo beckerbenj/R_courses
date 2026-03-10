@@ -38,3 +38,8 @@
 * https://blog.jetbrains.com/education/2025/07/31/should-you-use-ai-to-learn/
 
 * https://antman-does-software.com/i-will-never-use-ai-to-code-or-write
+
+
+## ecological impact:
+
+* https://huggingface.co/spaces/genai-impact/ecologits-calculator
