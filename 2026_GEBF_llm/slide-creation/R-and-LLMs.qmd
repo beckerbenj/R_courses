@@ -6,16 +6,25 @@ format:
     theme: night
     smaller: true
     toc: true
+    toc-depth: 1
 ---
 
 
 <!--------------------------------------------------------- Short Intro  ------------------------------------------->
 ## Our (controversial?) claims
 
-- AI will not replace (data) scientists and programmers in the near future
+- AI will not replace (data) scientists and programmers in the near future![^6]
 - R skills may become even more important in the future
-- LLMs can be helpful R learning tools
-- LLMs can be harmful to R learners
+- LLMs can be helpful R learning tools[^3],[^5]
+- LLMs can be harmful to R learners[^4]
+
+[^6]: And if it does we have other problems than worthless R skills.
+
+[^3]: Lin, Y., Zhang, Y., Yang, Y., Pan, S., Ren, X., & Chen, D. (2025). Facilitating computational thinking with AI: A three-level meta-analytic evidence for future-ready learning. Thinking Skills and Creativity, 102070. https://doi.org/10.1016/j.tsc.2025.102070
+
+[^5]: Nathaniel, J., Oyelere, S. S., Suhonen, J., & Tedre, M. (2025). Investigating the impact of Generative AI integration on the Sustenance of Higher-Order Thinking Skills and understanding of programming logic in Programming Education. Computers and Education: Artificial Intelligence, 100460. https://doi.org/10.1016/j.caeai.2025.100460
+
+[^4]: Bernstein, S., Rahman, A., Sharifi, N., Terbish, A., & MacNeil, S. (2025, November). Beyond the Benefits: A Systematic Review of the Harms and Consequences of Generative AI in Computing Education. In Proceedings of the 25th Koli Calling International Conference on Computing Education Research (pp. 1-18).
 
 
 ## Our key message
@@ -84,7 +93,7 @@ You have a student helper you gave an R coding task (e.g., cleaning a data set a
 
 * a programming language 
 * clear and logical syntax[^1]
-* lot's of R-code available online 
+* lots of R-code available online 
    - CRAN: packages with vignettes and examples, 
    - github, and other repositories, 
    - stack overflow, etc.
@@ -317,6 +326,16 @@ Let LLMs...
 
 ![](figures/confab_car_wash.png)
 
+## Confabulations
+
+![](figures/confab_eatrep1.png)
+
+## Confabulations
+
+![](figures/confab_eatrep2.png)
+
+![](figures/confab_eatrep3.png)
+
 
 ## Specific challenges for scientific data anylsis
 
@@ -328,6 +347,9 @@ Let LLMs...
 
 - Doing the wrong things in your work
 - LLM rabbit holes ("continuous solution refinement")
+- Overreliance on LLMs
+  - Not developing important programming meta-concepts
+  - Not developing important programming skills (e.g, debugging)
 
 
 
@@ -370,7 +392,7 @@ Ask feedback and improvements on your code.
 Ask what could cause a specific error to pop up.
 
 > You are an expert R coder and experienced data analyst and excellent at explaining code. 
-> explain why the following error-message was returned using the code below.
+> Explain why the following error-message was returned using the code below.
 >
 > error message:
 >
@@ -464,8 +486,10 @@ Ask Google first (with AI-mode turned off?).
 | tone        |    nice-to-have |
 
 
-Reference: https://www.youtube.com/watch?v=jC4v5AS4RIM
+References: https://www.youtube.com/watch?v=jC4v5AS4RIM
+
 https://docs.cloud.google.com/vertex-ai/generative-ai/docs/learn/prompts/introduction-prompt-design
+
 https://www.onlinebrandambassadors.com/stable/Google-Prompt-Engineering-Boonstra.pdf
 
 https://aclanthology.org/2024.findings-acl.21.pdf
@@ -482,11 +506,12 @@ https://aclanthology.org/2024.findings-acl.21.pdf
 
 
  
-## Future issues?
+## Future issues
 
-- LLMs are killing Stackoverflow?
+- LLMs are killing Stackoverflow and similar sites?
 - Can LLMs learn new languages/packages/frameworks?
 - Technological dependence and monetization issues 
+- Soon to come: Enshitification stage
 
 
 
