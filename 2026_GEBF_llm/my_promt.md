@@ -1,4 +1,4 @@
-create a list of all UN-recognized countries in the world, for each countrie add the capital, the number of inhabitants, the land surface in squared kilometer and the continent the country belongs to.
+create a list of all UN-recognized countries in the world, for each country add the capital, the number of inhabitants, the land surface in squared kilometer and the continent the country belongs to.
 
 Format the result in nicely structure JSON. Only return the JSON, nothing more.
 
