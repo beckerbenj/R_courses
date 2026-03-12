@@ -8,12 +8,42 @@ format:
     toc: true
 ---
 
-## Our key messages
+
+<!--------------------------------------------------------- Short Intro  ------------------------------------------->
+## Our (controversial?) claims
 
 - AI will not replace (data) scientists and programmers in the near future
 - R skills may become even more important in the future
-- LLMs can be a helpful R learning tools
+- LLMs can be helpful R learning tools
 - LLMs can be harmful to R learners
+
+
+## Our key message
+
+It is very worthwhile acquiring actual R skills and you should be very conscious how you use LLMs for this purpose!
+
+# Questions for the audience
+
+## Rank the trustworthiness of the following sources
+
+- official R-documentation
+- package documentation
+- wikipedia
+- blog article
+- co-worker
+- student assistant
+- chatGPT
+
+## How reliant are you when using R?
+
+- 1 - Everything I do in R I could easily do without an LLM 
+- 5 - I could do most things without an LLM, but repeatedly rely on LLMs
+- 10 - I a completely lost without an LLM
+
+## External perspective
+
+You have a student helper you gave an R coding task (e.g., cleaning a data set and running some preliminary data analysis). They tell you they used AI heavily, how much do you trust them? How does your expectation change depending on how much they used AI? 
+
 
 ## Who are we?
 
@@ -30,6 +60,7 @@ format:
   - Recent Python/Django beginner
 
 
+<!--------------------------------------------------------- Introduction  ------------------------------------------->
 # R and RStudio
 
 ## What is R?
@@ -242,6 +273,8 @@ Other packages that may be useful:
 
 
 
+<!--------------------------------------------------------- Discussion  ------------------------------------------->
+
 # Discussion
 
 ## How do LLMs work?
@@ -271,14 +304,13 @@ Let LLMs...
  
 
 
-## Dangers
+## Limitations of LLMs
 
 - Confabulations/hallucinations (providing incorrect answers confidently, see https://github.com/lechmazur/confabulations)
 - (Confabulations: LLM does not know, tries to produce an answer anyway https://www.tandfonline.com/doi/abs/10.1076/jhin.7.3.225.1855)
 - (Hallucination: LLM produce wrong answers based on training data)
 - dependence on training data (bad with new packages/frameworks)
-- LLM rabbit holes ("continuous solution refinement")
-- Process vs outcome oriented solutions (programming vs. research)
+- bias 
 
 
 ## Hallucinations
@@ -286,27 +318,23 @@ Let LLMs...
 ![](figures/confab_car_wash.png)
 
 
-## Rank the trustworthiness of the following sources
+## Specific challenges for scientific data anylsis
 
-- official R-documentation
-- package documentation
-- wikipedia
-- blog article
-- co-worker
-- student assistant
-- chatGPT
+- Output-oriented tasks (e.g., build a website)
+- Process-oriented tasks (e.g., run appropriate statistical analysis)
 
 
+## Dangers
 
+- Doing the wrong things in your work
+- LLM rabbit holes ("continuous solution refinement")
 
 
 
 
 
 
-
-
-
+<!--------------------------------------------------------- Best practices  ------------------------------------------->
 
 # Best practices?
 
@@ -412,9 +440,6 @@ Approach an LLM as a very motivated, really nice, but rather untrustworthy co-wo
 
 
 
- 
-
-
 ## And maybe ...
 
 Look at the available documentation first
@@ -427,11 +452,28 @@ Ask Google first (with AI-mode turned off?).
 - There are many great tutorials that can be found by web searching
 
 
+## Prompt Engineering
+
+| Component   |    Importance   |
+|-------------|-----------------|
+| task        |    mandatory    |
+| context     |    important    |
+| exemplar    |    important    |
+| persona     |    nice-to-have |
+| format      |    nice-to-have |
+| tone        |    nice-to-have |
+
+
+Reference: https://www.youtube.com/watch?v=jC4v5AS4RIM
+https://docs.cloud.google.com/vertex-ai/generative-ai/docs/learn/prompts/introduction-prompt-design
+https://www.onlinebrandambassadors.com/stable/Google-Prompt-Engineering-Boonstra.pdf
+
+https://aclanthology.org/2024.findings-acl.21.pdf
+
+
+<!--------------------------------------------------------- Bigger picture  ------------------------------------------->
 
 # Bigger Picture 
-
-
-
 
 ## Risk when using LMMs
 
@@ -440,7 +482,6 @@ Ask Google first (with AI-mode turned off?).
 - Affects competencies and competency acquisition.
 - Social inequality.
 
-
 ## Current issues
 
 - Ecological consequences of LLM usage: [eco impact calculator](https://huggingface.co/spaces/genai-impact/ecologits-calculator)
@@ -448,15 +489,11 @@ Ask Google first (with AI-mode turned off?).
 
 
  
-
-
 ## Future issues?
 
 - LLMs are killing Stackoverflow?
 - Can LLMs learn new languages/packages/frameworks?
 - Technological dependence and monetization issues 
-
-
 
 
 
