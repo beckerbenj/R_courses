@@ -431,7 +431,14 @@ Ask Google first (with AI-mode turned off?).
 # Bigger Picture 
 
 
- 
+
+
+## Risk when using LMMs
+
+- Unreliability (cf. confabulation)
+- Privacy and confidentiality. Typically, research data should not be uploaded!
+- Affects competencies and competency acquisition.
+- Social inequality.
 
 
 ## Current issues
