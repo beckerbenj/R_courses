@@ -9,7 +9,9 @@ This quick tutorial shows you how to use the `ellmer` package.
 ## Installation
 
 You can install the `ellmer` package from cran. In addition, we also install the `shinychat` package.
+
 ```{r}
+#| eval: false
 install.packages("ellmer")
 install.packages("shinychat")
 ```
@@ -36,6 +38,7 @@ In short you need to:
 4. add the API-key to the environment variables using the following code:
 
 ```{r}
+#| eval: false
 Sys.setenv(GOOGLE_API_KEY = "<your_google-api_key>")
 ```
 
@@ -43,6 +46,7 @@ Sys.setenv(GOOGLE_API_KEY = "<your_google-api_key>")
 ## Typical usage
 
 Load the `ellmer` package.
+
 ```{r}
 library(ellmer)
 ```
@@ -84,7 +88,6 @@ Alternatively, if your IDE does not support the viewer, you can create a chat us
 ```{r}
 #| eval: false
 live_console(helper)
-# respond with OK
 ```
 
 To quit the console type `Q` and hit enter.
@@ -133,7 +136,10 @@ Let's check if the function works:
 factorial(5) # should return 120
 ```
 
-This is less usefull for writing functions, but can be handy if you exctract other types of data via LMMs. 
+
+
+
+This is less useful for writing functions, but can be handy if you extract other types of data via LMMs. 
 
 Consider this example:
 
@@ -163,9 +169,71 @@ data <- gsub("```", "", data, fixed = TRUE)
 data <- gsub("json", "", data)
 
 # read as json
-data <- jsonlite::fromJSON(data, flatten = TRUE)
-head(data)
+data1 <- jsonlite::fromJSON(data, flatten = TRUE)
+head(data1)
 ```
 
 
-Whether or not this is a good idea depends on your use case. Be aware that LLMs can make mistakes and confabulate... 
+Lets compare the results with wikipedia for 
+
+* [Germany](https://en.wikipedia.org/wiki/Germany)
+* [Ukraine](https://en.wikipedia.org/wiki/Ukraine)
+
+```{r}
+data1[data1$country == "Germany",]
+data1[data1$country == "Ukraine",]
+```
+
+
+
+
+```{r}
+#| eval: false
+llm_data$get_cost()
+llm_data$get_tokens()
+```
+
+
+
+If you do this a second time, do you get the same resutls?
+
+```{r}
+llm_data2 <- chat_google_gemini(
+  system_prompt = "you are an reliable scientist. You are honest and terse."
+)
+
+data <- llm_data2$chat(
+  paste(collapse = "\n", readLines("2026_GEBF_llm/my_promt.md")),
+  echo = "none"
+)
+
+# remove code block markers
+data <- gsub("```", "", data, fixed = TRUE)
+data <- gsub("json", "", data)
+
+# read as json
+data2 <- jsonlite::fromJSON(data, flatten = TRUE)
+head(data2)
+```
+
+
+
+Note that the computations below will differ everytime the code is ran.
+
+
+```{r}
+countries_in_both <- data1$country[data1$country %in% data2$country]
+
+# which countries are not in the first option
+data1[!data1$country %in% countries_in_both, ]
+
+
+# do the numbers correspond?
+combined <- merge(data1[, c(1, 3)], data2[, c(1, 3)], by = "country")
+combined[(combined$population.y-combined$population.x) != 0,]
+```
+
+
+
+
+Whether or not this is a good idea depends on your use case. Be aware that LLMs can make mistakes and confabulate.
