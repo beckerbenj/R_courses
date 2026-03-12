@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.7.32">
 
   <meta name="author" content="Benjamin Becker &amp; Dries Debeer">
-  <title>How to get better at R in the?</title>
+  <title>How to get better at R?</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -127,7 +127,7 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">How to get better at R in the?</h1>
+  <h1 class="title">How to get better at R?</h1>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -141,8 +141,16 @@ Benjamin Becker &amp; Dries Debeer
 <nav role="doc-toc"> 
 <h2 id="toc-title">Table of contents</h2>
 <ul>
-<li><a href="#/our-key-messages" id="/toc-our-key-messages">Our key messages</a></li>
+
+<li><a href="#/our-controversial-claims" id="/toc-our-controversial-claims">Our (controversial?) claims</a></li>
+<li><a href="#/our-key-message" id="/toc-our-key-message">Our key message</a></li>
+<li><a href="#/questions-for-the-audience" id="/toc-questions-for-the-audience">Questions for the audience</a>
+<ul>
+<li><a href="#/rank-the-trustworthiness-of-the-following-sources" id="/toc-rank-the-trustworthiness-of-the-following-sources">Rank the trustworthiness of the following sources</a></li>
+<li><a href="#/how-reliant-are-you-when-using-r" id="/toc-how-reliant-are-you-when-using-r">How reliant are you when using R?</a></li>
+<li><a href="#/external-perspective" id="/toc-external-perspective">External perspective</a></li>
 <li><a href="#/who-are-we" id="/toc-who-are-we">Who are we?</a></li>
+</ul></li>
 <li><a href="#/r-and-rstudio" id="/toc-r-and-rstudio">R and RStudio</a>
 <ul>
 <li><a href="#/what-is-r" id="/toc-what-is-r">What is R?</a></li>
@@ -156,7 +164,7 @@ Benjamin Becker &amp; Dries Debeer
 <li><a href="#/which-models-are-available" id="/toc-which-models-are-available">Which models are available</a></li>
 <li><a href="#/interactive-chat-use-vs-api-use" id="/toc-interactive-chat-use-vs-api-use">Interactive chat use vs API use</a></li>
 <li><a href="#/llm-via-chatbots" id="/toc-llm-via-chatbots">LLM via chatbots</a></li>
-<li><a href="#/comparing-the-results" id="/toc-comparing-the-results">Comparing the results</a></li>
+<li><a href="#/llm-via-chatbots-1" id="/toc-llm-via-chatbots-1">LLM via chatbots</a></li>
 <li><a href="#/llm-via-api" id="/toc-llm-via-api">LLM via API</a></li>
 <li><a href="#/ellmer" id="/toc-ellmer"><code>ellmer</code></a></li>
 <li><a href="#/ellmer-illustration" id="/toc-ellmer-illustration"><code>ellmer</code> illustration</a></li>
@@ -171,8 +179,7 @@ Benjamin Becker &amp; Dries Debeer
 <li><a href="#/what-makes-llms-great-learning-partners" id="/toc-what-makes-llms-great-learning-partners">What makes LLMs great learning partners?</a></li>
 <li><a href="#/how-can-you-use-llms-in-your-r-work" id="/toc-how-can-you-use-llms-in-your-r-work">How can you use LLMs in your R work?</a></li>
 <li><a href="#/dangers" id="/toc-dangers">Dangers</a></li>
-<li><a href="#/confabulations" id="/toc-confabulations">Confabulations</a></li>
-<li><a href="#/rank-the-trustworthiness-of-the-following-sources" id="/toc-rank-the-trustworthiness-of-the-following-sources">Rank the trustworthiness of the following sources</a></li>
+<li><a href="#/hallucinations" id="/toc-hallucinations">Hallucinations</a></li>
 </ul></li>
 <li><a href="#/best-practices" id="/toc-best-practices">Best practices?</a>
 <ul>
@@ -185,6 +192,7 @@ Benjamin Becker &amp; Dries Debeer
 <li><a href="#/be-aware-of-confabulation" id="/toc-be-aware-of-confabulation">Be aware of confabulation!</a></li>
 <li><a href="#/be-aware-of-confabulation-1" id="/toc-be-aware-of-confabulation-1">Be aware of confabulation!</a></li>
 <li><a href="#/and-maybe" id="/toc-and-maybe">And maybe …</a></li>
+<li><a href="#/prompt-engineering" id="/toc-prompt-engineering">Prompt Engineering</a></li>
 </ul></li>
 <li><a href="#/bigger-picture" id="/toc-bigger-picture">Bigger Picture</a>
 <ul>
@@ -194,20 +202,63 @@ Benjamin Becker &amp; Dries Debeer
 </ul>
 </nav>
 </section>
-<section id="our-key-messages" class="slide level2">
-<h2>Our key messages</h2>
+<section class="slide level2">
+
+<!--------------------------------------------------------- Short Intro  ------------------------------------------->
+</section>
+<section id="our-controversial-claims" class="slide level2">
+<h2>Our (controversial?) claims</h2>
 <ul>
-<li>AI will not replace (data) scientists and programmers</li>
+<li>AI will not replace (data) scientists and programmers in the near future</li>
 <li>R skills may become even more important in the future</li>
-<li>LLMs can be very helpful R learning tools</li>
-<li>LLMs can be very harmful to R learners</li>
+<li>LLMs can be helpful R learning tools</li>
+<li>LLMs can be harmful to R learners</li>
 </ul>
+</section>
+<section id="our-key-message" class="slide level2">
+<h2>Our key message</h2>
+<p>It is very worthwhile acquiring actual R skills and you should be very conscious how you use LLMs for this purpose!</p>
+</section>
+<section>
+<section id="questions-for-the-audience" class="title-slide slide level1 center">
+<h1>Questions for the audience</h1>
+
+</section>
+<section id="rank-the-trustworthiness-of-the-following-sources" class="slide level2">
+<h2>Rank the trustworthiness of the following sources</h2>
+<ul>
+<li>official R-documentation</li>
+<li>package documentation</li>
+<li>wikipedia</li>
+<li>blog article</li>
+<li>co-worker</li>
+<li>student assistant</li>
+<li>chatGPT</li>
+</ul>
+</section>
+<section id="how-reliant-are-you-when-using-r" class="slide level2">
+<h2>How reliant are you when using R?</h2>
+<ul>
+<li>1 - Everything I do in R I could easily do without an LLM</li>
+<li>5 - I could do most things without an LLM, but repeatedly rely on LLMs</li>
+<li>10 - I a completely lost without an LLM</li>
+</ul>
+</section>
+<section id="external-perspective" class="slide level2">
+<h2>External perspective</h2>
+<p>You have a student helper you gave an R coding task (e.g., cleaning a data set and running some preliminary data analysis). They tell you they used AI heavily, how much do you trust them? How does your expectation change depending on how much they used AI?</p>
 </section>
 <section id="who-are-we" class="slide level2">
 <h2>Who are we?</h2>
 <ul>
-<li><p>Dries Debeer</p></li>
-<li><p>Benjamin Becker</p>
+<li>Dries Debeer
+<ul>
+<li>Ghent University - Departement of Experimental Psychology</li>
+<li>Psychological Researcher (former statistical consultant)</li>
+<li>R programmer</li>
+<li>javascript beginner</li>
+</ul></li>
+<li>Benjamin Becker
 <ul>
 <li>Institute for Educational Quality Improvement (IQB)</li>
 <li>Psychometrician</li>
@@ -215,7 +266,8 @@ Benjamin Becker &amp; Dries Debeer
 <li>Recent Python/Django beginner</li>
 </ul></li>
 </ul>
-</section>
+<!--------------------------------------------------------- Introduction  ------------------------------------------->
+</section></section>
 <section>
 <section id="r-and-rstudio" class="title-slide slide level1 center">
 <h1>R and RStudio</h1>
@@ -329,8 +381,8 @@ Benjamin Becker &amp; Dries Debeer
 <li><a href="https://copilot.microsoft.com/">Microsoft Copilot</a></li>
 </ul>
 </section>
-<section id="comparing-the-results" class="slide level2">
-<h2>Comparing the results</h2>
+<section id="llm-via-chatbots-1" class="slide level2">
+<h2>LLM via chatbots</h2>
 <p>Disadvantages:</p>
 <ul>
 <li>R code cannot be run/checked by the chat bots (though python code can)</li>
@@ -343,7 +395,7 @@ Benjamin Becker &amp; Dries Debeer
 <section id="llm-via-api" class="slide level2">
 <h2>LLM via API</h2>
 <ul>
-<li><p>Through <a href="https://ellmer.tidyverse.org/">ellmer</a> and RStudio (google gemini account required)</p></li>
+<li><p>Through <a href="https://ellmer.tidyverse.org/">ellmer</a> and RStudio (Google gemini account required)</p></li>
 <li><p>via the positron integration of github-copilot (github account required)</p></li>
 <li><p>Other packages:</p>
 <ul>
@@ -383,6 +435,7 @@ Benjamin Becker &amp; Dries Debeer
 </section>
 <section id="positron-assistant-illustration" class="slide level2">
 <h2>Positron Assistant illustration</h2>
+<!--------------------------------------------------------- Discussion  ------------------------------------------->
 </section></section>
 <section>
 <section id="discussion" class="title-slide slide level1 center">
@@ -415,28 +468,19 @@ Benjamin Becker &amp; Dries Debeer
 <section id="dangers" class="slide level2">
 <h2>Dangers</h2>
 <ul>
-<li>Confabulations/hallucinations (providing incorrect answers confidently)</li>
+<li>Confabulations/hallucinations (providing incorrect answers confidently, see https://github.com/lechmazur/confabulations)</li>
+<li>(Confabulations: LLM does not know, tries to produce an answer anyway https://www.tandfonline.com/doi/abs/10.1076/jhin.7.3.225.1855)</li>
+<li>(Hallucination: LLM produce wrong answers based on training data)</li>
 <li>dependence on training data (bad with new packages/frameworks)</li>
 <li>LLM rabbit holes (“continuous solution refinement”)</li>
 <li>Process vs outcome oriented solutions (programming vs.&nbsp;research)</li>
 </ul>
 </section>
-<section id="confabulations" class="slide level2">
-<h2>Confabulations</h2>
+<section id="hallucinations" class="slide level2">
+<h2>Hallucinations</h2>
 
-<img data-src="figures/confab_car_wash.png" class="r-stretch"></section>
-<section id="rank-the-trustworthiness-of-the-following-sources" class="slide level2">
-<h2>Rank the trustworthiness of the following sources</h2>
-<ul>
-<li>official R-documentation</li>
-<li>package documentation</li>
-<li>wikipedia</li>
-<li>blog article</li>
-<li>co-worker</li>
-<li>student assistant</li>
-<li>chatGPT</li>
-</ul>
-</section></section>
+<!--------------------------------------------------------- Best practices  ------------------------------------------->
+<img data-src="figures/confab_car_wash.png" class="r-stretch"></section></section>
 <section>
 <section id="best-practices" class="title-slide slide level1 center">
 <h1>Best practices?</h1>
@@ -511,6 +555,46 @@ Benjamin Becker &amp; Dries Debeer
 <li>There have likely been persons with similar questions/problems (check stack overflow, reddit, …)</li>
 <li>There are many great tutorials that can be found by web searching</li>
 </ul>
+</section>
+<section id="prompt-engineering" class="slide level2">
+<h2>Prompt Engineering</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Component</th>
+<th>Importance</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>task</td>
+<td>mandatory</td>
+</tr>
+<tr class="even">
+<td>context</td>
+<td>important</td>
+</tr>
+<tr class="odd">
+<td>exemplar</td>
+<td>important</td>
+</tr>
+<tr class="even">
+<td>persona</td>
+<td>nice-to-have</td>
+</tr>
+<tr class="odd">
+<td>format</td>
+<td>nice-to-have</td>
+</tr>
+<tr class="even">
+<td>tone</td>
+<td>nice-to-have</td>
+</tr>
+</tbody>
+</table>
+<p>Reference: https://www.youtube.com/watch?v=jC4v5AS4RIM https://docs.cloud.google.com/vertex-ai/generative-ai/docs/learn/prompts/introduction-prompt-design https://www.onlinebrandambassadors.com/stable/Google-Prompt-Engineering-Boonstra.pdf</p>
+<p>https://aclanthology.org/2024.findings-acl.21.pdf</p>
+<!--------------------------------------------------------- Bigger picture  ------------------------------------------->
 </section></section>
 <section>
 <section id="bigger-picture" class="title-slide slide level1 center">
@@ -520,7 +604,7 @@ Benjamin Becker &amp; Dries Debeer
 <section id="current-issues" class="slide level2">
 <h2>Current issues</h2>
 <ul>
-<li>Ecological consequences of LLM usage</li>
+<li>Ecological consequences of LLM usage: <a href="https://huggingface.co/spaces/genai-impact/ecologits-calculator">eco impact calculator</a></li>
 <li>Ethical issues: Reporting LLM usage in your research (research ethics, …)</li>
 </ul>
 </section>
