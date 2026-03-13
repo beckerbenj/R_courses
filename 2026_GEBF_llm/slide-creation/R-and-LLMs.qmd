@@ -201,6 +201,8 @@ and also allow an integration of large language models:
 
 -   (limited) Context window = what it remembers from a chat (your profile) (RAG?)
 
+-   Importance of prompt (engineering) 
+
 
     
 
