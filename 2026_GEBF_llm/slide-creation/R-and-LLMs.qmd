@@ -20,8 +20,8 @@ bibliography: references.bib
 -   AI will not replace (data) scientists and programmers in the near
     future![^1]
 -   R skills may become even more important in the future
--   LLMs can be helpful R learning tools[^2],[^3]
--   LLMs can be harmful to R learners[^4]
+-   LLMs can be helpful R learning tools [@lin2025facilitating],[@nathaniel2025investigating]
+-   LLMs can be harmful to R learners[@bernstein2025beyond]
 
 ## Our key message
 
@@ -277,7 +277,7 @@ Advantages:
     -   [rollama](https://jbgruber.github.io/rollama/) Focus on Ollama
         (which provides local models)
 
-## `ellmer`
+## API use via `ellmer`
 
 `ellmer` is an R-package (developed by the Posit team). It allows you to
 use LLMs directly for R (and RStudio) via the API option.
@@ -286,7 +286,7 @@ Some features: \* supports different LLMs (accounts and API-key are
 required) \* supports local LLMs \* keeps track of the conversation
 (makes it *stateful*) \* multiple conversations at the same time.
 
-## `ellmer` illustration
+## API use via `ellmer` - illustration
 
 ## Other R-packages
 
@@ -509,30 +509,12 @@ https://aclanthology.org/2024.findings-acl.21.pdf
 
 ## Future issues
 
--   LLMs are killing Stackoverflow and similar sites?
+-   Are LLMs killing Stackoverflow and similar sites?
 -   Can LLMs learn new languages/packages/frameworks?
 -   Technological dependence and monetization issues
--   Soon to come: Enshitification stage
+-   Soon to come: *Enshitification* stage
 
 [^1]: And if it does we have other problems than worthless R skills.
-
-[^2]: Lin, Y., Zhang, Y., Yang, Y., Pan, S., Ren, X., & Chen, D. (2025).
-    Facilitating computational thinking with AI: A three-level
-    meta-analytic evidence for future-ready learning. Thinking Skills
-    and Creativity, 102070. https://doi.org/10.1016/j.tsc.2025.102070
-
-[^3]: Nathaniel, J., Oyelere, S. S., Suhonen, J., & Tedre, M. (2025).
-    Investigating the impact of Generative AI integration on the
-    Sustenance of Higher-Order Thinking Skills and understanding of
-    programming logic in Programming Education. Computers and Education:
-    Artificial Intelligence, 100460.
-    https://doi.org/10.1016/j.caeai.2025.100460
-
-[^4]: Bernstein, S., Rahman, A., Sharifi, N., Terbish, A., & MacNeil, S.
-    (2025, November). Beyond the Benefits: A Systematic Review of the
-    Harms and Consequences of Generative AI in Computing Education. In
-    Proceedings of the 25th Koli Calling International Conference on
-    Computing Education Research (pp. 1-18).
 
 [^5]: R is not always consistent nor logical
 
