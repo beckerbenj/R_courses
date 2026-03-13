@@ -318,7 +318,9 @@ Some features:
 
 
 
-## API use via `ellmer` - illustration
+## API use via `ellmer` 
+
+[Illustration}(https://github.com/beckerbenj/R_courses/blob/main/2026_GEBF_llm/using-ellmer.qmd)
 
 
 
