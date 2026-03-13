@@ -7,280 +7,312 @@ format:
     smaller: true
     toc: true
     toc-depth: 1
+editor: 
+  markdown: 
+    wrap: 72
+bibliography: references.bib
 ---
 
-
 <!--------------------------------------------------------- Short Intro  ------------------------------------------->
+
 ## Our (controversial?) claims
 
-- AI will not replace (data) scientists and programmers in the near future![^6]
-- R skills may become even more important in the future
-- LLMs can be helpful R learning tools[^3],[^5]
-- LLMs can be harmful to R learners[^4]
-
-[^6]: And if it does we have other problems than worthless R skills.
-
-[^3]: Lin, Y., Zhang, Y., Yang, Y., Pan, S., Ren, X., & Chen, D. (2025). Facilitating computational thinking with AI: A three-level meta-analytic evidence for future-ready learning. Thinking Skills and Creativity, 102070. https://doi.org/10.1016/j.tsc.2025.102070
-
-[^5]: Nathaniel, J., Oyelere, S. S., Suhonen, J., & Tedre, M. (2025). Investigating the impact of Generative AI integration on the Sustenance of Higher-Order Thinking Skills and understanding of programming logic in Programming Education. Computers and Education: Artificial Intelligence, 100460. https://doi.org/10.1016/j.caeai.2025.100460
-
-[^4]: Bernstein, S., Rahman, A., Sharifi, N., Terbish, A., & MacNeil, S. (2025, November). Beyond the Benefits: A Systematic Review of the Harms and Consequences of Generative AI in Computing Education. In Proceedings of the 25th Koli Calling International Conference on Computing Education Research (pp. 1-18).
-
+-   AI will not replace (data) scientists and programmers in the near
+    future![^1]
+-   R skills may become even more important in the future
+-   LLMs can be helpful R learning tools[^2],[^3]
+-   LLMs can be harmful to R learners[^4]
 
 ## Our key message
 
-It is very worthwhile acquiring actual R skills and you should be very conscious how you use LLMs for this purpose!
+It is very worthwhile acquiring actual R skills and you should be very
+conscious how you use LLMs for this purpose!
 
 # Questions for the audience
 
 ## Rank the trustworthiness of the following sources
 
-- official R-documentation
-- package documentation
-- wikipedia
-- blog article
-- co-worker
-- student assistant
-- chatGPT
+-   official R-documentation
+-   package documentation
+-   wikipedia
+-   blog article
+-   co-worker
+-   student assistant
+-   chatGPT
 
 ## How reliant are you when using R?
 
-- 1 - Everything I do in R I could easily do without an LLM 
-- 5 - I could do most things without an LLM, but repeatedly rely on LLMs
-- 10 - I a completely lost without an LLM
+-   1 - Everything I do in R I could easily do without an LLM
+-   5 - I could do most things without an LLM, but repeatedly rely on
+    LLMs
+-   10 - I a completely lost without an LLM
 
 ## External perspective
 
-You have a student helper you gave an R coding task (e.g., cleaning a data set and running some preliminary data analysis). They tell you they used AI heavily, how much do you trust them? How does your expectation change depending on how much they used AI? 
-
+You have a student helper you gave an R coding task (e.g., cleaning a
+data set and running some preliminary data analysis). They tell you they
+used AI heavily, how much do you trust them? How does your expectation
+change depending on how much they used AI?
 
 ## Who are we?
 
-- Dries Debeer
-  - Ghent University - Departement of Experimental Psychology
-  - Psychological Researcher (former statistical consultant)
-  - R programmer
-  - javascript beginner
-
-- Benjamin Becker
-  - Institute for Educational Quality Improvement (IQB)
-  - Psychometrician
-  - R programmer
-  - Recent Python/Django beginner
-
+-   Dries Debeer
+    -   Ghent University - Departement of Experimental Psychology
+    -   Psychological Researcher (former statistical consultant)
+    -   R programmer
+    -   javascript beginner
+-   Benjamin Becker
+    -   Institute for Educational Quality Improvement (IQB)
+    -   Psychometrician
+    -   R programmer
+    -   Recent Python/Django beginner
 
 <!--------------------------------------------------------- Introduction  ------------------------------------------->
+
 # R and RStudio
 
 ## What is R?
 
-* a statistical software package
+-   a statistical software package
 
-  - statistical modeling and inference
-  - read and write data
-  - select, filter, and transform data
-  - visualize data and models
-  
-  
-* a programming language
+    -   statistical modeling and inference
+    -   read and write data
+    -   select, filter, and transform data
+    -   visualize data and models
 
-  - code for data-analysis, data manipulation, visualization, ...
-  - code for text processing, file creation, ....
-  
- 
-  
+-   a programming language
+
+    -   code for data-analysis, data manipulation, visualization, ...
+    -   code for text processing, file creation, ....
+
+
 ## R as a Programming Language?
 
-* a programming language 
-* clear and logical syntax[^1]
-* lots of R-code available online 
-   - CRAN: packages with vignettes and examples, 
-   - github, and other repositories, 
-   - stack overflow, etc.
+-   a programming language
+-   clear and logical syntax[^5]
+-   lots of R-code available online
+    -   CRAN: packages with vignettes and examples,
+    -   github, and other repositories,
+    -   stack overflow, etc.
 
 $\Rightarrow$ Ideal for training LLMs!
-
-[^1]: R is not always consistent nor logical
-
- 
 
 ## What is RStudio?
 
 Rstudio is an Integrated Development Environment (IDE) that focuses on R
 
-It combines: 
+It combines:
 
-  - graphical interface
-  - file browser
-  - environment overview
-  - syntax highlighting
-  - keyboard shortcuts
-  - ...
-  
+-   graphical interface
+-   file browser
+-   environment overview
+-   syntax highlighting
+-   keyboard shortcuts
+-   ...
 
- 
-  
 ## What is RStudio?
 
 RStudio allows integration of:
 
-  - Rmarkdown and quarto
-  - git and github
-  - large language models
-  - ...
-
-
- 
+-   Rmarkdown and quarto
+-   git and github
+-   large language models
+-   ...
 
 ## What is RStudio?
 
 RStudio can also supports other programming languages (like python).
 
-And there are also other IDE's that are excellent for working with R, and 
-also allow an integration of large language models:
+And there are also other IDE's that are excellent for working with R,
+and also allow an integration of large language models:
 
-* VSCode
-* Positron
-* ...
+-   VSCode
+-   Positron
+-   ...
 
- 
+# Large Language Models and Generative AI
 
-# Large Language Models
+## What are Large Language Models?
 
-## Which models are available
+-   Next word/token predictors
 
-- OpenAI: GPT-4.1 (also Microsoft/github Copilot)
+-   Deep neural networks typically using *transformer* architecture 
+    ("Attention is all you need"[@vaswani2017attention])
 
-- Anthorpic: Claude 3.5 Sonnet 
+-   GPT = Genrative Pre-trained Transformers
 
-- Alphabet/Google: Google Gemini 2.5 
+-   language models
 
-- Meta: LLaMa 3.1/3.2 $\rightarrow$ open source
+-   NOT knowledge models/caculators
 
-- DeepSeek-V3/R1 
 
-- Mistral: Large 2.1 ()
+## What are Large Language Models?
 
-- ...
+-   Trained on "complete internet"
 
- 
+    * more available data == better performance
+    
+    * Good for English, German, R 
+    
+    * worse for specialist topics, rare languages
+    
+-   knowledge cut-off date (differs per model/version)
+
+
+
+## What are Large Language Models?
+
+-   Non-deterministic
+
+-   Probabilistic sample from all possible words/tokens
+
+-   Reproducibility!?
+
+
+
+## What are Generative AI models
+
+
+-   Build upon LLM, LLM as basis
+
+-   Prompt-response agents, trained using Reinforcement Learning
+
+-   Can include additional tools like:
+
+    * web search
+    * code execution
+    * planning
+    * ...
+    
+-   Change/improve fast!
+    
+-   (not included: image, video, sound GAI)
+
+
+## What are Generative AI models
+
+
+-   Language models at core, NOT knowledge models, no world model
+
+-   Non-deterministic $\Rightarrow$ reproducibility!?
+
+-   Change/improve fast!
+    
+
+
+## Which Generative AI models models are available
+
+-   OpenAI: GPT-4.1 (also Microsoft/github Copilot)
+
+-   Anthorpic: Claude 3.5 Sonnet
+
+-   Alphabet/Google: Google Gemini 2.5
+
+-   Meta: LLaMa 3.1/3.2 $\rightarrow$ open source
+
+-   DeepSeek-V3/R1
+
+-   Mistral: Large 2.1 ()
+
+-   ...
+
+
+## Wooclap break
+
+-   Which generative AI models have you used for R-related work?
+
 
 
 ## Interactive chat use vs API use
 
-Interactive chat: 
+Interactive chat:
 
-* a chatbot (like chatGPT, Microsoft Copilot, Claude, ...)
-* via a website (with log in)
-* with a memory (of the current conversation = *stateful*)
-* with a memory of previous conversations
-* $\Rightarrow$ with server space for conversations, files, ...
-* payment via monthly subscriptions (and free versions)
+-   a chatbot (like chatGPT, Microsoft Copilot, Claude, ...)
+-   via a website (with log in)
+-   with a memory (of the current conversation = *stateful*)
+-   with a memory of previous conversations
+-   $\Rightarrow$ with server space for conversations, files, ...
+-   payment via monthly subscriptions (and free versions)
 
-API use: 
+API use:
 
-* uses an Application Programming Interface (API) to directly access the LMM
-* API differs between providers
-* payment per million tokens (some free versions) [pricing](https://pricepertoken.com/leaderboards/coding) 
-* without built-in memory (*stateless*)
-
- 
-
-
-## LLM via chatbots
-
-* [Claude](https://claude.ai/login)
-* [ChatGPT](https://chatgpt.com/)
-* [Microsoft Copilot](https://copilot.microsoft.com/)
-
- 
-
+-   uses an Application Programming Interface (API) to directly access
+    the LMM
+-   API differs between providers
+-   payment per million tokens (some free versions)
+    [pricing](https://pricepertoken.com/leaderboards/coding)
+-   without built-in memory (*stateless*)
 
 ## LLM via chatbots
 
-Disadvantages: 
+-   [Claude](https://claude.ai/login)
+-   [ChatGPT](https://chatgpt.com/)
+-   [Microsoft Copilot](https://copilot.microsoft.com/)
 
-* R code cannot be run/checked by the chat bots (though python code can)
+## LLM via chatbots
+
+Disadvantages:
+
+-   R code cannot be run/checked by the chat bots (though python code
+    can)
 
 Advantages:
 
-* history of chat is preserved (within and across chats)
-
- 
-
+-   history of chat is preserved (within and across chats)
 
 ## LLM via API
 
-* Through [ellmer](https://ellmer.tidyverse.org/) and RStudio (Google gemini account required)
-* via the positron integration of github-copilot (github account required)
-* Other packages: 
+-   Through [ellmer](https://ellmer.tidyverse.org/) and RStudio (Google
+    gemini account required)
 
-    * [tidyprompt](https://CRAN.R-project.org/package=tidyprompt) Building blocks to construct prompts and handle LLM output.
-    * [tidyllm](https://edubruell.github.io/tidyllm/index.html) Alternative for ellmer
-    * [rollama](https://jbgruber.github.io/rollama/) Focus on Ollama (which provides local models)
-    
- 
+-   via the positron integration of github-copilot (github account
+    required)
 
+-   Other packages:
+
+    -   [tidyprompt](https://CRAN.R-project.org/package=tidyprompt)
+        Building blocks to construct prompts and handle LLM output.
+    -   [tidyllm](https://edubruell.github.io/tidyllm/index.html)
+        Alternative for ellmer
+    -   [rollama](https://jbgruber.github.io/rollama/) Focus on Ollama
+        (which provides local models)
 
 ## `ellmer`
 
-`ellmer` is an R-package (developed by the Posit team). It allows you to use LLMs 
-directly for R (and RStudio) via the API option.
+`ellmer` is an R-package (developed by the Posit team). It allows you to
+use LLMs directly for R (and RStudio) via the API option.
 
-Some features:
-* supports different LLMs (accounts and API-key are required)
-* supports local LLMs
-* keeps track of the conversation (makes it *stateful*)
-* multiple conversations at the same time.
+Some features: \* supports different LLMs (accounts and API-key are
+required) \* supports local LLMs \* keeps track of the conversation
+(makes it *stateful*) \* multiple conversations at the same time.
 
- 
-
-
-## `ellmer` illustration 
-
-
- 
-
+## `ellmer` illustration
 
 ## Other R-packages
 
-The `kick()` function of the `side` package creates a *sidekick* that sees the objects in your working environment and can use tools to read and write files, read R documentation, ...
+The `kick()` function of the `side` package creates a *sidekick* that
+sees the objects in your working environment and can use tools to read
+and write files, read R documentation, ...
 
-An attempt to build Claude Code or Copilot in R, but still [experimental](https://www.simonpcouch.com/blog/2025-11-11-sidekick/).
-
-
-
-
- 
-
+An attempt to build Claude Code or Copilot in R, but still
+[experimental](https://www.simonpcouch.com/blog/2025-11-11-sidekick/).
 
 ## LLM via API
 
-Other packages that may be useful: 
+Other packages that may be useful:
 
-* [ragnar](https://ragnar.tidyverse.org/): for implementing Retrieval-Augmented Generation (RAG[^2]) workflows
-* [mcptools](https://posit-dev.github.io/mcptools/): for allowing LMM to access your files and data and execute 
-
-
-
-[^2]: rather than pre-training a new LLM on a specific corpus. An existing LLM is augmented by adding the relevant corpus (as chunks with an associated vector embedding via the LLM). When queried, a vector embedding for the query is created, which is used to find the most relevant chunks in the corpus. Then, the query and the selected chunks are combined in a new prompt. The result is an answer based on the corpus, often with citations.
-
-
- 
-
+-   [ragnar](https://ragnar.tidyverse.org/): for implementing
+    Retrieval-Augmented Generation (RAG[^6]) workflows
+-   [mcptools](https://posit-dev.github.io/mcptools/): for allowing LMM
+    to access your files and data and execute
 
 ## Positron Assistant
 
-* Different models can be used, but a subscription (and `API_KEY`) is required
-* Github provides auto-complete in addition to chat
-
-
- 
-
+-   Different models can be used, but a subscription (and `API_KEY`) is
+    required
+-   Github provides auto-complete in addition to chat
 
 ## Positron Assistant illustration
-
-
 
 <!--------------------------------------------------------- Discussion  ------------------------------------------->
 
@@ -292,35 +324,30 @@ Other packages that may be useful:
 
 LLMs are...
 
-* impressively good at programming tasks
-* always available, never tired/annoyed
-* can tailor towards all skills levels
-
- 
-
+-   impressively good at programming tasks
+-   always available, never tired/annoyed
+-   can tailor towards all skills levels
 
 ## How can you use LLMs in your R work?
 
 Let LLMs...
 
-- generate code
-- explain concepts/ideas
-- point to documentation/learning materials
-- review code
-- explain existing code
-
-
- 
-
+-   generate code
+-   explain concepts/ideas
+-   point to documentation/learning materials
+-   review code
+-   explain existing code
 
 ## Limitations of LLMs
 
-- Confabulations/hallucinations (providing incorrect answers confidently, see https://github.com/lechmazur/confabulations)
-- (Confabulations: LLM does not know, tries to produce an answer anyway https://www.tandfonline.com/doi/abs/10.1076/jhin.7.3.225.1855)
-- (Hallucination: LLM produce wrong answers based on training data)
-- dependence on training data (bad with new packages/frameworks)
-- bias 
-
+-   Confabulations/hallucinations (providing incorrect answers
+    confidently, see https://github.com/lechmazur/confabulations)
+-   (Confabulations: LLM does not know, tries to produce an answer
+    anyway
+    https://www.tandfonline.com/doi/abs/10.1076/jhin.7.3.225.1855)
+-   (Hallucination: LLM produce wrong answers based on training data)
+-   dependence on training data (bad with new packages/frameworks)
+-   bias
 
 ## Hallucinations
 
@@ -336,155 +363,122 @@ Let LLMs...
 
 ![](figures/confab_eatrep3.png)
 
-
 ## Specific challenges for scientific data anylsis
 
-- Output-oriented tasks (e.g., build a website)
-- Process-oriented tasks (e.g., run appropriate statistical analysis)
-
+-   Output-oriented tasks (e.g., build a website)
+-   Process-oriented tasks (e.g., run appropriate statistical analysis)
 
 ## Dangers
 
-- Doing the wrong things in your work
-- LLM rabbit holes ("continuous solution refinement")
-- Overreliance on LLMs
-  - Not developing important programming meta-concepts
-  - Not developing important programming skills (e.g, debugging)
-
-
-
-
-
+-   Doing the wrong things in your work
+-   LLM rabbit holes ("continuous solution refinement")
+-   Overreliance on LLMs
+    -   Not developing important programming meta-concepts
+    -   Not developing important programming skills (e.g, debugging)
 
 <!--------------------------------------------------------- Best practices  ------------------------------------------->
 
 # Best practices?
 
-
 ## For Learning the R-language
 
-Ask to explain code with prompts like: 
+Ask to explain code with prompts like:
 
-
-> You are an expert R coder and experienced data analyst and excellent at explaining code. 
-> Explain the following code chunk step by step. Explain what and why.
-> 
+> You are an expert R coder and experienced data analyst and excellent
+> at explaining code. Explain the following code chunk step by step.
+> Explain what and why.
+>
 > <R code>
-
- 
-
 
 ## For Learning the R-language
 
 Ask feedback and improvements on your code.
 
-> You are an expert R coder and experienced data analyst and excellent at explaining code. 
-> Improve the following code chunk and explain your improvements step by step. 
-> 
+> You are an expert R coder and experienced data analyst and excellent
+> at explaining code. Improve the following code chunk and explain your
+> improvements step by step.
+>
 > <R code>
-
-
- 
-
 
 ## For understanding errors
 
 Ask what could cause a specific error to pop up.
 
-> You are an expert R coder and experienced data analyst and excellent at explaining code. 
-> Explain why the following error-message was returned using the code below.
+> You are an expert R coder and experienced data analyst and excellent
+> at explaining code. Explain why the following error-message was
+> returned using the code below.
 >
 > error message:
 >
 > <R code>
 
-
- 
-
-
 ## For writing R-code
 
-For visualizations.
-For preprocessing.
-
-
- 
-
+For visualizations. For preprocessing.
 
 ## For rewriting R-code
 
-For instance you have used both tidyverse code and base code, and would like to limit the 
-dependencies.
+For instance you have used both tidyverse code and base code, and would
+like to limit the dependencies.
 
-> Rewrite the following R-code. Only use base-R functionalities. Replace all functions from 
-> packages like dplyr and purrr to base-R functions
+> Rewrite the following R-code. Only use base-R functionalities. Replace
+> all functions from packages like dplyr and purrr to base-R functions
 >
 > <R code>
 
 Or when you want to translate python code to R code (or vice versa).
 
- 
-
-
 ## For data-analysis
 
+## Be aware of confabulation!
 
+LLMs confabulate. You practically always get a response, even though it
+may not be correct. Without knowledge it is hard to know whether or not
+confabulation is present.
 
- 
+Therefore, **always make sure you can assess the correctness of the
+response**.
 
+YES:
+
+-   rewrite my text
+-   write code for a figure
+-   interpret the estimates of a fitted model (if you would be able to
+    do it)
 
 ## Be aware of confabulation!
 
-LLMs confabulate. You practically always get a response, even though it may not be correct. 
-Without knowledge it is hard to know whether or not confabulation is present.
-
-Therefore, **always make sure you can assess the correctness of the response**.
-
-YES: 
-
-* rewrite my text
-* write code for a figure
-* interpret the estimates of a fitted model (if you would be able to do it)
-
-
-
- 
-
-
-## Be aware of confabulation!
-
-LLMs confabulate. You practically always get a response, even though it may not be correct. 
-Without knowledge it is hard to know whether or not confabulation is present.
+LLMs confabulate. You practically always get a response, even though it
+may not be correct. Without knowledge it is hard to know whether or not
+confabulation is present.
 
 Therefore, **always be critical about the response**.
 
-Approach an LLM as a very motivated, really nice, but rather untrustworthy co-worker/assistant/intern with ulterior motives.
-
-
+Approach an LLM as a very motivated, really nice, but rather
+untrustworthy co-worker/assistant/intern with ulterior motives.
 
 ## And maybe ...
 
 Look at the available documentation first
 
-- Many R-packages have great documentation (including vignettes)
+-   Many R-packages have great documentation (including vignettes)
 
 Ask Google first (with AI-mode turned off?).
 
-- There have likely been persons with similar questions/problems (check stack overflow, reddit, ...)
-- There are many great tutorials that can be found by web searching
-
+-   There have likely been persons with similar questions/problems
+    (check stack overflow, reddit, ...)
+-   There are many great tutorials that can be found by web searching
 
 ## Prompt Engineering
 
-| Component   |    Importance   |
-|-------------|-----------------|
-| task        |    mandatory    |
-| context     |    important    |
-| exemplar    |    important    |
-| persona     |    nice-to-have |
-| format      |    nice-to-have |
-| tone        |    nice-to-have |
-
+| Component | Importance   |
+|-----------|--------------|
+| task      | mandatory    |
+| context   | important    |
+| exemplar  | important    |
+| persona   | nice-to-have |
+| format    | nice-to-have |
+| tone      | nice-to-have |
 
 References: https://www.youtube.com/watch?v=jC4v5AS4RIM
 
@@ -494,34 +488,58 @@ https://www.onlinebrandambassadors.com/stable/Google-Prompt-Engineering-Boonstra
 
 https://aclanthology.org/2024.findings-acl.21.pdf
 
-
 <!--------------------------------------------------------- Bigger picture  ------------------------------------------->
 
-# Bigger Picture 
-
+# Bigger Picture
 
 ## Risk when using LMMs
 
-- Unreliability (cf. confabulation)
-- Privacy and confidentiality. Typically, research data should not be uploaded!
-- Affects competencies and competency acquisition.
-- Social inequality.
+-   Unreliability (cf. confabulation)
+-   Privacy and confidentiality. Typically, research data should not be
+    uploaded!
+-   Affects competencies and competency acquisition.
+-   Social inequality.
 
 ## Current issues
 
-- Ecological consequences of LLM usage: [eco impact calculator](https://huggingface.co/spaces/genai-impact/ecologits-calculator)
-- Ethical issues: Reporting LLM usage in your research (research ethics, ...)
+-   Ecological consequences of LLM usage: [eco impact
+    calculator](https://huggingface.co/spaces/genai-impact/ecologits-calculator)
+-   Ethical issues: Reporting LLM usage in your research (research
+    ethics, ...)
 
-
- 
 ## Future issues
 
-- LLMs are killing Stackoverflow and similar sites?
-- Can LLMs learn new languages/packages/frameworks?
-- Technological dependence and monetization issues 
-- Soon to come: Enshitification stage
+-   LLMs are killing Stackoverflow and similar sites?
+-   Can LLMs learn new languages/packages/frameworks?
+-   Technological dependence and monetization issues
+-   Soon to come: Enshitification stage
 
+[^1]: And if it does we have other problems than worthless R skills.
 
+[^2]: Lin, Y., Zhang, Y., Yang, Y., Pan, S., Ren, X., & Chen, D. (2025).
+    Facilitating computational thinking with AI: A three-level
+    meta-analytic evidence for future-ready learning. Thinking Skills
+    and Creativity, 102070. https://doi.org/10.1016/j.tsc.2025.102070
 
+[^3]: Nathaniel, J., Oyelere, S. S., Suhonen, J., & Tedre, M. (2025).
+    Investigating the impact of Generative AI integration on the
+    Sustenance of Higher-Order Thinking Skills and understanding of
+    programming logic in Programming Education. Computers and Education:
+    Artificial Intelligence, 100460.
+    https://doi.org/10.1016/j.caeai.2025.100460
 
+[^4]: Bernstein, S., Rahman, A., Sharifi, N., Terbish, A., & MacNeil, S.
+    (2025, November). Beyond the Benefits: A Systematic Review of the
+    Harms and Consequences of Generative AI in Computing Education. In
+    Proceedings of the 25th Koli Calling International Conference on
+    Computing Education Research (pp. 1-18).
 
+[^5]: R is not always consistent nor logical
+
+[^6]: rather than pre-training a new LLM on a specific corpus. An
+    existing LLM is augmented by adding the relevant corpus (as chunks
+    with an associated vector embedding via the LLM). When queried, a
+    vector embedding for the query is created, which is used to find the
+    most relevant chunks in the corpus. Then, the query and the selected
+    chunks are combined in a new prompt. The result is an answer based
+    on the corpus, often with citations.
