@@ -9,11 +9,24 @@ format:
     toc-depth: 1
 editor: 
   markdown: 
-    wrap: 72
+    wrap: 80
 bibliography: references.bib
 ---
 
 <!--------------------------------------------------------- Short Intro  ------------------------------------------->
+
+## What is covered in this workshop
+
+-   1. What is GenAI?
+
+-   2. How can GenAI be used for R-related work?
+
+-   3. How can GenAI be used from R/RStudio/Positron?
+
+-   4. How can GenAI be used to improve R-skills?
+
+-   5. To GenAI or not to GenAI?
+
 
 ## Our (controversial?) claims
 
@@ -28,36 +41,11 @@ bibliography: references.bib
 It is very worthwhile acquiring actual R skills and you should be very
 conscious how you use GenAI for this purpose!
 
-# Questions for the audience
-
-## Rank the trustworthiness of the following sources
-
--   official R-documentation
--   package documentation
--   Wikipedia
--   blog article
--   co-worker
--   student assistant
--   chatGPT
-
-## How reliant are you when using R?
-
--   1 - Everything I do in R I could easily do without GenAI
--   5 - I could do most things without GenAI, but repeatedly rely on
-    GenAI
--   10 - I a completely lost without GenAI
-
-## External perspective
-
-You have a student helper you gave an R coding task (e.g., cleaning a
-data set and running some preliminary data analysis). They tell you they
-used GenAI heavily, how much do you trust them? How does your expectation
-change depending on how much they used GenAI?
 
 ## Who are we?
 
 -   Dries Debeer
-    -   Ghent University - Departement of Experimental Psychology
+    -   Ghent University - Department of Experimental Psychology
     -   Psychological Researcher (former statistical consultant)
     -   R programmer
     -   javascript beginner
@@ -67,71 +55,17 @@ change depending on how much they used GenAI?
     -   Psychometrician
     -   R programmer
     -   Recent Python/Django beginner
+    
+    
+# Before we start - Wooclap
+
+[click here](https://app.wooclap.com/YKPNSR?from=instruction-slide)
+
+[Question 1-6]: #
 
 <!--------------------------------------------------------- Introduction  ------------------------------------------->
 
-# R and RStudio
-
-## What is R?
-
--   a statistical software package
-
-    -   statistical modeling and inference
-    -   read and write data
-    -   select, filter, and transform data
-    -   visualize data and models
-
--   a programming language
-
-    -   code for data-analysis, data manipulation, visualization, ...
-    -   code for text processing, file creation, ....
-
-
-## R as a Programming Language?
-
--   a programming language
--   clear and logical syntax[^5]
--   lots of R-code available online
-    -   CRAN: packages with vignettes and examples,
-    -   github, and other repositories,
-    -   stack overflow, etc.
-
-$\Rightarrow$ Ideal for training LLMs!
-
-## What is RStudio?
-
-Rstudio is an Integrated Development Environment (IDE) that focuses on R
-
-It combines:
-
--   graphical interface
--   file browser
--   environment overview
--   syntax highlighting
--   keyboard shortcuts
--   ...
-
-## What is RStudio?
-
-RStudio allows integration of:
-
--   Rmarkdown and quarto
--   git and github
--   large language models
--   ...
-
-## What is RStudio?
-
-RStudio can also supports other programming languages (like python).
-
-And there are also other IDE's that are excellent for working with R,
-and also allow an integration of large language models:
-
--   VSCode
--   Positron
--   ...
-
-# Large Language Models and Generative AI
+# 1. Large Language Models and Generative AI
 
 ## What are Large Language Models?
 
@@ -144,7 +78,7 @@ and also allow an integration of large language models:
 
 -   language models
 
--   NOT knowledge models/caculators
+-   NOT knowledge models/calculators
 
 
 ## What are Large Language Models?
@@ -226,11 +160,146 @@ and also allow an integration of large language models:
 
 ## Wooclap break
 
--   Which generative AI models have you used for R-related work?
+[click here](https://app.wooclap.com/YKPNSR?from=instruction-slide)
+
+[Question 7-9]: #
+
+# 2. How can GenAI be used for R-related work?
+
+## Why relevant for R-work?
+
+R is ...
+
+-   a statistical software package
+
+-   a programming language
+
+    -   clear and logical syntax[^5]
+    -   lot's of code available online (CRAN, github, ...)
+
+$\Rightarrow$ Ideal for training LLMs!
 
 
 
-# Interacting with Generative AI
+## What makes GenAI a great R coding partner?
+
+GenAI is ...
+
+-   impressively good writing code 
+-   always available, never tired/annoyed
+-   can tailor towards all skills levels
+
+
+## How can you use GenAI in your R work?
+
+Let GenAIs...
+
+-   generate code
+-   explain concepts/ideas
+-   point to documentation/learning materials
+-   review code
+-   explain existing code
+
+
+## Big But!
+
+But allways keep in min GenAI ...
+
+-   does not know or understand (language model at heart)
+
+-   Is probabilistic
+
+-   Is uncritical
+
+-   (over)eager
+
+[understanding how Gen AI works is important to make proper use of it]: #
+
+
+## Prompt Engineering
+
+| Component | Importance   |
+|-----------|--------------|
+| task      | mandatory    |
+| context   | important    |
+| exemplar  | important    |
+| persona   | nice-to-have |
+| format    | nice-to-have |
+| tone      | nice-to-have |
+
+References: https://www.youtube.com/watch?v=jC4v5AS4RIM
+
+https://docs.cloud.google.com/vertex-ai/generative-ai/docs/learn/prompts/introduction-prompt-design
+
+https://www.onlinebrandambassadors.com/stable/Google-Prompt-Engineering-Boonstra.pdf
+
+https://aclanthology.org/2024.findings-acl.21.pdf
+
+
+## Hallucinations
+
+![](figures/confab_car_wash.png)
+
+## Confabulations
+
+![](figures/confab_eatrep1.png)
+
+## Confabulations
+
+![](figures/confab_eatrep2.png)
+
+![](figures/confab_eatrep3.png)
+
+
+## Specific challenges for scientific data anylsis
+
+-   Output-oriented tasks (e.g., build a website)
+-   Process-oriented tasks (e.g., run appropriate statistical analysis)
+
+## Dangers
+
+-   Doing the wrong things in your work
+-   LLM rabbit holes ("continuous solution refinement")
+
+
+## Advice for using GenAI for R-related work
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# 3. How can GenAI be used from R/RStudio/Positron?
+
+## What is RStudio?
+
+Rstudio is an Integrated Development Environment (IDE) that focuses on R
+
+RStudio allows integration of:
+
+-   Rmarkdown and quarto
+-   git and github
+-   **GenAI**
+-   ...
+
+Other IDEs with R-support (and GenAI integration):
+
+-   VSCode
+-   Positron
 
 
 ## Interacting with GenAI
@@ -267,17 +336,6 @@ and also allow an integration of large language models:
 -   [ChatGPT](https://chatgpt.com/)
 -   [Microsoft Copilot](https://copilot.microsoft.com/)
 
-
-## Generative AI via interactive chat
-
-**Disadvantages**:
-
--   R code cannot be run/checked by the chat bots (though python code
-    can)
-
-**Advantages**:
-
--   history of chat is preserved (within and across chats)
 
 
 
@@ -322,7 +380,7 @@ Some features:
 
 
 
-## LLM via API
+## GenAI via API
 
 Other packages that may be useful:
 
@@ -330,6 +388,7 @@ Other packages that may be useful:
     Retrieval-Augmented Generation (RAG[^6]) workflows
 -   [mcptools](https://posit-dev.github.io/mcptools/): for allowing GenAI
     to access your files and data and execute
+    
 
 ## Positron Assistant
 
@@ -341,71 +400,12 @@ Other packages that may be useful:
 
 <!--------------------------------------------------------- Discussion  ------------------------------------------->
 
-# Discussion
 
-## How do LLMs work?
+# 4. How can GenAI be used to improve R-skills?
 
-## What makes LLMs great learning partners?
 
-LLMs are...
 
--   impressively good at programming tasks
--   always available, never tired/annoyed
--   can tailor towards all skills levels
-
-## How can you use LLMs in your R work?
-
-Let LLMs...
-
--   generate code
--   explain concepts/ideas
--   point to documentation/learning materials
--   review code
--   explain existing code
-
-## Limitations of LLMs
-
--   Confabulations/hallucinations (providing incorrect answers
-    confidently, see https://github.com/lechmazur/confabulations)
--   (Confabulations: LLM does not know, tries to produce an answer
-    anyway
-    https://www.tandfonline.com/doi/abs/10.1076/jhin.7.3.225.1855)
--   (Hallucination: LLM produce wrong answers based on training data)
--   dependence on training data (bad with new packages/frameworks)
--   bias
-
-## Hallucinations
-
-![](figures/confab_car_wash.png)
-
-## Confabulations
-
-![](figures/confab_eatrep1.png)
-
-## Confabulations
-
-![](figures/confab_eatrep2.png)
-
-![](figures/confab_eatrep3.png)
-
-## Specific challenges for scientific data anylsis
-
--   Output-oriented tasks (e.g., build a website)
--   Process-oriented tasks (e.g., run appropriate statistical analysis)
-
-## Dangers
-
--   Doing the wrong things in your work
--   LLM rabbit holes ("continuous solution refinement")
--   Overreliance on LLMs
-    -   Not developing important programming meta-concepts
-    -   Not developing important programming skills (e.g, debugging)
-
-<!--------------------------------------------------------- Best practices  ------------------------------------------->
-
-# Best practices?
-
-## For Learning the R-language
+## Avicre for using GenAI to improve R skills
 
 Ask to explain code with prompts like:
 
@@ -453,11 +453,41 @@ like to limit the dependencies.
 
 Or when you want to translate python code to R code (or vice versa).
 
-## For data-analysis
+
+
+## Dangers
+-   Overreliance on LLMs
+    -   Not developing important programming meta-concepts
+    -   Not developing important programming skills (e.g, debugging)
+    
+
+
+
+# 5. To GenAI or not to GenAI
+
+## Limitations of LLMs
+
+-   Confabulations/hallucinations (providing incorrect answers
+    confidently, see https://github.com/lechmazur/confabulations)
+-   (Confabulations: LLM does not know, tries to produce an answer
+    anyway
+    https://www.tandfonline.com/doi/abs/10.1076/jhin.7.3.225.1855)
+-   (Hallucination: LLM produce wrong answers based on training data)
+-   dependence on training data (bad with new packages/frameworks)
+-   bias
+
+
+
+
+
+
+ 
+
+
 
 ## Be aware of confabulation!
 
-LLMs confabulate. You practically always get a response, even though it
+GenAI confabulates. You practically always get a response, even though it
 may not be correct. Without knowledge it is hard to know whether or not
 confabulation is present.
 
@@ -494,24 +524,7 @@ Ask Google first (with AI-mode turned off?).
     (check stack overflow, reddit, ...)
 -   There are many great tutorials that can be found by web searching
 
-## Prompt Engineering
 
-| Component | Importance   |
-|-----------|--------------|
-| task      | mandatory    |
-| context   | important    |
-| exemplar  | important    |
-| persona   | nice-to-have |
-| format    | nice-to-have |
-| tone      | nice-to-have |
-
-References: https://www.youtube.com/watch?v=jC4v5AS4RIM
-
-https://docs.cloud.google.com/vertex-ai/generative-ai/docs/learn/prompts/introduction-prompt-design
-
-https://www.onlinebrandambassadors.com/stable/Google-Prompt-Engineering-Boonstra.pdf
-
-https://aclanthology.org/2024.findings-acl.21.pdf
 
 <!--------------------------------------------------------- Bigger picture  ------------------------------------------->
 
