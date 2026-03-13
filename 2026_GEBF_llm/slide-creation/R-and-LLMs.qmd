@@ -17,16 +17,16 @@ bibliography: references.bib
 
 ## Our (controversial?) claims
 
--   AI will not replace (data) scientists and programmers in the near
+-   GenAI will not replace (data) scientists and programmers in the near
     future![^1]
 -   R skills may become even more important in the future
--   LLMs can be helpful R learning tools [@lin2025facilitating],[@nathaniel2025investigating]
--   LLMs can be harmful to R learners[@bernstein2025beyond]
+-   GenAI can be helpful R learning tools [@lin2025facilitating],[@nathaniel2025investigating]
+-   GenAI can be harmful to R learners[@bernstein2025beyond]
 
 ## Our key message
 
 It is very worthwhile acquiring actual R skills and you should be very
-conscious how you use LLMs for this purpose!
+conscious how you use GenAI for this purpose!
 
 # Questions for the audience
 
@@ -34,7 +34,7 @@ conscious how you use LLMs for this purpose!
 
 -   official R-documentation
 -   package documentation
--   wikipedia
+-   Wikipedia
 -   blog article
 -   co-worker
 -   student assistant
@@ -42,17 +42,17 @@ conscious how you use LLMs for this purpose!
 
 ## How reliant are you when using R?
 
--   1 - Everything I do in R I could easily do without an LLM
--   5 - I could do most things without an LLM, but repeatedly rely on
-    LLMs
--   10 - I a completely lost without an LLM
+-   1 - Everything I do in R I could easily do without GenAI
+-   5 - I could do most things without GenAI, but repeatedly rely on
+    GenAI
+-   10 - I a completely lost without GenAI
 
 ## External perspective
 
 You have a student helper you gave an R coding task (e.g., cleaning a
 data set and running some preliminary data analysis). They tell you they
-used AI heavily, how much do you trust them? How does your expectation
-change depending on how much they used AI?
+used GenAI heavily, how much do you trust them? How does your expectation
+change depending on how much they used GenAI?
 
 ## Who are we?
 
@@ -151,7 +151,7 @@ and also allow an integration of large language models:
 
 -   Trained on "complete internet"
 
-    * more available data == better performance
+-   Quality depends on available data
     
     * Good for English, German, R 
     
@@ -174,7 +174,7 @@ and also allow an integration of large language models:
 ## What are Generative AI models
 
 
--   Build upon LLM, LLM as basis
+-   Large Language Models as basis
 
 -   Prompt-response agents, trained using Reinforcement Learning
 
@@ -187,7 +187,7 @@ and also allow an integration of large language models:
     
 -   Change/improve fast!
     
--   (not included: image, video, sound GAI)
+-   (not discussed: image, video, sound GenAI)
 
 
 ## What are Generative AI models
@@ -233,7 +233,7 @@ and also allow an integration of large language models:
 # Interacting with Generative AI
 
 
-## Interacting with Generative AI
+## Interacting with GenAI
 
 -   local (olama) vs via cloud (gemini)
 
@@ -242,10 +242,10 @@ and also allow an integration of large language models:
 -   Interactive chat vs API
 
 
-##  Generative AI via interactive chat
+##  GenAI via interactive chat
 
 -   a chatbot (like chatGPT, Microsoft Copilot, Claude, ...)
--   via a website (with log in)
+-   via a website or app (with log in)
 -   with a memory (of the current conversation = *stateful*)
 -   with a memory of previous conversations
 -   $\Rightarrow$ with server space for conversations, files, ...
@@ -254,9 +254,8 @@ and also allow an integration of large language models:
 
 ## Generative AI via API use
 
--   uses an Application Programming Interface (API) to directly access
-    the LMM
--   API differs between providers
+-   direct access via Application Programming Interface (API) to 
+-   API differs between GenAIproviders
 -   payment per million tokens (some free versions)
     [pricing](https://pricepertoken.com/leaderboards/coding)
 -   without built-in memory (*stateless*)
@@ -275,12 +274,11 @@ and also allow an integration of large language models:
 
 -   R code cannot be run/checked by the chat bots (though python code
     can)
--   Monthly prescription
 
 **Advantages**:
 
 -   history of chat is preserved (within and across chats)
--   Monthly prescription
+
 
 
 ## Generative AI via API
@@ -330,7 +328,7 @@ Other packages that may be useful:
 
 -   [ragnar](https://ragnar.tidyverse.org/): for implementing
     Retrieval-Augmented Generation (RAG[^6]) workflows
--   [mcptools](https://posit-dev.github.io/mcptools/): for allowing LMM
+-   [mcptools](https://posit-dev.github.io/mcptools/): for allowing GenAI
     to access your files and data and execute
 
 ## Positron Assistant
