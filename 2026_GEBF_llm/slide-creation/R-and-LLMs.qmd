@@ -61,6 +61,7 @@ change depending on how much they used AI?
     -   Psychological Researcher (former statistical consultant)
     -   R programmer
     -   javascript beginner
+    
 -   Benjamin Becker
     -   Institute for Educational Quality Improvement (IQB)
     -   Psychometrician
@@ -194,13 +195,17 @@ and also allow an integration of large language models:
 
 -   Language models at core, NOT knowledge models, no world model
 
+-   Reasoning models BUT completely language based
+
 -   Non-deterministic $\Rightarrow$ reproducibility!?
 
--   Change/improve fast!
+-   (limited) Context window = what it remembers from a chat (your profile) (RAG?)
+
+
     
 
 
-## Which Generative AI models models are available
+## Generative AI models (for R coding)
 
 -   OpenAI: GPT-4.1 (also Microsoft/github Copilot)
 
@@ -223,9 +228,19 @@ and also allow an integration of large language models:
 
 
 
-## Interactive chat use vs API use
+# Interacting with Generative AI
 
-Interactive chat:
+
+## Interacting with Generative AI
+
+-   local (olama) vs via cloud (gemini)
+
+-   Chat (chatGPT) vs auto-complete (github Copilot)
+
+-   Interactive chat vs API
+
+
+##  Generative AI via interactive chat
 
 -   a chatbot (like chatGPT, Microsoft Copilot, Claude, ...)
 -   via a website (with log in)
@@ -234,7 +249,8 @@ Interactive chat:
 -   $\Rightarrow$ with server space for conversations, files, ...
 -   payment via monthly subscriptions (and free versions)
 
-API use:
+
+## Generative AI via API use
 
 -   uses an Application Programming Interface (API) to directly access
     the LMM
@@ -243,29 +259,34 @@ API use:
     [pricing](https://pricepertoken.com/leaderboards/coding)
 -   without built-in memory (*stateless*)
 
-## LLM via chatbots
+
+## Generative AI via interactive chat
 
 -   [Claude](https://claude.ai/login)
 -   [ChatGPT](https://chatgpt.com/)
 -   [Microsoft Copilot](https://copilot.microsoft.com/)
 
-## LLM via chatbots
 
-Disadvantages:
+## Generative AI via interactive chat
+
+**Disadvantages**:
 
 -   R code cannot be run/checked by the chat bots (though python code
     can)
+-   Monthly prescription
 
-Advantages:
+**Advantages**:
 
 -   history of chat is preserved (within and across chats)
+-   Monthly prescription
 
-## LLM via API
+
+## Generative AI via API
 
 -   Through [ellmer](https://ellmer.tidyverse.org/) and RStudio (Google
     gemini account required)
 
--   via the positron integration of github-copilot (github account
+-   via the positron (vsCode) integration of github-copilot (github account
     required)
 
 -   Other packages:
@@ -277,25 +298,27 @@ Advantages:
     -   [rollama](https://jbgruber.github.io/rollama/) Focus on Ollama
         (which provides local models)
 
+
 ## API use via `ellmer`
 
 `ellmer` is an R-package (developed by the Posit team). It allows you to
-use LLMs directly for R (and RStudio) via the API option.
+use Generative AI directly for R (and RStudio) via the API option.
 
-Some features: \* supports different LLMs (accounts and API-key are
-required) \* supports local LLMs \* keeps track of the conversation
-(makes it *stateful*) \* multiple conversations at the same time.
+Some features: 
+
+-   supports different Generative AI (accounts and API-key are required) 
+
+-   supports local Generative AI 
+
+-   keeps track of the conversation (makes it *stateful*) 
+
+-   multiple conversations at the same time.
+
+
 
 ## API use via `ellmer` - illustration
 
-## Other R-packages
 
-The `kick()` function of the `side` package creates a *sidekick* that
-sees the objects in your working environment and can use tools to read
-and write files, read R documentation, ...
-
-An attempt to build Claude Code or Copilot in R, but still
-[experimental](https://www.simonpcouch.com/blog/2025-11-11-sidekick/).
 
 ## LLM via API
 
