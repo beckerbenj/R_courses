@@ -28,7 +28,27 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
-  </style>
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
   <link rel="stylesheet" href="R-and-LLMs_files/libs/revealjs/dist/theme/quarto-00033b64c7f4405b1251d0bf85080562.css">
   <link href="R-and-LLMs_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="R-and-LLMs_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
@@ -137,71 +157,50 @@ Benjamin Becker &amp; Dries Debeer
 </div>
 </div>
 
-</section><section id="TOC">
-<nav role="doc-toc"> 
-<h2 id="toc-title">Table of contents</h2>
-<ul>
-<li><a href="#/questions-for-the-audience" id="/toc-questions-for-the-audience">Questions for the audience</a></li>
-<li><a href="#/r-and-rstudio" id="/toc-r-and-rstudio">R and RStudio</a></li>
-<li><a href="#/large-language-models" id="/toc-large-language-models">Large Language Models</a></li>
-<li><a href="#/discussion" id="/toc-discussion">Discussion</a></li>
-<li><a href="#/best-practices" id="/toc-best-practices">Best practices?</a></li>
-<li><a href="#/bigger-picture" id="/toc-bigger-picture">Bigger Picture</a></li>
-</ul>
-</nav>
 </section>
 <section class="slide level2">
 
 <!--------------------------------------------------------- Short Intro  ------------------------------------------->
 </section>
+<section id="what-is-covered-in-this-workshop" class="slide level2">
+<h2>What is covered in this workshop</h2>
+<ul>
+<li><ol type="1">
+<li>What is GenAI?</li>
+</ol></li>
+<li><ol start="2" type="1">
+<li>How can GenAI be used for R-related work?</li>
+</ol></li>
+<li><ol start="3" type="1">
+<li>How can GenAI be used from R/RStudio/Positron?</li>
+</ol></li>
+<li><ol start="4" type="1">
+<li>How can GenAI be used to improve R-skills?</li>
+</ol></li>
+<li><ol start="5" type="1">
+<li>To GenAI or not to GenAI?</li>
+</ol></li>
+</ul>
+</section>
 <section id="our-controversial-claims" class="slide level2">
 <h2>Our (controversial?) claims</h2>
 <ul>
-<li>AI will not replace (data) scientists and programmers in the near future!<sup>1</sup></li>
+<li>GenAI will not replace (data) scientists and programmers in the near future!<sup>1</sup></li>
 <li>R skills may become even more important in the future</li>
-<li>LLMs can be helpful R learning tools<sup>2</sup>,<sup>3</sup></li>
-<li>LLMs can be harmful to R learners<sup>4</sup></li>
+<li>GenAI can be helpful R learning tools <span class="citation" data-cites="lin2025facilitating nathaniel2025investigating">(<a href="#/references" role="doc-biblioref" onclick="">Lin et al. 2025</a>; <a href="#/references" role="doc-biblioref" onclick="">Nathaniel et al. 2025</a>)</span></li>
+<li>GenAI can be harmful to R learners <span class="citation" data-cites="bernstein2025beyond">(<a href="#/references" role="doc-biblioref" onclick="">Bernstein et al. 2025</a>)</span></li>
 </ul>
-<aside><ol class="aside-footnotes"><li id="fn1"><p>And if it does we have other problems than worthless R skills.</p></li><li id="fn2"><p>Lin, Y., Zhang, Y., Yang, Y., Pan, S., Ren, X., &amp; Chen, D. (2025). Facilitating computational thinking with AI: A three-level meta-analytic evidence for future-ready learning. Thinking Skills and Creativity, 102070. https://doi.org/10.1016/j.tsc.2025.102070</p></li><li id="fn3"><p>Nathaniel, J., Oyelere, S. S., Suhonen, J., &amp; Tedre, M. (2025). Investigating the impact of Generative AI integration on the Sustenance of Higher-Order Thinking Skills and understanding of programming logic in Programming Education. Computers and Education: Artificial Intelligence, 100460. https://doi.org/10.1016/j.caeai.2025.100460</p></li><li id="fn4"><p>Bernstein, S., Rahman, A., Sharifi, N., Terbish, A., &amp; MacNeil, S. (2025, November). Beyond the Benefits: A Systematic Review of the Harms and Consequences of Generative AI in Computing Education. In Proceedings of the 25th Koli Calling International Conference on Computing Education Research (pp.&nbsp;1-18).</p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn1"><p>And if it does we have other problems than worthless R skills.</p></li></ol></aside></section>
 <section id="our-key-message" class="slide level2">
 <h2>Our key message</h2>
-<p>It is very worthwhile acquiring actual R skills and you should be very conscious how you use LLMs for this purpose!</p>
-</section>
-<section>
-<section id="questions-for-the-audience" class="title-slide slide level1 center">
-<h1>Questions for the audience</h1>
-
-</section>
-<section id="rank-the-trustworthiness-of-the-following-sources" class="slide level2">
-<h2>Rank the trustworthiness of the following sources</h2>
-<ul>
-<li>official R-documentation</li>
-<li>package documentation</li>
-<li>wikipedia</li>
-<li>blog article</li>
-<li>co-worker</li>
-<li>student assistant</li>
-<li>chatGPT</li>
-</ul>
-</section>
-<section id="how-reliant-are-you-when-using-r" class="slide level2">
-<h2>How reliant are you when using R?</h2>
-<ul>
-<li>1 - Everything I do in R I could easily do without an LLM</li>
-<li>5 - I could do most things without an LLM, but repeatedly rely on LLMs</li>
-<li>10 - I a completely lost without an LLM</li>
-</ul>
-</section>
-<section id="external-perspective" class="slide level2">
-<h2>External perspective</h2>
-<p>You have a student helper you gave an R coding task (e.g., cleaning a data set and running some preliminary data analysis). They tell you they used AI heavily, how much do you trust them? How does your expectation change depending on how much they used AI?</p>
+<p>It is very worthwhile acquiring actual R skills and you should be very conscious how you use GenAI for this purpose!</p>
 </section>
 <section id="who-are-we" class="slide level2">
 <h2>Who are we?</h2>
 <ul>
 <li>Dries Debeer
 <ul>
-<li>Ghent University - Departement of Experimental Psychology</li>
+<li>Ghent University - Department of Experimental Psychology</li>
 <li>Psychological Researcher (former statistical consultant)</li>
 <li>R programmer</li>
 <li>javascript beginner</li>
@@ -214,87 +213,79 @@ Benjamin Becker &amp; Dries Debeer
 <li>Recent Python/Django beginner</li>
 </ul></li>
 </ul>
+</section>
+<section id="before-we-start---wooclap" class="title-slide slide level1 center">
+<h1>Before we start - Wooclap</h1>
+<p><a href="https://app.wooclap.com/YKPNSR?from=instruction-slide">click here</a></p>
 <!--------------------------------------------------------- Introduction  ------------------------------------------->
-</section></section>
+</section>
+
 <section>
-<section id="r-and-rstudio" class="title-slide slide level1 center">
-<h1>R and RStudio</h1>
+<section id="large-language-models-and-generative-ai" class="title-slide slide level1 center">
+<h1>1. Large Language Models and Generative AI</h1>
 
 </section>
-<section id="what-is-r" class="slide level2">
-<h2>What is R?</h2>
+<section id="what-are-large-language-models" class="slide level2">
+<h2>What are Large Language Models?</h2>
 <ul>
-<li><p>a statistical software package</p>
+<li><p>Next word/token predictors</p></li>
+<li><p>Deep neural networks typically using <em>transformer</em> architecture (“Attention is all you need”; <span class="citation" data-cites="vaswani2017attention">Vaswani et al. (<a href="#/references" role="doc-biblioref" onclick="">2017</a>)</span>)</p></li>
+<li><p>GPT = Genrative Pre-trained Transformers</p></li>
+<li><p>language models</p></li>
+<li><p>NOT knowledge models/calculators</p></li>
+</ul>
+</section>
+<section id="what-are-large-language-models-1" class="slide level2">
+<h2>What are Large Language Models?</h2>
 <ul>
-<li>statistical modeling and inference</li>
-<li>read and write data</li>
-<li>select, filter, and transform data</li>
-<li>visualize data and models</li>
+<li><p>Trained on “complete internet”</p></li>
+<li><p>Quality depends on available data</p>
+<ul>
+<li><p>Good for English, German, R</p></li>
+<li><p>worse for specialist topics, rare languages</p></li>
 </ul></li>
-<li><p>a programming language</p>
+<li><p>knowledge cut-off date (differs per model/version)</p></li>
+</ul>
+</section>
+<section id="what-are-large-language-models-2" class="slide level2">
+<h2>What are Large Language Models?</h2>
 <ul>
-<li>code for data-analysis, data manipulation, visualization, …</li>
-<li>code for text processing, file creation, ….</li>
+<li><p>Non-deterministic</p></li>
+<li><p>Probabilistic sample from all possible words/tokens</p></li>
+<li><p>Reproducibility!?</p></li>
+</ul>
+</section>
+<section id="what-are-generative-ai-models" class="slide level2">
+<h2>What are Generative AI models</h2>
+<ul>
+<li><p>Large Language Models as basis</p></li>
+<li><p>Prompt-response agents, trained using Reinforcement Learning</p></li>
+<li><p>Can include additional tools like:</p>
+<ul>
+<li>web search</li>
+<li>code execution</li>
+<li>planning</li>
+<li>…</li>
 </ul></li>
+<li><p>Change/improve fast!</p></li>
+<li><p>(not discussed: image, video, sound GenAI)</p></li>
 </ul>
 </section>
-<section id="r-as-a-programming-language" class="slide level2">
-<h2>R as a Programming Language?</h2>
+<section id="what-are-generative-ai-models-1" class="slide level2">
+<h2>What are Generative AI models</h2>
 <ul>
-<li>a programming language</li>
-<li>clear and logical syntax<sup>1</sup></li>
-<li>lots of R-code available online
-<ul>
-<li>CRAN: packages with vignettes and examples,</li>
-<li>github, and other repositories,</li>
-<li>stack overflow, etc.</li>
-</ul></li>
-</ul>
-<p><span class="math inline">\(\Rightarrow\)</span> Ideal for training LLMs!</p>
-<aside><ol class="aside-footnotes"><li id="fn5"><p>R is not always consistent nor logical</p></li></ol></aside></section>
-<section id="what-is-rstudio" class="slide level2">
-<h2>What is RStudio?</h2>
-<p>Rstudio is an Integrated Development Environment (IDE) that focuses on R</p>
-<p>It combines:</p>
-<ul>
-<li>graphical interface</li>
-<li>file browser</li>
-<li>environment overview</li>
-<li>syntax highlighting</li>
-<li>keyboard shortcuts</li>
-<li>…</li>
+<li><p>Language models at core, NOT knowledge models, no world model</p></li>
+<li><p>Reasoning models BUT completely language based</p></li>
+<li><p>Non-deterministic <span class="math inline">\(\Rightarrow\)</span> reproducibility!?</p></li>
+<li><p>(limited) Context window = what it remembers from a chat (your profile) (RAG?)</p></li>
+<li><p>Importance of prompt (engineering)</p></li>
 </ul>
 </section>
-<section id="what-is-rstudio-1" class="slide level2">
-<h2>What is RStudio?</h2>
-<p>RStudio allows integration of:</p>
-<ul>
-<li>Rmarkdown and quarto</li>
-<li>git and github</li>
-<li>large language models</li>
-<li>…</li>
-</ul>
-</section>
-<section id="what-is-rstudio-2" class="slide level2">
-<h2>What is RStudio?</h2>
-<p>RStudio can also supports other programming languages (like python).</p>
-<p>And there are also other IDE’s that are excellent for working with R, and also allow an integration of large language models:</p>
-<ul>
-<li>VSCode</li>
-<li>Positron</li>
-<li>…</li>
-</ul>
-</section></section>
-<section>
-<section id="large-language-models" class="title-slide slide level1 center">
-<h1>Large Language Models</h1>
-
-</section>
-<section id="which-models-are-available" class="slide level2">
-<h2>Which models are available</h2>
+<section id="generative-ai-models-for-r-coding" class="slide level2">
+<h2>Generative AI models (for R coding)</h2>
 <ul>
 <li><p>OpenAI: GPT-4.1 (also Microsoft/github Copilot)</p></li>
-<li><p>Anthorpic: Claude 3.5 Sonnet</p></li>
+<li><p>Anthrophic: Claude 3.5 Sonnet</p></li>
 <li><p>Alphabet/Google: Google Gemini 2.5</p></li>
 <li><p>Meta: LLaMa 3.1/3.2 <span class="math inline">\(\rightarrow\)</span> open source</p></li>
 <li><p>DeepSeek-V3/R1</p></li>
@@ -302,109 +293,40 @@ Benjamin Becker &amp; Dries Debeer
 <li><p>…</p></li>
 </ul>
 </section>
-<section id="interactive-chat-use-vs-api-use" class="slide level2">
-<h2>Interactive chat use vs API use</h2>
-<p>Interactive chat:</p>
-<ul>
-<li>a chatbot (like chatGPT, Microsoft Copilot, Claude, …)</li>
-<li>via a website (with log in)</li>
-<li>with a memory (of the current conversation = <em>stateful</em>)</li>
-<li>with a memory of previous conversations</li>
-<li><span class="math inline">\(\Rightarrow\)</span> with server space for conversations, files, …</li>
-<li>payment via monthly subscriptions (and free versions)</li>
-</ul>
-<p>API use:</p>
-<ul>
-<li>uses an Application Programming Interface (API) to directly access the LMM</li>
-<li>API differs between providers</li>
-<li>payment per million tokens (some free versions) <a href="https://pricepertoken.com/leaderboards/coding">pricing</a></li>
-<li>without built-in memory (<em>stateless</em>)</li>
-</ul>
-</section>
-<section id="llm-via-chatbots" class="slide level2">
-<h2>LLM via chatbots</h2>
-<ul>
-<li><a href="https://claude.ai/login">Claude</a></li>
-<li><a href="https://chatgpt.com/">ChatGPT</a></li>
-<li><a href="https://copilot.microsoft.com/">Microsoft Copilot</a></li>
-</ul>
-</section>
-<section id="llm-via-chatbots-1" class="slide level2">
-<h2>LLM via chatbots</h2>
-<p>Disadvantages:</p>
-<ul>
-<li>R code cannot be run/checked by the chat bots (though python code can)</li>
-</ul>
-<p>Advantages:</p>
-<ul>
-<li>history of chat is preserved (within and across chats)</li>
-</ul>
-</section>
-<section id="llm-via-api" class="slide level2">
-<h2>LLM via API</h2>
-<ul>
-<li><p>Through <a href="https://ellmer.tidyverse.org/">ellmer</a> and RStudio (Google gemini account required)</p></li>
-<li><p>via the positron integration of github-copilot (github account required)</p></li>
-<li><p>Other packages:</p>
-<ul>
-<li><a href="https://CRAN.R-project.org/package=tidyprompt">tidyprompt</a> Building blocks to construct prompts and handle LLM output.</li>
-<li><a href="https://edubruell.github.io/tidyllm/index.html">tidyllm</a> Alternative for ellmer</li>
-<li><a href="https://jbgruber.github.io/rollama/">rollama</a> Focus on Ollama (which provides local models)</li>
-</ul></li>
-</ul>
-</section>
-<section id="ellmer" class="slide level2">
-<h2><code>ellmer</code></h2>
-<p><code>ellmer</code> is an R-package (developed by the Posit team). It allows you to use LLMs directly for R (and RStudio) via the API option.</p>
-<p>Some features: * supports different LLMs (accounts and API-key are required) * supports local LLMs * keeps track of the conversation (makes it <em>stateful</em>) * multiple conversations at the same time.</p>
-</section>
-<section id="ellmer-illustration" class="slide level2">
-<h2><code>ellmer</code> illustration</h2>
-</section>
-<section id="other-r-packages" class="slide level2">
-<h2>Other R-packages</h2>
-<p>The <code>kick()</code> function of the <code>side</code> package creates a <em>sidekick</em> that sees the objects in your working environment and can use tools to read and write files, read R documentation, …</p>
-<p>An attempt to build Claude Code or Copilot in R, but still <a href="https://www.simonpcouch.com/blog/2025-11-11-sidekick/">experimental</a>.</p>
-</section>
-<section id="llm-via-api-1" class="slide level2">
-<h2>LLM via API</h2>
-<p>Other packages that may be useful:</p>
-<ul>
-<li><a href="https://ragnar.tidyverse.org/">ragnar</a>: for implementing Retrieval-Augmented Generation (RAG<sup>1</sup>) workflows</li>
-<li><a href="https://posit-dev.github.io/mcptools/">mcptools</a>: for allowing LMM to access your files and data and execute</li>
-</ul>
-<aside><ol class="aside-footnotes"><li id="fn6"><p>rather than pre-training a new LLM on a specific corpus. An existing LLM is augmented by adding the relevant corpus (as chunks with an associated vector embedding via the LLM). When queried, a vector embedding for the query is created, which is used to find the most relevant chunks in the corpus. Then, the query and the selected chunks are combined in a new prompt. The result is an answer based on the corpus, often with citations.</p></li></ol></aside></section>
-<section id="positron-assistant" class="slide level2">
-<h2>Positron Assistant</h2>
-<ul>
-<li>Different models can be used, but a subscription (and <code>API_KEY</code>) is required</li>
-<li>Github provides auto-complete in addition to chat</li>
-</ul>
-</section>
-<section id="positron-assistant-illustration" class="slide level2">
-<h2>Positron Assistant illustration</h2>
-<!--------------------------------------------------------- Discussion  ------------------------------------------->
+<section id="wooclap-break" class="slide level2">
+<h2>Wooclap break</h2>
+<p><a href="https://app.wooclap.com/YKPNSR?from=instruction-slide">click here</a></p>
 </section></section>
 <section>
-<section id="discussion" class="title-slide slide level1 center">
-<h1>Discussion</h1>
+<section id="how-can-genai-be-used-for-r-related-work" class="title-slide slide level1 center">
+<h1>2. How can GenAI be used for R-related work?</h1>
 
 </section>
-<section id="how-do-llms-work" class="slide level2">
-<h2>How do LLMs work?</h2>
-</section>
-<section id="what-makes-llms-great-learning-partners" class="slide level2">
-<h2>What makes LLMs great learning partners?</h2>
-<p>LLMs are…</p>
+<section id="why-relevant-for-r-work" class="slide level2">
+<h2>Why relevant for R-work?</h2>
+<p>R is …</p>
 <ul>
-<li>impressively good at programming tasks</li>
+<li><p>a statistical software package</p></li>
+<li><p>a programming language</p>
+<ul>
+<li>clear and logical syntax<sup>1</sup></li>
+<li>lot’s of code available online (CRAN, github, …)</li>
+</ul></li>
+</ul>
+<p><span class="math inline">\(\Rightarrow\)</span> Ideal for training LLMs!</p>
+<aside><ol class="aside-footnotes"><li id="fn2"><p>R is not always consistent nor logical</p></li></ol></aside></section>
+<section id="what-makes-genai-a-great-r-coding-partner" class="slide level2">
+<h2>What makes GenAI a great R coding partner?</h2>
+<p>GenAI is …</p>
+<ul>
+<li>impressively good writing code</li>
 <li>always available, never tired/annoyed</li>
 <li>can tailor towards all skills levels</li>
 </ul>
 </section>
-<section id="how-can-you-use-llms-in-your-r-work" class="slide level2">
-<h2>How can you use LLMs in your R work?</h2>
-<p>Let LLMs…</p>
+<section id="how-can-you-use-genai-in-your-r-work" class="slide level2">
+<h2>How can you use GenAI in your R work?</h2>
+<p>Let GenAIs…</p>
 <ul>
 <li>generate code</li>
 <li>explain concepts/ideas</li>
@@ -413,122 +335,14 @@ Benjamin Becker &amp; Dries Debeer
 <li>explain existing code</li>
 </ul>
 </section>
-<section id="limitations-of-llms" class="slide level2">
-<h2>Limitations of LLMs</h2>
+<section id="big-but" class="slide level2">
+<h2>Big But!</h2>
+<p>But allways keep in min GenAI …</p>
 <ul>
-<li>Confabulations/hallucinations (providing incorrect answers confidently, see https://github.com/lechmazur/confabulations)</li>
-<li>(Confabulations: LLM does not know, tries to produce an answer anyway https://www.tandfonline.com/doi/abs/10.1076/jhin.7.3.225.1855)</li>
-<li>(Hallucination: LLM produce wrong answers based on training data)</li>
-<li>dependence on training data (bad with new packages/frameworks)</li>
-<li>bias</li>
-</ul>
-</section>
-<section id="hallucinations" class="slide level2">
-<h2>Hallucinations</h2>
-
-<img data-src="figures/confab_car_wash.png" class="r-stretch"></section>
-<section id="confabulations" class="slide level2">
-<h2>Confabulations</h2>
-
-<img data-src="figures/confab_eatrep1.png" class="r-stretch"></section>
-<section id="confabulations-1" class="slide level2">
-<h2>Confabulations</h2>
-<p><img data-src="figures/confab_eatrep2.png"></p>
-<p><img data-src="figures/confab_eatrep3.png"></p>
-</section>
-<section id="specific-challenges-for-scientific-data-anylsis" class="slide level2">
-<h2>Specific challenges for scientific data anylsis</h2>
-<ul>
-<li>Output-oriented tasks (e.g., build a website)</li>
-<li>Process-oriented tasks (e.g., run appropriate statistical analysis)</li>
-</ul>
-</section>
-<section id="dangers" class="slide level2">
-<h2>Dangers</h2>
-<ul>
-<li>Doing the wrong things in your work</li>
-<li>LLM rabbit holes (“continuous solution refinement”)</li>
-<li>Overreliance on LLMs
-<ul>
-<li>Not developing important programming meta-concepts</li>
-<li>Not developing important programming skills (e.g, debugging)</li>
-</ul></li>
-</ul>
-<!--------------------------------------------------------- Best practices  ------------------------------------------->
-</section></section>
-<section>
-<section id="best-practices" class="title-slide slide level1 center">
-<h1>Best practices?</h1>
-
-</section>
-<section id="for-learning-the-r-language" class="slide level2">
-<h2>For Learning the R-language</h2>
-<p>Ask to explain code with prompts like:</p>
-<blockquote>
-<p>You are an expert R coder and experienced data analyst and excellent at explaining code. Explain the following code chunk step by step. Explain what and why.</p>
-<p><r code=""></r></p>
-</blockquote>
-</section>
-<section id="for-learning-the-r-language-1" class="slide level2">
-<h2>For Learning the R-language</h2>
-<p>Ask feedback and improvements on your code.</p>
-<blockquote>
-<p>You are an expert R coder and experienced data analyst and excellent at explaining code. Improve the following code chunk and explain your improvements step by step.</p>
-<p><r code=""></r></p>
-</blockquote>
-</section>
-<section id="for-understanding-errors" class="slide level2">
-<h2>For understanding errors</h2>
-<p>Ask what could cause a specific error to pop up.</p>
-<blockquote>
-<p>You are an expert R coder and experienced data analyst and excellent at explaining code. Explain why the following error-message was returned using the code below.</p>
-<p>error message:</p>
-<p><r code=""></r></p>
-</blockquote>
-</section>
-<section id="for-writing-r-code" class="slide level2">
-<h2>For writing R-code</h2>
-<p>For visualizations. For preprocessing.</p>
-</section>
-<section id="for-rewriting-r-code" class="slide level2">
-<h2>For rewriting R-code</h2>
-<p>For instance you have used both tidyverse code and base code, and would like to limit the dependencies.</p>
-<blockquote>
-<p>Rewrite the following R-code. Only use base-R functionalities. Replace all functions from packages like dplyr and purrr to base-R functions</p>
-<p><r code=""></r></p>
-</blockquote>
-<p>Or when you want to translate python code to R code (or vice versa).</p>
-</section>
-<section id="for-data-analysis" class="slide level2">
-<h2>For data-analysis</h2>
-</section>
-<section id="be-aware-of-confabulation" class="slide level2">
-<h2>Be aware of confabulation!</h2>
-<p>LLMs confabulate. You practically always get a response, even though it may not be correct. Without knowledge it is hard to know whether or not confabulation is present.</p>
-<p>Therefore, <strong>always make sure you can assess the correctness of the response</strong>.</p>
-<p>YES:</p>
-<ul>
-<li>rewrite my text</li>
-<li>write code for a figure</li>
-<li>interpret the estimates of a fitted model (if you would be able to do it)</li>
-</ul>
-</section>
-<section id="be-aware-of-confabulation-1" class="slide level2">
-<h2>Be aware of confabulation!</h2>
-<p>LLMs confabulate. You practically always get a response, even though it may not be correct. Without knowledge it is hard to know whether or not confabulation is present.</p>
-<p>Therefore, <strong>always be critical about the response</strong>.</p>
-<p>Approach an LLM as a very motivated, really nice, but rather untrustworthy co-worker/assistant/intern with ulterior motives.</p>
-</section>
-<section id="and-maybe" class="slide level2">
-<h2>And maybe …</h2>
-<p>Look at the available documentation first</p>
-<ul>
-<li>Many R-packages have great documentation (including vignettes)</li>
-</ul>
-<p>Ask Google first (with AI-mode turned off?).</p>
-<ul>
-<li>There have likely been persons with similar questions/problems (check stack overflow, reddit, …)</li>
-<li>There are many great tutorials that can be found by web searching</li>
+<li><p>does not know or understand (language model at heart)</p></li>
+<li><p>Is probabilistic</p></li>
+<li><p>Is uncritical</p></li>
+<li><p>(over)eager</p></li>
 </ul>
 </section>
 <section id="prompt-engineering" class="slide level2">
@@ -571,12 +385,247 @@ Benjamin Becker &amp; Dries Debeer
 <p>https://docs.cloud.google.com/vertex-ai/generative-ai/docs/learn/prompts/introduction-prompt-design</p>
 <p>https://www.onlinebrandambassadors.com/stable/Google-Prompt-Engineering-Boonstra.pdf</p>
 <p>https://aclanthology.org/2024.findings-acl.21.pdf</p>
-<!--------------------------------------------------------- Bigger picture  ------------------------------------------->
+</section>
+<section id="hallucinations" class="slide level2">
+<h2>Hallucinations</h2>
+
+<img data-src="figures/confab_car_wash.png" class="r-stretch"></section>
+<section id="confabulations" class="slide level2">
+<h2>Confabulations</h2>
+
+<img data-src="figures/confab_eatrep1.png" class="r-stretch"></section>
+<section id="confabulations-1" class="slide level2">
+<h2>Confabulations</h2>
+<p><img data-src="figures/confab_eatrep2.png"></p>
+<p><img data-src="figures/confab_eatrep3.png"></p>
+</section>
+<section id="specific-challenges-for-scientific-data-anylsis" class="slide level2">
+<h2>Specific challenges for scientific data anylsis</h2>
+<ul>
+<li>Output-oriented tasks (e.g., build a website)</li>
+<li>Process-oriented tasks (e.g., run appropriate statistical analysis)</li>
+</ul>
+</section>
+<section id="dangers" class="slide level2">
+<h2>Dangers</h2>
+<ul>
+<li>Doing the wrong things in your work</li>
+<li>LLM rabbit holes (“continuous solution refinement”)</li>
+</ul>
+</section>
+<section id="advice-for-using-genai-for-r-related-work" class="slide level2">
+<h2>Advice for using GenAI for R-related work</h2>
 </section></section>
 <section>
-<section id="bigger-picture" class="title-slide slide level1 center">
-<h1>Bigger Picture</h1>
+<section id="how-can-genai-be-used-from-rrstudiopositron" class="title-slide slide level1 center">
+<h1>3. How can GenAI be used from R/RStudio/Positron?</h1>
 
+</section>
+<section id="what-is-rstudio" class="slide level2">
+<h2>What is RStudio?</h2>
+<p>Rstudio is an Integrated Development Environment (IDE) that focuses on R</p>
+<p>RStudio allows integration of:</p>
+<ul>
+<li>Rmarkdown and quarto</li>
+<li>git and github</li>
+<li><strong>GenAI</strong></li>
+<li>…</li>
+</ul>
+<p>Other IDEs with R-support (and GenAI integration):</p>
+<ul>
+<li>VSCode</li>
+<li>Positron</li>
+</ul>
+</section>
+<section id="interacting-with-genai" class="slide level2">
+<h2>Interacting with GenAI</h2>
+<ul>
+<li><p>local (olama) vs via cloud (gemini)</p></li>
+<li><p>Chat (chatGPT) vs auto-complete (github Copilot)</p></li>
+<li><p>Interactive chat vs API</p></li>
+</ul>
+</section>
+<section id="genai-via-interactive-chat" class="slide level2">
+<h2>GenAI via interactive chat</h2>
+<ul>
+<li>a chatbot (like chatGPT, Microsoft Copilot, Claude, …)</li>
+<li>via a website or app (with log in)</li>
+<li>with a memory (of the current conversation = <em>stateful</em>)</li>
+<li>with a memory of previous conversations</li>
+<li><span class="math inline">\(\Rightarrow\)</span> with server space for conversations, files, …</li>
+<li>payment via monthly subscriptions (and free versions)</li>
+</ul>
+</section>
+<section id="generative-ai-via-api-use" class="slide level2">
+<h2>Generative AI via API use</h2>
+<ul>
+<li>direct access via Application Programming Interface (API) to</li>
+<li>API differs between GenAIproviders</li>
+<li>payment per million tokens (some free versions) <a href="https://pricepertoken.com/leaderboards/coding">pricing</a></li>
+<li>without built-in memory (<em>stateless</em>)</li>
+</ul>
+</section>
+<section id="generative-ai-via-interactive-chat" class="slide level2">
+<h2>Generative AI via interactive chat</h2>
+<ul>
+<li><a href="https://claude.ai/login">Claude</a></li>
+<li><a href="https://chatgpt.com/">ChatGPT</a></li>
+<li><a href="https://copilot.microsoft.com/">Microsoft Copilot</a></li>
+</ul>
+</section>
+<section id="generative-ai-via-api" class="slide level2">
+<h2>Generative AI via API</h2>
+<ul>
+<li><p>Through <a href="https://ellmer.tidyverse.org/">ellmer</a> and RStudio (Google gemini account required)</p></li>
+<li><p>via the positron (vsCode) integration of github-copilot (github account required)</p></li>
+<li><p>Other packages:</p>
+<ul>
+<li><a href="https://CRAN.R-project.org/package=tidyprompt">tidyprompt</a> Building blocks to construct prompts and handle LLM output.</li>
+<li><a href="https://edubruell.github.io/tidyllm/index.html">tidyllm</a> Alternative for ellmer</li>
+<li><a href="https://jbgruber.github.io/rollama/">rollama</a> Focus on Ollama (which provides local models)</li>
+</ul></li>
+</ul>
+</section>
+<section id="api-use-via-ellmer" class="slide level2">
+<h2>API use via <code>ellmer</code></h2>
+<p><code>ellmer</code> is an R-package (developed by the Posit team). It allows you to use Generative AI directly for R (and RStudio) via the API option.</p>
+<p>Some features:</p>
+<ul>
+<li><p>supports different Generative AI (accounts and API-key are required)</p></li>
+<li><p>supports local Generative AI</p></li>
+<li><p>keeps track of the conversation (makes it <em>stateful</em>)</p></li>
+<li><p>multiple conversations at the same time.</p></li>
+</ul>
+</section>
+<section id="api-use-via-ellmer-1" class="slide level2">
+<h2>API use via <code>ellmer</code></h2>
+<p><a href="https://github.com/beckerbenj/R_courses/blob/main/2026_GEBF_llm/using-ellmer.qmd">Illustration</a></p>
+<p>private repo?</p>
+</section>
+<section id="genai-via-api" class="slide level2">
+<h2>GenAI via API</h2>
+<p>Other packages that may be useful:</p>
+<ul>
+<li><a href="https://ragnar.tidyverse.org/">ragnar</a>: for implementing Retrieval-Augmented Generation (RAG<sup>1</sup>) workflows</li>
+<li><a href="https://posit-dev.github.io/mcptools/">mcptools</a>: for allowing GenAI to access your files and data and execute</li>
+</ul>
+<aside><ol class="aside-footnotes"><li id="fn3"><p>rather than pre-training a new LLM on a specific corpus. An existing LLM is augmented by adding the relevant corpus (as chunks with an associated vector embedding via the LLM). When queried, a vector embedding for the query is created, which is used to find the most relevant chunks in the corpus. Then, the query and the selected chunks are combined in a new prompt. The result is an answer based on the corpus, often with citations.</p></li></ol></aside></section>
+<section id="positron-assistant" class="slide level2">
+<h2>Positron Assistant</h2>
+<ul>
+<li>Different models can be used, but a subscription (and <code>API_KEY</code>) is required</li>
+<li>Github provides auto-complete in addition to chat</li>
+</ul>
+</section>
+<section id="positron-assistant-illustration" class="slide level2">
+<h2>Positron Assistant illustration</h2>
+<!--------------------------------------------------------- Discussion  ------------------------------------------->
+</section></section>
+<section>
+<section id="how-can-genai-be-used-to-improve-r-skills" class="title-slide slide level1 center">
+<h1>4. How can GenAI be used to improve R-skills?</h1>
+
+</section>
+<section id="advice-for-using-genai-to-improve-r-skills" class="slide level2">
+<h2>Advice for using GenAI to improve R skills</h2>
+<p>Ask to explain code with prompts like:</p>
+<blockquote>
+<p>You are an expert R coder and experienced data analyst and excellent at explaining code. Explain the following code chunk step by step. Explain what and why.</p>
+<p><r code=""></r></p>
+</blockquote>
+</section>
+<section id="for-learning-the-r-language" class="slide level2">
+<h2>For Learning the R-language</h2>
+<p>Ask feedback and improvements on your code.</p>
+<blockquote>
+<p>You are an expert R coder and experienced data analyst and excellent at explaining code. Improve the following code chunk and explain your improvements step by step.</p>
+<p><r code=""></r></p>
+</blockquote>
+</section>
+<section id="for-understanding-errors" class="slide level2">
+<h2>For understanding errors</h2>
+<p>Ask what could cause a specific error to pop up.</p>
+<blockquote>
+<p>You are an expert R coder and experienced data analyst and excellent at explaining code. Explain why the following error-message was returned using the code below.</p>
+<p>error message:</p>
+<p><r code=""></r></p>
+</blockquote>
+</section>
+<section id="for-writing-r-code" class="slide level2">
+<h2>For writing R-code</h2>
+<p>For visualizations. For preprocessing.</p>
+</section>
+<section id="for-rewriting-r-code" class="slide level2">
+<h2>For rewriting R-code</h2>
+<p>For instance you have used both tidyverse code and base code, and would like to limit the dependencies.</p>
+<blockquote>
+<p>Rewrite the following R-code. Only use base-R functionalities. Replace all functions from packages like dplyr and purrr to base-R functions</p>
+<p><r code=""></r></p>
+</blockquote>
+<p>Or when you want to translate python code to R code (or vice versa).</p>
+</section>
+<section id="dangers-1" class="slide level2">
+<h2>Dangers</h2>
+<ul>
+<li>Overreliance on LLMs
+<ul>
+<li>Not developing important programming meta-concepts</li>
+<li>Not developing important programming skills (e.g, debugging)</li>
+</ul></li>
+</ul>
+</section></section>
+<section>
+<section id="to-genai-or-not-to-genai" class="title-slide slide level1 center">
+<h1>5. To GenAI or not to GenAI</h1>
+
+</section>
+<section id="limitations-of-llms" class="slide level2">
+<h2>Limitations of LLMs</h2>
+<ul>
+<li>Confabulations/hallucinations (providing incorrect answers confidently, see https://github.com/lechmazur/confabulations)</li>
+<li>(Confabulations: LLM does not know, tries to produce an answer anyway https://www.tandfonline.com/doi/abs/10.1076/jhin.7.3.225.1855)</li>
+<li>(Hallucination: LLM produce wrong answers based on training data)</li>
+<li>dependence on training data (bad with new packages/frameworks)</li>
+<li>bias</li>
+</ul>
+</section>
+<section id="be-aware-of-confabulation" class="slide level2">
+<h2>Be aware of confabulation!</h2>
+<p>GenAI confabulates. You practically always get a response, even though it may not be correct. Without knowledge it is hard to know whether or not confabulation is present.</p>
+<p>Therefore, <strong>always make sure you can assess the correctness of the response</strong>.</p>
+<p>YES:</p>
+<ul>
+<li>rewrite my text</li>
+<li>write code for a figure</li>
+<li>interpret the estimates of a fitted model (if you would be able to do it)</li>
+</ul>
+</section>
+<section id="be-aware-of-confabulation-1" class="slide level2">
+<h2>Be aware of confabulation!</h2>
+<p>LLMs confabulate. You practically always get a response, even though it may not be correct. Without knowledge it is hard to know whether or not confabulation is present.</p>
+<p>Therefore, <strong>always be critical about the response</strong>.</p>
+<p>Approach an LLM as a very motivated, really nice, but rather untrustworthy co-worker/assistant/intern with ulterior motives.</p>
+</section>
+<section id="and-maybe" class="slide level2">
+<h2>And maybe …</h2>
+<p>Look at the available documentation first</p>
+<ul>
+<li>Many R-packages have great documentation (including vignettes)</li>
+</ul>
+<p>Ask Google first (with AI-mode turned off?).</p>
+<ul>
+<li>There have likely been persons with similar questions/problems (check stack overflow, reddit, …)</li>
+<li>There are many great tutorials that can be found by web searching</li>
+</ul>
+</section>
+<section id="risk-when-using-lmms" class="slide level2">
+<h2>Risk when using LMMs</h2>
+<ul>
+<li>Unreliability (cf.&nbsp;confabulation)</li>
+<li>Privacy and confidentiality. Typically, research data should not be uploaded!</li>
+<li>Affects competencies and competency acquisition.</li>
+<li>Social inequality.</li>
+</ul>
 </section>
 <section id="current-issues" class="slide level2">
 <h2>Current issues</h2>
@@ -588,12 +637,29 @@ Benjamin Becker &amp; Dries Debeer
 <section id="future-issues" class="slide level2">
 <h2>Future issues</h2>
 <ul>
-<li>LLMs are killing Stackoverflow and similar sites?</li>
+<li>Are LLMs killing Stackoverflow and similar sites?</li>
 <li>Can LLMs learn new languages/packages/frameworks?</li>
 <li>Technological dependence and monetization issues</li>
-<li>Soon to come: Enshitification stage</li>
+<li>Soon to come: <em>Enshitification</em> stage</li>
 </ul>
+</section>
+<section id="references" class="slide level2 smaller scrollable">
+<h2>References</h2>
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-bernstein2025beyond" class="csl-entry" role="listitem">
+Bernstein, Seth, Ashfin Rahman, Nadia Sharifi, Ariunjargal Terbish, and Stephen MacNeil. 2025. <span>“Beyond the Benefits: A Systematic Review of the Harms and Consequences of Generative AI in Computing Education.”</span> In <em>Proceedings of the 25th Koli Calling International Conference on Computing Education Research</em>, 1–18.
+</div>
+<div id="ref-lin2025facilitating" class="csl-entry" role="listitem">
+Lin, Yuru, Yi Zhang, Yuqin Yang, Shidan Pan, Xu Ren, and Dengkang Chen. 2025. <span>“Facilitating Computational Thinking with AI: A Three-Level Meta-Analytic Evidence for Future-Ready Learning.”</span> <em>Thinking Skills and Creativity</em>, 102070. <a href="https://doi.org/10.1016/j.tsc.2025.102070">https://doi.org/10.1016/j.tsc.2025.102070</a>.
+</div>
+<div id="ref-nathaniel2025investigating" class="csl-entry" role="listitem">
+Nathaniel, Jemimah, Solomon Sunday Oyelere, Jarkko Suhonen, and Matti Tedre. 2025. <span>“Investigating the Impact of Generative AI Integration on the Sustenance of Higher-Order Thinking Skills and Understanding of Programming Logic in Programming Education.”</span> <em>Computers and Education: Artificial Intelligence</em>, 100460. <a href="https://doi.org/10.1016/j.caeai.2025.100460">https://doi.org/10.1016/j.caeai.2025.100460</a>.
+</div>
+<div id="ref-vaswani2017attention" class="csl-entry" role="listitem">
+Vaswani, Ashish, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N Gomez, Łukasz Kaiser, and Illia Polosukhin. 2017. <span>“Attention Is All You Need.”</span> <em>Advances in Neural Information Processing Systems</em> 30.
+</div>
+</div>
 </section></section>
 
     </div>

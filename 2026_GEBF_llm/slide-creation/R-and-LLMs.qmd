@@ -5,8 +5,6 @@ format:
   revealjs:
     theme: night
     smaller: true
-    toc: true
-    toc-depth: 1
 editor: 
   markdown: 
     wrap: 80
@@ -33,8 +31,8 @@ bibliography: references.bib
 -   GenAI will not replace (data) scientists and programmers in the near
     future![^1]
 -   R skills may become even more important in the future
--   GenAI can be helpful R learning tools [@lin2025facilitating],[@nathaniel2025investigating]
--   GenAI can be harmful to R learners[@bernstein2025beyond]
+-   GenAI can be helpful R learning tools [@lin2025facilitating; @nathaniel2025investigating]
+-   GenAI can be harmful to R learners [@bernstein2025beyond]
 
 ## Our key message
 
@@ -72,7 +70,7 @@ conscious how you use GenAI for this purpose!
 -   Next word/token predictors
 
 -   Deep neural networks typically using *transformer* architecture 
-    ("Attention is all you need"[@vaswani2017attention])
+    ("Attention is all you need"; @vaswani2017attention)
 
 -   GPT = Genrative Pre-trained Transformers
 
@@ -145,7 +143,7 @@ conscious how you use GenAI for this purpose!
 
 -   OpenAI: GPT-4.1 (also Microsoft/github Copilot)
 
--   Anthorpic: Claude 3.5 Sonnet
+-   Anthrophic: Claude 3.5 Sonnet
 
 -   Alphabet/Google: Google Gemini 2.5
 
@@ -376,8 +374,9 @@ Some features:
 
 ## API use via `ellmer` 
 
-[Illustration}(https://github.com/beckerbenj/R_courses/blob/main/2026_GEBF_llm/using-ellmer.qmd)
+[Illustration](https://github.com/beckerbenj/R_courses/blob/main/2026_GEBF_llm/using-ellmer.qmd)
 
+private repo?
 
 
 ## GenAI via API
@@ -405,7 +404,7 @@ Other packages that may be useful:
 
 
 
-## Avicre for using GenAI to improve R skills
+## Advice for using GenAI to improve R skills
 
 Ask to explain code with prompts like:
 
@@ -525,11 +524,6 @@ Ask Google first (with AI-mode turned off?).
 -   There are many great tutorials that can be found by web searching
 
 
-
-<!--------------------------------------------------------- Bigger picture  ------------------------------------------->
-
-# Bigger Picture
-
 ## Risk when using LMMs
 
 -   Unreliability (cf. confabulation)
@@ -551,6 +545,9 @@ Ask Google first (with AI-mode turned off?).
 -   Can LLMs learn new languages/packages/frameworks?
 -   Technological dependence and monetization issues
 -   Soon to come: *Enshitification* stage
+
+## References
+
 
 [^1]: And if it does we have other problems than worthless R skills.
 
