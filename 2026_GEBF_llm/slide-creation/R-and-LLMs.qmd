@@ -30,14 +30,9 @@ bibliography: references.bib
 
 -   GenAI will not replace (data) scientists and programmers in the near
     future![^1]
--   R skills may become even more important in the future
--   GenAI can be helpful R learning tools [@lin2025facilitating; @nathaniel2025investigating]
--   GenAI can be harmful to R learners [@bernstein2025beyond]
-
-## Our key message
-
-It is very worthwhile acquiring actual R skills and you should be very
-conscious how you use GenAI for this purpose!
+-   R/programming skills may become even more important in the future[^2]
+-   GenAI can be helpful programming/R learning tool [@lin2025facilitating; @nathaniel2025investigating]
+-   GenAI can be harmful to programming/ R learners [@bernstein2025beyond]
 
 
 ## Who are we?
@@ -61,8 +56,8 @@ conscious how you use GenAI for this purpose!
 
 [Question 1-6]: #
 
-<!--------------------------------------------------------- Introduction  ------------------------------------------->
 
+<!--------------------------------------------------------- LLMs  ------------------------------------------->
 # 1. Large Language Models and Generative AI
 
 ## What are Large Language Models?
@@ -87,7 +82,7 @@ conscious how you use GenAI for this purpose!
     
     * Good for English, German, R 
     
-    * worse for specialist topics, rare languages
+    * worse for specialist topics, rare languages or packages
     
 -   knowledge cut-off date (differs per model/version)
 
@@ -151,7 +146,7 @@ conscious how you use GenAI for this purpose!
 
 -   DeepSeek-V3/R1
 
--   Mistral: Large 2.1 ()
+-   Mistral: Large 2.1
 
 -   ...
 
@@ -162,6 +157,8 @@ conscious how you use GenAI for this purpose!
 
 [Question 7-9]: #
 
+
+<!--------------------------------------------------------- LLMs and R  ------------------------------------------->
 # 2. How can GenAI be used for R-related work?
 
 ## Why relevant for R-work?
@@ -183,14 +180,14 @@ $\Rightarrow$ Ideal for training LLMs!
 
 GenAI is ...
 
--   impressively good writing code 
+-   impressively good at writing code 
 -   always available, never tired/annoyed
 -   can tailor towards all skills levels
 
 
 ## How can you use GenAI in your R work?
 
-Let GenAIs...
+Let GenAI...
 
 -   generate code
 -   explain concepts/ideas
@@ -201,20 +198,20 @@ Let GenAIs...
 
 ## Big But!
 
-But allways keep in min GenAI ...
+But always keep in mind GenAI ...
 
 -   does not know or understand (language model at heart)
 
--   Is probabilistic
+-   is probabilistic
 
--   Is uncritical
+-   is uncritical
 
--   (over)eager
+-   is (over)eager
 
 [understanding how Gen AI works is important to make proper use of it]: #
 
 
-## Prompt Engineering
+## Prompt Engineering [^3]
 
 | Component | Importance   |
 |-----------|--------------|
@@ -225,7 +222,8 @@ But allways keep in min GenAI ...
 | format    | nice-to-have |
 | tone      | nice-to-have |
 
-References: https://www.youtube.com/watch?v=jC4v5AS4RIM
+
+## Prompt engineering
 
 https://docs.cloud.google.com/vertex-ai/generative-ai/docs/learn/prompts/introduction-prompt-design
 
@@ -234,53 +232,11 @@ https://www.onlinebrandambassadors.com/stable/Google-Prompt-Engineering-Boonstra
 https://aclanthology.org/2024.findings-acl.21.pdf
 
 
-## Hallucinations
-
-![](figures/confab_car_wash.png)
-
-## Confabulations
-
-![](figures/confab_eatrep1.png)
-
-## Confabulations
-
-![](figures/confab_eatrep2.png)
-
-![](figures/confab_eatrep3.png)
-
-
-## Specific challenges for scientific data anylsis
-
--   Output-oriented tasks (e.g., build a website)
--   Process-oriented tasks (e.g., run appropriate statistical analysis)
-
-## Dangers
-
--   Doing the wrong things in your work
--   LLM rabbit holes ("continuous solution refinement")
-
-
 ## Advice for using GenAI for R-related work
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<!--------------------------------------------------------- Technical Implementation  ------------------------------------------->
 # 3. How can GenAI be used from R/RStudio/Positron?
 
 ## What is RStudio?
@@ -397,11 +353,11 @@ Other packages that may be useful:
 
 ## Positron Assistant illustration
 
-<!--------------------------------------------------------- Discussion  ------------------------------------------->
 
 
+
+<!--------------------------------------------------------- Learning with LLMs  ------------------------------------------->
 # 4. How can GenAI be used to improve R-skills?
-
 
 
 ## Advice for using GenAI to improve R skills
@@ -454,34 +410,24 @@ Or when you want to translate python code to R code (or vice versa).
 
 
 
-## Dangers
--   Overreliance on LLMs
-    -   Not developing important programming meta-concepts
-    -   Not developing important programming skills (e.g, debugging)
-    
 
-
-
+<!--------------------------------------------------------- Discussion  ------------------------------------------->
 # 5. To GenAI or not to GenAI
+
 
 ## Limitations of LLMs
 
--   Confabulations/hallucinations (providing incorrect answers
+-   Hallucinations (providing incorrect answers
     confidently, see https://github.com/lechmazur/confabulations)
--   (Confabulations: LLM does not know, tries to produce an answer
-    anyway
-    https://www.tandfonline.com/doi/abs/10.1076/jhin.7.3.225.1855)
--   (Hallucination: LLM produce wrong answers based on training data)
--   dependence on training data (bad with new packages/frameworks)
--   bias
+-   Confabulations: Incorrect interpolations [@Berrios01121998]
+-   Hallucination: LLM produce wrong answers based on training data
+-   Dependence on training data (bad with new packages/frameworks)
+-   Bias
 
 
+## Hallucinations
 
-
-
-
- 
-
+![Table from @huang](figures/hallucination_cats.png){height=500}
 
 
 ## Be aware of confabulation!
@@ -511,6 +457,21 @@ Therefore, **always be critical about the response**.
 Approach an LLM as a very motivated, really nice, but rather
 untrustworthy co-worker/assistant/intern with ulterior motives.
 
+## Hallucinations
+
+![](figures/confab_car_wash.png)
+
+## Confabulations
+
+![](figures/confab_eatrep1.png)
+
+## Confabulations
+
+![](figures/confab_eatrep2.png)
+
+![](figures/confab_eatrep3.png)
+
+
 ## And maybe ...
 
 Look at the available documentation first
@@ -526,13 +487,24 @@ Ask Google first (with AI-mode turned off?).
 
 ## Risk when using LMMs
 
--   Unreliability (cf. confabulation)
+-   Unreliability (cf. confabulations, hallucinations)
+
+    - output vs. process oriented tasks
+  
+-   LLM rabbit holes ("continuous solution refinement")
+
+-   Affects competencies and competency acquisition, for example
+
+    - debugging skills
+    - meta-programming concepts
+
 -   Privacy and confidentiality. Typically, research data should not be
     uploaded!
--   Affects competencies and competency acquisition.
--   Social inequality.
 
-## Current issues
+-   Social inequality
+
+
+## Further issues
 
 -   Ecological consequences of LLM usage: [eco impact
     calculator](https://huggingface.co/spaces/genai-impact/ecologits-calculator)
@@ -543,13 +515,17 @@ Ask Google first (with AI-mode turned off?).
 
 -   Are LLMs killing Stackoverflow and similar sites?
 -   Can LLMs learn new languages/packages/frameworks?
--   Technological dependence and monetization issues
--   Soon to come: *Enshitification* stage
+-   Technological dependence 
+-   Soon to come: *Enshitification* and monetization stage
 
 ## References
 
 
 [^1]: And if it does we have other problems than worthless R skills.
+
+[^2]: Jevons paradox (<https://en.wikipedia.org/wiki/Jevons_paradox>)
+
+[^3]: References: <https://www.youtube.com/watch?v=jC4v5AS4RIM>
 
 [^5]: R is not always consistent nor logical
 
