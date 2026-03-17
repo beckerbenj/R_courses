@@ -191,6 +191,14 @@ Benjamin Becker &amp; Dries Debeer
 <li>GenAI can be harmful to programming/R learners <span class="citation" data-cites="bernstein2025beyond">(<a href="#/references" role="doc-biblioref" onclick="">Bernstein et al. 2025</a>)</span></li>
 </ul>
 <aside><ol class="aside-footnotes"><li id="fn1"><p>Pareto Principle (<a href="https://en.wikipedia.org/wiki/Pareto_principle" class="uri">https://en.wikipedia.org/wiki/Pareto_principle</a>); and if it does we have other problems than worthless R skills.</p></li><li id="fn2"><p>Jevons paradox (<a href="https://en.wikipedia.org/wiki/Jevons_paradox" class="uri">https://en.wikipedia.org/wiki/Jevons_paradox</a>)</p></li></ol></aside></section>
+<section id="our-controversial-claims-1" class="slide level2">
+<h2>Our (controversial?) claims</h2>
+
+<img data-src="figures/xkcd_singularity.png" class="r-stretch quarto-figure-center"><p class="caption">xkcd; <a href="https://www.explainxkcd.com/wiki/index.php/1668:_Singularity" class="uri">https://www.explainxkcd.com/wiki/index.php/1668:_Singularity</a></p></section>
+<section id="our-controversial-claims-2" class="slide level2">
+<h2>Our (controversial?) claims</h2>
+
+<img data-src="figures/no_wheels.jpg" class="r-stretch quarto-figure-center"><p class="caption"><a href="https://www.game-changer.net/2016/07/28/why-people-resist-new-technologies/" class="uri">https://www.game-changer.net/2016/07/28/why-people-resist-new-technologies/</a></p></section>
 <section id="who-are-we" class="slide level2">
 <h2>Who are we?</h2>
 <ul>
@@ -509,6 +517,10 @@ Benjamin Becker &amp; Dries Debeer
 <h2>Thought experiment II</h2>
 <p>Now imagine that R teacher is only partially an expert, frequently gets things wrong and would not be able to land an actual job with their skill set.</p>
 </section>
+<section id="analogy" class="slide level2">
+<h2>Analogy</h2>
+<p>How should automated driving be used in driving education?</p>
+</section>
 <section id="advice-for-using-genai-to-improve-r-skills" class="slide level2">
 <h2>Advice for using GenAI to improve R skills</h2>
 <p>Ask to explain code with prompts like:</p>
@@ -570,6 +582,7 @@ Benjamin Becker &amp; Dries Debeer
 </ul></li>
 <li><p>Hallucinations (providing incorrect answers confidently)</p></li>
 <li><p>Confabulations <span class="citation" data-cites="Berrios01121998">(<a href="#/references" role="doc-biblioref" onclick="">Berrios 1998</a>)</span></p></li>
+<li><p>Rarely question the question</p></li>
 </ul>
 </section>
 <section id="hallucinations" class="slide level2">
@@ -632,12 +645,16 @@ Benjamin Becker &amp; Dries Debeer
 </ul></li>
 <li><p>Gell-Mann amnesia effect <span class="citation" data-cites="kilov2021brittleness">(<a href="#/references" role="doc-biblioref" onclick="">Kilov 2021</a>)</span></p></li>
 <li><p>LLM rabbit holes (“continuous solution refinement”)</p></li>
-<li><p>Affects competencies and competency acquisition, for example</p>
+<li><p>Affects knowledge and competency acquisition <span class="citation" data-cites="bernstein2025beyond">(<a href="#/references" role="doc-biblioref" onclick="">Bernstein et al. 2025</a>)</span>, for example</p>
 <ul>
-<li>debugging skills</li>
+<li>critical thinking</li>
 <li>meta-programming concepts</li>
+<li>debugging skills</li>
 </ul></li>
-<li><p>Privacy and confidentiality. Typically, research data should not be uploaded!</p></li>
+</ul>
+<!--  prompt-and-accept -->
+<ul>
+<li>Privacy and confidentiality. Typically, research data should not be uploaded!</li>
 </ul>
 </section>
 <section id="further-issues" class="slide level2">
@@ -666,7 +683,7 @@ Benjamin Becker &amp; Dries Debeer
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-bernstein2025beyond" class="csl-entry" role="listitem">
-Bernstein, Seth, Ashfin Rahman, Nadia Sharifi, Ariunjargal Terbish, and Stephen MacNeil. 2025. <span>“Beyond the Benefits: A Systematic Review of the Harms and Consequences of Generative AI in Computing Education.”</span> In <em>Proceedings of the 25th Koli Calling International Conference on Computing Education Research</em>, 1–18.
+Bernstein, Seth, Ashfin Rahman, Nadia Sharifi, Ariunjargal Terbish, and Stephen MacNeil. 2025. <span>“Beyond the Benefits: A Systematic Review of the Harms and Consequences of Generative AI in Computing Education.”</span> In <em>Proceedings of the 25th Koli Calling International Conference on Computing Education Research</em>, 1–18. <a href="https://doi.org/10.1145/3769994.3770036">https://doi.org/10.1145/3769994.3770036</a>.
 </div>
 <div id="ref-Berrios01121998" class="csl-entry" role="listitem">
 Berrios, German E. 1998. <span>“Confabulations: A Conceptual History.”</span> <em>Journal of the History of the Neurosciences</em> 7 (3): 225–41. <a href="https://doi.org/10.1076/jhin.7.3.225.1855">https://doi.org/10.1076/jhin.7.3.225.1855</a>.
@@ -681,7 +698,7 @@ Kilov, Daniel. 2021. <span>“The Brittleness of Expertise and Why It Matters.�
 Lin, Yuru, Yi Zhang, Yuqin Yang, Shidan Pan, Xu Ren, and Dengkang Chen. 2025. <span>“Facilitating Computational Thinking with AI: A Three-Level Meta-Analytic Evidence for Future-Ready Learning.”</span> <em>Thinking Skills and Creativity</em>, 102070. <a href="https://doi.org/10.1016/j.tsc.2025.102070">https://doi.org/10.1016/j.tsc.2025.102070</a>.
 </div>
 <div id="ref-nathaniel2025investigating" class="csl-entry" role="listitem">
-Nathaniel, Jemimah, Solomon Sunday Oyelere, Jarkko Suhonen, and Matti Tedre. 2025. <span>“Investigating the Impact of Generative AI Integration on the Sustenance of Higher-Order Thinking Skills and Understanding of Programming Logic in Programming Education.”</span> <em>Computers and Education: Artificial Intelligence</em>, 100460. <a href="https://doi.org/10.1016/j.caeai.2025.100460">https://doi.org/10.1016/j.caeai.2025.100460</a>.
+Nathaniel, Jemimah, Solomon Sunday Oyelere, Jarkko Suhonen, and Matti Tedre. 2025. <span>“Investigating the Impact of Generative AI Integration on the Sustenance of Higher-Order Thinking Skills and Understanding of Programming Logic in Programming Education.”</span> <em>Computers and Education: Artificial Intelligence</em>, 100460. <a href="https://www.sciencedirect.com/science/article/pii/S2666920X25001006">https://www.sciencedirect.com/science/article/pii/S2666920X25001006</a>.
 </div>
 <div id="ref-vaswani2017attention" class="csl-entry" role="listitem">
 Vaswani, Ashish, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N Gomez, Łukasz Kaiser, and Illia Polosukhin. 2017. <span>“Attention Is All You Need.”</span> <em>Advances in Neural Information Processing Systems</em> 30.

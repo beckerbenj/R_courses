@@ -35,6 +35,16 @@ bibliography: references.bib
 -   GenAI can be harmful to programming/R learners [@bernstein2025beyond]
 
 
+## Our (controversial?) claims
+
+![xkcd; <https://www.explainxkcd.com/wiki/index.php/1668:_Singularity>](figures/xkcd_singularity.png)
+
+## Our (controversial?) claims
+
+![<https://www.game-changer.net/2016/07/28/why-people-resist-new-technologies/>](figures/no_wheels.jpg)
+
+
+
 ## Who are we?
 
 -   Dries Debeer
@@ -373,6 +383,9 @@ Imagine you had an expert R teacher at home, always at your service. How would y
 
 Now imagine that R teacher is only partially an expert, frequently gets things wrong and would not be able to land an actual job with their skill set.
 
+## Analogy
+
+How should automated driving be used in driving education? 
 
 
 ## Advice for using GenAI to improve R skills
@@ -449,6 +462,8 @@ Or when you want to translate python code to R code (or vice versa).
 
 -   Confabulations [@Berrios01121998]
 
+- Rarely question the question
+
 
 
 
@@ -522,10 +537,13 @@ Ask Google first (with AI-mode turned off?).
 
 -   LLM rabbit holes ("continuous solution refinement")
 
--   Affects competencies and competency acquisition, for example
+-   Affects knowledge and competency acquisition [@bernstein2025beyond], for example
 
-    - debugging skills
+    - critical thinking
     - meta-programming concepts
+    - debugging skills
+
+<!--  prompt-and-accept -->
 
 -   Privacy and confidentiality. Typically, research data should not be
     uploaded!
