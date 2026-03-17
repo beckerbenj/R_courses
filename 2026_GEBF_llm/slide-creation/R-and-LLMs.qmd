@@ -5,25 +5,26 @@ format:
   revealjs:
     theme: night
     smaller: true
+    incremental: true   
 editor: 
   markdown: 
     wrap: 80
 bibliography: references.bib
 ---
 
-<!--------------------------------------------------------- Short Intro  ------------------------------------------->
+
 
 ## What is covered in this workshop
 
--   1. What is GenAI?
+1. What is GenAI?
 
--   2. How can GenAI be used for R-related work?
+2. How can GenAI be used for R-related work?
 
--   3. How can GenAI be used from R/RStudio/Positron?
+3. How can GenAI be used from R/RStudio/Positron?
 
--   4. How can GenAI be used to improve R-skills?
+4. To GenAI or not to GenAI?
 
--   5. To GenAI or not to GenAI?
+5. How can GenAI be used to improve R-skills?
 
 
 ## Our (controversial?) claims
@@ -47,18 +48,30 @@ bibliography: references.bib
 
 ## Who are we?
 
+. . .
+
+::: {.nonincremental}
+
 -   Dries Debeer
     -   Ghent University - Department of Experimental Psychology
     -   Psychological Researcher (former statistical consultant)
     -   R programmer & teacher
     -   javascript beginner
+
+:::
+
+. . .
+
+::: {.nonincremental}
     
 -   Benjamin Becker
     -   Institute for Educational Quality Improvement (IQB)
     -   Psychometrician
     -   R programmer & teacher
     -   Recent Python/Django beginner
-    
+
+:::
+
     
 # Before we start - Wooclap
 
@@ -67,7 +80,7 @@ bibliography: references.bib
 [Question 1-6]: #
 
 
-<!--------------------------------------------------------- LLMs  ------------------------------------------->
+
 # 1. Large Language Models and Generative AI
 
 ## What are Large Language Models?
@@ -77,7 +90,7 @@ bibliography: references.bib
 -   Deep neural networks typically using *transformer* architecture 
     ("Attention is all you need"; @vaswani2017attention)
 
--   GPT = Genrative Pre-trained Transformers
+-   GPT = Generative Pre-trained Transformers
 
 -   language models
 
@@ -110,7 +123,6 @@ bibliography: references.bib
 
 ## What are Generative AI models
 
-
 -   Large Language Models as basis
 
 -   Prompt-response agents, trained using Reinforcement Learning
@@ -129,7 +141,6 @@ bibliography: references.bib
 
 ## What are Generative AI models
 
-
 -   Language models at core, NOT knowledge models, no world model
 
 -   Reasoning models BUT completely language based
@@ -140,8 +151,6 @@ bibliography: references.bib
 
 -   Importance of prompt (engineering) 
 
-
-    
 
 
 ## Generative AI models (for R coding)
@@ -168,7 +177,7 @@ bibliography: references.bib
 [Question 7-9]: #
 
 
-<!--------------------------------------------------------- LLMs and R  ------------------------------------------->
+
 # 2. How can GenAI be used for R-related work?
 
 ## Why relevant for R-work?
@@ -182,6 +191,8 @@ R is ...
     -   clear and logical syntax[^5]
     -   lot's of code available online (CRAN, github, ...)
 
+. . . 
+
 $\Rightarrow$ Ideal for training LLMs!
 
 
@@ -191,7 +202,9 @@ $\Rightarrow$ Ideal for training LLMs!
 GenAI is ...
 
 -   impressively good at writing code 
+
 -   always available, never tired/annoyed
+
 -   can tailor towards all skills levels
 
 
@@ -200,10 +213,19 @@ GenAI is ...
 Let GenAI...
 
 -   generate code
+
 -   explain concepts/ideas
+
 -   point to documentation/learning materials
+
 -   review code
+
 -   explain existing code
+
+
+## Big But!
+
+![Source: <https://www.shutterstock.com/shutterstock/videos/3194434/thumb/1.jpg?ip=x480>](https://www.shutterstock.com/shutterstock/videos/3194434/thumb/1.jpg?ip=x480)
 
 
 ## Big But!
@@ -222,6 +244,113 @@ But always keep in mind GenAI ...
 
 
 ## Prompt Engineering [^3]
+
+| Component | Description   |
+|-----------|--------------|
+| task      | what should GenAI do?  |
+| context   | what background information is relevant for the task?    |
+| exemplar  | What are good examples for task-solution pairs?   |
+| persona   | As whom should GenAI respond? |
+| format    | In what format should the response be given? |
+| tone      | What should be the tone or style of the response? |
+
+
+## Prompt Engineering
+
+> You are an expert R-data scientist. (**persona**)
+>
+>  Write an R-function that splits character-strings into three parts. (**task**)
+> 
+> When the input is c("ffe-2026_grod", "lul_2001 spc", "cas-1994-upek") the 
+  function should return a data.frame with as columns: 
+>
+>   type = c("ffe", "lul", "cas"),
+> 
+>   year = c(2026, 2001, 1994), 
+> 
+>   reference = c("grod", "spc", "upek"). (**exemplar**)
+> 
+> Use base R only and add comments to the code (**format**)
+  
+
+## Promt Engineering
+
+```{r}
+#| echo: true
+# Split character strings into (type, year, reference)
+# - Accepts separators between parts as hyphen (-), underscore (_), or space ( )
+# - Expects a 4-digit year in the middle
+# - Returns a data.frame with columns: 
+#     type (character), 
+#     year (integer), 
+#     reference (character)
+split_three <- function(x) {
+  stopifnot(is.character(x))
+  
+  # Regular expression:
+  # ^                : start of string
+  # ([A-Za-z]+)      : 1st capture group for 'type' (letters)
+  # [-_ ]+           : one or more separators (-, _, or space)
+  # (\\d{4})         : 2nd capture group for 'year' (exactly 4 digits)
+  # [-_ ]+           : one or more separators again
+  # ([A-Za-z]+)      : 3rd capture group for 'reference' (letters)
+  # $                : end of string
+  #
+  # This is intentionally strict to avoid accidental partial matches.
+  # If you want to be more permissive (e.g., allow digits in reference), 
+  #  adjust [A-Za-z]+.
+  rx <- "^([A-Za-z]+)[-_ ]+(\\d{4})[-_ ]+([A-Za-z]+)$"
+  
+  # Use regexec/regmatches to extract groups for each element of x
+  m <- regexec(rx, x)
+  parts <- regmatches(x, m)
+  
+  # Identify which inputs matched (a successful match yields a 
+  #  character vector of length 4:
+  # full match + 3 capture groups)
+  ok <- lengths(parts) == 4
+  
+  # Initialize result vectors
+  type <- character(length(x))
+  year <- integer(length(x))
+  reference <-  character(length(x))
+  
+  # Fill in matched rows
+  if (any(ok)) {
+    type[ok]      <- vapply(parts[ok], `[[`, character(1), 2)
+    year[ok]      <- as.integer(vapply(parts[ok], `[[`, character(1), 3))
+    reference[ok] <- vapply(parts[ok], `[[`, character(1), 4)
+  }
+  
+  # Optionally, warn about non-matching inputs (kept as NA rows)
+  if (any(!ok)) {
+    warning(sprintf(
+      "Some inputs did not match the expected pattern and were set to NA: %s",
+      paste0(which(!ok), collapse = ", ")
+    ))
+  }
+  
+  # Assemble the data.frame
+  data.frame(
+    type = type,
+    year = year,
+    reference = reference,
+    stringsAsFactors = FALSE
+  )
+}
+```
+
+
+## Prompt Engineering 
+
+```{r}
+#| echo: true
+# Test the function
+split_three(c("ffe-2026_grod", "lul_2001 spc", "cas-1994-upek", 
+              "gerw 1941-pi", "tesso_2012_ple"))
+```
+
+## Prompt Engineering 
 
 | Component | Importance   |
 |-----------|--------------|
@@ -247,14 +376,58 @@ White paper (Boonstra, 2025):
 
 
 
-## Advice for using GenAI for R-related work
 
-
-
-<!--------------------------------------------------------- Technical Implementation  ------------------------------------------->
 # 3. How can GenAI be used from R/RStudio/Positron?
 
-## What is RStudio?
+
+## Interacting with GenAI
+
+-   local (olama) vs via cloud (gemini)
+
+-   Interactive chatbots (chatGPT) vs API
+
+-   Chat (chatGPT) vs auto-complete (github Copilot)
+
+
+##  GenAI via interactive chat
+
+-   a chatbot (like chatGPT, Microsoft Copilot, Claude, ...)
+
+-   via a website or app (with log in)
+
+-   with a memory (of the current conversation = *stateful*)
+
+-   with a memory of previous conversations
+
+-   $\Rightarrow$ with server space for conversations, files, ...
+
+-   payment via monthly subscriptions (and free versions)
+
+
+## Generative AI via interactive chat
+
+-   [Claude](https://claude.ai/login)
+
+-   [ChatGPT](https://chatgpt.com/)
+
+-   [Microsoft Copilot](https://copilot.microsoft.com/)
+
+
+## Generative AI via API
+
+-   direct access via Application Programming Interface (API) to 
+
+-   API differs between GenAI providers
+
+-   payment per million tokens (some free versions)
+
+    [pricing](https://pricepertoken.com/leaderboards/coding)
+    
+-   without built-in memory (*stateless*)
+
+
+
+## Generative AI via API 
 
 Rstudio is an Integrated Development Environment (IDE) that focuses on R
 
@@ -265,47 +438,12 @@ RStudio allows integration of:
 -   **GenAI**
 -   ...
 
+. . . 
+
 Other IDEs with R-support (and GenAI integration):
 
 -   VSCode
 -   Positron
-
-
-## Interacting with GenAI
-
--   local (olama) vs via cloud (gemini)
-
--   Chat (chatGPT) vs auto-complete (github Copilot)
-
--   Interactive chat vs API
-
-
-##  GenAI via interactive chat
-
--   a chatbot (like chatGPT, Microsoft Copilot, Claude, ...)
--   via a website or app (with log in)
--   with a memory (of the current conversation = *stateful*)
--   with a memory of previous conversations
--   $\Rightarrow$ with server space for conversations, files, ...
--   payment via monthly subscriptions (and free versions)
-
-
-## Generative AI via API use
-
--   direct access via Application Programming Interface (API) to 
--   API differs between GenAIproviders
--   payment per million tokens (some free versions)
-    [pricing](https://pricepertoken.com/leaderboards/coding)
--   without built-in memory (*stateless*)
-
-
-## Generative AI via interactive chat
-
--   [Claude](https://claude.ai/login)
--   [ChatGPT](https://chatgpt.com/)
--   [Microsoft Copilot](https://copilot.microsoft.com/)
-
-
 
 
 ## Generative AI via API
@@ -356,6 +494,7 @@ Other packages that may be useful:
 
 -   [ragnar](https://ragnar.tidyverse.org/): for implementing
     Retrieval-Augmented Generation (RAG[^6]) workflows
+    
 -   [mcptools](https://posit-dev.github.io/mcptools/): for allowing GenAI
     to access your files and data and execute
     
@@ -364,91 +503,16 @@ Other packages that may be useful:
 
 -   Different models can be used, but a subscription (and `API_KEY`) is
     required
+    
 -   Github provides auto-complete in addition to chat
+
 
 ## Positron Assistant illustration
 
 
 
 
-<!--------------------------------------------------------- Learning with LLMs  ------------------------------------------->
-# 4. How can GenAI be used to improve R-skills?
-
-
-## Thought experiment
-
-Imagine you had an expert R teacher at home, always at your service. How would you utilize them?
-
-## Thought experiment II
-
-Now imagine that R teacher is only partially an expert, frequently gets things wrong and would not be able to land an actual job with their skill set.
-
-## Analogy
-
-How should automated driving be used in driving education? 
-
-
-## Advice for using GenAI to improve R skills
-
-Ask to explain code with prompts like:
-
-> You are an expert R coder and experienced data analyst and excellent
-> at explaining code. Explain the following code chunk step by step.
-> Explain what and why.
->
-> <R code>
-
-## For Learning the R-language
-
-Ask feedback and improvements on your code.
-
-> You are an expert R coder and experienced data analyst and excellent
-> at explaining code. Improve the following code chunk and explain your
-> improvements step by step.
->
-> <R code>
-
-## For Learning the R-language
-
-Ask for sources (code documentation, tutorials).
-
-> You are an expert R coder and experienced data analyst and excellent
-> at explaining code. Please provide me with sources on what you just explained.
-
-
-## For understanding errors
-
-Ask what could cause a specific error to pop up.
-
-> You are an expert R coder and experienced data analyst and excellent
-> at explaining code. Explain why the following error-message was
-> returned using the code below.
->
-> error message:
->
-> <R code>
-
-## For writing R-code
-
-For visualizations. For preprocessing.
-
-## For rewriting R-code
-
-For instance you have used both tidyverse code and base code, and would
-like to limit the dependencies.
-
-> Rewrite the following R-code. Only use base-R functionalities. Replace
-> all functions from packages like dplyr and purrr to base-R functions
->
-> <R code>
-
-Or when you want to translate python code to R code (or vice versa).
-
-
-
-
-<!--------------------------------------------------------- Discussion  ------------------------------------------->
-# 5. To GenAI or not to GenAI
+# 4. To GenAI or not to GenAI
 
 
 ## Limitations of LLMs
@@ -462,8 +526,7 @@ Or when you want to translate python code to R code (or vice versa).
 
 -   Confabulations [@Berrios01121998]
 
-- Rarely question the question
-
+-   Rarely question the question
 
 
 
@@ -478,8 +541,7 @@ GenAI confabulates. You practically always get a response, even though it
 may not be correct. Without knowledge it is hard to know whether or not
 confabulation is present.
 
-Therefore, **always make sure you can assess the correctness of the
-response**.
+Therefore, **always make sure you can assess the correctness of the response**.
 
 YES:
 
@@ -488,15 +550,16 @@ YES:
 -   interpret the estimates of a fitted model (if you would be able to
     do it)
 
+
 ## Be aware of confabulation!
 
-LLMs confabulate. You practically always get a response, even though it
+GenAI confabulates. You practically always get a response, even though it
 may not be correct. Without knowledge it is hard to know whether or not
 confabulation is present.
 
 Therefore, **always be critical about the response**.
 
-Approach an LLM as a very motivated, really nice, but rather
+Approach genAI as a very motivated, really nice, but rather
 untrustworthy co-worker/assistant/intern with ulterior motives.
 
 ## Hallucinations
@@ -527,7 +590,7 @@ Ask Google first (with AI-mode turned off?).
 -   There are many great tutorials that can be found by web searching
 
 
-## Risk when using LMMs
+## Risk when using GenAI
 
 -   Unreliability (cf. confabulations, hallucinations)
 
@@ -535,7 +598,7 @@ Ask Google first (with AI-mode turned off?).
   
 -   Gell-Mann amnesia effect [@kilov2021brittleness]
 
--   LLM rabbit holes ("continuous solution refinement")
+-   GenAI rabbit holes ("continuous solution refinement")
 
 -   Affects knowledge and competency acquisition [@bernstein2025beyond], for example
 
@@ -545,26 +608,125 @@ Ask Google first (with AI-mode turned off?).
 
 <!--  prompt-and-accept -->
 
--   Privacy and confidentiality. Typically, research data should not be
-    uploaded!
+-   
 
 
 
 ## Further issues
 
--   Ecological consequences of LLM usage: [eco impact
+-   Ecological consequences of GenAI usage: [eco impact
     calculator](https://huggingface.co/spaces/genai-impact/ecologits-calculator)
--   Ethical issues: Reporting LLM usage in your research (research
-    ethics, ...)
--   Social inequality
+    
+-   Privacy and confidentiality. Typically, research data should not be
+    uploaded!
+    
+-   Ethical issues: 
+
+      - Reporting GenAI usage in your research (research ethics, ...)
+      
+      - Social inequality
 
 
 ## Future issues
 
--   Are LLMs killing Stackoverflow and similar sites?
--   Can LLMs learn new languages/packages/frameworks?
+-   Is GenAI killing Stackoverflow and similar sites?
+
+-   Can GenAI learn new languages/packages/frameworks?
+
 -   Technological dependence 
+
 -   Soon to come: *Enshitification* and monetization stage
+
+
+# 5. How can GenAI be used to improve R-skills?
+
+
+## Thought experiment
+
+Imagine you had an expert R teacher at home, always at your service. How would you utilize them?
+
+
+## Thought experiment II
+
+Now imagine that R teacher is only partially an expert, frequently gets things wrong and would not be able to land an actual job with their skill set.
+
+
+## Analogy
+
+How should automated driving be used in driving education? 
+
+
+## Advice for using GenAI to improve R skills
+
+Ask to explain code with prompts like:
+
+> You are an expert R coder and experienced data analyst and excellent
+> at explaining code. Explain the following code chunk step by step.
+> Explain what and why.
+>
+> <R code>
+
+
+## For Learning the R-language
+
+Ask feedback and improvements on your code.
+
+> You are an expert R coder and experienced data analyst and excellent
+> at explaining code. Improve the following code chunk and explain your
+> improvements step by step.
+>
+> <R code>
+
+
+## For Learning the R-language
+
+Ask for sources (code documentation, tutorials).
+
+> You are an expert R coder and experienced data analyst and excellent
+> at explaining code. Please provide me with sources on what you just explained.
+
+
+## For understanding errors
+
+Ask what could cause a specific error to pop up.
+
+> You are an expert R coder and experienced data analyst and excellent
+> at explaining code. Explain why the following error-message was
+> returned using the code below.
+>
+> error message:
+>
+> <R code>
+
+
+## For writing R-code
+
+For visualizations. For preprocessing.
+
+
+## For rewriting R-code
+
+For instance you have used both tidyverse code and base code, and would
+like to limit the dependencies.
+
+> Rewrite the following R-code. Only use base-R functionalities. Replace
+> all functions from packages like dplyr and purrr to base-R functions
+>
+> <R code>
+
+Or when you want to translate python code to R code (or vice versa).
+
+
+## Bet most importantly
+
+No pain no gain. 
+
+- invest time
+
+- experimenter mindset
+
+- 
+
 
 
 ## Thank you for your attention!
