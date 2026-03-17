@@ -188,9 +188,9 @@ Benjamin Becker &amp; Dries Debeer
 <li>GenAI will not replace (data) scientists and programmers in the near future!<sup>1</sup></li>
 <li>R/programming skills may become even more important in the future<sup>2</sup></li>
 <li>GenAI can be helpful programming/R learning tool <span class="citation" data-cites="lin2025facilitating nathaniel2025investigating">(<a href="#/references" role="doc-biblioref" onclick="">Lin et al. 2025</a>; <a href="#/references" role="doc-biblioref" onclick="">Nathaniel et al. 2025</a>)</span></li>
-<li>GenAI can be harmful to programming/ R learners <span class="citation" data-cites="bernstein2025beyond">(<a href="#/references" role="doc-biblioref" onclick="">Bernstein et al. 2025</a>)</span></li>
+<li>GenAI can be harmful to programming/R learners <span class="citation" data-cites="bernstein2025beyond">(<a href="#/references" role="doc-biblioref" onclick="">Bernstein et al. 2025</a>)</span></li>
 </ul>
-<aside><ol class="aside-footnotes"><li id="fn1"><p>And if it does we have other problems than worthless R skills.</p></li><li id="fn2"><p>Jevons paradox (<a href="https://en.wikipedia.org/wiki/Jevons_paradox" class="uri">https://en.wikipedia.org/wiki/Jevons_paradox</a>)</p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn1"><p>Pareto Principle (<a href="https://en.wikipedia.org/wiki/Pareto_principle" class="uri">https://en.wikipedia.org/wiki/Pareto_principle</a>); and if it does we have other problems than worthless R skills.</p></li><li id="fn2"><p>Jevons paradox (<a href="https://en.wikipedia.org/wiki/Jevons_paradox" class="uri">https://en.wikipedia.org/wiki/Jevons_paradox</a>)</p></li></ol></aside></section>
 <section id="who-are-we" class="slide level2">
 <h2>Who are we?</h2>
 <ul>
@@ -198,14 +198,14 @@ Benjamin Becker &amp; Dries Debeer
 <ul>
 <li>Ghent University - Department of Experimental Psychology</li>
 <li>Psychological Researcher (former statistical consultant)</li>
-<li>R programmer</li>
+<li>R programmer &amp; teacher</li>
 <li>javascript beginner</li>
 </ul></li>
 <li>Benjamin Becker
 <ul>
 <li>Institute for Educational Quality Improvement (IQB)</li>
 <li>Psychometrician</li>
-<li>R programmer</li>
+<li>R programmer &amp; teacher</li>
 <li>Recent Python/Django beginner</li>
 </ul></li>
 </ul>
@@ -381,9 +381,11 @@ Benjamin Becker &amp; Dries Debeer
 <aside><ol class="aside-footnotes"><li id="fn4"><p>References: <a href="https://www.youtube.com/watch?v=jC4v5AS4RIM" class="uri">https://www.youtube.com/watch?v=jC4v5AS4RIM</a></p></li></ol></aside></section>
 <section id="prompt-engineering" class="slide level2">
 <h2>Prompt engineering</h2>
-<p>https://docs.cloud.google.com/vertex-ai/generative-ai/docs/learn/prompts/introduction-prompt-design</p>
-<p>https://www.onlinebrandambassadors.com/stable/Google-Prompt-Engineering-Boonstra.pdf</p>
-<p>https://aclanthology.org/2024.findings-acl.21.pdf</p>
+<p>Google guide:</p>
+<p><a href="https://docs.cloud.google.com/vertex-ai/generative-ai/docs/learn/prompts/introduction-prompt-design" class="uri">https://docs.cloud.google.com/vertex-ai/generative-ai/docs/learn/prompts/introduction-prompt-design</a></p>
+<p>White paper (Boonstra, 2025):</p>
+<p><a href="https://www.onlinebrandambassadors.com/stable/Google-Prompt-Engineering-Boonstra.pdf" class="uri">https://www.onlinebrandambassadors.com/stable/Google-Prompt-Engineering-Boonstra.pdf</a></p>
+<!---- <https://aclanthology.org/2024.findings-acl.21.pdf>  ----->
 </section>
 <section id="advice-for-using-genai-for-r-related-work" class="slide level2">
 <h2>Advice for using GenAI for R-related work</h2>
@@ -499,6 +501,14 @@ Benjamin Becker &amp; Dries Debeer
 <h1>4. How can GenAI be used to improve R-skills?</h1>
 
 </section>
+<section id="thought-experiment" class="slide level2">
+<h2>Thought experiment</h2>
+<p>Imagine you had an expert R teacher at home, always at your service. How would you utilize them?</p>
+</section>
+<section id="thought-experiment-ii" class="slide level2">
+<h2>Thought experiment II</h2>
+<p>Now imagine that R teacher is only partially an expert, frequently gets things wrong and would not be able to land an actual job with their skill set.</p>
+</section>
 <section id="advice-for-using-genai-to-improve-r-skills" class="slide level2">
 <h2>Advice for using GenAI to improve R skills</h2>
 <p>Ask to explain code with prompts like:</p>
@@ -513,6 +523,13 @@ Benjamin Becker &amp; Dries Debeer
 <blockquote>
 <p>You are an expert R coder and experienced data analyst and excellent at explaining code. Improve the following code chunk and explain your improvements step by step.</p>
 <p><r code=""></r></p>
+</blockquote>
+</section>
+<section id="for-learning-the-r-language-1" class="slide level2">
+<h2>For Learning the R-language</h2>
+<p>Ask for sources (code documentation, tutorials).</p>
+<blockquote>
+<p>You are an expert R coder and experienced data analyst and excellent at explaining code. Please provide me with sources on what you just explained.</p>
 </blockquote>
 </section>
 <section id="for-understanding-errors" class="slide level2">
@@ -546,11 +563,13 @@ Benjamin Becker &amp; Dries Debeer
 <section id="limitations-of-llms" class="slide level2">
 <h2>Limitations of LLMs</h2>
 <ul>
-<li>Hallucinations (providing incorrect answers confidently, see https://github.com/lechmazur/confabulations)</li>
-<li>Confabulations: Incorrect interpolations <span class="citation" data-cites="Berrios01121998">(<a href="#/references" role="doc-biblioref" onclick="">Berrios 1998</a>)</span></li>
-<li>Hallucination: LLM produce wrong answers based on training data</li>
-<li>Dependence on training data (bad with new packages/frameworks)</li>
-<li>Bias</li>
+<li><p>Dependence on training data</p>
+<ul>
+<li>Lack of data</li>
+<li>Baises</li>
+</ul></li>
+<li><p>Hallucinations (providing incorrect answers confidently)</p></li>
+<li><p>Confabulations <span class="citation" data-cites="Berrios01121998">(<a href="#/references" role="doc-biblioref" onclick="">Berrios 1998</a>)</span></p></li>
 </ul>
 </section>
 <section id="hallucinations" class="slide level2">
@@ -611,6 +630,7 @@ Benjamin Becker &amp; Dries Debeer
 <ul>
 <li>output vs.&nbsp;process oriented tasks</li>
 </ul></li>
+<li><p>Gell-Mann amnesia effect <span class="citation" data-cites="kilov2021brittleness">(<a href="#/references" role="doc-biblioref" onclick="">Kilov 2021</a>)</span></p></li>
 <li><p>LLM rabbit holes (“continuous solution refinement”)</p></li>
 <li><p>Affects competencies and competency acquisition, for example</p>
 <ul>
@@ -618,7 +638,6 @@ Benjamin Becker &amp; Dries Debeer
 <li>meta-programming concepts</li>
 </ul></li>
 <li><p>Privacy and confidentiality. Typically, research data should not be uploaded!</p></li>
-<li><p>Social inequality</p></li>
 </ul>
 </section>
 <section id="further-issues" class="slide level2">
@@ -626,6 +645,7 @@ Benjamin Becker &amp; Dries Debeer
 <ul>
 <li>Ecological consequences of LLM usage: <a href="https://huggingface.co/spaces/genai-impact/ecologits-calculator">eco impact calculator</a></li>
 <li>Ethical issues: Reporting LLM usage in your research (research ethics, …)</li>
+<li>Social inequality</li>
 </ul>
 </section>
 <section id="future-issues" class="slide level2">
@@ -637,6 +657,10 @@ Benjamin Becker &amp; Dries Debeer
 <li>Soon to come: <em>Enshitification</em> and monetization stage</li>
 </ul>
 </section>
+<section id="thank-you-for-your-attention" class="slide level2">
+<h2>Thank you for your attention!</h2>
+
+<img data-src="figures/ai_job_dream.png" class="r-stretch quarto-figure-center"><p class="caption">Source: <a href="https://marketoonist.com/2024/08/future-of-ai.html" class="uri">https://marketoonist.com/2024/08/future-of-ai.html</a></p></section>
 <section id="references" class="slide level2 smaller scrollable">
 <h2>References</h2>
 
@@ -649,6 +673,9 @@ Berrios, German E. 1998. <span>“Confabulations: A Conceptual History.”</span
 </div>
 <div id="ref-huang" class="csl-entry" role="listitem">
 Huang, Lei, Weijiang Yu, Weitao Ma, Weihong Zhong, Zhangyin Feng, Haotian Wang, Qianglong Chen, et al. 2025. <span>“A Survey on Hallucination in Large Language Models: Principles, Taxonomy, Challenges, and Open Questions.”</span> <em>ACM Trans. Inf. Syst.</em> 43 (2). <a href="https://doi.org/10.1145/3703155">https://doi.org/10.1145/3703155</a>.
+</div>
+<div id="ref-kilov2021brittleness" class="csl-entry" role="listitem">
+Kilov, Daniel. 2021. <span>“The Brittleness of Expertise and Why It Matters.”</span> <em>Synthese</em> 199 (1): 3431–55.
 </div>
 <div id="ref-lin2025facilitating" class="csl-entry" role="listitem">
 Lin, Yuru, Yi Zhang, Yuqin Yang, Shidan Pan, Xu Ren, and Dengkang Chen. 2025. <span>“Facilitating Computational Thinking with AI: A Three-Level Meta-Analytic Evidence for Future-Ready Learning.”</span> <em>Thinking Skills and Creativity</em>, 102070. <a href="https://doi.org/10.1016/j.tsc.2025.102070">https://doi.org/10.1016/j.tsc.2025.102070</a>.

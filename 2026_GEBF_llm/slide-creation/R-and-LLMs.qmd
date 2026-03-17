@@ -32,7 +32,7 @@ bibliography: references.bib
     future![^1]
 -   R/programming skills may become even more important in the future[^2]
 -   GenAI can be helpful programming/R learning tool [@lin2025facilitating; @nathaniel2025investigating]
--   GenAI can be harmful to programming/ R learners [@bernstein2025beyond]
+-   GenAI can be harmful to programming/R learners [@bernstein2025beyond]
 
 
 ## Who are we?
@@ -40,13 +40,13 @@ bibliography: references.bib
 -   Dries Debeer
     -   Ghent University - Department of Experimental Psychology
     -   Psychological Researcher (former statistical consultant)
-    -   R programmer
+    -   R programmer & teacher
     -   javascript beginner
     
 -   Benjamin Becker
     -   Institute for Educational Quality Improvement (IQB)
     -   Psychometrician
-    -   R programmer
+    -   R programmer & teacher
     -   Recent Python/Django beginner
     
     
@@ -225,11 +225,16 @@ But always keep in mind GenAI ...
 
 ## Prompt engineering
 
-https://docs.cloud.google.com/vertex-ai/generative-ai/docs/learn/prompts/introduction-prompt-design
+Google guide:
 
-https://www.onlinebrandambassadors.com/stable/Google-Prompt-Engineering-Boonstra.pdf
+<https://docs.cloud.google.com/vertex-ai/generative-ai/docs/learn/prompts/introduction-prompt-design>
 
-https://aclanthology.org/2024.findings-acl.21.pdf
+White paper (Boonstra, 2025):
+
+<https://www.onlinebrandambassadors.com/stable/Google-Prompt-Engineering-Boonstra.pdf>
+
+<!---- <https://aclanthology.org/2024.findings-acl.21.pdf>  ----->
+
 
 
 ## Advice for using GenAI for R-related work
@@ -360,6 +365,16 @@ Other packages that may be useful:
 # 4. How can GenAI be used to improve R-skills?
 
 
+## Thought experiment
+
+Imagine you had an expert R teacher at home, always at your service. How would you utilize them?
+
+## Thought experiment II
+
+Now imagine that R teacher is only partially an expert, frequently gets things wrong and would not be able to land an actual job with their skill set.
+
+
+
 ## Advice for using GenAI to improve R skills
 
 Ask to explain code with prompts like:
@@ -379,6 +394,14 @@ Ask feedback and improvements on your code.
 > improvements step by step.
 >
 > <R code>
+
+## For Learning the R-language
+
+Ask for sources (code documentation, tutorials).
+
+> You are an expert R coder and experienced data analyst and excellent
+> at explaining code. Please provide me with sources on what you just explained.
+
 
 ## For understanding errors
 
@@ -417,12 +440,16 @@ Or when you want to translate python code to R code (or vice versa).
 
 ## Limitations of LLMs
 
--   Hallucinations (providing incorrect answers
-    confidently, see https://github.com/lechmazur/confabulations)
--   Confabulations: Incorrect interpolations [@Berrios01121998]
--   Hallucination: LLM produce wrong answers based on training data
--   Dependence on training data (bad with new packages/frameworks)
--   Bias
+-   Dependence on training data
+
+    -   Lack of data
+    -   Baises
+
+-   Hallucinations (providing incorrect answers confidently)
+
+-   Confabulations [@Berrios01121998]
+
+
 
 
 ## Hallucinations
@@ -491,6 +518,8 @@ Ask Google first (with AI-mode turned off?).
 
     - output vs. process oriented tasks
   
+-   Gell-Mann amnesia effect [@kilov2021brittleness]
+
 -   LLM rabbit holes ("continuous solution refinement")
 
 -   Affects competencies and competency acquisition, for example
@@ -501,7 +530,6 @@ Ask Google first (with AI-mode turned off?).
 -   Privacy and confidentiality. Typically, research data should not be
     uploaded!
 
--   Social inequality
 
 
 ## Further issues
@@ -510,6 +538,8 @@ Ask Google first (with AI-mode turned off?).
     calculator](https://huggingface.co/spaces/genai-impact/ecologits-calculator)
 -   Ethical issues: Reporting LLM usage in your research (research
     ethics, ...)
+-   Social inequality
+
 
 ## Future issues
 
@@ -518,10 +548,15 @@ Ask Google first (with AI-mode turned off?).
 -   Technological dependence 
 -   Soon to come: *Enshitification* and monetization stage
 
+
+## Thank you for your attention!
+
+![Source: <https://marketoonist.com/2024/08/future-of-ai.html>](figures/ai_job_dream.png)
+
 ## References
 
 
-[^1]: And if it does we have other problems than worthless R skills.
+[^1]: Pareto Principle (<https://en.wikipedia.org/wiki/Pareto_principle>); and if it does we have other problems than worthless R skills.
 
 [^2]: Jevons paradox (<https://en.wikipedia.org/wiki/Jevons_paradox>)
 
