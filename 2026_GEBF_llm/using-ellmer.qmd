@@ -16,9 +16,9 @@ install.packages("ellmer")
 install.packages("shinychat")
 ```
 
-## LLM access
+## GenAI access
 
-To use `ellmer`, you need to have access to a large language model (LLM) trough an API. Hence, you have to set up an account with a provider (e.g., OpenAI, Anthropic, etc.) and get an API key. Once you have the API key, you can set it as an environment variable in your R session.
+To use `ellmer`, you need to have access to a GenAI model trough an API. Hence, you have to set up an account with a provider (e.g., OpenAI, Anthropic, etc.) and get an API key. Once you have the API key, you can set it as an environment variable in your R session.
 
 In this tutorial I will use the free Google Gemini version. You need a 
 
@@ -43,6 +43,7 @@ Sys.setenv(GOOGLE_API_KEY = "<your_google-api_key>")
 ```
 
 
+
 ## Typical usage
 
 Load the `ellmer` package.
@@ -58,16 +59,22 @@ helper <- chat_google_gemini(
 )
 ```
 
-The `system_prompt` argument allows you to set the behavior of the assistant. This is optional, but highly recommended. YOu can customize the prompt to your needs.
+The `system_prompt` argument allows you to set the behavior of the assistant. This is optional, but highly recommended. You can customize the prompt to your needs.
 
 Now we can start chatting with the assistant using the `chat()` function.
 ```{r}
-#| eval: false
+#| eval: true
 response <- helper$chat(
   "Write a function in R that calculates the factorial of a number using recursion."
 )
+```
+
+```{r}
+#| echo: false
+#| eval: false
 cat(response)
 ```
+
 
 You can continue the conversation by calling the `chat()` function again with the same `helper` object.
 
@@ -122,7 +129,7 @@ helper$get_tokens()
 `ellmer` captures the responses as character strings. This means that you can do computations with the resposes. For instance, evaluate generated code:
 
 ```{r}
-#| eval: false
+#| eval: true
 response <- helper$get_turns()[[2]]@text
 cat(response)
 response <- gsub("```R", "", response)
@@ -132,18 +139,21 @@ eval(parse(text = response))
 
 Let's check if the function works:
 ```{r}
-#| eval: false
+#| eval: true
 factorial(5) # should return 120
 ```
 
 
 
+## Generating data with GenAI
 
-This is less useful for writing functions, but can be handy if you extract other types of data via LMMs. 
 
-Consider this example:
+The following example/workflow is less useful for writing functions, but can be handy if you extract other types of data via GenAI. 
+
+In this example, an additional prompt is used in a separate markdown file `my_promt.md`. You can find this file [here](https://users.ugent.be/~ddebeer/workshops/GEBF/ellmer-example/my_promt.md).
 
 ```{r}
+#| eval: false
 llm_data <- chat_google_gemini(
   system_prompt = "you are an reliable scientist. You are honest and terse."
 )
@@ -161,7 +171,8 @@ country_type <- type_object(
 )
 
 data <- llm_data$chat(
-  paste(collapse = "\n", readLines("2026_GEBF_llm/my_promt.md"))
+  paste(collapse = "\n", readLines("2026_GEBF_llm/my_promt.md")),
+  echo = "none"
 )
 
 # remove code block markers
@@ -169,8 +180,14 @@ data <- gsub("```", "", data, fixed = TRUE)
 data <- gsub("json", "", data)
 
 # read as json
-data1 <- jsonlite::fromJSON(data, flatten = TRUE)
-head(data1)
+countries1 <- jsonlite::fromJSON(data, flatten = TRUE)
+head(countries1)
+```
+
+```{r}
+#| echo: false
+countries1 <- readRDS("countries1.RDS")
+head(countries1)
 ```
 
 
@@ -180,8 +197,8 @@ Lets compare the results with wikipedia for
 * [Ukraine](https://en.wikipedia.org/wiki/Ukraine)
 
 ```{r}
-data1[data1$country == "Germany",]
-data1[data1$country == "Ukraine",]
+countries1[countries1$country == "Germany",]
+countries1[countries1$country == "Ukraine",]
 ```
 
 
@@ -195,14 +212,15 @@ llm_data$get_tokens()
 
 
 
-If you do this a second time, do you get the same resutls?
+If you do this a second time, do you get the same results?
 
 ```{r}
-llm_data2 <- chat_google_gemini(
+#| eval: false
+llm_countries2 <- chat_google_gemini(
   system_prompt = "you are an reliable scientist. You are honest and terse."
 )
 
-data <- llm_data2$chat(
+data <- llm_countries2$chat(
   paste(collapse = "\n", readLines("2026_GEBF_llm/my_promt.md")),
   echo = "none"
 )
@@ -212,28 +230,55 @@ data <- gsub("```", "", data, fixed = TRUE)
 data <- gsub("json", "", data)
 
 # read as json
-data2 <- jsonlite::fromJSON(data, flatten = TRUE)
-head(data2)
+countries2 <- jsonlite::fromJSON(data, flatten = TRUE)
+head(countries2)
+```
+
+```{r}
+#| echo: false
+countries2 <- readRDS("countries2.RDS")
+head(countries2)
 ```
 
 
 
-Note that the computations below will differ everytime the code is ran.
+Note that the computations below will differ every time the code is ran.
+
+When rendering, there were some differences between the first and second time the data was asked.
 
 
 ```{r}
-countries_in_both <- data1$country[data1$country %in% data2$country]
+#| tbl-cap: "Countries Included in the Second Querry, but not in the First"
+countries_in_both <- countries1$country[countries1$country %in% countries2$country]
 
 # which countries are not in the first option
-data1[!data1$country %in% countries_in_both, ]
-
-
-# do the numbers correspond?
-combined <- merge(data1[, c(1, 3)], data2[, c(1, 3)], by = "country")
-combined[(combined$population.y-combined$population.x) != 0,]
+knitr::kable(countries1[!countries1$country %in% countries_in_both, ])
 ```
 
+```{r}
+#| tbl-cap: "Countries Included in the First Querry, but not in the Second"
+countries_in_both <- countries1$country[countries2$country %in% countries1$country]
+
+# which countries are not in the first option
+knitr::kable(countries2[!countries1$country %in% countries_in_both, ])
+```
+
+Just spelling issues, it seems.
+
+Lets check if the numbers correspond.
+
+```{r}
+#| tbl-cap: First Six Countries with Different Population Numbers
+# do the numbers correspond?
+combined <- merge(countries1[, c(1, 3)], countries2[, c(1, 3)], by = "country")
+
+knitr::kable(head(combined[(combined$population.y-combined$population.x) != 0,]))
+```
+
+For many countries the population number differs. Similar, but not reproducible. 
 
 
 
-Whether or not this is a good idea depends on your use case. Be aware that LLMs can make mistakes and confabulate.
+
+
+Whether or not this is a good idea depends on your use case. Be aware that GenAI can make mistakes and confabulate.

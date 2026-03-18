@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.550">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Benjamin Becker &amp; Dries Debeer">
+
+<title>Using ellmer</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="using-ellmer_files/libs/clipboard/clipboard.min.js"></script>
+<script src="using-ellmer_files/libs/quarto-html/quarto.js"></script>
+<script src="using-ellmer_files/libs/quarto-html/popper.min.js"></script>
+<script src="using-ellmer_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="using-ellmer_files/libs/quarto-html/anchor.min.js"></script>
+<link href="using-ellmer_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="using-ellmer_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="using-ellmer_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="using-ellmer_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="using-ellmer_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Using ellmer</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Benjamin Becker &amp; Dries Debeer </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>This quick tutorial shows you how to use the <code>ellmer</code> package.</p>
+<section id="installation" class="level2">
+<h2 class="anchored" data-anchor-id="installation">Installation</h2>
+<p>You can install the <code>ellmer</code> package from cran. In addition, we also install the <code>shinychat</code> package.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ellmer"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"shinychat"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="genai-access" class="level2">
+<h2 class="anchored" data-anchor-id="genai-access">GenAI access</h2>
+<p>To use <code>ellmer</code>, you need to have access to a GenAI model trough an API. Hence, you have to set up an account with a provider (e.g., OpenAI, Anthropic, etc.) and get an API key. Once you have the API key, you can set it as an environment variable in your R session.</p>
+<p>In this tutorial I will use the free Google Gemini version. You need a</p>
+<ul>
+<li>A Google account.</li>
+<li>a google api key with access to Gemini models.</li>
+</ul>
+<section id="setting-up-google-gemini-api-key" class="level3">
+<h3 class="anchored" data-anchor-id="setting-up-google-gemini-api-key">Setting up Google Gemini API Key</h3>
+<p>Check the <a href="https://ai.google.dev/gemini-api/docs/api-key">documentation</a> on google API keys.</p>
+<p>In short you need to:</p>
+<ol type="1">
+<li>Go to the (https://aistudio.google.com/app/api-keys).</li>
+<li>create an API-key</li>
+<li>copy the API-key</li>
+<li>add the API-key to the environment variables using the following code:</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.setenv</span>(<span class="at">GOOGLE_API_KEY =</span> <span class="st">"&lt;your_google-api_key&gt;"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="typical-usage" class="level2">
+<h2 class="anchored" data-anchor-id="typical-usage">Typical usage</h2>
+<p>Load the <code>ellmer</code> package.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ellmer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Create an <em>assistant</em> or <em>chat</em> via <code>chat_google_gemini()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>helper <span class="ot">&lt;-</span> <span class="fu">chat_google_gemini</span>(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">system_prompt =</span> <span class="st">"you are an expert R-coder and data-scientist. You are honest and terse"</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Using model = "gemini-2.5-flash".</code></pre>
+</div>
+</div>
+<p>The <code>system_prompt</code> argument allows you to set the behavior of the assistant. This is optional, but highly recommended. You can customize the prompt to your needs.</p>
+<p>Now we can start chatting with the assistant using the <code>chat()</code> function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>response <span class="ot">&lt;-</span> helper<span class="sc">$</span><span class="fu">chat</span>(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Write a function in R that calculates the factorial of a number using recursion."</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>```R
+factorial_recursive &lt;- function(n) {
+  if (n &lt; 0) {
+    stop("Factorial is not defined for negative numbers.")
+  } else if (n == 0) {
+    return(1) # Base case
+  } else if (n != floor(n)) {
+    warning("Input is not an integer. Using floor(n).")
+    n &lt;- floor(n)
+    if (n &lt; 0) { # Recalculate after floor for cases like -0.5
+        stop("Factorial is not defined for negative numbers after floor 
+operation.")
+    }
+    if (n == 0) return(1)
+  }
+  
+  return(n * factorial_recursive(n - 1)) # Recursive step
+}
+
+# Example Usage:
+# factorial_recursive(5)  # Returns 120
+# factorial_recursive(0)  # Returns 1
+# factorial_recursive(1)  # Returns 1
+# factorial_recursive(3.7) # Returns 6 (with warning)
+# factorial_recursive(-3) # Throws error
+```</code></pre>
+</div>
+</div>
+<p>You can continue the conversation by calling the <code>chat()</code> function again with the same <code>helper</code> object.</p>
+</section>
+<section id="chatting-exeprience-via-ellmer" class="level2">
+<h2 class="anchored" data-anchor-id="chatting-exeprience-via-ellmer">Chatting exeprience via ellmer</h2>
+<p>You can also chat via a live browser in the RStudio viewer (requires the <code>shinychat</code> package):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">live_browser</span>(helper)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>To quit the viewer, simply close the browser window, or press <code>Ctrl + C</code> in the R console.</p>
+<p>Alternatively, if your IDE does not support the viewer, you can create a chat using a console:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">live_console</span>(helper)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>To quit the console type <code>Q</code> and hit enter.</p>
+</section>
+<section id="stateful-chats" class="level2">
+<h2 class="anchored" data-anchor-id="stateful-chats">Stateful chats</h2>
+<p>By default, the <code>chat()</code> function maintains the state of the conversation. This means that the assistant remembers previous messages in the chat. You can check the current state using:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>helper<span class="sc">$</span><span class="fu">get_turns</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If you want to start a new conversation, you can use the <code>reset_chat()</code> function. Because longer chats can be costly, you might want to reset the chat after a certain number of turns.</p>
+</section>
+<section id="checking-costs-and-tokens" class="level2">
+<h2 class="anchored" data-anchor-id="checking-costs-and-tokens">checking costs and tokens</h2>
+<p>Although the Google Gemini version that is used here is free, this is generally not the case for other LLMs. Therefore, it is important to keep track of the costs and tokens used in the chat. You can do this using the <code>get_costs()</code> and <code>get_tokens()</code> functions.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>helper<span class="sc">$</span><span class="fu">get_cost</span>()</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>helper<span class="sc">$</span><span class="fu">get_tokens</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="coding-with-the-repsonse" class="level2">
+<h2 class="anchored" data-anchor-id="coding-with-the-repsonse">Coding with the repsonse</h2>
+<p><code>ellmer</code> captures the responses as character strings. This means that you can do computations with the resposes. For instance, evaluate generated code:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>response <span class="ot">&lt;-</span> helper<span class="sc">$</span><span class="fu">get_turns</span>()[[<span class="dv">2</span>]]<span class="sc">@</span>text</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(response)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>```R
+factorial_recursive &lt;- function(n) {
+  if (n &lt; 0) {
+    stop("Factorial is not defined for negative numbers.")
+  } else if (n == 0) {
+    return(1) # Base case
+  } else if (n != floor(n)) {
+    warning("Input is not an integer. Using floor(n).")
+    n &lt;- floor(n)
+    if (n &lt; 0) { # Recalculate after floor for cases like -0.5
+        stop("Factorial is not defined for negative numbers after floor operation.")
+    }
+    if (n == 0) return(1)
+  }
+  
+  return(n * factorial_recursive(n - 1)) # Recursive step
+}
+
+# Example Usage:
+# factorial_recursive(5)  # Returns 120
+# factorial_recursive(0)  # Returns 1
+# factorial_recursive(1)  # Returns 1
+# factorial_recursive(3.7) # Returns 6 (with warning)
+# factorial_recursive(-3) # Throws error
+```</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>response <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">"```R"</span>, <span class="st">""</span>, response)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>response <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">"```"</span>, <span class="st">""</span>, response, <span class="at">fixed =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">eval</span>(<span class="fu">parse</span>(<span class="at">text =</span> response))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Let’s check if the function works:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">factorial</span>(<span class="dv">5</span>) <span class="co"># should return 120</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 120</code></pre>
+</div>
+</div>
+</section>
+<section id="generating-data-with-genai" class="level2">
+<h2 class="anchored" data-anchor-id="generating-data-with-genai">Generating data with GenAI</h2>
+<p>The following example/workflow is less useful for writing functions, but can be handy if you extract other types of data via GenAI.</p>
+<p>In this example, an additional prompt is used in a separate markdown file <code>my_promt.md</code>. You can find this file <a href="https://users.ugent.be/~ddebeer/workshops/GEBF/ellmer-example/my_promt.md">here</a>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>llm_data <span class="ot">&lt;-</span> <span class="fu">chat_google_gemini</span>(</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">system_prompt =</span> <span class="st">"you are an reliable scientist. You are honest and terse."</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>country_type <span class="ot">&lt;-</span> <span class="fu">type_object</span>(</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">country =</span> <span class="fu">type_string</span>(),</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">capital =</span> <span class="fu">type_string</span>(),</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">population =</span> <span class="fu">type_number</span>(),</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">area_km2 =</span> <span class="fu">type_number</span>(),</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">continent =</span> <span class="fu">type_string</span>()</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> llm_data<span class="sc">$</span><span class="fu">chat</span>(</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">paste</span>(<span class="at">collapse =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>, <span class="fu">readLines</span>(<span class="st">"2026_GEBF_llm/my_promt.md"</span>)),</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">echo =</span> <span class="st">"none"</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="co"># remove code block markers</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">"```"</span>, <span class="st">""</span>, data, <span class="at">fixed =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">"json"</span>, <span class="st">""</span>, data)</span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a><span class="co"># read as json</span></span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>countries1 <span class="ot">&lt;-</span> jsonlite<span class="sc">::</span><span class="fu">fromJSON</span>(data, <span class="at">flatten =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(countries1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>              country          capital population area_km2     continent
+1         Afghanistan            Kabul   42239854   652864          Asia
+2             Albania           Tirana    2832439    28748        Europe
+3             Algeria          Algiers   45606480  2381741        Africa
+4             Andorra Andorra la Vella      80088      468        Europe
+5              Angola           Luanda   36197732  1246700        Africa
+6 Antigua and Barbuda     Saint John's      94298      442 North America</code></pre>
+</div>
+</div>
+<p>Lets compare the results with wikipedia for</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Germany">Germany</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Ukraine">Ukraine</a></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>countries1[countries1<span class="sc">$</span>country <span class="sc">==</span> <span class="st">"Germany"</span>,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   country capital population area_km2 continent
+66 Germany  Berlin   83294642   357022    Europe</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>countries1[countries1<span class="sc">$</span>country <span class="sc">==</span> <span class="st">"Ukraine"</span>,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    country capital population area_km2 continent
+181 Ukraine    Kyiv   37937821   603500    Europe</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>llm_data<span class="sc">$</span><span class="fu">get_cost</span>()</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>llm_data<span class="sc">$</span><span class="fu">get_tokens</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If you do this a second time, do you get the same results?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>llm_countries2 <span class="ot">&lt;-</span> <span class="fu">chat_google_gemini</span>(</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">system_prompt =</span> <span class="st">"you are an reliable scientist. You are honest and terse."</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> llm_countries2<span class="sc">$</span><span class="fu">chat</span>(</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">paste</span>(<span class="at">collapse =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>, <span class="fu">readLines</span>(<span class="st">"2026_GEBF_llm/my_promt.md"</span>)),</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">echo =</span> <span class="st">"none"</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="co"># remove code block markers</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">"```"</span>, <span class="st">""</span>, data, <span class="at">fixed =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">"json"</span>, <span class="st">""</span>, data)</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a><span class="co"># read as json</span></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>countries2 <span class="ot">&lt;-</span> jsonlite<span class="sc">::</span><span class="fu">fromJSON</span>(data, <span class="at">flatten =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(countries2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>              country          capital population area_km2     continent
+1         Afghanistan            Kabul   41128771   652864          Asia
+2             Albania           Tirana    2832439    28748        Europe
+3             Algeria          Algiers   44903225  2381741        Africa
+4             Andorra Andorra la Vella      79824      468        Europe
+5              Angola           Luanda   35588987  1246700        Africa
+6 Antigua and Barbuda     Saint John's      93763      442 North America</code></pre>
+</div>
+</div>
+<p>Note that the computations below will differ every time the code is ran.</p>
+<p>When rendering, there were some differences between the first and second time the data was asked.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>countries_in_both <span class="ot">&lt;-</span> countries1<span class="sc">$</span>country[countries1<span class="sc">$</span>country <span class="sc">%in%</span> countries2<span class="sc">$</span>country]</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="co"># which countries are not in the first option</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(countries1[<span class="sc">!</span>countries1<span class="sc">$</span>country <span class="sc">%in%</span> countries_in_both, ])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<caption>Countries Included in the Second Querry, but not in the First</caption>
+<colgroup>
+<col style="width: 4%">
+<col style="width: 40%">
+<col style="width: 18%">
+<col style="width: 11%">
+<col style="width: 9%">
+<col style="width: 15%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">country</th>
+<th style="text-align: left;">capital</th>
+<th style="text-align: right;">population</th>
+<th style="text-align: right;">area_km2</th>
+<th style="text-align: left;">continent</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">39</td>
+<td style="text-align: left;">Congo</td>
+<td style="text-align: left;">Brazzaville</td>
+<td style="text-align: right;">6106876</td>
+<td style="text-align: right;">342000</td>
+<td style="text-align: left;">Africa</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">46</td>
+<td style="text-align: left;">Democratic People’s Republic of Korea</td>
+<td style="text-align: left;">Pyongyang</td>
+<td style="text-align: right;">26160821</td>
+<td style="text-align: right;">120538</td>
+<td style="text-align: left;">Asia</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">47</td>
+<td style="text-align: left;">Democratic Republic of the Congo</td>
+<td style="text-align: left;">Kinshasa</td>
+<td style="text-align: right;">102262809</td>
+<td style="text-align: right;">2344858</td>
+<td style="text-align: left;">Africa</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">80</td>
+<td style="text-align: left;">Iran (Islamic Republic of)</td>
+<td style="text-align: left;">Tehran</td>
+<td style="text-align: right;">89172767</td>
+<td style="text-align: right;">1648195</td>
+<td style="text-align: left;">Asia</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">93</td>
+<td style="text-align: left;">Lao People’s Democratic Republic</td>
+<td style="text-align: left;">Vientiane</td>
+<td style="text-align: right;">7633779</td>
+<td style="text-align: right;">236800</td>
+<td style="text-align: left;">Asia</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">112</td>
+<td style="text-align: left;">Micronesia (Federated States of)</td>
+<td style="text-align: left;">Palikir</td>
+<td style="text-align: right;">115224</td>
+<td style="text-align: right;">702</td>
+<td style="text-align: left;">Oceania</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">140</td>
+<td style="text-align: left;">Republic of Korea</td>
+<td style="text-align: left;">Seoul</td>
+<td style="text-align: right;">51784059</td>
+<td style="text-align: right;">100210</td>
+<td style="text-align: left;">Asia</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">141</td>
+<td style="text-align: left;">Republic of Moldova</td>
+<td style="text-align: left;">Chișinău</td>
+<td style="text-align: right;">3293736</td>
+<td style="text-align: right;">33846</td>
+<td style="text-align: left;">Europe</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">143</td>
+<td style="text-align: left;">Russian Federation</td>
+<td style="text-align: left;">Moscow</td>
+<td style="text-align: right;">144443593</td>
+<td style="text-align: right;">17098246</td>
+<td style="text-align: left;">Europe</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">169</td>
+<td style="text-align: left;">Syrian Arab Republic</td>
+<td style="text-align: left;">Damascus</td>
+<td style="text-align: right;">23227861</td>
+<td style="text-align: right;">185180</td>
+<td style="text-align: left;">Asia</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">177</td>
+<td style="text-align: left;">Türkiye</td>
+<td style="text-align: left;">Ankara</td>
+<td style="text-align: right;">85816199</td>
+<td style="text-align: right;">783562</td>
+<td style="text-align: left;">Asia</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">184</td>
+<td style="text-align: left;">United Republic of Tanzania</td>
+<td style="text-align: left;">Dodoma</td>
+<td style="text-align: right;">67438106</td>
+<td style="text-align: right;">945087</td>
+<td style="text-align: left;">Africa</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">185</td>
+<td style="text-align: left;">United States of America</td>
+<td style="text-align: left;">Washington, D.C.</td>
+<td style="text-align: right;">339996563</td>
+<td style="text-align: right;">9833520</td>
+<td style="text-align: left;">North America</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">189</td>
+<td style="text-align: left;">Venezuela (Bolivarian Republic of)</td>
+<td style="text-align: left;">Caracas</td>
+<td style="text-align: right;">28838499</td>
+<td style="text-align: right;">916445</td>
+<td style="text-align: left;">South America</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">190</td>
+<td style="text-align: left;">Viet Nam</td>
+<td style="text-align: left;">Hanoi</td>
+<td style="text-align: right;">98858950</td>
+<td style="text-align: right;">331212</td>
+<td style="text-align: left;">Asia</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>countries_in_both <span class="ot">&lt;-</span> countries1<span class="sc">$</span>country[countries2<span class="sc">$</span>country <span class="sc">%in%</span> countries1<span class="sc">$</span>country]</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co"># which countries are not in the first option</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(countries2[<span class="sc">!</span>countries1<span class="sc">$</span>country <span class="sc">%in%</span> countries_in_both, ])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<caption>Countries Included in the First Querry, but not in the Second</caption>
+<colgroup>
+<col style="width: 5%">
+<col style="width: 26%">
+<col style="width: 22%">
+<col style="width: 14%">
+<col style="width: 12%">
+<col style="width: 18%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">country</th>
+<th style="text-align: left;">capital</th>
+<th style="text-align: right;">population</th>
+<th style="text-align: right;">area_km2</th>
+<th style="text-align: left;">continent</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">39</td>
+<td style="text-align: left;">Congo (Brazzaville)</td>
+<td style="text-align: left;">Brazzaville</td>
+<td style="text-align: right;">5970424</td>
+<td style="text-align: right;">342000</td>
+<td style="text-align: left;">Africa</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">40</td>
+<td style="text-align: left;">Congo (Kinshasa)</td>
+<td style="text-align: left;">Kinshasa</td>
+<td style="text-align: right;">99010212</td>
+<td style="text-align: right;">2344858</td>
+<td style="text-align: left;">Africa</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">79</td>
+<td style="text-align: left;">Iran</td>
+<td style="text-align: left;">Tehran</td>
+<td style="text-align: right;">88550570</td>
+<td style="text-align: right;">1648195</td>
+<td style="text-align: left;">Asia</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">92</td>
+<td style="text-align: left;">Laos</td>
+<td style="text-align: left;">Vientiane</td>
+<td style="text-align: right;">7529475</td>
+<td style="text-align: right;">236800</td>
+<td style="text-align: left;">Asia</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">111</td>
+<td style="text-align: left;">Micronesia</td>
+<td style="text-align: left;">Palikir</td>
+<td style="text-align: right;">113131</td>
+<td style="text-align: right;">702</td>
+<td style="text-align: left;">Oceania</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">112</td>
+<td style="text-align: left;">Moldova</td>
+<td style="text-align: left;">Chișinău</td>
+<td style="text-align: right;">2530188</td>
+<td style="text-align: right;">33846</td>
+<td style="text-align: left;">Europe</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">127</td>
+<td style="text-align: left;">North Korea</td>
+<td style="text-align: left;">Pyongyang</td>
+<td style="text-align: right;">26069411</td>
+<td style="text-align: right;">120538</td>
+<td style="text-align: left;">Asia</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">142</td>
+<td style="text-align: left;">Russia</td>
+<td style="text-align: left;">Moscow</td>
+<td style="text-align: right;">144236933</td>
+<td style="text-align: right;">17098246</td>
+<td style="text-align: left;">Europe/Asia</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">161</td>
+<td style="text-align: left;">South Korea</td>
+<td style="text-align: left;">Seoul</td>
+<td style="text-align: right;">51784059</td>
+<td style="text-align: right;">100210</td>
+<td style="text-align: left;">Asia</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">169</td>
+<td style="text-align: left;">Syria</td>
+<td style="text-align: left;">Damascus</td>
+<td style="text-align: right;">23227856</td>
+<td style="text-align: right;">185180</td>
+<td style="text-align: left;">Asia</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">171</td>
+<td style="text-align: left;">Tanzania</td>
+<td style="text-align: left;">Dodoma</td>
+<td style="text-align: right;">67438106</td>
+<td style="text-align: right;">945087</td>
+<td style="text-align: left;">Africa</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">178</td>
+<td style="text-align: left;">Turkey</td>
+<td style="text-align: left;">Ankara</td>
+<td style="text-align: right;">84775040</td>
+<td style="text-align: right;">783562</td>
+<td style="text-align: left;">Asia/Europe</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">185</td>
+<td style="text-align: left;">United States</td>
+<td style="text-align: left;">Washington, D.C.</td>
+<td style="text-align: right;">334805269</td>
+<td style="text-align: right;">9833520</td>
+<td style="text-align: left;">North America</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">189</td>
+<td style="text-align: left;">Venezuela</td>
+<td style="text-align: left;">Caracas</td>
+<td style="text-align: right;">28301696</td>
+<td style="text-align: right;">916445</td>
+<td style="text-align: left;">South America</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">190</td>
+<td style="text-align: left;">Vietnam</td>
+<td style="text-align: left;">Hanoi</td>
+<td style="text-align: right;">98186856</td>
+<td style="text-align: right;">331212</td>
+<td style="text-align: left;">Asia</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Just spelling issues, it seems.</p>
+<p>Lets check if the numbers correspond.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># do the numbers correspond?</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>combined <span class="ot">&lt;-</span> <span class="fu">merge</span>(countries1[, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>)], countries2[, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>)], <span class="at">by =</span> <span class="st">"country"</span>)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">head</span>(combined[(combined<span class="sc">$</span>population.y<span class="sc">-</span>combined<span class="sc">$</span>population.x) <span class="sc">!=</span> <span class="dv">0</span>,]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<caption>First Six Countries with Different Population Numbers</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">country</th>
+<th style="text-align: right;">population.x</th>
+<th style="text-align: right;">population.y</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">Afghanistan</td>
+<td style="text-align: right;">42239854</td>
+<td style="text-align: right;">41128771</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">Algeria</td>
+<td style="text-align: right;">45606480</td>
+<td style="text-align: right;">44903225</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">Andorra</td>
+<td style="text-align: right;">80088</td>
+<td style="text-align: right;">79824</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">Angola</td>
+<td style="text-align: right;">36197732</td>
+<td style="text-align: right;">35588987</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">Antigua and Barbuda</td>
+<td style="text-align: right;">94298</td>
+<td style="text-align: right;">93763</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">9</td>
+<td style="text-align: left;">Australia</td>
+<td style="text-align: right;">26439111</td>
+<td style="text-align: right;">26068792</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>For many countries the population number differs. Similar, but not reproducible.</p>
+<p>Whether or not this is a good idea depends on your use case. Be aware that GenAI can make mistakes and confabulate.</p>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
