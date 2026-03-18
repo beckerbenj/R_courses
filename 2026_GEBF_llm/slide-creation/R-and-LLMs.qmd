@@ -24,6 +24,8 @@ bibliography: references.bib
 
 ## What is covered in this workshop
 
+::: {.nonincremental}
+
 1. What is GenAI?
 
 2. How can GenAI be used for R-related work?
@@ -33,6 +35,8 @@ bibliography: references.bib
 4. To GenAI or not to GenAI?
 
 5. How can GenAI be used to improve R-skills?
+
+:::
 
 
 ## Our (controversial?) claims
@@ -93,16 +97,26 @@ bibliography: references.bib
 
 ## What are Large Language Models?
 
+::: {.nonincremental}
+
 -   Next word/token predictors
 
 -   Deep neural networks typically using *transformer* architecture 
     ("Attention is all you need"; @vaswani2017attention)
-
+    
 -   GPT = Generative Pre-trained Transformers
+    
+:::
+
+::: {.nonincremental}
+
+
 
 -   language models!
 
 -   NOT knowledge models/calculators
+
+:::
 
 
 ## What are Large Language Models?
@@ -121,7 +135,7 @@ bibliography: references.bib
 
 ## What are Large Language Models?
 
--   Non-deterministic
+-   Non-deterministic 
 
 -   Probabilistic sample from all possible words/tokens
 
@@ -130,6 +144,8 @@ bibliography: references.bib
 
 
 ## What are Generative AI models
+
+::: {.nonincremental}
 
 -   Large Language Models as basis
 
@@ -142,12 +158,16 @@ bibliography: references.bib
     * planning
     * ...
     
+:::
+    
 -   Change/improve fast!
     
 -   (not discussed: image, video, sound GenAI)
 
 
 ## What are Generative AI models
+
+::: {.nonincremental}
 
 -   Language models at core, NOT knowledge models, no world model
 
@@ -157,11 +177,13 @@ bibliography: references.bib
 
 -   (limited) Context window = what it remembers from a chat (your profile) (RAG?)
 
--   Importance of prompt (engineering)? 
 
+:::
 
 
 ## Generative AI models (for R coding)
+
+::: {.nonincremental}
 
 -   OpenAI: GPT-4.1 (also Microsoft/github Copilot)
 
@@ -177,11 +199,14 @@ bibliography: references.bib
 
 -   ...
 
+::: {.nonincremental}
 
 
 # 2. How can GenAI be used for R-related work?
 
 ## Why relevant for R-work?
+
+::: {.nonincremental}
 
 R is ...
 
@@ -191,6 +216,8 @@ R is ...
 
     -   clear and logical syntax[^5]
     -   lot's of code available online (CRAN, github, ...)
+    
+:::
 
 . . . 
 
@@ -396,20 +423,23 @@ White paper (Boonstra, 2025):
 
 ##  GenAI via interactive chat
 
+::: {.nonincremental}
+
 -   a chatbot (like chatGPT, Microsoft Copilot, Claude, ...)
 
 -   via a website or app (with log in)
 
 -   with a memory (of the current conversation = *stateful*)
 
--   with a memory of previous conversations
-
 -   $\Rightarrow$ with server space for conversations, files, ...
 
 -   payment via monthly subscriptions (and free versions)
 
+:::
 
 ## Generative AI via interactive chat
+
+::: {.nonincremental}
 
 -   [Claude](https://claude.ai/login)
 
@@ -417,8 +447,11 @@ White paper (Boonstra, 2025):
 
 -   [Microsoft Copilot](https://copilot.microsoft.com/)
 
+:::
 
 ## Generative AI via API
+
+::: {.nonincremental}
 
 -   direct access via Application Programming Interface (API) to 
 
@@ -430,6 +463,7 @@ White paper (Boonstra, 2025):
     
 -   without built-in memory (*stateless*)
 
+:::
 
 
 ## Generative AI via API 
@@ -438,26 +472,36 @@ Rstudio is an Integrated Development Environment (IDE) that focuses on R
 
 RStudio allows integration of:
 
+::: {.nonincremental}
+
 -   Rmarkdown and quarto
 -   git and github
 -   **GenAI**
 -   ...
 
+:::
+
 . . . 
 
 Other IDEs with R-support (and GenAI integration):
 
+::: {.nonincremental}
+
 -   VSCode
 -   Positron
 
+:::
 
 ## Generative AI via API
 
--   Through [ellmer](https://ellmer.tidyverse.org/) and RStudio (Google
-    gemini account required)
+::: {.nonincremental}
 
--   via the positron (vsCode) integration of github-copilot (github account
+-   Through [ellmer](https://ellmer.tidyverse.org/) and RStudio (GenAI account required)
+
+-   via the positron (vsCode) integration of github-copilot (GenAI account
     required)
+    
+:::
 
 -   Other packages:
 
@@ -474,7 +518,11 @@ Other IDEs with R-support (and GenAI integration):
 `ellmer` is an R-package (developed by the Posit team). It allows you to
 use Generative AI directly for R (and RStudio) via the API option.
 
+. . .
+
 Some features: 
+
+::: {.nonincremental}
 
 -   supports different Generative AI (accounts and API-key are required) 
 
@@ -484,6 +532,7 @@ Some features:
 
 -   multiple conversations at the same time.
 
+:::
 
 
 ## API use via `ellmer` 
@@ -497,12 +546,15 @@ Some features:
 
 Other packages that may be useful:
 
+::: {.nonincremental}
+
 -   [ragnar](https://ragnar.tidyverse.org/): for implementing
     Retrieval-Augmented Generation (RAG[^6]) workflows
     
 -   [mcptools](https://posit-dev.github.io/mcptools/): for allowing GenAI
     to access your files and data and execute
     
+:::
 
 ## Positron Assistant
 
