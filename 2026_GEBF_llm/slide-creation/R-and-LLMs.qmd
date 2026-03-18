@@ -561,7 +561,7 @@ Other packages that may be useful:
 -   Different models can be used, but a subscription (and `API_KEY`) is
     required
     
--   Github provides auto-complete in addition to chat
+-   Provides auto-complete, chat, ...
 
 
 ## Positron Assistant illustration
@@ -646,18 +646,6 @@ untrustworthy co-worker/assistant/intern with ulterior motives.
 ![](figures/confab_eatrep3.png)
 
 
-## And maybe ...
-
-Look at the available documentation first
-
--   Many R-packages have great documentation (including vignettes)
-
-Ask Google first (with AI-mode turned off?).
-
--   There have likely been persons with similar questions/problems
-    (check stack overflow, reddit, ...)
-    
--   There are many great tutorials that can be found by web searching
 
 
 ## Risk when using GenAI
@@ -755,6 +743,31 @@ Ask for sources (code documentation, tutorials).
 > at explaining code. Please provide me with sources on what you just explained.
 
 
+
+
+## For Learning the R-language
+
+But maybe ...
+
+. . . 
+
+
+::: {.nonincremental}
+
+Do a google search first (without GenAI: [https://udm14.com/](https://udm14.com/))
+
+
+-   Many R-packages have great documentation (including vignettes)
+
+
+-   There have likely been persons with similar questions/problems
+    (check stack overflow, reddit, ...)
+    
+-   There are many great tutorials that can be found by web searching
+
+:::
+
+
 ## For understanding errors
 
 Ask what could cause a specific error to pop up.
@@ -768,9 +781,7 @@ Ask what could cause a specific error to pop up.
 > <R code>
 
 
-## For writing R-code
 
-For visualizations. For preprocessing.
 
 
 ## For rewriting R-code
@@ -808,7 +819,7 @@ No pain, no gain.
 
 - Use for what you could do yourself (efficiency gain + qualtiy control)
 
-- Ask twice (in a new chat), than consult a colleague, book
+- Ask twice (in a new chat), than consult a colleague, a book
 
 - Think about your prompt, but don't waist time with prompt optimization
 
@@ -818,9 +829,9 @@ No pain, no gain.
 
 - Don't ask to repeat a task (ask to write code to repeat a task)
 
-- stay in charge (you cannot blame the intern)
+- stay in charge (you cannot blame the "intern")
 
-- Consider the environmental impact
+- Consider the environmental impact (Is GenAI appropriate for this task?)
 
 - Consider your workflow/feeling of accomplishment. Automate (only) the tedious tasks.
 
