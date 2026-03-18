@@ -100,7 +100,7 @@ or
 
 -   GPT = Generative Pre-trained Transformers
 
--   language models
+-   language models!
 
 -   NOT knowledge models/calculators
 
@@ -109,7 +109,7 @@ or
 
 -   Trained on "complete internet"
 
--   Quality depends on available data
+-   Quality of *prediction* depends on available data
     
     * Good for English, German, R 
     
@@ -157,7 +157,7 @@ or
 
 -   (limited) Context window = what it remembers from a chat (your profile) (RAG?)
 
--   Importance of prompt (engineering) 
+-   Importance of prompt (engineering)? 
 
 
 
@@ -247,6 +247,10 @@ But always keep in mind GenAI ...
 -   is uncritical
 
 -   is (over)eager
+
+. . . 
+
+**Basic understanding of how it works is key for good use of GenAI**
 
 [understanding how Gen AI works is important to make proper use of it]: #
 
@@ -358,6 +362,7 @@ split_three(c("ffe-2026_grod", "lul_2001 spc", "cas-1994-upek",
               "gerw 1941-pi", "tesso_2012_ple"))
 ```
 
+
 ## Prompt Engineering 
 
 | Component | Importance   |
@@ -381,7 +386,6 @@ White paper (Boonstra, 2025):
 <https://www.onlinebrandambassadors.com/stable/Google-Prompt-Engineering-Boonstra.pdf>
 
 <!---- <https://aclanthology.org/2024.findings-acl.21.pdf>  ----->
-
 
 
 
@@ -491,9 +495,9 @@ Some features:
 
 ## API use via `ellmer` 
 
-[Illustration](https://github.com/beckerbenj/R_courses/blob/main/2026_GEBF_llm/using-ellmer.qmd)
+[ellmer Illustration](https://users.ugent.be/~ddebeer/workshops/GEBF/ellmer-example/using-ellmer.html)
 
-private repo?
+
 
 
 ## GenAI via API
@@ -516,6 +520,8 @@ Other packages that may be useful:
 
 
 ## Positron Assistant illustration
+
+[Positron IDE](https://positron.posit.co/assets/images/positron-logo_fullcolor-TM.png)
 
 
 
@@ -595,6 +601,7 @@ Ask Google first (with AI-mode turned off?).
 
 -   There have likely been persons with similar questions/problems
     (check stack overflow, reddit, ...)
+    
 -   There are many great tutorials that can be found by web searching
 
 
@@ -616,7 +623,6 @@ Ask Google first (with AI-mode turned off?).
 
 <!--  prompt-and-accept -->
 
--   
 
 
 
@@ -725,15 +731,39 @@ like to limit the dependencies.
 Or when you want to translate python code to R code (or vice versa).
 
 
-## Bet most importantly
 
-No pain no gain. 
 
-- invest time
+
+## But most importantly
+
+No pain, no gain. 
+
+- invest time and effort
 
 - experimenter mindset
 
 - 
+
+
+
+## Recommendations on GenAI for R-related stuff
+
+- Use for what you could do yourself (efficiency gain + qualtiy control)
+
+- Ask twice (in a new chat), than consult a colleague, book
+
+- Think about your prompt, but don't waist time with prompt optimization
+
+- Be critical about the response 
+
+- Be critical about your question! (*carwash*)
+
+- Don't ask to repeat a task (ask to write code to repeat a task)
+
+- Consider the environmental impact
+
+- Consider your workflow/feeling of accomplishment. Automate (only) the tedious tasks.
+
 
 
 
