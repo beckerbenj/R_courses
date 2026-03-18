@@ -351,7 +351,7 @@ Benjamin Becker &amp; Dries Debeer
 <li><p>Language models at core, NOT knowledge models, no world model</p></li>
 <li><p>Reasoning models BUT completely language based</p></li>
 <li><p>Non-deterministic <span class="math inline">\(\Rightarrow\)</span> reproducibility!?</p></li>
-<li><p>(limited) Context window = what it remembers from a chat (your profile) (RAG?)</p></li>
+<li><p>(limited) Context window = what it remembers from a chat (your profile) (Retrieval-Augmented Generation?)</p></li>
 </ul>
 </section>
 <section id="generative-ai-models-for-r-coding" class="slide level2">
@@ -399,7 +399,7 @@ Benjamin Becker &amp; Dries Debeer
 <h2>How can you use GenAI in your R work?</h2>
 <p>Let GenAI…</p>
 <ul>
-<li class="fragment"><p>generate code</p></li>
+<li class="fragment"><p>generate code for figures, preprosssing, functions, …</p></li>
 <li class="fragment"><p>explain concepts/ideas</p></li>
 <li class="fragment"><p>point to documentation/learning materials</p></li>
 <li class="fragment"><p>review code</p></li>
@@ -635,8 +635,7 @@ Benjamin Becker &amp; Dries Debeer
 <ul>
 <li><p>direct access via Application Programming Interface (API) to</p></li>
 <li><p>API differs between GenAI providers</p></li>
-<li><p>payment per million tokens (some free versions)</p>
-<p><a href="https://pricepertoken.com/leaderboards/coding">pricing</a></p></li>
+<li><p>payment per million tokens (some free versions) <a href="https://pricepertoken.com/leaderboards/coding">pricing</a></p></li>
 <li><p>without built-in memory (<em>stateless</em>)</p></li>
 </ul>
 </section>
@@ -667,9 +666,9 @@ Benjamin Becker &amp; Dries Debeer
 <ul>
 <li class="fragment"><p>Other packages:</p>
 <ul>
-<li class="fragment"><a href="https://CRAN.R-project.org/package=tidyprompt">tidyprompt</a> Building blocks to construct prompts and handle LLM output.</li>
-<li class="fragment"><a href="https://edubruell.github.io/tidyllm/index.html">tidyllm</a> Alternative for ellmer</li>
-<li class="fragment"><a href="https://jbgruber.github.io/rollama/">rollama</a> Focus on Ollama (which provides local models)</li>
+<li class="fragment"><p><a href="https://CRAN.R-project.org/package=tidyprompt">tidyprompt</a> Building blocks to construct prompts and handle LLM output.</p></li>
+<li class="fragment"><p><a href="https://edubruell.github.io/tidyllm/index.html">tidyllm</a> Alternative for ellmer</p></li>
+<li class="fragment"><p><a href="https://jbgruber.github.io/rollama/">rollama</a> Focus on Ollama (which provides local models)</p></li>
 </ul></li>
 </ul>
 </section>
@@ -702,7 +701,7 @@ Benjamin Becker &amp; Dries Debeer
 <h2>Positron Assistant</h2>
 <ul>
 <li class="fragment"><p>Different models can be used, but a subscription (and <code>API_KEY</code>) is required</p></li>
-<li class="fragment"><p>Github provides auto-complete in addition to chat</p></li>
+<li class="fragment"><p>Provides auto-complete, chat, …</p></li>
 </ul>
 </section>
 <section id="positron-assistant-illustration" class="slide level2">
@@ -872,14 +871,19 @@ Benjamin Becker &amp; Dries Debeer
 <section id="recommendations-on-genai-for-r-related-stuff" class="slide level2">
 <h2>Recommendations on GenAI for R-related stuff</h2>
 <ul>
-<li class="fragment"><p>Use for what you could do yourself (efficiency gain + qualtiy control)</p></li>
-<li class="fragment"><p>Ask twice (in a new chat), than consult a colleague, book</p></li>
+<li class="fragment"><p>Use GenAI for what you could do yourself (efficiency gain + quality control)</p></li>
+<li class="fragment"><p>Consider the environmental impact (Is GenAI appropriate for this task?)</p></li>
+<li class="fragment"><p>Don’t ask to repeat a task (ask to write code to repeat a task)</p></li>
+<li class="fragment"><p>Ask twice (in a new chat), than consult a colleague, a book</p></li>
 <li class="fragment"><p>Think about your prompt, but don’t waist time with prompt optimization</p></li>
+</ul>
+</section>
+<section id="recommendations-on-genai-for-r-related-stuff-1" class="slide level2">
+<h2>Recommendations on GenAI for R-related stuff</h2>
+<ul>
 <li class="fragment"><p>Be critical about the response</p></li>
 <li class="fragment"><p>Be critical about your question! (<em>carwash</em>)</p></li>
-<li class="fragment"><p>Don’t ask to repeat a task (ask to write code to repeat a task)</p></li>
-<li class="fragment"><p>stay in charge (you cannot blame the intern)</p></li>
-<li class="fragment"><p>Consider the environmental impact</p></li>
+<li class="fragment"><p>stay in charge (you cannot blame the “intern”)</p></li>
 <li class="fragment"><p>Consider your workflow/feeling of accomplishment. Automate (only) the tedious tasks.</p></li>
 </ul>
 </section>
