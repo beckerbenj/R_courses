@@ -111,7 +111,6 @@ bibliography: references.bib
 ::: {.nonincremental}
 
 
-
 -   language models!
 
 -   NOT knowledge models/calculators
@@ -175,7 +174,7 @@ bibliography: references.bib
 
 -   Non-deterministic $\Rightarrow$ reproducibility!?
 
--   (limited) Context window = what it remembers from a chat (your profile) (RAG?)
+-   (limited) Context window = what it remembers from a chat (your profile) (Retrieval-Augmented Generation?)
 
 
 :::
@@ -240,7 +239,7 @@ GenAI is ...
 
 Let GenAI...
 
--   generate code
+-   generate code for figures, preprosssing, functions, ...
 
 -   explain concepts/ideas
 
@@ -264,7 +263,7 @@ But always keep in mind GenAI ...
 
 -   is probabilistic
 
--   is uncritical
+-   is uncritical 
 
 -   is (over)eager
 
@@ -457,9 +456,7 @@ White paper (Boonstra, 2025):
 
 -   API differs between GenAI providers
 
--   payment per million tokens (some free versions)
-
-    [pricing](https://pricepertoken.com/leaderboards/coding)
+-   payment per million tokens (some free versions)    [pricing](https://pricepertoken.com/leaderboards/coding)
     
 -   without built-in memory (*stateless*)
 
@@ -507,8 +504,10 @@ Other IDEs with R-support (and GenAI integration):
 
     -   [tidyprompt](https://CRAN.R-project.org/package=tidyprompt)
         Building blocks to construct prompts and handle LLM output.
+        
     -   [tidyllm](https://edubruell.github.io/tidyllm/index.html)
         Alternative for ellmer
+        
     -   [rollama](https://jbgruber.github.io/rollama/) Focus on Ollama
         (which provides local models)
 
@@ -817,21 +816,27 @@ No pain, no gain.
 
 ## Recommendations on GenAI for R-related stuff
 
-- Use for what you could do yourself (efficiency gain + qualtiy control)
+- Use GenAI for what you could do yourself (efficiency gain + quality control)
+
+- Consider the environmental impact (Is GenAI appropriate for this task?)
+
+- Don't ask to repeat a task (ask to write code to repeat a task)
 
 - Ask twice (in a new chat), than consult a colleague, a book
 
 - Think about your prompt, but don't waist time with prompt optimization
 
+
+
+
+
+## Recommendations on GenAI for R-related stuff
+
 - Be critical about the response 
 
 - Be critical about your question! (*carwash*)
 
-- Don't ask to repeat a task (ask to write code to repeat a task)
-
 - stay in charge (you cannot blame the "intern")
-
-- Consider the environmental impact (Is GenAI appropriate for this task?)
 
 - Consider your workflow/feeling of accomplishment. Automate (only) the tedious tasks.
 
