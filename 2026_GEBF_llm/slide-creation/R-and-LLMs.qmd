@@ -12,6 +12,14 @@ editor:
 bibliography: references.bib
 ---
 
+## where can I find the slides?
+
+<https://shorturl.at/zVq9L>
+
+or 
+
+
+![scan this](figures/qr-code.jpg)
 
 
 ## What is covered in this workshop
