@@ -16,10 +16,10 @@ bibliography: references.bib
 
 <https://shorturl.at/zVq9L>
 
-or 
 
 
-![scan this](figures/qr-code.jpg)
+![](figures/qr-code.jpg)
+
 
 
 ## What is covered in this workshop
@@ -740,9 +740,12 @@ No pain, no gain.
 
 - invest time and effort
 
+- look into books and courses
+
 - experimenter mindset
 
-- 
+- consult colleagues and peers (Stackoverflow)
+ 
 
 
 
@@ -759,6 +762,8 @@ No pain, no gain.
 - Be critical about your question! (*carwash*)
 
 - Don't ask to repeat a task (ask to write code to repeat a task)
+
+- stay in charge (you cannot blame the intern)
 
 - Consider the environmental impact
 

@@ -422,6 +422,11 @@ Benjamin Becker &amp; Dries Debeer
 </div>
 
 </section>
+<section id="where-can-i-find-the-slides" class="slide level2">
+<h2>where can I find the slides?</h2>
+<p><a href="https://shorturl.at/zVq9L" class="uri">https://shorturl.at/zVq9L</a></p>
+
+<img data-src="figures/qr-code.jpg" class="r-stretch"></section>
 <section id="what-is-covered-in-this-workshop" class="slide level2">
 <h2>What is covered in this workshop</h2>
 <ol type="1">
@@ -451,6 +456,7 @@ Benjamin Becker &amp; Dries Debeer
 <img data-src="figures/no_wheels.jpg" class="r-stretch quarto-figure-center"><p class="caption"><a href="https://www.game-changer.net/2016/07/28/why-people-resist-new-technologies/" class="uri">https://www.game-changer.net/2016/07/28/why-people-resist-new-technologies/</a></p></section>
 <section id="who-are-we" class="slide level2">
 <h2>Who are we?</h2>
+<div class="fragment">
 <div>
 <ul>
 <li>Dries Debeer
@@ -461,6 +467,7 @@ Benjamin Becker &amp; Dries Debeer
 <li>javascript beginner</li>
 </ul></li>
 </ul>
+</div>
 </div>
 <div class="fragment">
 <div>
@@ -492,7 +499,7 @@ Benjamin Becker &amp; Dries Debeer
 <li class="fragment"><p>Next word/token predictors</p></li>
 <li class="fragment"><p>Deep neural networks typically using <em>transformer</em> architecture (“Attention is all you need”; <span class="citation" data-cites="vaswani2017attention">Vaswani et al. (<a href="#/references" role="doc-biblioref" onclick="">2017</a>)</span>)</p></li>
 <li class="fragment"><p>GPT = Generative Pre-trained Transformers</p></li>
-<li class="fragment"><p>language models</p></li>
+<li class="fragment"><p>language models!</p></li>
 <li class="fragment"><p>NOT knowledge models/calculators</p></li>
 </ul>
 </section>
@@ -500,7 +507,7 @@ Benjamin Becker &amp; Dries Debeer
 <h2>What are Large Language Models?</h2>
 <ul>
 <li class="fragment"><p>Trained on “complete internet”</p></li>
-<li class="fragment"><p>Quality depends on available data</p>
+<li class="fragment"><p>Quality of <em>prediction</em> depends on available data</p>
 <ul>
 <li class="fragment"><p>Good for English, German, R</p></li>
 <li class="fragment"><p>worse for specialist topics, rare languages or packages</p></li>
@@ -539,7 +546,7 @@ Benjamin Becker &amp; Dries Debeer
 <li class="fragment"><p>Reasoning models BUT completely language based</p></li>
 <li class="fragment"><p>Non-deterministic <span class="math inline">\(\Rightarrow\)</span> reproducibility!?</p></li>
 <li class="fragment"><p>(limited) Context window = what it remembers from a chat (your profile) (RAG?)</p></li>
-<li class="fragment"><p>Importance of prompt (engineering)</p></li>
+<li class="fragment"><p>Importance of prompt (engineering)?</p></li>
 </ul>
 </section>
 <section id="generative-ai-models-for-r-coding" class="slide level2">
@@ -611,6 +618,9 @@ Benjamin Becker &amp; Dries Debeer
 <li class="fragment"><p>is uncritical</p></li>
 <li class="fragment"><p>is (over)eager</p></li>
 </ul>
+<div class="fragment">
+<p><strong>Basic understanding of how it works is key for good use of GenAI</strong></p>
+</div>
 </section>
 <section id="prompt-engineering-3" class="slide level2">
 <h2>Prompt Engineering <sup>1</sup></h2>
@@ -874,8 +884,7 @@ Benjamin Becker &amp; Dries Debeer
 </section>
 <section id="api-use-via-ellmer-1" class="slide level2">
 <h2>API use via <code>ellmer</code></h2>
-<p><a href="https://github.com/beckerbenj/R_courses/blob/main/2026_GEBF_llm/using-ellmer.qmd">Illustration</a></p>
-<p>private repo?</p>
+<p><a href="https://users.ugent.be/~ddebeer/workshops/GEBF/ellmer-example/using-ellmer.html">ellmer Illustration</a></p>
 </section>
 <section id="genai-via-api" class="slide level2">
 <h2>GenAI via API</h2>
@@ -894,6 +903,7 @@ Benjamin Becker &amp; Dries Debeer
 </section>
 <section id="positron-assistant-illustration" class="slide level2">
 <h2>Positron Assistant illustration</h2>
+<p><a href="https://positron.posit.co/assets/images/positron-logo_fullcolor-TM.png">Positron IDE</a></p>
 </section></section>
 <section>
 <section id="to-genai-or-not-to-genai" class="title-slide slide level1 center">
@@ -960,8 +970,8 @@ Benjamin Becker &amp; Dries Debeer
 </ul>
 <p>Ask Google first (with AI-mode turned off?).</p>
 <ul>
-<li class="fragment">There have likely been persons with similar questions/problems (check stack overflow, reddit, …)</li>
-<li class="fragment">There are many great tutorials that can be found by web searching</li>
+<li class="fragment"><p>There have likely been persons with similar questions/problems (check stack overflow, reddit, …)</p></li>
+<li class="fragment"><p>There are many great tutorials that can be found by web searching</p></li>
 </ul>
 </section>
 <section id="risk-when-using-genai" class="slide level2">
@@ -981,9 +991,6 @@ Benjamin Becker &amp; Dries Debeer
 </ul></li>
 </ul>
 <!--  prompt-and-accept -->
-<ul>
-<li class="fragment"></li>
-</ul>
 </section>
 <section id="further-issues" class="slide level2">
 <h2>Further issues</h2>
@@ -1068,13 +1075,28 @@ Benjamin Becker &amp; Dries Debeer
 </blockquote>
 <p>Or when you want to translate python code to R code (or vice versa).</p>
 </section>
-<section id="bet-most-importantly" class="slide level2">
-<h2>Bet most importantly</h2>
-<p>No pain no gain.</p>
+<section id="but-most-importantly" class="slide level2">
+<h2>But most importantly</h2>
+<p>No pain, no gain.</p>
 <ul>
-<li class="fragment"><p>invest time</p></li>
+<li class="fragment"><p>invest time and effort</p></li>
+<li class="fragment"><p>look into books and courses</p></li>
 <li class="fragment"><p>experimenter mindset</p></li>
-<li class="fragment"></li>
+<li class="fragment"><p>consult colleagues and peers (Stackoverflow)</p></li>
+</ul>
+</section>
+<section id="recommendations-on-genai-for-r-related-stuff" class="slide level2">
+<h2>Recommendations on GenAI for R-related stuff</h2>
+<ul>
+<li class="fragment"><p>Use for what you could do yourself (efficiency gain + qualtiy control)</p></li>
+<li class="fragment"><p>Ask twice (in a new chat), than consult a colleague, book</p></li>
+<li class="fragment"><p>Think about your prompt, but don’t waist time with prompt optimization</p></li>
+<li class="fragment"><p>Be critical about the response</p></li>
+<li class="fragment"><p>Be critical about your question! (<em>carwash</em>)</p></li>
+<li class="fragment"><p>Don’t ask to repeat a task (ask to write code to repeat a task)</p></li>
+<li class="fragment"><p>stay in charge (you cannot blame the intern)</p></li>
+<li class="fragment"><p>Consider the environmental impact</p></li>
+<li class="fragment"><p>Consider your workflow/feeling of accomplishment. Automate (only) the tedious tasks.</p></li>
 </ul>
 </section>
 <section id="thank-you-for-your-attention" class="slide level2">
