@@ -178,13 +178,6 @@ bibliography: references.bib
 -   ...
 
 
-## Wooclap break
-
-[click here](https://app.wooclap.com/YKPNSR?from=instruction-slide)
-
-[Question 7-9]: #
-
-
 
 # 2. How can GenAI be used for R-related work?
 
@@ -527,6 +520,16 @@ Other packages that may be useful:
 
 
 # 4. To GenAI or not to GenAI
+
+
+## Wooclap break
+
+[click here](https://app.wooclap.com/YKPNSR?from=instruction-slide)
+
+[Question 7-9]: #
+
+
+
 
 
 ## Limitations of LLMs
