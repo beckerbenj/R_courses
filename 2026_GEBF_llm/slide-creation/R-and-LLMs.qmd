@@ -114,6 +114,8 @@ bibliography: references.bib
     
 :::
 
+. . .
+
 ::: {.nonincremental}
 
 
@@ -255,6 +257,8 @@ Let GenAI...
 
 -   explain existing code
 
+-   interpret analysis output
+
 
 ## Big But!
 
@@ -277,6 +281,10 @@ But always keep in mind GenAI ...
 
 **Basic understanding of how it works is key for good use of GenAI**
 
+-  Context window
+
+-  knowledge cut-off
+
 [understanding how Gen AI works is important to make proper use of it]: #
 
 
@@ -294,9 +302,9 @@ But always keep in mind GenAI ...
 
 ## Prompt Engineering
 
-> You are an expert R-data scientist. (**persona**)
+> You are an expert R-data scientist. (**`persona`**)
 >
->  Write an R-function that splits character-strings into three parts. (**task**)
+>  Write an R-function that splits character-strings into three parts. (**`task`**)
 > 
 > When the input is c("ffe-2026_grod", "lul_2001 spc", "cas-1994-upek") the 
   function should return a data.frame with these columns: 
@@ -305,9 +313,9 @@ But always keep in mind GenAI ...
 > 
 >   year = c(2026, 2001, 1994), 
 > 
->   reference = c("grod", "spc", "upek"). (**exemplar**)
+>   reference = c("grod", "spc", "upek"). (**`exemplar`**)
 > 
-> Use base R only and add comments to the code (**format**)
+> Use base R only and add comments to the code (**`format`**)
   
 
 ## Promt Engineering
@@ -452,6 +460,8 @@ White paper (Boonstra, 2025):
 
 -   [Microsoft Copilot](https://copilot.microsoft.com/)
 
+-   ...
+
 :::
 
 ## Generative AI via API
@@ -479,7 +489,7 @@ RStudio allows integration of:
 
 -   Rmarkdown and quarto
 -   git and github
--   **GenAI**
+-   **`GenAI`**
 -   ...
 
 :::
@@ -566,7 +576,13 @@ Other packages that may be useful:
 -   Different models can be used, but a subscription (and `API_KEY`) is
     required
     
--   Provides auto-complete, chat, ...
+-   Provides 
+
+    -  auto-complete
+    -  chat
+    -  automatic editing
+    -  planning
+    -  [databot](https://positron.posit.co/databot.html) but still [experimental](https://posit.co/blog/introducing-databot/) and with [a warning](https://posit.co/blog/databot-is-not-a-flotation-device/)
 
 
 ## Positron Assistant illustration
