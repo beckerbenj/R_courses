@@ -1,7 +1,7 @@
 # TODO DRIES
 
 
-V change output to revealjs
+- add https://CRAN.R-project.org/package=mini007
 
 
 - more wooclap

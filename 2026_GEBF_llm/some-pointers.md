@@ -24,6 +24,10 @@
 * (https://osf.io/preprints/psyarxiv/dqxsu_v1)
 
 
+## importance of learning statistics and data-analysis in times of GenAI
+
+* (https://onlinelibrary.wiley.com/doi/full/10.1111/test.12398)
+
 ## Copy paste of chatGPT output in scientific papers
 
 * https://onlinelibrary.wiley.com/doi/10.1002/leap.1650
